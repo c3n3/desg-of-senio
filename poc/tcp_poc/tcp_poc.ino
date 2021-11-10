@@ -1,45 +1,45 @@
 #include <Arduino.h>
-#include <WiFi.h>
 #include "wifi_info.h"
+#include "src/Communication.hpp"
 
-const int PORT = 23;
-
-WiFiServer server(PORT);
-
-const int LED = 2;
+Communication comms(WIFI_SSID, WIFI_PSWD, SERVER_IP, SERVER_PORT);
 
 void setup()
 {
-    WiFi.mode(WIFI_STA);
-    WiFi.begin(WIFI_SSID, WIFI_PSWD);
     Serial.begin(115200);
-    Serial.print("Connecting to WiFi ..");
-    while (WiFi.status() != WL_CONNECTED) {
-        Serial.print('.');
-        delay(1000);
+    Serial.println("Connecting now.");
+    while (comms.connect() != Communication::Success)
+    {
+        Serial.println("Failed to connect");
+        delay(5000);
     }
-    Serial.println(WiFi.localIP());
-    pinMode(LED, OUTPUT);
-    server.begin();
 }
+#define BUF_SIZE 1000
 
-WiFiClient cli;
+char buf[BUF_SIZE];
 
-unsigned long timedInt = millis();
-const unsigned long d = 1000;
 void loop()
 {
-    if (server.hasClient()) {
-        if (!cli.connected()) {
-            Serial.println("Connected!");
-            cli = server.available();
-        } else {
-            Serial.println("Rejected!");
-            server.available().stop();
-        }
+    comms.send("This is a test");
+    Communication::Result result = comms.receive(buf, sizeof(buf));
+    switch (result)
+    {
+        case Communication::Success:
+            Serial.println("Got data: ");
+            Serial.println(buf);
+            break;
+        case Communication::NoData:
+            Serial.println("No data");
+            break;
+        case Communication::DataExceededLength:
+            Serial.println("Not enough buffer");
+            break;
+        case Communication::NoWifi:
+            Serial.println("No wifi");
+            break;
+        default:
+            Serial.println("Receive failed in some way");
+            break;
     }
-    if (cli.connected() && (millis() - timedInt > d)) {
-        cli.print("This is text over TCP?\n");
-        timedInt = millis();
-    }
+    delay(1000);
 }
