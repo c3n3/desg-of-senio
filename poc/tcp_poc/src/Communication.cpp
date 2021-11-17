@@ -63,18 +63,15 @@ Communication::Result Communication::send(const char* buf)
 Communication::Result Communication::receive(
     char* buf, unsigned long size)
 {
-    Serial.println(__LINE__);
     if (isConnected() == NoWifi) {
         return NoWifi;
     }
-    Serial.println(__LINE__);
     if (!client.available()) {
         return NoData;
     }
     unsigned long readIn;
     readIn = client.readBytes(buf, size);
     if (readIn == -1) return NoData;
-    Serial.print(readIn);
     if (readIn >= size) readIn = size - 1;
     // replace to make valid string
     buf[readIn] = '\0';

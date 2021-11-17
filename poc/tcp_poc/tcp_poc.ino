@@ -14,7 +14,7 @@ void setup()
         delay(5000);
     }
 }
-#define BUF_SIZE 1000
+#define BUF_SIZE 23
 
 char buf[BUF_SIZE];
 
@@ -29,7 +29,7 @@ void loop()
             Serial.println(buf);
             break;
         case Communication::NoData:
-            Serial.println("No data");
+            // Serial.println("No data");
             break;
         case Communication::DataExceededLength:
             Serial.println("Not enough buffer");
@@ -41,5 +41,5 @@ void loop()
             Serial.println("Receive failed in some way");
             break;
     }
-    delay(1000);
+    delay(10);
 }
