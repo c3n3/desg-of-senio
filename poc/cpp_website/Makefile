@@ -1,4 +1,4 @@
 all:
-	g++ -O3 -s hello.cpp -o hello.cgi
+	g++ -O3 -s site.cpp -o site.cgi
 clean:
-	rm -f hello.cgi
+	rm -f site.cgi
