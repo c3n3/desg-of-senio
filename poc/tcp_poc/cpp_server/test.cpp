@@ -126,15 +126,6 @@ int main(int argc, char *argv[])
 
         uint8_t buf[1000];
 
-        // auto bytes = recv(sockFD, buf, sizeof(buf), 0);
-
-
-        // if (bytes > 0) {
-        //     buf[bytes >= 1000 ? 999 : bytes] = '\0';
-        //     std::cout << buf;
-        // }
-
-        // send call sends the data you specify as second param and it's length as 3rd param, also returns how many bytes were actually sent
         auto bytes_sent = send(newFD, sendBuf, sizeof(sendBuf), 0);
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
         std::cout << "Sent: " << bytes_sent << "\n";
