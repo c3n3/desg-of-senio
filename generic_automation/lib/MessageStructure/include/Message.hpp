@@ -10,7 +10,17 @@ namespace genauto {
     class Message {
     protected:
         const uint16_t msgId;
+    public:
+        /**
+         * @brief Checks to see if msgIds are the same
+         *
+         * @param id to check
+         * @return true if ids the same 
+         */
+        bool isMsg(uint16_t id);
     };
 }
+
+const uint16_t STEPPER_MOTOR_MESSAGE_ID = 1;
 
 #endif

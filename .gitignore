@@ -1,1 +1,6 @@
 wifi_info.h
+CMakeCache.txt
+cmake_install.cmake
+CMakeFiles/
+Makefile
+*.a

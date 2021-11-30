@@ -1,0 +1,1 @@
+add_library(MessageStructure ../src/Message.cpp)
