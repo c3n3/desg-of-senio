@@ -2,9 +2,11 @@
 #define __GENERIC_AUTOMATION_MESSAGE_SERIALIZER_HPP__
 
 #include "Message.hpp"
+#include "Debug.hpp"
 
 #include <stdint.h>
 #include <cstring>
+#include <iostream>
 
 namespace genauto {
     /**
@@ -26,10 +28,13 @@ namespace genauto {
         typedef uint32_t length_t;
 
         // Magic number that all buffers start with
-        constexpr magic_t MAGIC = 0x12345678;
+        static constexpr magic_t MAGIC = 0x12345678;
 
         // Buffer to be transmitted
-        uint8_t buffer_[sizeof(MSG) + sizeof(checksum_t)];
+        uint8_t buffer_[
+            sizeof(magic_t) + sizeof(length_t)
+            + sizeof(MSG) + sizeof(checksum_t)
+        ];
 
         // Checksum at the end
         checksum_t* const checksum_
@@ -38,19 +43,41 @@ namespace genauto {
         // Magic number to start
         magic_t* const magic_ = (magic_t*)buffer_;
 
-        // Length after magic number
+        // MsgId after magic
+        Message::msgid_t* const msgId_
+            = (Message::msgid_t*)&buffer_[sizeof(magic_t)];
+
+        // Length after magic number and id
         length_t* const length_
-            = (length_t*)&buffer_[sizeof(magic_t)];
+            = (length_t*)&buffer_[sizeof(magic_t) + sizeof(Message::msgid_t)];
 
         // The start of actual data
         uint8_t* const dataStart_
-            = &buffer_[sizeof(magic_t) + sizeof(length_t)];
-
+            = &buffer_[sizeof(magic_t) + sizeof(length_t) + sizeof(Message::msgid_t)];
+        
+        /**
+         * @brief Used to parse data
+         */
+        uint8_t* parsingPtr_ = buffer_;
     public:
+        /**
+         * @brief Construct a new Message Serializer object
+         */
+        MessageSerializer()
+        {
+            *magic_ = MAGIC;
+            *length_ = sizeof(buffer_);
+        }
+
+        /**
+         * @brief A Result enum
+         */
         enum Result {
             Success,
-            Failure
+            Failure,
+            IncompleteData
         };
+
         /**
          * @brief take a message and convert into serial representation
          *
@@ -59,10 +86,101 @@ namespace genauto {
         Result serialize(MSG& msg)
         {
             std::memcpy(dataStart_, (void*)&msg, sizeof(msg));
+            *msgId_ = msg.getMsgId();
             *checksum_ = 0;
-            for (int i = 0; i < sizeof(msg); i++) {
+            for (int i = 0; i < sizeof(buffer_) - sizeof(checksum_t); i++) {
                 *checksum_ += buffer_[i];
             }
+            LOG("Length = %d\n", *length_);
+        }
+
+        /**
+         * @brief parse incoming data into the buffer properly
+         *
+         * @param incoming 
+         * @param size 
+         * @return Result 
+         */
+        Result parse(const uint8_t* incoming, size_t size)
+        {
+            int i = 0;
+            // parse magic
+            if ((void*)parsingPtr_ < (void*)magic_ + sizeof(magic_t)) {
+                for (; i < size; i++) {
+                    int difference = ((uint8_t*)parsingPtr_) - ((uint8_t*)magic_);
+                    // Check each byte comming in for correctness
+                    if (*incoming == ((MAGIC & 0x000000ff << difference*8) >> difference*8)) {
+                        *parsingPtr_ = *incoming;
+                        parsingPtr_++;
+                    } else if ((void*)parsingPtr_ == (void*)magic_ + sizeof(magic_t)) {
+                        break;
+                    }
+                    else {
+                        parsingPtr_ = (uint8_t*)magic_;
+                    }
+                    incoming++;
+                }
+            }
+            if (i >= size) {
+                LOG("Failure\n");
+                return IncompleteData;
+            }
+
+            // parse msgid
+            if ((void*)parsingPtr_ < (void*)msgId_ + sizeof(Message::msgid_t)) {
+                for (; i < size; i++) {
+                    *parsingPtr_ = *incoming;
+                    parsingPtr_++;
+                    incoming++;
+                    if ((void*)parsingPtr_ == (void*)msgId_ + sizeof(Message::msgid_t)) {
+                        LOG("Success\n");
+                        break;
+                    }
+                }
+            }
+            if (i >= size) {
+                LOG("Failure\n");
+                return IncompleteData;
+            }
+
+            // parse length
+            if ((void*)parsingPtr_ < (void*)length_ + sizeof(length_t)) {
+                for (; i < size; i++) {
+                    *parsingPtr_ = *incoming;
+                    parsingPtr_++;
+                    incoming++;
+                    if ((void*)parsingPtr_ == (void*)length_ + sizeof(length_t)) {
+                        LOG("Success\n");
+                        break;
+                    }
+                }
+            }
+            if (i >= size) {
+                LOG("Failure\n");
+                return IncompleteData;
+            }
+
+            // We have length, parse until we have the length
+            if ((void*)parsingPtr_ < (void*)buffer_ + *length_) {
+                for (; i < size; i++) {
+                    *parsingPtr_ = *incoming;
+                    parsingPtr_++;
+                    incoming++;
+                }
+            }
+            if ((void*)parsingPtr_ >= (void*)buffer_ + *length_) {
+                return validate(buffer_, *length_);
+            } else if (i >= size) {
+                LOG("Failure\n");
+                return IncompleteData;
+            }
+            LOG("Failure\n");
+            return Failure;
+        }
+
+        void cancelParse()
+        {
+            parsingPtr_ = buffer_;
         }
 
         /**
@@ -86,7 +204,7 @@ namespace genauto {
          * @return true 
          * @return false 
          */
-        Result validate(uint8_t* buf, size_t size)
+        Result validate(const uint8_t* buf, size_t size)
         {
             if (size < sizeof(checksum_t)) {
                 return Failure;

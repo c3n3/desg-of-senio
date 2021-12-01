@@ -1,6 +1,16 @@
-#include "../include/Message.hpp"
+#include "Message.hpp"
+#include "StringBuilder.hpp"
 
-bool genauto::Message::isMsg(uint16_t id)
+genauto::Message::Message(uint16_t id) : msgId(id)
+{}
+
+void genauto::Message::toString(genauto::StringBuilder& sb)
 {
-    return msgId == id;
+    sb.appendString("msgId: ");
+    sb.appendInt(msgId);
+}
+
+uint16_t genauto::Message::getMsgId()
+{
+    return msgId;
 }
