@@ -11,7 +11,7 @@ int main()
     MessageSerializer<StepperMotorMessage> serial;
     MessageSerializer<StepperMotorMessage> rec;
 
-    StepperMotorMessage m(StepperMotorMessage::Degree, 10);
+    StepperMotorMessage m(StepperMotorMessage::Speed, 10);
 
     StringBuilder sb(1000);
 
@@ -20,12 +20,13 @@ int main()
 
     serial.serialize(m);
 
-    StepperMotorMessage m2(StepperMotorMessage::Speed, 1110);
+    StepperMotorMessage m2(StepperMotorMessage::Degree, 1110);
     sb.clear();
     serial.deserialize(m2);
-    m2.toString(sb);
 
     std::cout << "Result = " << rec.parse(serial.getBuffer(), serial.getSize()) << "\n";
+    rec.deserialize(m2);
+    m2.toString(sb);
     
     std::cout << "After: " << sb.getString() << "\n";
     std::cout << "Msg id = " << m2.getMsgId() << "\n";

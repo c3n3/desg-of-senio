@@ -53,7 +53,7 @@ namespace genauto {
 
         // The start of actual data
         uint8_t* const dataStart_
-            = &buffer_[sizeof(magic_t) + sizeof(length_t)];
+            = &buffer_[sizeof(magic_t) + sizeof(length_t) + sizeof(Message::msgid_t)];
         
         /**
          * @brief Used to parse data
@@ -91,6 +91,7 @@ namespace genauto {
             for (int i = 0; i < sizeof(buffer_) - sizeof(checksum_t); i++) {
                 *checksum_ += buffer_[i];
             }
+            LOG("Length = %d\n", *length_);
         }
 
         /**
@@ -108,13 +109,10 @@ namespace genauto {
                 for (; i < size; i++) {
                     int difference = ((uint8_t*)parsingPtr_) - ((uint8_t*)magic_);
                     // Check each byte comming in for correctness
-                    LOG("Difference = %u\n", difference);
-                    LOG("Checking 0x%x vs 0x%x\n", *incoming, (MAGIC & 0x000000ff << difference*8) >> difference*8);
                     if (*incoming == ((MAGIC & 0x000000ff << difference*8) >> difference*8)) {
-                        *parsingPtr_ = incoming[i];
+                        *parsingPtr_ = *incoming;
                         parsingPtr_++;
                     } else if ((void*)parsingPtr_ == (void*)magic_ + sizeof(magic_t)) {
-                        LOG("Success\n");
                         break;
                     }
                     else {
@@ -131,7 +129,7 @@ namespace genauto {
             // parse msgid
             if ((void*)parsingPtr_ < (void*)msgId_ + sizeof(Message::msgid_t)) {
                 for (; i < size; i++) {
-                    *parsingPtr_ = incoming[i];
+                    *parsingPtr_ = *incoming;
                     parsingPtr_++;
                     incoming++;
                     if ((void*)parsingPtr_ == (void*)msgId_ + sizeof(Message::msgid_t)) {
@@ -148,7 +146,7 @@ namespace genauto {
             // parse length
             if ((void*)parsingPtr_ < (void*)length_ + sizeof(length_t)) {
                 for (; i < size; i++) {
-                    *parsingPtr_ = incoming[i];
+                    *parsingPtr_ = *incoming;
                     parsingPtr_++;
                     incoming++;
                     if ((void*)parsingPtr_ == (void*)length_ + sizeof(length_t)) {
@@ -165,7 +163,7 @@ namespace genauto {
             // We have length, parse until we have the length
             if ((void*)parsingPtr_ < (void*)buffer_ + *length_) {
                 for (; i < size; i++) {
-                    *parsingPtr_ = incoming[i];
+                    *parsingPtr_ = *incoming;
                     parsingPtr_++;
                     incoming++;
                 }
