@@ -2,6 +2,7 @@
 #define __GENERIC_AUTOMATION_STEPPER_MOTOR_MESSAGE_HPP__
 
 #include "Message.hpp"
+#include "StringBuilder.hpp"
 
 #include <stdint.h>
 
@@ -41,9 +42,16 @@ namespace genauto {
          * @return Type
          */
         Type getType();
+
+        /**
+         * @brief Convert to string
+         *
+         * @param sb
+         */
+        void toString(StringBuilder& sb);
     private:
-        Type type;
-        float value;
+        Type type_;
+        float value_;
     };
 }
 
