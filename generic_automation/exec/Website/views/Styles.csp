@@ -1,0 +1,59 @@
+<%inc #include "../views/Constants.h" %>
+
+.color-1 {
+    background-color: {%PRIMARY_COLOR%};
+}
+.color-2 {
+    background-color: {%SECONDARY_COLOR%};
+}
+.color-accent {
+    color: {%ACCENT_COLOR%};
+}
+.color-word {
+    color: {%WORD_COLOR%};
+}
+.tabs {
+    display: flex;
+    border-bottom: 2px solid {%ACCENT_COLOR%}
+}
+.tab-item {
+    padding: 3px;
+    margin: 3px;
+    font-size: medium;
+}
+.custom-button {
+    padding: 2px;
+    margin: 5px;
+    display: inline-block;
+    border: 1px solid {%ACCENT_COLOR%};
+    background-color: {%ANTI_PRIMARY_COLOR%};
+    color: {%ANTI_WORD_COLOR%};
+}
+.div:hover .custom-button {
+    background-color: grey;
+}
+.item-list {
+    margin-top: 5px;
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+}
+.item {
+    background-color: #343c4a;
+    margin: 5px 5px 5px 5px;
+    padding: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.item-title {
+    border-bottom: 2px solid {%ACCENT_COLOR%};
+}
+.main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-width: 500px;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks</title>
+</head>
+<body class="color-1 color-word">
+    <%view TopBar.csp %>
+    <div style="display: flex;">
+        <div class="main">
+            <div style="min-width: 500px;">
+                <h1>Tasks</h1>
+                <div class="item-list">
+                    <div class="item color-2">
+                        <h4 class="item-title">MakeCoffee</h4>
+                        <div class="task-list">
+                            <ul>Step 0: Device 2 -> motor A -> 26°</ul>
+                            <ul>Step 1: Device 0 -> motor B -> -97°</ul>
+                            <ul>Step 2: Device 0 -> PWM A -> 67%</ul>
+                            <ul>Step 3: DELAY -> 10s </ul>
+                            <ul>Step 4: Device 0 -> PWM A -> 0% </ul>
+                            <ul style="display: flex;">5:
+                                <input class="input" type="text"/>
+                                &nbsp;->&nbsp; <input class="input" type="text"/>
+                                &nbsp;->&nbsp; <input class="input" type="text"/>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item color-2">
+                        <h4 class="item-title">WaterPlants</h4>
+                        <div class="task-list">
+                            <ul>Step 0: Device 1 -> motor A -> 26°</ul>
+                            <ul>Step 1: Device 1 -> PWM A -> 67%</ul>
+                            <ul>Step 1: Device 1 -> PWM B -> 67%</ul>
+                            <ul>Step 3: DELAY -> 23s </ul>
+                            <ul>Step 4: Device 1 -> PWM A -> 0%</ul>
+                            <ul>Step 5: Device 1 -> PWM B -> 0%</ul>
+                            <ul>Step 6: Device 1 -> motor A -> -26°</ul>
+                            <ul style="display: flex;">7:
+                                <input class="input" type="text"/>
+                                &nbsp;->&nbsp; <input class="input" type="text"/>
+                                &nbsp;->&nbsp; <input class="input" type="text"/>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<style lang="css">
+    .input {
+        min-width: 0;
+    }
+    .task-list {
+        padding-right: 10px;
+    }
+    <%view Styles.csp %>
+</style>

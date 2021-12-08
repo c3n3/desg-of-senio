@@ -1,0 +1,5 @@
+<div class="tabs color-1">
+    <a class="tab-item color-word" href="/genauto/pages/devices">Devices</a>
+    <a class="tab-item color-word" href="/genauto/pages/tasks">Tasks</a>
+    <a class="tab-item color-word" href="/genauto/pages/timedevents">Timed Events</a>
+</div>

@@ -1,6 +1,11 @@
 {
     "files.associations": {
         "string": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "*.csp": "html",
+        "any": "cpp",
+        "bitset": "cpp",
+        "deque": "cpp",
+        "queue": "cpp"
     }
 }
