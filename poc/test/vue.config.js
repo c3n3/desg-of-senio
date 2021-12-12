@@ -7,20 +7,7 @@ module.exports = {
     },
     configureWebpack: {
       optimization: {
-        splitChunks: false // makes there only be 1 js file - leftover from earlier attempts but doesn't hurt
-      },
-      plugins: [
-        new HtmlWebpackPlugin({
-          filename: 'output.html', // the output file name that will be created
-          template: 'src/output-template.html', // this is important - a template file to use for insertion
-          inlineSource: '.(js|css)$' // embed all javascript and css inline
-        }),
-        new HtmlWebpackPlugin({
-            filename: 'another.html', // the output file name that will be created
-            template: 'src/another-html.html', // this is important - a template file to use for insertion
-            inlineSource: '.(js|css)$' // embed all javascript and css inline
-        }),
-        new HtmlWebpackInlineSourcePlugin(HtmlWebpackPlugin)
-      ]
+        splitChunks: false
+      }
     }
   }
