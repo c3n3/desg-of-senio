@@ -1,0 +1,1 @@
+#ifndef __GENAUTO_PUBLISHER
