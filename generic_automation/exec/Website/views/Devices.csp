@@ -2,6 +2,7 @@
 <html>
 <%inc
 #include "../controllers/genauto_pages_Devices.h"
+#include <fstream>
 %>
 <%c++
     auto devices=@@.get<std::vector<genauto::pages::Device>>("devices");
@@ -42,6 +43,7 @@
             </div>
         </div>
     </div>
+    <div id=app></div>
 </body>
 </html>
 
@@ -55,5 +57,8 @@
 </style>
 
 <script>
-    
+<%c++
+    std::ifstream t("../content/built.js");
+    $$ << t.rdbuf();
+%>
 </script>
