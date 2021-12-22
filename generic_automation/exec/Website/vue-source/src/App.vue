@@ -14,7 +14,7 @@ export default {
   },
   data: function () {
     return {
-      devices: JSON.parse('{"Device A":{"id": 1234,"inputs": [{"type": "bool","tag": "button","id": 0},{"type": "direction",                "tag": "encoder",                "id": 1            },            {                "type": "number",                "tag": "analog",                "id": 2            }        ],        "outputs": [            {                "type": "number",                "tag": "stepper",                "id": 3,                "data": {"min": "-inf", "max": "inf", "units": "%"}            },            {                "type": "number",                "tag": "pwm",                "id": 4,                "data": {"min": "0", "max": "100", "units": "%"}},{"type": "bool","tag": "mains","id": 5}]}}')
+      devices: JSON.parse('{"DeviceA":{"id":1234,"inputs":[{"type":"bool","tag":"button","id":0,"persistent":{"name":"ButtonA"}},{"type":"direction","tag":"encoder","id":1,"persistent":{"name":"EncoderA"}},{"type":"number","tag":"analog","id":2,"data":{"min":0,"max":3.3},"persistent":{"normalize":"3.3","units":"volts"}}],"outputs":[{"type":"number","tag":"stepper","id":3,"data":{"min":"-inf","max":"inf","units":"degrees"},"persistent":{"increment":1,"name":"StepperA"}},{"type":"number","tag":"pwm","id":4,"data":{"min":"0","max":"100","units":"%"},"persistent":{"increment":1,"name":"PWMA"}},{"type":"bool","tag":"switch","id":5}]}}')
     }
   }
 }
@@ -61,7 +61,7 @@ export default {
     padding: 3px;
     display: flex;
     flex-direction: column;
-    max-width: 600px;
+    max-width: 1000px;
 }
 .item {
     background-color: #343c4a;

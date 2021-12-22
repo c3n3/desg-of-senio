@@ -1,7 +1,7 @@
 <template>
     <div style="display: flex;" class="color-1">
         <div class="main">
-            <div style="min-width: 500px;">
+            <div style="min-width: 700px;">
                 <div class="color-1 item-list color-word">
                     <h3>All devices</h3>
                     <div v-for="device in devices" :key="device.id">
@@ -11,14 +11,15 @@
                             <div v-for="output in device.outputs" :key="output.id">
                                 <ul class="device-line">
                                     <div v-if="output.type === 'bool'">
-                                        <Bool :tag="output.tag"/>
+                                        <OutputBool :tag="output.tag"/>
                                     </div>
                                     <div v-if="output.type === 'number'">
-                                        <Number
-                                            name="test"
+                                        <OutputNumber
                                             :min="output.data.min"
                                             :max="output.data.max"
-                                            :units="output.data.units"/>
+                                            :units="output.data.units"
+                                            :persistent_input="output.persistent"
+                                            :keystring="device.id + ':' + output.id"/>
                                     </div>
                                 </ul>
                             </div>
@@ -41,8 +42,8 @@
 </template>
 
 <script>
-import Number from './Number.vue'
-import Bool from './Bool.vue'
+import OutputNumber from './OutputNumber.vue'
+import OutputBool from './OutputBool.vue'
 export default {
   props: ['propdata'],
   name: 'Devices',
@@ -52,19 +53,12 @@ export default {
       }
   },
   components: {
-      Number,
-      Bool
+      OutputNumber,
+      OutputBool
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
