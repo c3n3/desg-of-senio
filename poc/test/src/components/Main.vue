@@ -1,5 +1,6 @@
 <template>
-    <div>From the main file</div>
+    <div style="background: cyan;">From the main file</div>
+    <div style="background: cyan;">Another thing</div>
 </template>
 
 <script>
