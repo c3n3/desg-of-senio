@@ -11,7 +11,10 @@
                             <div v-for="output in device.outputs" :key="output.id">
                                 <ul class="device-line">
                                     <div v-if="output.type === 'bool'">
-                                        <OutputBool :tag="output.tag"/>
+                                        <OutputBool
+                                            :tag="output.tag"
+                                            :persistent_input="output.persistent"
+                                            :keystring="device.id + ':' + output.id"/>
                                     </div>
                                     <div v-if="output.type === 'number'">
                                         <OutputNumber
@@ -26,8 +29,13 @@
                             <h5>Input: </h5>
                             <div v-for="input in device.inputs" :key="input.id">
                                 <ul class="device-line">
-                                    {{input.type}}
-                                    {{input.tag}}
+                                    <InputNumber
+                                        v-if="input.type == 'number'"
+                                        :min="input.data.min"
+                                        :max="input.data.max"
+                                        :keystring="device.id + ':' + input.id"
+                                        :persistent_input="input.persistent"
+                                    />
                                 </ul>
                             </div>
                             <div class="button-container">
@@ -44,6 +52,7 @@
 <script>
 import OutputNumber from './OutputNumber.vue'
 import OutputBool from './OutputBool.vue'
+import InputNumber from './InputNumber.vue'
 export default {
   props: ['propdata'],
   name: 'Devices',
@@ -54,11 +63,11 @@ export default {
   },
   components: {
       OutputNumber,
-      OutputBool
+      OutputBool,
+      InputNumber
   }
 }
 </script>
 
 <style>
-
 </style>
