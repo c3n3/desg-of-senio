@@ -37,7 +37,7 @@
             {
                 "type": "direction",
                 "tag": "encoder",
-                "id": 1.
+                "id": 1,
                 "persistent": {"name": "Encoder A"}
             },
             {
@@ -45,7 +45,7 @@
                 "tag": "analog",
                 "id": 2,
                 "data": {"min": 0, "max": 3.3},
-                "persistent": {"normalize": "3.3", "units": "volts"}
+                "persistent": {"normalize": "3.3", "units": "volts", "name": "Analog A"}
             }
         ],
         "outputs": [
@@ -67,7 +67,13 @@
                 "type": "bool",
                 "tag": "switch",
                 "id": 5,
+                "persistent": {"name": "Mains"}
             }
         ]
     }
 }
+
+# Installed things to get running:
+
+npm install --save axios vue-axios
+- From: https://www.npmjs.com/package/vue-axios
