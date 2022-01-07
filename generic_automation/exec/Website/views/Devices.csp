@@ -14,35 +14,6 @@
 </head>
 <body class="color-1" >
     <%view TopBar.csp %>
-    <div style="display: flex;">
-        <div class="main">
-            <div style="min-width: 500px;">
-                <div class="color-1 item-list color-word">
-                    <h3>All devices</h3>
-                    <%c++ for (auto& device : devices){ %>
-                        <div class="item">
-                            <h4 class="item-title"><%c++ $$ << device.title; %></h4>
-                            <h5>Output: </h5>
-                            <%c++ for (auto& output : device.outputDevices){ %>
-                                <ul class="device-line">
-                                    <%c++ $$ << output.getLine(); %>: <input style="float: right;" type="<%c++ $$ << output.inputType; %>"/>
-                                </ul>
-                            <%c++ }%>
-                            <h5>Input: </h5>
-                            <%c++ for (auto& input : device.inputDevices){%>
-                                <ul class="device-line"><%c++ $$ << input.getLine(); %> <%c++ if (input.t == genauto::pages::Input::Event){%>
-                                        : <input style="float: right;" type="<%c++ $$ << input.inputType; %>"/> <%c++ } %>
-                                </ul>
-                            <%c++ }%>
-                            <div class="button-container">
-                                <input class="send-button" type="button" value="Update"/>
-                            </div>
-                        </div>
-                    <%c++ }%>
-                </div>
-            </div>
-        </div>
-    </div>
     <div id=app></div>
 </body>
 </html>

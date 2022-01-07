@@ -1,5 +1,10 @@
 #include "genauto_pages_Devices.h"
+#include <nlohmann/json.hpp>
 using namespace genauto::pages;
+using json = nlohmann::json;
+
+Devices::Devices() : base("../database/devices.json")
+{}
 
 void Devices::mainFun(
     const HttpRequestPtr &req,
@@ -58,3 +63,13 @@ std::string Input::getLine()
 
 Device::Device(std::string title) : title(title)
 {}
+
+void Devices::update(const HttpRequestPtr &req,
+                    std::function<void (const HttpResponsePtr &)> &&callback,
+                    const std::string& data,
+                    const std::string& keystring)
+{
+    json parsed = json::parse(data);
+    base.update(keystring, parsed);
+    base.save();
+}

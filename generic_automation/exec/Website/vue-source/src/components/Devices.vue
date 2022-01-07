@@ -38,9 +38,6 @@
                                     />
                                 </ul>
                             </div>
-                            <div class="button-container">
-                                <input class="send-button" type="button" value="Update"/>
-                            </div>
                         </div>
                     </div>
                 </div>

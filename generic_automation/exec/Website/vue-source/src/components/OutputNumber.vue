@@ -1,4 +1,5 @@
 <template>
+<div>
     <input
         v-if="edit_name"
         v-model="persistent.name"
@@ -7,25 +8,32 @@
         v-focus>
     <h4 v-else @click="edit_name = true" class="pointer"> {{persistent.name}} </h4>
     <div class="number-container">
-    <div>
-        <div class="custom-button" id="plus" @click="inc">+</div>
-        <div class="custom-button" id="minus" @click="dec">-</div>
-    </div>
-        <input
-            type="number"
-            v-if="edit_increment"
-            v-model="persistent.increment"
-            @blur="edit_increment = false; $emit('update')"
-            @keyup.enter="edit_increment = false; $emit('update')"
-            v-focus>
-        <div v-else @click="edit_increment = true" class="pointer">
-            Increment: {{persistent.increment}} {{units}}
+        <div>
+            <div class="custom-button" id="plus" @click="inc">+</div>
+            <div class="custom-button" id="minus" @click="dec">-</div>
+        </div>
+        <div class="increment-container">
+            Increment:&nbsp;
+            <input
+                type="number"
+                v-if="edit_increment"
+                v-model="persistent.increment"
+                @blur="edit_increment = false; $emit('update')"
+                @keyup.enter="edit_increment = false; $emit('update')"
+                v-focus>
+            <div v-else @click="edit_increment = true" class="pointer">
+                {{persistent.increment}}
+            </div>
+            &nbsp;{{units}}
         </div>
         Value: {{value}} {{units}}
     </div>
+</div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     props: ['min', 'max', 'units', 'keystring', 'persistent_input', 'device'],
     name: 'Number',
@@ -34,7 +42,8 @@ export default {
             value: 0,
             persistent: this.persistent_input,
             edit_increment: false,
-            edit_name: false
+            edit_name: false,
+            delayId: 0
         }
     },
     directives: {
@@ -50,7 +59,6 @@ export default {
         },
         dec: function() {
             this.value = this.normalize(parseInt(this.value) - this.persistent.increment);
-
         },
         normalize: function(newVal) {
             if (newVal < this.min) {
@@ -65,7 +73,16 @@ export default {
         persistent: {
             // Update send an update to the server
             handler(val){
-                console.log("Updating persistent var:  " + this.keystring + " -> " + JSON.stringify(this.persistent));
+                clearTimeout(this.delayId);
+                this.delayId = window.setTimeout(() => {
+                    var postStr = '/genauto/pages/devices/update'
+                        + "?data=" + JSON.stringify(this.persistent)
+                        + "&keystring=" + this.keystring;
+                    axios.post(postStr
+                        ,{ params: {}})
+                        .then(response => this.responseData = response.data)
+                        .catch(error => {});
+                }, 1000)
             },
             deep: true
         }
@@ -77,5 +94,8 @@ export default {
 .number-container {
     display: flex;
     flex-direction: column;
+}
+.increment-container {
+    display: flex;
 }
 </style>
