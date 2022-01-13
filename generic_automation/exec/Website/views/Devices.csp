@@ -2,11 +2,11 @@
 <html>
 <%inc
 #include "../controllers/genauto_pages_Devices.h"
+#include <string>
 #include <fstream>
 %>
 <%c++
-    auto devices=@@.get<std::vector<genauto::pages::Device>>("devices");
-    LOG_DEBUG << devices.size() << "\n";
+    auto database=@@.get<std::string>("json");
 %>
 <head>
     <meta charset="UTF-8">
@@ -29,6 +29,7 @@
 
 <script>
 <%c++
+    $$ << "var jsonInput = '" << database << "';\n";
     std::ifstream t("../content/built.js");
     $$ << t.rdbuf();
 %>

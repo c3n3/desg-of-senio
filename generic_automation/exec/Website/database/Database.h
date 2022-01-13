@@ -9,8 +9,11 @@ namespace genauto {
     class Database {
     public:
         Database(const char* fileName);
-        void update(const std::string& keystring, const json& input);
+        void load();
+        void update(
+            const std::string& keystring, const std::string& type, const json& input);
         void save();
+        void htmlOutput(std::string& data);
     private:
         const char* fileName;
         json data;

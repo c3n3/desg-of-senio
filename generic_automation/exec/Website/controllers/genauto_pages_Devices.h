@@ -12,7 +12,7 @@ class Devices:public drogon::HttpController<Devices>
     Devices();
     METHOD_LIST_BEGIN
       METHOD_ADD(Devices::mainFun, "", Get);
-      METHOD_ADD(Devices::update, "/update?data={}&keystring={}", Post);
+      METHOD_ADD(Devices::update, "/update?data={}&keystring={}&type={}", Post);
     METHOD_LIST_END
 
     void mainFun(const HttpRequestPtr &req,
@@ -20,43 +20,9 @@ class Devices:public drogon::HttpController<Devices>
     void update(const HttpRequestPtr &req,
                     std::function<void (const HttpResponsePtr &)> &&callback,
                     const std::string& data,
-                    const std::string& keystring);
+                    const std::string& keystring,
+                    const std::string& type);
     genauto::Database base;
 };
-
-class SubDevice {
-public:
-  const std::string prefix;
-  const std::string name;
-  const std::string inputType;
-  SubDevice(std::string name, std::string action, std::string type);
-  virtual std::string getLine() = 0;
-};
-
-class Output : public SubDevice {
-public:
-  std::string getLine();
-  Output(std::string name, std::string action, std::string type);
-};
-
-class Input : public SubDevice {
-public:
-  enum Type {
-    Value,
-    Event
-  };
-  const Type t;
-  Input(std::string name, std::string action, std::string type, Type t);
-  std::string getLine();
-};
-
-class Device {
-public:
-  Device(std::string title);
-  const std::string title;
-  std::vector<Output> outputDevices;
-  std::vector<Input> inputDevices;
-};
-
 }
 }

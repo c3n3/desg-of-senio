@@ -77,7 +77,8 @@ export default {
                 this.delayId = window.setTimeout(() => {
                     var postStr = '/genauto/pages/devices/update'
                         + "?data=" + JSON.stringify(this.persistent)
-                        + "&keystring=" + this.keystring;
+                        + "&keystring=" + this.keystring
+                        + "&type=outputs";
                     axios.post(postStr
                         ,{ params: {}})
                         .then(response => this.responseData = response.data)

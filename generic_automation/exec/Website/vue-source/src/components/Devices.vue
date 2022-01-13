@@ -4,17 +4,17 @@
             <div style="min-width: 700px;">
                 <div class="color-1 item-list color-word">
                     <h3>All devices</h3>
-                    <div v-for="device in devices" :key="device.id">
+                    <div v-for="(device, id) in devices" :key="id">
                         <div class="item">
-                            <h4 class="item-title">{{device.tag}}</h4>
+                            <h4 class="item-title">{{device.name}}</h4>
                             <h5>Output: </h5>
-                            <div v-for="output in device.outputs" :key="output.id">
+                            <div v-for="(output, outputId) in device.outputs" :key="outputId">
                                 <ul class="device-line">
                                     <div v-if="output.type === 'bool'">
                                         <OutputBool
                                             :tag="output.tag"
                                             :persistent_input="output.persistent"
-                                            :keystring="device.id + ':' + output.id"/>
+                                            :keystring="id + ':' + outputId"/>
                                     </div>
                                     <div v-if="output.type === 'number'">
                                         <OutputNumber
@@ -22,18 +22,18 @@
                                             :max="output.data.max"
                                             :units="output.data.units"
                                             :persistent_input="output.persistent"
-                                            :keystring="device.id + ':' + output.id"/>
+                                            :keystring="id + ':' + outputId"/>
                                     </div>
                                 </ul>
                             </div>
                             <h5>Input: </h5>
-                            <div v-for="input in device.inputs" :key="input.id">
+                            <div v-for="(input, inputId) in device.inputs" :key="inputId">
                                 <ul class="device-line">
                                     <InputNumber
                                         v-if="input.type == 'number'"
                                         :min="input.data.min"
                                         :max="input.data.max"
-                                        :keystring="device.id + ':' + input.id"
+                                        :keystring="id + ':' + inputId"
                                         :persistent_input="input.persistent"
                                     />
                                 </ul>
