@@ -6,3 +6,5 @@ https://circuitdigest.com/microcontroller-projects/programming-esp32-with-arduin
 
 ## Dual core exp32
 https://randomnerdtutorials.com/esp32-dual-core-arduino-ide/
+
+test
