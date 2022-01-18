@@ -1,5 +1,5 @@
 #include "genauto_pages_Devices.h"
-#include <nlohmann/json.hpp>
+#include "../json/json.hpp"
 using namespace genauto::pages;
 using json = nlohmann::json;
 

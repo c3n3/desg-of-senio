@@ -3,6 +3,7 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
 import Devices from './components/Devices.vue'
 
 export default {
