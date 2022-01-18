@@ -3,8 +3,6 @@
 </template>
 
 <script>
-    // eslint-disable-next-line no-unused-vars
-
 import Devices from './components/Devices.vue'
 
 export default {
@@ -14,11 +12,11 @@ export default {
   },
   data: function () {
     return {
-      devices: JSON.parse(jsonInput)
+      devices: JSON.parse(window.jsonInput)
     }
   },
   mounted() {
-    console.log("From console: " + jsonInput);   
+    console.log("From console: " + window.jsonInput);   
   }
 }
 </script>

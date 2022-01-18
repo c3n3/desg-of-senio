@@ -29,7 +29,7 @@
 
 <script>
 <%c++
-    $$ << "var jsonInput = '" << database << "';\n";
+    $$ << "window.jsonInput = '" << database << "';\n";
     std::ifstream t("../content/built.js");
     $$ << t.rdbuf();
 %>
