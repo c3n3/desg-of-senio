@@ -31,3 +31,10 @@ void Devices::update(const HttpRequestPtr &req,
     base.update(keystring, type, parsed);
     base.save();
 }
+
+void Devices::deviceComm(const HttpRequestPtr &req,
+    std::function<void (const HttpResponsePtr &)> &&callback)
+{
+    LOG_DEBUG << "Called!";
+    callback(HttpResponse::newHttpResponse());
+}
