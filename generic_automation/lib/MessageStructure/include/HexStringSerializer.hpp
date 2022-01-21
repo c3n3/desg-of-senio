@@ -1,27 +1,21 @@
-#ifndef __GENERIC_AUTOMATION_MESSAGE_SERIALIZER_HPP__
-#define __GENERIC_AUTOMATION_MESSAGE_SERIALIZER_HPP__
+#ifndef __GENAUTO_HEX_STRING_SERIALIZER_HPP__
+#define __GENAUTO_HEX_STRING_SERIALIZER_HPP__
 
+#include "MessageSerializer.hpp"
 #include "Message.hpp"
 #include "Debug.hpp"
-
 #include <stdint.h>
 #include <cstring>
 #include <iostream>
 namespace genauto {
-    /**
-     * @brief Used to serialize and deserialize messages
-     * 
-     * Currently the implementation simply serializes and puts into a buffer.
-     * We will need to add more information in order to properly detect messages
-     * when receiving and parsing data. The magic number is not a particularly
-     * foolproof method, and needs to be more robust. This could
-     * include some sort of zero insertions such that a magic number
-     * can never be replicated in the data section of a serialization
-     * 
-     * TODO: Some sort of failproof length identification
-     */
     template<class MSG>
-    class MessageSerializer {
+    class HexStringSerializer {
+        
+        // Buffer to be transmitted
+        uint8_t buffer_[
+            sizeof(magic_t) + sizeof(length_t)
+            + sizeof(MSG) + sizeof(checksum_t)
+        ];
     public:
         /**
          * @brief A Result enum
@@ -85,5 +79,6 @@ namespace genauto {
         constexpr size_t getSize();
     };
 }
+
 
 #endif
