@@ -3,7 +3,7 @@
 using namespace genauto;
 
 StepperMotorMessage::StepperMotorMessage(StepperMotorMessage::Type t, float v)
-    : value_(v), type_(t), Message(STEPPER_MOTOR_MESSAGE_ID)
+    : value_(v), type_(t), Message()
 {
 }
 

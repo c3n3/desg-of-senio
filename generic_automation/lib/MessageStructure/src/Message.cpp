@@ -1,16 +1,18 @@
 #include "Message.hpp"
 #include "StringBuilder.hpp"
 
-genauto::Message::Message(uint16_t id) : msgId(id)
+const uint8_t* genauto::Message::msgId = (uint8_t*)"AA";
+
+genauto::Message::Message()
 {}
 
 void genauto::Message::toString(genauto::StringBuilder& sb)
 {
     sb.appendString("msgId: ");
-    sb.appendInt(msgId);
+    sb.appendString((char*)msgId);
 }
 
-uint16_t genauto::Message::getMsgId()
+const uint8_t* genauto::Message::getMsgId()
 {
     return msgId;
 }

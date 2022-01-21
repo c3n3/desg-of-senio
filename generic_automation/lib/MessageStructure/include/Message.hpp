@@ -13,14 +13,14 @@ namespace genauto {
         /**
          * @brief Type of the messag id
          */
-        typedef uint16_t msgid_t;
+        typedef uint8_t msgid_t[2];
 
         /**
          * @brief Simple ctor
          *
          * @param id msg id
          */
-        Message(uint16_t id);
+        Message();
 
         /**
          * @brief Checks to see if msgIds are the same
@@ -28,7 +28,7 @@ namespace genauto {
          * @param id to check
          * @return true if ids the same 
          */
-        uint16_t getMsgId();
+        const uint8_t* getMsgId();
 
         /**
          * @brief Simple to string function written such that no
@@ -39,7 +39,7 @@ namespace genauto {
          */
         virtual void toString(StringBuilder& sb);
     protected:
-        const uint16_t msgId;
+        static const uint8_t* msgId;
     };
 }
 

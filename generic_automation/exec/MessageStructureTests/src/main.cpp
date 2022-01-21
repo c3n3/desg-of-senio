@@ -1,6 +1,6 @@
 #include "StringBuilder.hpp"
 #include "StepperMotorMessage.hpp"
-#include "MessageSerializer.hpp"
+#include "HexStringSerializer.hpp"
 #include "Message.hpp"
 #include <iostream>
 
@@ -8,8 +8,8 @@ using namespace genauto;
 
 int main()
 {
-    MessageSerializer<StepperMotorMessage> serial;
-    MessageSerializer<StepperMotorMessage> rec;
+    HexStringSerializer<StepperMotorMessage> serial;
+    HexStringSerializer<StepperMotorMessage> rec;
 
     StepperMotorMessage m(StepperMotorMessage::Speed, 10);
 

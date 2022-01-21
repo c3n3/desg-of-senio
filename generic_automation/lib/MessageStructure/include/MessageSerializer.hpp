@@ -37,7 +37,7 @@ namespace genauto {
          *
          * @param msg the message
          */
-        Result serialize(MSG& msg) = 0;
+        virtual Result serialize(MSG& msg) = 0;
 
         /**
          * @brief parse incoming data into the buffer properly
@@ -46,20 +46,20 @@ namespace genauto {
          * @param size 
          * @return Result 
          */
-        Result parse(const uint8_t* incoming, size_t size) = 0;
+        virtual Result parse(const uint8_t* incoming, size_t size) = 0;
 
         /**
          * @brief Clears any internal buffer if a message has partially been
          * received.
          */
-        void cancelParse() = 0;
+        virtual void cancelParse() = 0;
 
         /**
          * @brief Copy the internal message.
          *
          * @param msg the message
          */
-        Result deserialize(MSG& msg) = 0;
+        virtual Result deserialize(MSG& msg) = 0;
 
         /**
          * @brief Validates that a message is a valid uncorrupted message
@@ -68,21 +68,26 @@ namespace genauto {
          * @return true 
          * @return false 
          */
-        Result validate(const uint8_t* buf, size_t size) = 0;
+        virtual Result validate(const uint8_t* buf, size_t size) = 0;
 
         /**
          * @brief Gets a pointer to the buffer
          *
          * @return const uint8_t*
          */
-        const uint8_t* getBuffer() = 0;
+        virtual const uint8_t* getBuffer() = 0;
+
+        virtual bool isMsgType(const uint8_t* buf, size_t size)
+        {
+            return false;
+        }
 
         /**
          * @brief Get the buffer size
          *
          * @return constexpr size_t
          */
-        constexpr size_t getSize();
+        virtual constexpr size_t getSize();
     };
 }
 
