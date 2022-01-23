@@ -30,7 +30,7 @@ namespace genauto {
          * @brief A Result enum
          */
         enum Result {
-            Success,
+            Success = 0,
             Failure,
             IncompleteData
         };
@@ -43,13 +43,15 @@ namespace genauto {
         Result serialize(MSG& msg)
         {
             uint8_t* serial = (uint8_t*) &msg;
-            int bufferIdx = sizeof(Message::msgid_t);
+            buffer_[0] = MSG::msgId[0];
+            buffer_[1] = MSG::msgId[1];
+            int index = sizeof(Message::msgid_t);
             // Iterate over bytes
             for (int i = 0; i < sizeof(msg); i++) {
                 // Iterate over 4 bits (hex)
                 for (int hexIdx = 0; hexIdx < 2; hexIdx++) {
                     uint8_t hex = (serial[i] >> (hexIdx * 4)) & 0x0F;
-                    buffer_[bufferIdx++] = 'A' + hex;
+                    buffer_[index++] = 'A' + hex;
                 }
             }
             return Success;
@@ -65,18 +67,13 @@ namespace genauto {
         Result parse(const uint8_t* incoming, size_t size)
         {
             int byteOn = 0;
-            if (size > sizeof(buffer_)) {
+            if (size > sizeof(buffer_) - bufferIdx) {
                 return Failure;
             }
             for (int i = 0; i < size; i++) {
-                uint8_t byteImplant = 0;
-                byteImplant |= ((incoming[i] - 'A') << (byteOn * 4));
-                if (byteImplant == 1) {
-                    buffer_[bufferIdx++] = byteImplant;
-                }
-                byteOn = (byteOn + 1) % 2;
+                buffer_[bufferIdx++] = incoming[i];
             }
-            if (bufferIdx == sizeof(buffer_)) {
+            if (bufferIdx >= sizeof(buffer_)) {
                 bufferIdx = 0;
                 return Success;
             } else {
@@ -100,7 +97,14 @@ namespace genauto {
          */
         Result deserialize(MSG& msg)
         {
-            msg = *msg_;
+            uint8_t* buffer = (uint8_t*)&msg;
+            for (int i = 0; i < sizeof(MSG)*2; i += 2) {
+                uint8_t byteTwo = ((buffer_[
+                        sizeof(Message::msgid_t) + i + 1] - 'A')) << 4;
+                uint8_t byteOne = ((buffer_[sizeof(Message::msgid_t) + i] - 'A'));
+                buffer[(i / 2)] = byteTwo | byteOne;
+                // buffer[i/2] = 0xff;
+            }
             return Success;
         }
 

@@ -38,7 +38,7 @@ namespace genauto {
          * @param size the size of the input buffer
          */
         virtual void toString(StringBuilder& sb);
-    protected:
+
         static const uint8_t* msgId;
     };
 }

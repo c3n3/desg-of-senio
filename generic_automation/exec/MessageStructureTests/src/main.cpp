@@ -24,10 +24,18 @@ int main()
     sb.clear();
     serial.deserialize(m2);
 
+    for (int i = 0; i < serial.getSize(); i++) {
+        std::cout << (char)serial.getBuffer()[i];
+    }
+    std::cout << "\n";
+
+    m2.toString(sb);
+    std::cout << "After deserialize: " << sb.getString() << "\n";
+
+
     std::cout << "Result = " << rec.parse(serial.getBuffer(), serial.getSize()) << "\n";
+    sb.clear();
     rec.deserialize(m2);
     m2.toString(sb);
-    
-    std::cout << "After: " << sb.getString() << "\n";
-    std::cout << "Msg id = " << m2.getMsgId() << "\n";
+    std::cout << "After parse: " << sb.getString() << "\n";
 }
