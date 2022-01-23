@@ -1,4 +1,4 @@
-#include "../include/StepperMotorMessage.hpp"
+#include "StepperMotorMessage.hpp"
 
 using namespace genauto;
 

@@ -1,12 +1,13 @@
 #include "StringBuilder.hpp"
 #include "StepperMotorMessage.hpp"
 #include "HexStringSerializer.hpp"
+#include "Map.hpp"
 #include "Message.hpp"
 #include <iostream>
 
 using namespace genauto;
 
-int main()
+void serializeTesting()
 {
     HexStringSerializer<StepperMotorMessage> serial;
     HexStringSerializer<StepperMotorMessage> rec;
@@ -38,4 +39,33 @@ int main()
     rec.deserialize(m2);
     m2.toString(sb);
     std::cout << "After parse: " << sb.getString() << "\n";
+}
+
+void mapTesting()
+{
+    Map<int, char> map;
+    map.insert(Pair<int, char>(9, 'a'));
+    std::cout << "Size = " << map.size() << "\n";
+    map.insert(Pair<int, char>(3, 'y'));
+    std::cout << "Size = " << map.size() << "\n";
+    map.insert(Pair<int, char>(2, 'k'));
+    std::cout << "Size = " << map.size() << "\n";
+    map.insert(Pair<int, char>(10, 'b'));
+    std::cout << "Size = " << map.size() << "\n";
+    std::cout << "Value = " << map[9] << "\n";
+    std::cout << "Value = " << map[3] << "\n";
+    std::cout << "Value = " << map[2] << "\n";
+    std::cout << "Value = " << map[10] << "\n";
+    map.remove(9);
+    std::cout << "Size = " << map.size() << "\n";
+    std::cout << "Value = " << (map.contains(9) ? "True" : "False") << "\n";
+    std::cout << "Value = " << map[3] << "\n";
+    std::cout << "Value = " << map[2] << "\n";
+    std::cout << "Value = " << map[10] << "\n";
+}
+
+int main()
+{
+  //serializeTesting();
+  mapTesting();
 }

@@ -3,7 +3,6 @@
 
 #include "MessageSerializer.hpp"
 #include "Message.hpp"
-#include "Debug.hpp"
 #include <stdint.h>
 #include <cstring>
 #include <iostream>

@@ -2,7 +2,6 @@
 #define __GENERIC_AUTOMATION_MESSAGE_SERIALIZER_HPP__
 
 #include "Message.hpp"
-#include "Debug.hpp"
 
 #include <stdint.h>
 #include <cstring>

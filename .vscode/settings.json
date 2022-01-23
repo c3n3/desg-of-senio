@@ -61,6 +61,8 @@
         "iomanip": "cpp",
         "ratio": "cpp",
         "valarray": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "list": "cpp",
+        "unordered_set": "cpp"
     }
 }
