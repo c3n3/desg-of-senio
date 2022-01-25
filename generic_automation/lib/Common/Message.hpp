@@ -1,8 +1,10 @@
 #ifndef __GENERIC_AUTOMATION_MESSAGE_HPP__
 #define __GENERIC_AUTOMATION_MESSAGE_HPP__
 
-#include <stdint.h>
 #include "StringBuilder.hpp"
+#include "MessageId.hpp"
+
+#include <stdint.h>
 
 namespace genauto {
     /**
@@ -13,22 +15,19 @@ namespace genauto {
         /**
          * @brief Type of the messag id
          */
-        typedef uint8_t msgid_t[2];
+        typedef uint8_t msgType_t[2];
 
         /**
          * @brief Simple ctor
          *
          * @param id msg id
          */
-        Message();
+        Message(const MessageId& id);
 
         /**
-         * @brief Checks to see if msgIds are the same
-         *
-         * @param id to check
-         * @return true if ids the same 
+         * @brief Message id
          */
-        const uint8_t* getMsgId();
+        const MessageId id;
 
         /**
          * @brief Simple to string function written such that no
@@ -39,11 +38,11 @@ namespace genauto {
          */
         virtual void toString(StringBuilder& sb);
 
-        static const uint8_t* msgId;
+        /**
+         * @brief Type of the message
+         */
+        static const msgType_t msgType;
     };
 }
-
-// List all message declarations here
-static const uint16_t STEPPER_MOTOR_MESSAGE_ID = 1;
 
 #endif

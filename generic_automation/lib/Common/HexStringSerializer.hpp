@@ -12,11 +12,11 @@ namespace genauto {
 
         // Buffer to be transmitted
         uint8_t buffer_[
-            sizeof(Message::msgid_t) + sizeof(MSG) * 2
+            sizeof(Message::msgType_t) + sizeof(MSG) * 2
         ];
 
-        Message::msgid_t* const msgId_ = (Message::msgid_t*)buffer_;
-        MSG* const msg_ = (MSG*)buffer_ + sizeof(Message::msgid_t);
+        Message::msgType_t* const msgId_ = (Message::msgType_t*)buffer_;
+        MSG* const msg_ = (MSG*)buffer_ + sizeof(Message::msgType_t);
         int bufferIdx;
     public:
         /**
@@ -44,7 +44,7 @@ namespace genauto {
             uint8_t* serial = (uint8_t*) &msg;
             buffer_[0] = MSG::msgId[0];
             buffer_[1] = MSG::msgId[1];
-            int index = sizeof(Message::msgid_t);
+            int index = sizeof(Message::msgType_t);
             // Iterate over bytes
             for (int i = 0; i < sizeof(msg); i++) {
                 // Iterate over 4 bits (hex)
@@ -99,8 +99,8 @@ namespace genauto {
             uint8_t* buffer = (uint8_t*)&msg;
             for (int i = 0; i < sizeof(MSG)*2; i += 2) {
                 uint8_t byteTwo = ((buffer_[
-                        sizeof(Message::msgid_t) + i + 1] - 'A')) << 4;
-                uint8_t byteOne = ((buffer_[sizeof(Message::msgid_t) + i] - 'A'));
+                        sizeof(Message::msgType_t) + i + 1] - 'A')) << 4;
+                uint8_t byteOne = ((buffer_[sizeof(Message::msgType_t) + i] - 'A'));
                 buffer[(i / 2)] = byteTwo | byteOne;
                 // buffer[i/2] = 0xff;
             }

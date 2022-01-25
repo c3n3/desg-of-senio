@@ -3,6 +3,7 @@
 
 #include "Message.hpp"
 #include "StringBuilder.hpp"
+#include "MessageId.hpp"
 
 #include <stdint.h>
 
@@ -27,7 +28,7 @@ namespace genauto {
          * @param type Type of the message
          * @param value The value for the type
          */
-        StepperMotorMessage(Type type, float value);
+        StepperMotorMessage(MessageId id, Type type, float value);
 
         /**
          * @brief gets the value of the message
@@ -49,6 +50,11 @@ namespace genauto {
          * @param sb
          */
         void toString(StringBuilder& sb);
+        
+        /**
+         * @brief Type of the message specific to class
+         */
+        static const Message::msgType_t msgType;
     private:
         Type type_;
         float value_;

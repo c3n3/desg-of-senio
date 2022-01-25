@@ -46,16 +46,16 @@ namespace genauto {
         magic_t* const magic_ = (magic_t*)buffer_;
 
         // MsgId after magic
-        Message::msgid_t* const msgId_
-            = (Message::msgid_t*)&buffer_[sizeof(magic_t)];
+        Message::msgType_t* const msgId_
+            = (Message::msgType_t*)&buffer_[sizeof(magic_t)];
 
         // Length after magic number and id
         length_t* const length_
-            = (length_t*)&buffer_[sizeof(magic_t) + sizeof(Message::msgid_t)];
+            = (length_t*)&buffer_[sizeof(magic_t) + sizeof(Message::msgType_t)];
 
         // The start of actual data
         uint8_t* const dataStart_
-            = &buffer_[sizeof(magic_t) + sizeof(length_t) + sizeof(Message::msgid_t)];
+            = &buffer_[sizeof(magic_t) + sizeof(length_t) + sizeof(Message::msgType_t)];
         
         /**
          * @brief Used to parse data
@@ -129,12 +129,12 @@ namespace genauto {
             }
 
             // parse msgid
-            if ((void*)parsingPtr_ < (void*)msgId_ + sizeof(Message::msgid_t)) {
+            if ((void*)parsingPtr_ < (void*)msgId_ + sizeof(Message::msgType_t)) {
                 for (; i < size; i++) {
                     *parsingPtr_ = *incoming;
                     parsingPtr_++;
                     incoming++;
-                    if ((void*)parsingPtr_ == (void*)msgId_ + sizeof(Message::msgid_t)) {
+                    if ((void*)parsingPtr_ == (void*)msgId_ + sizeof(Message::msgType_t)) {
                         LOG("Success\n");
                         break;
                     }
