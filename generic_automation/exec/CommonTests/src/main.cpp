@@ -3,6 +3,8 @@
 #include "HexStringSerializer.hpp"
 #include "Map.hpp"
 #include "Message.hpp"
+#include "Queue.hpp"
+#include "Subscriber.hpp"
 #include <iostream>
 
 using namespace genauto;
@@ -64,8 +66,28 @@ void mapTesting()
     std::cout << "Value = " << map[10] << "\n";
 }
 
+void queueTesting()
+{
+    Queue<int> q(10);
+    int i = 0;
+    while (q.enqueue(i++) != Queue<int>::Failure) {
+    }
+    int res;
+    while (q.dequeue(res) != Queue<int>::Failure) {
+        if (res %2 == 0) {
+            q.enqueue(1);
+        }
+        std::cout << "Got " << res << "\n";
+    }
+}
+
+void subTest()
+{
+}
+
 int main()
 {
-  //serializeTesting();
-  mapTesting();
+    serializeTesting();
+    mapTesting();
+    queueTesting();
 }

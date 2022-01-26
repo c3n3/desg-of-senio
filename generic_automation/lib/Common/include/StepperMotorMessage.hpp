@@ -54,7 +54,7 @@ namespace genauto {
         /**
          * @brief Type of the message specific to class
          */
-        static const Message::msgType_t msgType;
+        static const Message::msgType_t classMsgType;
     private:
         Type type_;
         float value_;

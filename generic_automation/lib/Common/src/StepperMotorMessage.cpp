@@ -2,11 +2,11 @@
 
 using namespace genauto;
 
-const Message::msgType_t StepperMotorMessage::msgType = {'A', 'B'};
+const Message::msgType_t StepperMotorMessage::classMsgType = MSG_TYPE('A', 'B');
 
 StepperMotorMessage::StepperMotorMessage(
     MessageId id, StepperMotorMessage::Type t, float v)
-    : value_(v), type_(t), Message(id)
+    : value_(v), type_(t), Message(id, StepperMotorMessage::classMsgType)
 {}
 
 void StepperMotorMessage::toString(StringBuilder& sb)

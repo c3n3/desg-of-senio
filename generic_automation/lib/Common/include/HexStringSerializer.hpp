@@ -42,8 +42,8 @@ namespace genauto {
         Result serialize(MSG& msg)
         {
             uint8_t* serial = (uint8_t*) &msg;
-            buffer_[0] = MSG::msgType[0];
-            buffer_[1] = MSG::msgType[1];
+            buffer_[0] = (MSG::classMsgType & 0xFF00) >> 8;
+            buffer_[1] = (MSG::classMsgType & 0x00FF);
             int index = sizeof(Message::msgType_t);
             // Iterate over bytes
             for (int i = 0; i < sizeof(msg); i++) {
