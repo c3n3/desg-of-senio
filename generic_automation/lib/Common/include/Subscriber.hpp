@@ -10,6 +10,7 @@ namespace genauto {
      * message ID
      */
     class Subscriber {
+    protected:
         Queue<Message*> msgs_;
     public:
 
