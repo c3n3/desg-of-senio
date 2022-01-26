@@ -1,10 +1,11 @@
 project('Common', 'cpp')
 
-inc = include_directories('.')
+inc = include_directories('./include')
 libCommon = shared_library('Common',
-  'Message.cpp',
-  'StepperMotorMessage.cpp',
-  'StringBuilder.cpp',
+  './src/Message.cpp',
+  './src/MessageId.cpp',
+  './src/StepperMotorMessage.cpp',
+  './src/StringBuilder.cpp',
   include_directories : inc,
   install : true,
   dependencies : [])

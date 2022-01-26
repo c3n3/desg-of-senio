@@ -1,12 +1,4 @@
-/*
-
-  StringBuilder.cpp - Simple string builder
-
-  Created by Caden Churchman, December 15, 2021.
-
-*/
-
-#include "StringBuilder.hpp"
+#include "../include/StringBuilder.hpp"
 #include <iostream>
 
 

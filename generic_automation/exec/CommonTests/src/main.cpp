@@ -12,7 +12,7 @@ void serializeTesting()
     HexStringSerializer<StepperMotorMessage> serial;
     HexStringSerializer<StepperMotorMessage> rec;
 
-    StepperMotorMessage m(StepperMotorMessage::Speed, 10);
+    StepperMotorMessage m(MessageId(1,1), StepperMotorMessage::Speed, 10);
 
     StringBuilder sb(1000);
 
@@ -21,7 +21,7 @@ void serializeTesting()
 
     serial.serialize(m);
 
-    StepperMotorMessage m2(StepperMotorMessage::Degree, 1110);
+    StepperMotorMessage m2(MessageId(0,0), StepperMotorMessage::Degree, 1110);
     sb.clear();
     serial.deserialize(m2);
 

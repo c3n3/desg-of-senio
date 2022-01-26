@@ -1,4 +1,4 @@
-#include "Message.hpp"
+#include "../include/Message.hpp"
 
 using namespace genauto;
 
@@ -12,12 +12,12 @@ bool MessageId::operator <(const MessageId& other)
     return minor < other.minor;
 }
 
-bool MessageId::operator ==(const MessageId::MessageId& other)
+bool MessageId::operator ==(const MessageId& other)
 {
     return major == other.major && minor == other.minor;
 }
 
-bool MessageId::operator !=(const MessageId::MessageId& other)
+bool MessageId::operator !=(const MessageId& other)
 {
     return !(*this == other);
 }

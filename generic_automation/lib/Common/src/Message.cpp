@@ -1,6 +1,6 @@
 
-#include "Message.hpp"
-#include "StringBuilder.hpp"
+#include "../include/Message.hpp"
+#include "../include/StringBuilder.hpp"
 
 const genauto::Message::msgType_t genauto::Message::msgType = {'A', 'A'};
 

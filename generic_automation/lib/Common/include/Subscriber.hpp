@@ -4,6 +4,10 @@
 #include "Message.hpp"
 
 namespace genauto {
+    /**
+     * @brief Subscriber can can be used to subscribe to a
+     * message ID
+     */
     class Subscriber {
     public:
         /**
