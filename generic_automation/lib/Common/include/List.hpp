@@ -16,6 +16,14 @@ namespace genauto {
 
         void pushBack(T&& item)
         {
+            if (count_ >= size_) {
+                T* old = buffer_;
+                buffer_ = new T[size_*2];
+                for (int i = 0; i < size_; i++) {
+                    buffer_[i] = old[i];
+                }
+                delete[] old;
+            }
             buffer_[count_] = item;
             count_++;
         }
