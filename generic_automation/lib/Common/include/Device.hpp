@@ -14,7 +14,7 @@ namespace genauto {
         /**
          * @brief Do something
          */
-        virtual void execute();
+        virtual void execute() = 0;
     };
 }
 

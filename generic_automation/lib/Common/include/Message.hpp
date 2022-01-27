@@ -51,6 +51,11 @@ namespace genauto {
         const msgType_t msgType;
 
         /**
+         * @brief Length of the message
+         */
+        const uint16_t length;
+
+        /**
          * @brief Defines type string for all class
          */
         static const msgType_t classMsgType;
