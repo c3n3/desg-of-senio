@@ -49,14 +49,23 @@ void genauto::PwmDevice::setDirection(uint8_t dir)
     dir_ = dir;
 }
 
+
+/*
+Need if statements to check and see what message type is in the queue.
+Then have functions to handle each different type of message. 
+This will make it easier for when we are doing local linking.
+*/
+
+
+
 /**
  * @brief 
  * 
  */
 void genauto::PwmDevice::execute()
 {
-    PwmMessage* pwmMsg = NULL;
-    if(msgs_.dequeue(pwmMsg) == Queue<Message*>::Success)
+    Message* Msg = NULL;
+    if(msgs_.dequeue(Msg) == Queue<Message*>::Success)
     {
         setDirection(pwmMsg.dir);
         setDutyCycle(pwmMsg.dutyCycle)
