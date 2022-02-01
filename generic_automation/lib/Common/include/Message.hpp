@@ -53,7 +53,7 @@ namespace genauto {
         /**
          * @brief Length of the message
          */
-        const uint16_t length;
+        const uint16_t size;
 
         /**
          * @brief Defines type string for all class

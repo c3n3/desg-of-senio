@@ -1,6 +1,6 @@
 #include "StringBuilder.hpp"
 #include "StepperMotorMessage.hpp"
-#include "HexStringSerializer.hpp"
+#include "TypedHexStringSerializer.hpp"
 #include "Map.hpp"
 #include "Message.hpp"
 #include "Queue.hpp"
@@ -11,8 +11,8 @@ using namespace genauto;
 
 void serializeTesting()
 {
-    HexStringSerializer<StepperMotorMessage> serial;
-    HexStringSerializer<StepperMotorMessage> rec;
+    TypedHexStringSerializer<StepperMotorMessage> serial;
+    TypedHexStringSerializer<StepperMotorMessage> rec;
 
     StepperMotorMessage m(MessageId(1,1), StepperMotorMessage::Speed, 10);
 
@@ -83,6 +83,11 @@ void queueTesting()
 
 void subTest()
 {
+    Map<MessageId, int> map;
+
+    MessageId test(90,80);
+    map[test];
+
 }
 
 int main()

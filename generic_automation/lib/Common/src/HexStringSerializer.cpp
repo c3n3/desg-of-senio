@@ -1,0 +1,87 @@
+#include "../include/HexStringSerializer.hpp"
+
+using namespace genauto;
+
+HexStringSerializer::HexStringSerializer(int maxSize)
+    : bufferIdx_(0), maxSize_(maxSize), currentSize_(0)
+{
+    buffer_ = new char[maxSize_];
+}
+
+HexStringSerializer::Result HexStringSerializer::serialize(Message* msg)
+{
+    if (msg->size*2 > maxSize_) {
+        return Failure;
+    }
+    uint8_t* serial = (uint8_t*) &msg;
+    buffer_[0] = (msg->msgType & 0xFF00) >> 8;
+    buffer_[1] = (msg->msgType & 0x00FF);
+    int index = sizeof(Message::msgType_t);
+    // Iterate over bytes
+    for (int i = 0; i < msg->size; i++) {
+        // Iterate over 4 bits (hex)
+        for (int hexIdx = 0; hexIdx < 2; hexIdx++) {
+            uint8_t hex = (serial[i] >> (hexIdx * 4)) & 0x0F;
+            buffer_[index++] = 'A' + hex;
+        }
+    }
+    currentSize_ = msg->size;
+    return Success;
+}
+
+HexStringSerializer::Result HexStringSerializer::parse(const uint8_t* incoming, size_t size)
+{
+    int byteOn = 0;
+    if (size > maxSize_ - bufferIdx_) {
+        return Failure;
+    }
+    for (int i = 0; i < size; i++) {
+        buffer_[bufferIdx_++] = incoming[i];
+        currentSize_ = bufferIdx_;
+    }
+    if (bufferIdx_ >= maxSize_) {
+        bufferIdx_ = 0;
+        return Success;
+    } else {
+        return IncompleteData;
+    }
+}
+
+void HexStringSerializer::cancelParse()
+{
+    bufferIdx_ = 0;
+    currentSize_ = 0;
+}
+
+HexStringSerializer::Result HexStringSerializer::deserialize(Message* msg)
+{
+    uint8_t* buffer = (uint8_t*)&msg;
+    for (int i = 0; i < msg->size*2; i += 2) {
+        uint8_t byteTwo = ((buffer_[
+                sizeof(Message::msgType_t) + i + 1] - 'A')) << 4;
+        uint8_t byteOne = ((buffer_[sizeof(Message::msgType_t) + i] - 'A'));
+        buffer[(i / 2)] = byteTwo | byteOne;
+        // buffer[i/2] = 0xff;
+    }
+    return Success;
+}
+
+HexStringSerializer::Result HexStringSerializer::validate(const uint8_t* buf, size_t size)
+{
+    return Success;
+}
+
+const char* HexStringSerializer::getBuffer()
+{
+    return buffer_;
+}
+
+size_t HexStringSerializer::maxSize()
+{
+    return maxSize_;
+}
+
+size_t HexStringSerializer::currentSize()
+{
+    return currentSize_;
+}

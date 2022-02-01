@@ -7,7 +7,7 @@ namespace genauto {
     template<typename T1, typename T2>
     struct Pair {
         Pair(T1 val) : one(val) {}
-        Pair() {}
+        Pair() : one(T1()), two(T2()){}
         Pair(T2 val) : two(val) {}
         Pair(T1 one, T2 two) : one(one), two(two) {}
         T1 one;
@@ -130,6 +130,18 @@ namespace genauto {
         }
 
         VT& operator[] (KT&& key)
+        {
+            VT* value = get(key);
+            if (value == nullptr) {
+                insert(Pair<KT, VT>(key));
+            } else {
+                return *value;
+            }
+            value = get(key);
+            return *value;
+        }
+
+        VT& operator[] (KT& key)
         {
             VT* value = get(key);
             if (value == nullptr) {

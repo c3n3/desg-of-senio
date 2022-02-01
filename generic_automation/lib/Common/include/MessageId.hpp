@@ -9,12 +9,12 @@ namespace genauto {
         /**
          * @brief Major number id
          */
-        const uint16_t major;
+        uint16_t major;
 
         /**
          * @brief Minor number id
          */
-        const uint8_t minor;
+        uint8_t minor;
 
         /**
          * @brief Useful for using as a map key
@@ -54,6 +54,11 @@ namespace genauto {
          * @param other
          */
         MessageId(const MessageId& other);
+
+        /**
+         * @brief Default ctor
+         */
+        MessageId();
 
         /**
          * @brief Makes a string from the id

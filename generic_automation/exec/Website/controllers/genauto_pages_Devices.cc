@@ -1,4 +1,5 @@
 #include "genauto_pages_Devices.h"
+#include <drogon/HttpClient.h>
 #include "../json/json.hpp"
 using namespace genauto::pages;
 using json = nlohmann::json;
@@ -36,5 +37,23 @@ void Devices::deviceComm(const HttpRequestPtr &req,
     std::function<void (const HttpResponsePtr &)> &&callback)
 {
     LOG_DEBUG << "Called!";
+
+    auto client = HttpClient::newHttpClient(
+        "http://10.150.148.214",80);
+	auto newReq = HttpRequest::newHttpRequest();
+	std::promise<bool> valid;
+	req->setPath("/?test=ASDLKJFSD");
+    LOG_DEBUG << "Called!";
+	client->sendRequest(newReq, [&](ReqResult result, const HttpResponsePtr &response) {
+    LOG_DEBUG << "Called!";
+		if(response == nullptr) // If no server responce
+			valid.set_value(false);
+		valid.set_value(true);
+    LOG_DEBUG << "Called!";
+	});
+	bool api_ok = valid.get_future().get(); // Wait for HTTP to response. Have to wait here otherwise crash the entire application
+
+    LOG_DEBUG << "Called!";
     callback(HttpResponse::newHttpResponse());
+    LOG_DEBUG << "Called!";
 }

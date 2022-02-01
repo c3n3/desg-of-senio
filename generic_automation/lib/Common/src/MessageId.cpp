@@ -26,6 +26,9 @@ MessageId::MessageId(uint16_t major, uint8_t minor)
     : major(major), minor(minor)
 {}
 
+MessageId::MessageId() : major(0), minor(0)
+{}
+
 MessageId::MessageId(const MessageId& other)
     : major(other.major), minor(other.minor)
 {}
