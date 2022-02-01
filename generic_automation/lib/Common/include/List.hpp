@@ -14,7 +14,7 @@ namespace genauto {
             buffer_ = new T[size_];
         }
 
-        void pushBack(T&& item)
+        void pushBack(T item)
         {
             if (count_ >= size_) {
                 T* old = buffer_;
