@@ -6,6 +6,7 @@
 #include "Queue.hpp"
 #include "Subscriber.hpp"
 #include <iostream>
+#include <sstream>
 
 using namespace genauto;
 
@@ -90,9 +91,29 @@ void subTest()
 
 }
 
+#include <curlpp/cURLpp.hpp>
+#include <curlpp/Options.hpp>
+
+void testGet()
+{
+
+    // RAII cleanup
+    curlpp::Cleanup myCleanup;
+
+    // Send request and get a result.
+    // Here I use a shortcut to get it in a string stream ...
+
+    std::ostringstream os;
+    os << curlpp::options::Url(std::string("http://192.168.50.246?test=ASDJDLKFASDHGSDA"));
+
+    std::string asAskedInQuestion = os.str();
+    std::cout << asAskedInQuestion;
+}
+
 int main()
 {
     serializeTesting();
     mapTesting();
     queueTesting();
+    testGet();
 }

@@ -10,6 +10,9 @@ libCommon = shared_library('Common',
   install : true,
   dependencies : [])
 
+curlpp = dependency('curlpp')
+
 Common_dep = declare_dependency(
     include_directories : inc,
-    link_with : libCommon)
+    link_with : [libCommon],
+    dependencies: [curlpp])

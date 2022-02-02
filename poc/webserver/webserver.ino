@@ -3,7 +3,7 @@
 #include <HTTPClient.h>
 
 /*Put your SSID & Password*/
-const char *ssid = "KSU Guest"; // Enter SSID here
+const char *ssid = ""; // Enter SSID here
 const char *password = "";      //Enter Password here
 
 WebServer server(80);
@@ -73,6 +73,7 @@ void sendString(const char *url)
 void loop()
 {
   server.handleClient();
+  return;
   if (millis() - timer > timerDelay) {
     sendString(serverName);
     timer += timerDelay;
