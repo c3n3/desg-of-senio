@@ -2,11 +2,7 @@
 #include <WebServer.h>
 #include <HTTPClient.h>
 
-/*Put your SSID & Password*/
-const char *ssid = ""; // Enter SSID here
-const char *password = "";      //Enter Password here
 
-WebServer server(80);
 
 const char* serverName = "http://10.150.150.144:80/genauto/pages/devices/test";
 

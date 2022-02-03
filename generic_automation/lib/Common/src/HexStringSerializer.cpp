@@ -39,12 +39,7 @@ HexStringSerializer::Result HexStringSerializer::parse(const uint8_t* incoming, 
         buffer_[bufferIdx_++] = incoming[i];
         currentSize_ = bufferIdx_;
     }
-    if (bufferIdx_ >= maxSize_) {
-        bufferIdx_ = 0;
-        return Success;
-    } else {
-        return IncompleteData;
-    }
+    bufferIdx_ = 0;
 }
 
 void HexStringSerializer::cancelParse()
