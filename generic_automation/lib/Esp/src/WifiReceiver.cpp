@@ -8,8 +8,8 @@ using namespace genauto;
 
 
 /*Put your SSID & Password*/
-const char *ssid = "KSU Guest"; // Enter SSID here
-const char *password = "";      //Enter Password here
+const char *ssid = "Nolan"; // Enter SSID here
+const char *password = "kstate11";      //Enter Password here
 
 WifiReceiver* WifiReceiver::receiver = nullptr;
 
@@ -52,12 +52,17 @@ void WifiReceiver::handleConnect()
     if (server.hasArg("d"))
     {
         String arg = server.arg("d");
-        receiver->serializer.parse(
-            (const uint8_t*)arg.c_str(),arg.length());
+        Serial.println(arg);
+        if (receiver->serializer.parse(
+            (const uint8_t*)arg.c_str(),arg.length())
+            == HexStringSerializer::Failure)
+        {
+            Serial.println("Parsing failed");
+        }
+        receiver->gotMsg = true;
+        Serial.println("GOT");
     }
     server.send(200, "text/html", "");
-    receiver->gotMsg = true;
-    Serial.println("GOT");
 }
 
 Message* WifiReceiver::tryGet()

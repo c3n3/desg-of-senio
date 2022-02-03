@@ -58,7 +58,6 @@ HexStringSerializer::Result HexStringSerializer::deserialize(Message* msg)
                 sizeof(Message::msgType_t) + i + 1] - 'A')) << 4;
         uint8_t byteOne = ((buffer_[sizeof(Message::msgType_t) + i] - 'A'));
         buffer[(i / 2)] = byteTwo | byteOne;
-        // buffer[i/2] = 0xff;
     }
     return Success;
 }

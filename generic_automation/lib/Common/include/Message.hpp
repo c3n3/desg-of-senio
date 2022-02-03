@@ -59,7 +59,7 @@ namespace genauto {
          * @brief Defines type string for all class
          */
         static const msgType_t classMsgType;
-    };
+    }; 
 }
 
 #endif

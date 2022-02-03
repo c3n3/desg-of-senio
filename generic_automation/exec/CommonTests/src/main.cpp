@@ -1,6 +1,8 @@
 #include "StringBuilder.hpp"
 #include "StepperMotorMessage.hpp"
 #include "TypedHexStringSerializer.hpp"
+#include "MessageBuffer.hpp"
+#include "Log.hpp"
 #include "HexStringSerializer.hpp"
 #include "Map.hpp"
 #include "Message.hpp"
@@ -109,7 +111,7 @@ void testGet()
     StepperMotorMessage m(
         MessageId(90,1), StepperMotorMessage::Speed, 100);
     serilizer.serialize(&m);
-    std::string willSend = std::string("http://10.150.148.214?d=") + serilizer.getBuffer();
+    std::string willSend = std::string("http://172.20.10.11?d=") + serilizer.getBuffer();
     std::cout << willSend << "\n";
     os << curlpp::options::Url(willSend);
 
@@ -119,8 +121,5 @@ void testGet()
 
 int main()
 {
-    serializeTesting();
-    mapTesting();
-    queueTesting();
-    testGet();
+    Message16_t msg(MessageId(10, 20), MSG_TYPE('A', 'B'));
 }
