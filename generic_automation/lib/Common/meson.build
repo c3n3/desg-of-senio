@@ -4,6 +4,7 @@ inc = include_directories('./include')
 libCommon = shared_library('Common',
   './src/Message.cpp',
   './src/MessageId.cpp',
+  './src/HexStringSerializer.cpp',
   './src/StepperMotorMessage.cpp',
   './src/StringBuilder.cpp',
   include_directories : inc,

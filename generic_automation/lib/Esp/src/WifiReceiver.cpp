@@ -6,24 +6,26 @@
 
 using namespace genauto;
 
-WiFi.begin(ssid, password);
 
 /*Put your SSID & Password*/
-const char *ssid = "St. Isidores MHK Public"; // Enter SSID here
-const char *password = "BeOurGuest";      //Enter Password here
+const char *ssid = "KSU Guest"; // Enter SSID here
+const char *password = "";      //Enter Password here
 
 WifiReceiver* WifiReceiver::receiver = nullptr;
 
 WebServer server(80);
 
 static void doNothing()
-{}
+{
+    server.send(200, "text/html", "");
+}
 
 WifiReceiver::WifiReceiver()
     : serializer(sizeof(msgBuffer)),
-    cur(nullptr)
+    cur(nullptr), gotMsg(false)
 {
     WiFi.begin(ssid, password);
+
     while (WiFi.status() != WL_CONNECTED)
     {
         delay(1000);
@@ -50,17 +52,21 @@ void WifiReceiver::handleConnect()
     if (server.hasArg("d"))
     {
         String arg = server.arg("d");
-        receiver->serializer.parse(arg.c_str(),arg.length());
+        receiver->serializer.parse(
+            (const uint8_t*)arg.c_str(),arg.length());
     }
     server.send(200, "text/html", "");
+    receiver->gotMsg = true;
+    Serial.println("GOT");
 }
 
 Message* WifiReceiver::tryGet()
 {
     server.handleClient();
-    if (receiver->serializer.deserialize(
+    if (receiver->gotMsg && receiver->serializer.deserialize(
         (Message*)msgBuffer) == HexStringSerializer::Success)
     {
+        receiver->gotMsg = false;
         return (Message*)msgBuffer;
     }
     return nullptr;

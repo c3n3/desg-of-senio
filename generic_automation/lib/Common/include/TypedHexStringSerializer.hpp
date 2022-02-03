@@ -1,5 +1,5 @@
-#ifndef __GENAUTO_HEX_STRING_SERIALIZER_HPP__
-#define __GENAUTO_HEX_STRING_SERIALIZER_HPP__
+#ifndef __GENAUTO_TYPED_HEX_STRING_SERIALIZER_HPP__
+#define __GENAUTO_TYPED_HEX_STRING_SERIALIZER_HPP__
 
 #include "MessageSerializer.hpp"
 #include "Message.hpp"

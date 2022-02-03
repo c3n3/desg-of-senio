@@ -10,7 +10,7 @@ HexStringSerializer::HexStringSerializer(int maxSize)
 
 HexStringSerializer::Result HexStringSerializer::serialize(Message* msg)
 {
-    if (msg->size*2 > maxSize_) {
+    if (msg->size*2 + 1 > maxSize_) {
         return Failure;
     }
     uint8_t* serial = (uint8_t*) &msg;
@@ -25,7 +25,9 @@ HexStringSerializer::Result HexStringSerializer::serialize(Message* msg)
             buffer_[index++] = 'A' + hex;
         }
     }
+    buffer_[index] = '\0';
     currentSize_ = msg->size;
+
     return Success;
 }
 

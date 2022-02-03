@@ -1,6 +1,7 @@
 #include "StringBuilder.hpp"
 #include "StepperMotorMessage.hpp"
 #include "TypedHexStringSerializer.hpp"
+#include "HexStringSerializer.hpp"
 #include "Map.hpp"
 #include "Message.hpp"
 #include "Queue.hpp"
@@ -104,7 +105,13 @@ void testGet()
     // Here I use a shortcut to get it in a string stream ...
 
     std::ostringstream os;
-    os << curlpp::options::Url(std::string("http://192.168.50.246?test=ASDJDLKFASDHGSDA"));
+    HexStringSerializer serilizer(1000);
+    StepperMotorMessage m(
+        MessageId(90,1), StepperMotorMessage::Speed, 100);
+    serilizer.serialize(&m);
+    std::string willSend = std::string("http://10.150.148.214?d=") + serilizer.getBuffer();
+    std::cout << willSend << "\n";
+    os << curlpp::options::Url(willSend);
 
     std::string asAskedInQuestion = os.str();
     std::cout << asAskedInQuestion;

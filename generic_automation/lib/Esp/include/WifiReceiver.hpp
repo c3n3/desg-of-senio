@@ -12,6 +12,7 @@ namespace genauto {
         Message* cur;
         uint8_t msgBuffer[100]; // TODO: Is this the max size?
         static void handleConnect();
+        bool gotMsg;
         WifiReceiver();
         static WifiReceiver* receiver;
     public:
