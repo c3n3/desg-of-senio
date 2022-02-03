@@ -1,5 +1,5 @@
-#ifndef __GENERIC_AUTOMATION_ENCODER_MESSAGE_HPP__
-#define __GENERIC_AUTOMATION_ENCODER_MESSAGE_HPP__
+#ifndef __GENERIC_AUTOMATION_PWM_MESSAGE_HPP__
+#define __GENERIC_AUTOMATION_PWM_MESSAGE_HPP__
 
 #include "Message.hpp"
 #include "StringBuilder.hpp"
@@ -11,7 +11,7 @@ namespace genauto {
     /**
      * @brief A stepper motor message
      */
-    class EncoderMessage : public Message {
+    class PwmMessage : public Message {
     public:
 
         /**
@@ -20,21 +20,36 @@ namespace genauto {
          * @param type Type of the message
          * @param value The value for the type
          */
-        EncoderMessage(MessageId id, uint16_t val);
+        PwmMessage(MessageId id, int16_t dutyCycle, bool onOff);
 
         /**
          * @brief gets the value of the message
          *
          * @return uint16_t
          */
-        uint16_t getValue();
+        uint16_t getDutyCycle();
 
         /**
          * @brief Set the Value object
          * 
          * @param value 
          */
-        void setValue(uint16_t value);
+        void setDutyCycle(int16_t dutyCycle);
+
+
+        /**
+         * @brief gets the value of the message
+         *
+         * @return uint16_t
+         */
+        bool getOnOff();
+
+        /**
+         * @brief Set the Value object
+         * 
+         * @param value 
+         */
+        void setOnOff(bool onOff);
 
 
         /**
@@ -49,7 +64,8 @@ namespace genauto {
          */
         static const Message::msgType_t classMsgType;
     private:
-        uint16_t value_;
+        int16_t dutyCycle_;
+        bool onOff_;
     };
 }
 

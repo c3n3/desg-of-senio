@@ -15,27 +15,39 @@
 // {
 // }
 
-// /**
-//          * @brief gets the value of the message
-//          *
-//          * @return the value of how much the encoder has changed.
-//          */
-// uint8_t EncoderMessage::getValue()
-// {
-//     return value_;
-// }
+/**
+         * @brief gets the value of the message
+         *
+         * @return the value of how much the encoder has changed.
+         */
+void EncoderMessage::setValue(uint16_t value)
+{
+    value_ = value;
+}
 
-// /**
-//          * @brief Convert to string
-//          *
-//          * @param sb
-//          */
-// void EncoderMessage::toString(StringBuilder &sb)
-// {
-//     sb.appendString("{EncoderMessage; ");
-//     sb.appendString("Value: ");
-//     sb.appendFloat(value_);
-//     sb.appendString(", ");
-//     id.toString(sb);
-//     sb.appendChar('}');
-// }
+
+/**
+         * @brief gets the value of the message
+         *
+         * @return the value of how much the encoder has changed.
+         */
+uint16_t EncoderMessage::getValue()
+{
+    return value_;
+}
+
+
+/**
+         * @brief Convert to string
+         *
+         * @param sb
+         */
+void EncoderMessage::toString(StringBuilder &sb)
+{
+    sb.appendString("{EncoderMessage; ");
+    sb.appendString("Value: ");
+    sb.appendInt(value_);
+    sb.appendString(", ");
+    id.toString(sb);
+    sb.appendChar('}');
+}
