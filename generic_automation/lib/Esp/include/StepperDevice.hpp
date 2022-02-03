@@ -2,12 +2,17 @@
 #define __GENERIC_AUTOMATION_STEPPERDEVICE_HPP__
 
 #include <stdint.h>
+#include <Stepper.h>
 
 namespace genauto {
     /**
      * @brief Abstract message
      */
     class StepperDevice {
+    private:
+    uint8_t stepPin;
+    uint8_t dirPin;
+    Stepper myStepper;
     public:
 
         /**

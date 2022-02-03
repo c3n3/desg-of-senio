@@ -1,8 +1,9 @@
 // #include "../include/PwmDevice.hpp"
 // #include <stdint.h>
 
-// static const uint16_t PWM_FREQUENCY = 5000;
-// static const uint8_t PWM_RESOUTION = 8;
+static const uint16_t PWM_FREQUENCY = 5000;
+static const uint8_t PWM_RESOUTION = 8;
+const genauto::Message::msgType_t genauto::Message::classMsgType = MSG_TYPE('A', 'C');
 
 // /**
 //  * @brief Construct a new genauto::Pwm Device::pwm object
@@ -18,15 +19,26 @@
 //     ledcAttachPin(pinNumber, channel);
 // }
 
-// /**
-//  * @brief 
-//  * 
-//  * @param dutyCycle 
-//  */
-// void genauto::PwmDevice::setDutyCycle(uint8_t dutyCycle)
-// {
-//     dutyCycle_ = dutyCycle;
-// }
+/**
+ * @brief 
+ * 
+ * @return uint8_t 
+ */
+uint8_t genauto::PwmDevice::getDutyCycle()
+{
+    return dutyCycle_;
+}
+
+
+/**
+ * @brief 
+ * 
+ * @param dutyCycle 
+ */
+void genauto::PwmDevice::setDutyCycle(uint8_t dutyCycle)
+{
+    dutyCycle_ = dutyCycle;
+}
 
 // /**
 //  * @brief 
@@ -39,16 +51,6 @@
 //     startTime_ = millis();
 // }
 
-// /**
-//  * @brief set direction of motor if applicable
-//  * 
-//  * @param dir 
-//  */
-// void genauto::PwmDevice::setDirection(uint8_t dir)
-// {
-//     dir_ = dir;
-// }
-
 
 // /*
 // Need if statements to check and see what message type is in the queue.
@@ -56,21 +58,32 @@
 // This will make it easier for when we are doing local linking.
 // */
 
-
-
-// /**
-//  * @brief 
-//  * 
-//  */
-// void genauto::PwmDevice::execute()
-// {
-//     Message* Msg = NULL;
-//     if(msgs_.dequeue(Msg) == Queue<Message*>::Success)
-//     {
-//         setDirection(pwmMsg.dir);
-//         setDutyCycle(pwmMsg.dutyCycle)
-//         setTimeOn(pwmMsg.timeOn);
-//     }
+/**
+ * @brief 
+ * 
+ */
+void genauto::PwmDevice::execute()
+{
+    Message* Msg = NULL;
+    if(msgs_.dequeue(Msg) == Queue<Message*>::Success)
+    {
+        if(Msg->msgType == EncoderMessage::classMsgType)
+        {
+            EncoderMessage* eMsg = (EncoderMessage*)Msg;
+            uinit6_t curDuty = dutyCycle_;
+            
+        }
+        if(Msg->msgType == ButtonMessage::classMsgType)
+        {
+            ButtonMessage* bMsg = (ButtonMessage*)Msg;
+            if(pwmOn_ == bMsg.onStatus) pwmOn_ = !pwmOn_;
+        }
+        if(Msg->msgType == TimeOnMessage::classMsgType)
+        {
+            TimeOnMessage* tMsg = (TimeOnMessage*)Msg;
+            setTimeOn(TimeOnMessage.time);
+        }
+    }
 
 //     if((millis() - startTime_) < timeOn_)
 //     {

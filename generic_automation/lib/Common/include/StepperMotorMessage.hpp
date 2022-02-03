@@ -7,17 +7,20 @@
 
 #include <stdint.h>
 
-namespace genauto {
+namespace genauto
+{
     /**
      * @brief A stepper motor message
      */
-    class StepperMotorMessage : public Message {
+    class StepperMotorMessage : public Message
+    {
     public:
         /**
          * @brief Allows us to specify if we are instructing a degree change
          * or setting a speed
          */
-        enum Type {
+        enum Type
+        {
             Speed,
             Degree
         };
@@ -49,12 +52,13 @@ namespace genauto {
          *
          * @param sb
          */
-        void toString(StringBuilder& sb);
-        
+        void toString(StringBuilder &sb);
+
         /**
          * @brief Type of the message specific to class
          */
         static const Message::msgType_t classMsgType;
+
     private:
         Type type_;
         float value_;
