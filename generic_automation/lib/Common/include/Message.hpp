@@ -1,65 +1,68 @@
-#ifndef __GENERIC_AUTOMATION_MESSAGE_HPP__
-#define __GENERIC_AUTOMATION_MESSAGE_HPP__
+#ifndef __GENAUTO_MESSAGE_HPP__
+#define __GENAUTO_MESSAGE_HPP__
 
-#include "StringBuilder.hpp"
 #include "MessageId.hpp"
+#include <stdlib.h>
 
-#include <stdint.h>
+typedef uint16_t location_t;
 
+#define BUFFER_VAR(previous, type, name) \
+type* const name = (type*)(((uint8_t*)&previous) + sizeof(type))
 
+using namespace genauto;
 namespace genauto {
-    /**
-     * @brief Abstract message
-     */
-    class Message {
+
+    typedef uint16_t msgType_t;
+
+    class BaseMessage {
     public:
-        /**
-         * @brief used to simply declare message types in an easy way.
-         * 
-         */
-        #define MSG_TYPE(A, B) (((uint16_t)(A)) << 8) | ((uint16_t)(B))
+        virtual MessageId getId() = 0;
+        virtual uint16_t getSize() = 0;
+        virtual msgType_t getType() = 0;
+        virtual uint8_t* getBuffer() = 0;
+    };
 
-        /**
-         * @brief Type of the messag id
-         */
-        typedef uint16_t msgType_t;
 
-        /**
-         * @brief Simple ctor
-         *
-         * @param id msg id
-         */
-        Message(const MessageId& id, msgType_t type);
+    template<uint16_t N>
+    class Message : public BaseMessage {
+    protected:
+        uint8_t buffer_[N];
+        uint16_t* const size_ = (uint16_t*)buffer_;
+        BUFFER_VAR(size_, MessageId, msgId_);
+        BUFFER_VAR(msgId_, msgType_t, type_);
+    public:
+        Message(MessageId id, uint16_t type)
+        {
+            set(size_location, N);
+            set(msgId_location, id);
+            set(type_location, type);
+        }
 
-        /**
-         * @brief Message id
-         */
-        const MessageId id;
+        uint16_t getSize()
+        {
+            return *size_;
+        }
 
-        /**
-         * @brief Simple to string function written such that no
-         * standard library is needed
-         *
-         * @param buf buffer to store the new string
-         * @param size the size of the input buffer
-         */
-        virtual void toString(StringBuilder& sb);
+        MessageId getId()
+        {
+            return *msgId_;
+        }
 
-        /**
-         * @brief Type of the message
-         */
-        const msgType_t msgType;
+        uint8_t* getBuffer()
+        {
+            return buffer_;
+        }
 
-        /**
-         * @brief Length of the message
-         */
-        const uint16_t size;
+        uint16_t getType()
+        {
+            return *type_;
+        }
 
-        /**
-         * @brief Defines type string for all class
-         */
-        static const msgType_t classMsgType;
-    }; 
+    };
+
 }
+
+typedef Message<16> Message16_t;
+
 
 #endif

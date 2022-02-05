@@ -21,6 +21,8 @@ namespace genauto {
          */
         HexStringSerializer(int maxSize);
 
+        ~HexStringSerializer();
+
         /**
          * @brief A Result enum
          */
@@ -35,7 +37,7 @@ namespace genauto {
          *
          * @param msg the message
          */
-        Result serialize(Message* msg);
+        Result serialize(BaseMessage* msg);
 
         /**
          * @brief parse incoming data into the buffer properly
@@ -57,7 +59,7 @@ namespace genauto {
          *
          * @param msg the message
          */
-        Result deserialize(Message* msg);
+        Result deserialize(BaseMessage* msg);
 
         /**
          * @brief Validates that a message is a valid uncorrupted message

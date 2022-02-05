@@ -1,7 +1,7 @@
 #include "StringBuilder.hpp"
 #include "StepperMotorMessage.hpp"
 #include "TypedHexStringSerializer.hpp"
-#include "MessageBuffer.hpp"
+#include "Message.hpp"
 #include "Log.hpp"
 #include "HexStringSerializer.hpp"
 #include "Map.hpp"
