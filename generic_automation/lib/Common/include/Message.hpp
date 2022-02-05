@@ -2,67 +2,70 @@
 #define __GENAUTO_MESSAGE_HPP__
 
 #include "MessageId.hpp"
+#include "StringBuilder.hpp"
+#include "../include/Log.hpp"
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 typedef uint16_t location_t;
 
-#define BUFFER_VAR(previous, type, name) \
-type* const name = (type*)(((uint8_t*)&previous) + sizeof(type))
 
 using namespace genauto;
+
 namespace genauto {
 
     typedef uint16_t msgType_t;
 
-    class BaseMessage {
-    public:
-        virtual MessageId getId() = 0;
-        virtual uint16_t getSize() = 0;
-        virtual msgType_t getType() = 0;
-        virtual uint8_t* getBuffer() = 0;
-    };
+    #define MSG_TYPE(A, B) (((uint16_t)(A)) << 8) | ((uint16_t)(B))
+
+    
+
+    #define NEXT(previous) \
+        (((uint8_t*)previous) + sizeof(*previous))
 
 
-    template<uint16_t N>
-    class Message : public BaseMessage {
+    #define BUFFER_VAR(name, type, previous) \
+        static constexpr uint16_t name ## loc_ = previous ## loc_ + sizeof(previous()); \
+        inline type& name () \
+        { \
+            return *(type*)(buffer_ + name ## loc_); \
+        }
+
+    class Message {
     protected:
-        uint8_t buffer_[N];
-        uint16_t* const size_ = (uint16_t*)buffer_;
-        BUFFER_VAR(size_, MessageId, msgId_);
-        BUFFER_VAR(msgId_, msgType_t, type_);
+        uint8_t* buffer_;
+        static const uint16_t size_loc_ = 0;
+        uint16_t& size_ ()
+        {
+            return *(uint16_t*)(buffer_ + size_loc_);
+        }
+
+        BUFFER_VAR(id_, MessageId, size_);
+
+        BUFFER_VAR(type_, msgType_t, msgId_);
+
+        static constexpr uint16_t baseSize = sizeof(size_()) + sizeof(msgId_()) + sizeof(type_());
+
+        bool alloc;
+
     public:
-        Message(MessageId id, uint16_t type)
-        {
-            set(size_location, N);
-            set(msgId_location, id);
-            set(type_location, type);
-        }
+        Message(uint8_t* buffer = nullptr, uint16_t size=baseSize);
 
-        uint16_t getSize()
-        {
-            return *size_;
-        }
+        virtual ~Message();
 
-        MessageId getId()
-        {
-            return *msgId_;
-        }
+        MessageId& id();
 
-        uint8_t* getBuffer()
-        {
-            return buffer_;
-        }
+        uint16_t& type();
 
-        uint16_t getType()
-        {
-            return *type_;
-        }
+        uint8_t* getBuffer();
 
+        uint16_t getSize();
+
+        void setBuffer(uint8_t* buffer);
+
+        void toString(StringBuilder& sb);
     };
-
 }
-
-typedef Message<16> Message16_t;
-
 
 #endif

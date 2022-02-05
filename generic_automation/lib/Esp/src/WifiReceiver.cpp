@@ -3,13 +3,14 @@
 #include <WiFi.h>
 #include <WebServer.h>
 #include <HTTPClient.h>
+#include "../include/config.hpp"
 
 using namespace genauto;
 
 
 /*Put your SSID & Password*/
-const char *ssid = "Nolan"; // Enter SSID here
-const char *password = "kstate11";      //Enter Password here
+const char *ssid = SSID; // Enter SSID here
+const char *password = PASSWORD;      //Enter Password here
 
 WifiReceiver* WifiReceiver::receiver = nullptr;
 
@@ -22,7 +23,7 @@ static void doNothing()
 
 WifiReceiver::WifiReceiver()
     : serializer(sizeof(msgBuffer)),
-    cur(nullptr), gotMsg(false)
+    cur(msgBuffer), gotMsg(false)
 {
     WiFi.begin(ssid, password);
 
@@ -63,16 +64,18 @@ void WifiReceiver::handleConnect()
         Serial.println("GOT");
     }
     server.send(200, "text/html", "");
+    Serial.println("Done");
 }
 
 Message* WifiReceiver::tryGet()
 {
     server.handleClient();
     if (receiver->gotMsg && receiver->serializer.deserialize(
-        (Message*)msgBuffer) == HexStringSerializer::Success)
+        &cur) == HexStringSerializer::Success)
     {
+        dlog("\n");
         receiver->gotMsg = false;
-        return (Message*)msgBuffer;
+        return &cur;
     }
     return nullptr;
 }

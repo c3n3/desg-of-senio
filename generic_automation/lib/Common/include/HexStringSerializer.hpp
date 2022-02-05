@@ -37,7 +37,7 @@ namespace genauto {
          *
          * @param msg the message
          */
-        Result serialize(BaseMessage* msg);
+        Result serialize(Message* msg);
 
         /**
          * @brief parse incoming data into the buffer properly
@@ -59,7 +59,7 @@ namespace genauto {
          *
          * @param msg the message
          */
-        Result deserialize(BaseMessage* msg);
+        Result deserialize(Message* msg);
 
         /**
          * @brief Validates that a message is a valid uncorrupted message

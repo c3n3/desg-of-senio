@@ -12,37 +12,24 @@ void setup()
 {
     Serial.begin(115200);
     HexStringSerializer serilizer(1000);
-
-    float val;
-    // val = *(float*)0xff;
-    val = 0;
-    MessageId m(0,0);
-    // serilizer.serialize(&m);
-    uint8_t* buffer = (uint8_t*)&m;
-    for (int i = 0; i < sizeof(m); i++) {
-        dlog("%x-", buffer[i]);
-    }
-    dlog("\n");
-    dlog("sizeof(StepperMotorMessage) %d\n", sizeof(StepperMotorMessage));
-    dlog("sizeof(MessageId) %d\n", sizeof(MessageId));
-    dlog("sizeof(Message) %d\n", sizeof(Message));
-    // dlog("sizeof(Message) %d\n", sizeof(m.size));
-    // dlog("sizeof(Message) %d\n", sizeof(m.msgType));
-    // dlog(serilizer.getBuffer());
 }
 
 StringBuilder sb(1000);
 
 void loop()
 {
-    return;
     Message* msg = WifiReceiver::getReceiver()->tryGet();
     if (msg != nullptr) {
-        Serial.print("Got message of size = "); Serial.println(msg->size);
-        if (msg->msgType == StepperMotorMessage::classMsgType) {
+        Serial.print("Got message of size = "); Serial.println(msg->getSize());
+        dlog("\n");
+        if (msg->type() == StepperMotorMessage::classMsgType) {
+        dlog("\n");
             StepperMotorMessage* step = (StepperMotorMessage*)msg;
+        dlog("\n");
             step->toString(sb);
+        dlog("\n");
             Serial.println(sb.getString());
+        dlog("\n");
         }
     }
 }

@@ -24,28 +24,35 @@ namespace genauto
             Speed,
             Degree
         };
+    private:
+        BUFFER_VAR(valueType_, Type, type_);
+
+        BUFFER_VAR(value_, float, valueType_);
+
+        static constexpr uint16_t msgSize
+            = Message::baseSize + sizeof(value_()) + sizeof(valueType_());
+    public:
 
         /**
          * @brief Create a stepper motor message
          *
-         * @param type Type of the message
-         * @param value The value for the type
+         * @param buffer The buffer for the message
          */
-        StepperMotorMessage(MessageId id, Type type, float value);
+        StepperMotorMessage(uint8_t* buffer = nullptr);
 
         /**
          * @brief gets the value of the message
          *
          * @return float
          */
-        float getValue();
+        float& value();
 
         /**
          * @brief Gets the type of the message
          *
          * @return Type
          */
-        Type getType();
+        Type& type();
 
         /**
          * @brief Convert to string
@@ -57,11 +64,7 @@ namespace genauto
         /**
          * @brief Type of the message specific to class
          */
-        static const Message::msgType_t classMsgType;
-
-    private:
-        Type type_;
-        float value_;
+        static const msgType_t classMsgType;
     };
 }
 
