@@ -2,6 +2,7 @@
 #define __GENAUTO_STATIC_ALLOCATOR_HPP__
 
 #include <stddef.h>
+#include <stdint.h>
 
 namespace genauto {
     template<typename T, int N>

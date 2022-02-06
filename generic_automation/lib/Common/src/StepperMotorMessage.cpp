@@ -8,8 +8,7 @@ const msgType_t StepperMotorMessage::classMsgType = MSG_TYPE('A', 'B');
 StepperMotorMessage::StepperMotorMessage(uint8_t* buffer)
     : Message(buffer, msgSize)
 {
-    setBuffer(buffer);
-    if (*size_ != msgSize) {
+    if (size_() != msgSize) {
         dlog("Error: buffer size mismatch, watch for segfault.\n");
     }
 
@@ -17,27 +16,27 @@ StepperMotorMessage::StepperMotorMessage(uint8_t* buffer)
     Message::type() = classMsgType;
 }
 
-StepperMotorMessage::Type StepperMotorMessage::type()
+float& StepperMotorMessage::value()
 {
-    return type_();
+    return get<float>(value_loc);
 }
 
-StepperMotorMessage::Type StepperMotorMessage::value()
+StepperMotorMessage::Type& StepperMotorMessage::valueType()
 {
-    return value_();
+    return get<Type>(valueType_loc);
 }
 
 void StepperMotorMessage::toString(StringBuilder& sb)
 {
     sb.appendString("{StepperMotorMessage; Type: ");
-    if (valueType_() == Degree) {
+    if (valueType() == Degree) {
         sb.appendString("Degree, ");
     } else {
         sb.appendString("Speed, ");
     }
     sb.appendString("Value: ");
-    sb.appendFloat(value_());
+    sb.appendFloat(value());
     sb.appendString(", ");
-    msgId_->toString(sb);
+    id().toString(sb);
     sb.appendChar('}');
 }

@@ -4,6 +4,7 @@
 #include "Log.hpp"
 #include "HexStringSerializer.hpp"
 #include "Map.hpp"
+#include "Timer.hpp"
 #include "Message.hpp"
 #include "Queue.hpp"
 #include "Subscriber.hpp"
@@ -66,31 +67,16 @@ void subTest()
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Options.hpp>
 
-void testGet()
-{
+HexStringSerializer serilizer(1000);
 
-    // RAII cleanup
-    curlpp::Cleanup myCleanup;
-    // Send request and get a result.
-    // Here I use a shortcut to get it in a string stream ...
+void send(Message* message)
+{
     std::ostringstream os;
-    HexStringSerializer serilizer(1000);
-    StepperMotorMessage m;
-    dlog("\n");
-    StringBuilder sb(1000);    
-    dlog("\n");
-    m.id() = MessageId(78123, 90);
-    dlog("\n");
-    m.toString(sb);
-    dlog("\n");
-    std::cout << "Sending: " << sb.getString() << "\n";
-    serilizer.serialize(&m);
-    std::string willSend = std::string("http://192.168.50.246?d=") + serilizer.getBuffer();
+    serilizer.serialize(message);
+    std::string willSend = std::string("http://192.168.1.56?d=") + serilizer.getBuffer();
     std::cout << willSend << "\n";
     os << curlpp::options::Url(willSend);
 
-    std::string asAskedInQuestion = os.str();
-    std::cout << asAskedInQuestion;
 }
 
 int main()
@@ -125,5 +111,33 @@ int main()
     //         dlog("msg4 = %s\n", sb.getString());
     //     }
     // }
-    testGet();
+    Timer t("100 Volley");
+    StepperMotorMessage message;
+    message.id() = MessageId(78, 69);
+    message.value() = 9.8;
+    message.valueType() = StepperMotorMessage::Degree;
+    for (int i = 0; i < 100; i++) {
+        send(&message);
+        message.id().major++;
+    }
+    t.log();
+    // StringBuilder sb(1000);
+    // StepperMotorMessage msg;
+    // msg.id() = MessageId(90, 10);
+    // Message base = msg;
+
+    // StepperMotorMessage msg2 = base;
+    // std::cout << base.id().major << "\n";
+    // std::cout << msg.id().major << "\n";
+    // std::cout << msg.size() << "\n";
+    // std::cout << base.size() << "\n";
+    // std::cout << msg2.size() << "\n";
+    // std::cout << msg2.id().major << "\n";
+
+    // {
+    //     Message* basePtr = &msg;
+    //     basePtr->log();
+    //     StepperMotorMessage* ptr = (StepperMotorMessage*)basePtr;
+    //     ptr->log();
+    // }
 }

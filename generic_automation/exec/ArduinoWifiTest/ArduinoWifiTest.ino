@@ -5,6 +5,7 @@
 #define ARDUINO
 #include "src/Common/include/Log.hpp"
 #include "src/Common/include/StringBuilder.hpp"
+#include "src/Common/include/Timer.hpp"
 
 using namespace genauto;
 
@@ -20,16 +21,10 @@ void loop()
 {
     Message* msg = WifiReceiver::getReceiver()->tryGet();
     if (msg != nullptr) {
-        Serial.print("Got message of size = "); Serial.println(msg->getSize());
-        dlog("\n");
+        Serial.print("Got message of size = "); Serial.println(msg->size());
         if (msg->type() == StepperMotorMessage::classMsgType) {
-        dlog("\n");
             StepperMotorMessage* step = (StepperMotorMessage*)msg;
-        dlog("\n");
-            step->toString(sb);
-        dlog("\n");
-            Serial.println(sb.getString());
-        dlog("\n");
+            step->log();
         }
     }
 }
