@@ -1,15 +1,20 @@
+// Adaption from:
+// https://lastminuteengineers.com/creating-esp32-web-server-arduino-ide/
+
 #include "../include/WifiReceiver.hpp"
+#include "../../Common/include/Timer.hpp"
 
 #include <WiFi.h>
 #include <WebServer.h>
 #include <HTTPClient.h>
+#include "../include/config.hpp"
 
 using namespace genauto;
 
 
 /*Put your SSID & Password*/
-const char *ssid = "Nolan"; // Enter SSID here
-const char *password = "kstate11";      //Enter Password here
+const char *ssid = SSID; // Enter SSID here
+const char *password = PASSWORD;      //Enter Password here
 
 WifiReceiver* WifiReceiver::receiver = nullptr;
 
@@ -22,7 +27,7 @@ static void doNothing()
 
 WifiReceiver::WifiReceiver()
     : serializer(sizeof(msgBuffer)),
-    cur(nullptr), gotMsg(false)
+    cur(msgBuffer), gotMsg(false)
 {
     WiFi.begin(ssid, password);
 
@@ -57,22 +62,27 @@ void WifiReceiver::handleConnect()
             (const uint8_t*)arg.c_str(),arg.length())
             == HexStringSerializer::Failure)
         {
-            Serial.println("Parsing failed");
+            dlog("Parsing failed\n");
         }
         receiver->gotMsg = true;
-        Serial.println("GOT");
     }
     server.send(200, "text/html", "");
-}
+}   
 
 Message* WifiReceiver::tryGet()
 {
+    Timer main("Handle Client");
     server.handleClient();
-    if (receiver->gotMsg && receiver->serializer.deserialize(
-        (Message*)msgBuffer) == HexStringSerializer::Success)
-    {
-        receiver->gotMsg = false;
-        return (Message*)msgBuffer;
+    if (receiver->gotMsg) {
+        main.log();
+        Timer t("Message Parse");
+        if (receiver->serializer.deserialize(
+            &cur) == HexStringSerializer::Success)
+        {
+            receiver->gotMsg = false;
+            t.log();
+            return &cur;
+        }
     }
     return nullptr;
 }

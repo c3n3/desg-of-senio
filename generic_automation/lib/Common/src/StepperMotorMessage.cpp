@@ -1,25 +1,42 @@
 #include "../include/StepperMotorMessage.hpp"
+#include "../include/Log.hpp"
 
 using namespace genauto;
 
-const Message::msgType_t StepperMotorMessage::classMsgType = MSG_TYPE('A', 'B');
+const msgType_t StepperMotorMessage::classMsgType = MSG_TYPE('A', 'B');
 
-StepperMotorMessage::StepperMotorMessage(
-    MessageId id, StepperMotorMessage::Type t, float v)
-    : value_(v), type_(t), Message(id, StepperMotorMessage::classMsgType)
-{}
+StepperMotorMessage::StepperMotorMessage(uint8_t* buffer)
+    : Message(buffer, msgSize)
+{
+    if (size_() != msgSize) {
+        dlog("Error: buffer size mismatch, watch for segfault.\n");
+    }
+
+    // Set type in case this is a new buffer
+    Message::type() = classMsgType;
+}
+
+float& StepperMotorMessage::value()
+{
+    return get<float>(value_loc);
+}
+
+StepperMotorMessage::Type& StepperMotorMessage::valueType()
+{
+    return get<Type>(valueType_loc);
+}
 
 void StepperMotorMessage::toString(StringBuilder& sb)
 {
     sb.appendString("{StepperMotorMessage; Type: ");
-    if (type_ == Degree) {
+    if (valueType() == Degree) {
         sb.appendString("Degree, ");
     } else {
         sb.appendString("Speed, ");
     }
     sb.appendString("Value: ");
-    sb.appendFloat(value_);
+    sb.appendFloat(value());
     sb.appendString(", ");
-    id.toString(sb);
+    id().toString(sb);
     sb.appendChar('}');
 }

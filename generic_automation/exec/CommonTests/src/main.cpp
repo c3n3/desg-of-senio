@@ -1,10 +1,10 @@
 #include "StringBuilder.hpp"
 #include "StepperMotorMessage.hpp"
-#include "TypedHexStringSerializer.hpp"
 #include "Message.hpp"
 #include "Log.hpp"
 #include "HexStringSerializer.hpp"
 #include "Map.hpp"
+#include "Timer.hpp"
 #include "Message.hpp"
 #include "Queue.hpp"
 #include "Subscriber.hpp"
@@ -15,36 +15,6 @@ using namespace genauto;
 
 void serializeTesting()
 {
-    TypedHexStringSerializer<StepperMotorMessage> serial;
-    TypedHexStringSerializer<StepperMotorMessage> rec;
-
-    StepperMotorMessage m(MessageId(1,1), StepperMotorMessage::Speed, 10);
-
-    StringBuilder sb(1000);
-
-    m.toString(sb);
-    std::cout << "Before " << sb.getString() << "\n";
-
-    serial.serialize(m);
-
-    StepperMotorMessage m2(MessageId(0,0), StepperMotorMessage::Degree, 1110);
-    sb.clear();
-    serial.deserialize(m2);
-
-    for (int i = 0; i < serial.getSize(); i++) {
-        std::cout << (char)serial.getBuffer()[i];
-    }
-    std::cout << "\n";
-
-    m2.toString(sb);
-    std::cout << "After deserialize: " << sb.getString() << "\n";
-
-
-    std::cout << "Result = " << rec.parse(serial.getBuffer(), serial.getSize()) << "\n";
-    sb.clear();
-    rec.deserialize(m2);
-    m2.toString(sb);
-    std::cout << "After parse: " << sb.getString() << "\n";
 }
 
 void mapTesting()
@@ -97,29 +67,77 @@ void subTest()
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Options.hpp>
 
-void testGet()
+HexStringSerializer serilizer(1000);
+
+void send(Message* message)
 {
-
-    // RAII cleanup
-    curlpp::Cleanup myCleanup;
-
-    // Send request and get a result.
-    // Here I use a shortcut to get it in a string stream ...
-
     std::ostringstream os;
-    HexStringSerializer serilizer(1000);
-    StepperMotorMessage m(
-        MessageId(90,1), StepperMotorMessage::Speed, 100);
-    serilizer.serialize(&m);
-    std::string willSend = std::string("http://172.20.10.11?d=") + serilizer.getBuffer();
+    serilizer.serialize(message);
+    std::string willSend = std::string("http://192.168.1.56?d=") + serilizer.getBuffer();
     std::cout << willSend << "\n";
     os << curlpp::options::Url(willSend);
 
-    std::string asAskedInQuestion = os.str();
-    std::cout << asAskedInQuestion;
 }
 
 int main()
 {
-    Message16_t msg(MessageId(10, 20), MSG_TYPE('A', 'B'));
+    // {
+    //     Message msg;
+    //     msg.type() = 90;
+    //     msg.id() = MessageId(90, 80);
+    //     StringBuilder sb(1000);
+    //     msg.toString(sb);
+    //     dlog("%s\n", sb.getString());
+
+    //     HexStringSerializer ser(1000);
+    //     if (ser.serialize(&msg) == HexStringSerializer::Success) {
+    //         dlog("%s\n", ser.getBuffer());
+    //     }
+    //     Message msg2;
+
+
+    //     if (ser.deserialize(&msg2) == HexStringSerializer::Success) {
+    //         sb.clear();
+    //         msg2.toString(sb);
+    //         dlog("%s\n", sb.getString());
+    //         Message msg4(msg2.getBuffer());
+    //         StepperMotorMessage msg7(msg2.getBuffer());
+    //         dlog("\n");
+
+    //         sb.clear();
+    //         dlog("\n");
+    //         msg4.toString(sb);
+    //         dlog("\n");
+    //         dlog("msg4 = %s\n", sb.getString());
+    //     }
+    // }
+    Timer t("100 Volley");
+    StepperMotorMessage message;
+    message.id() = MessageId(78, 69);
+    message.value() = 9.8;
+    message.valueType() = StepperMotorMessage::Degree;
+    for (int i = 0; i < 100; i++) {
+        send(&message);
+        message.id().major++;
+    }
+    t.log();
+    // StringBuilder sb(1000);
+    // StepperMotorMessage msg;
+    // msg.id() = MessageId(90, 10);
+    // Message base = msg;
+
+    // StepperMotorMessage msg2 = base;
+    // std::cout << base.id().major << "\n";
+    // std::cout << msg.id().major << "\n";
+    // std::cout << msg.size() << "\n";
+    // std::cout << base.size() << "\n";
+    // std::cout << msg2.size() << "\n";
+    // std::cout << msg2.id().major << "\n";
+
+    // {
+    //     Message* basePtr = &msg;
+    //     basePtr->log();
+    //     StepperMotorMessage* ptr = (StepperMotorMessage*)basePtr;
+    //     ptr->log();
+    // }
 }
