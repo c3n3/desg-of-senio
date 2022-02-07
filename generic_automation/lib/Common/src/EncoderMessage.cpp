@@ -1,41 +1,30 @@
-// #include "../include/EncoderMessage.hpp"
+#include "../include/EncoderMessage.hpp"
 
-// using namespace genauto;
+using namespace genauto;
 
-// const Message::msgType_t EncoderMessage::classMsgType = MSG_TYPE('A', 'C');
+const MessageBuffer::msgType_t EncoderMessage::classMsgType = MSG_TYPE('A', 'C');
 
-// /**
-//          * @brief Create a stepper motor message
-//          *
-//          * @param type Type of the message
-//          * @param value The value for the type
-//          */
-// EncoderMessage::EncoderMessage(MessageId id, uint16_t value)
-//     : id(id), value_(value), Message(id, EncoderMessage::classMsgType)
-// {
-// }
+/**
+         * @brief Create a stepper motor message
+         *
+         * @param type Type of the message
+         * @param value The value for the type
+         */
+EncoderMessage::EncoderMessage(MessageId id, uint16_t value)
+: Message16_t(id, classMsgType)
+{
+    set(value_location, value);
+}
 
 /**
          * @brief gets the value of the message
          *
          * @return the value of how much the encoder has changed.
          */
-void EncoderMessage::setValue(uint16_t value)
+uint8_t EncoderMessage::getValue()
 {
-    value_ = value;
+    return get();
 }
-
-
-/**
-         * @brief gets the value of the message
-         *
-         * @return the value of how much the encoder has changed.
-         */
-uint16_t EncoderMessage::getValue()
-{
-    return value_;
-}
-
 
 /**
          * @brief Convert to string
@@ -46,7 +35,7 @@ void EncoderMessage::toString(StringBuilder &sb)
 {
     sb.appendString("{EncoderMessage; ");
     sb.appendString("Value: ");
-    sb.appendInt(value_);
+    sb.appendFloat(value_);
     sb.appendString(", ");
     id.toString(sb);
     sb.appendChar('}');

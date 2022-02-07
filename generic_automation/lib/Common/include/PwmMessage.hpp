@@ -12,6 +12,9 @@ namespace genauto {
      * @brief A stepper motor message
      */
     class PwmMessage : public Message {
+        private:
+        static const uint16_t dutyCycle_location = type_location + sizeof(uint16_t);
+        static const uint16_t onOff_location = dutyCycle_location + sizeof(bool);
     public:
 
         /**

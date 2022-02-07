@@ -11,7 +11,9 @@ namespace genauto {
     /**
      * @brief A stepper motor message
      */
-    class EncoderMessage : public Message {
+    class EncoderMessage : public Message16_t {
+    private:
+    static const uint16_t value_location = type_location + sizeof(uint16_t);
     public:
 
         /**

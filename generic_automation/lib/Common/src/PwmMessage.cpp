@@ -32,7 +32,7 @@ void PwmMessage::setDutyCycle(int16_t dutyCycle)
          */
 uint16_t PwmMessage::getDutyCycle()
 {
-    return dutyCycle_;
+    return get<uint16_t>(dutyCycle_location);
 }
 
 
