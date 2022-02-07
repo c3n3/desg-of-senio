@@ -3,6 +3,7 @@ project('Common', 'cpp')
 inc = include_directories('./include')
 libCommon = shared_library('Common',
   './src/Message.cpp',
+  './src/Timer.cpp',
   './src/MessageId.cpp',
   './src/HexStringSerializer.cpp',
   './src/StepperMotorMessage.cpp',

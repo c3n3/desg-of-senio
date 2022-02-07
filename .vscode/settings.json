@@ -69,6 +69,7 @@
         "future": "cpp",
         "mutex": "cpp",
         "shared_mutex": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "netfwd": "cpp"
     }
 }

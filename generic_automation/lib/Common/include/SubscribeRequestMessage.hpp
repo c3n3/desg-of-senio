@@ -1,5 +1,5 @@
-#ifndef __GENERIC_AUTOMATION_STEPPER_MOTOR_MESSAGE_HPP__
-#define __GENERIC_AUTOMATION_STEPPER_MOTOR_MESSAGE_HPP__
+#ifndef __GENAUTO_SUBSCRIBE_REQUEST_MESSAGE_HPP__
+#define __GENAUTO_SUBSCRIBE_REQUEST_MESSAGE_HPP__
 
 #include "Message.hpp"
 #include "StringBuilder.hpp"
@@ -12,18 +12,8 @@ namespace genauto
     /**
      * @brief A stepper motor message
      */
-    class StepperMotorMessage : public Message
+    class PublishMessage : public Message
     {
-    public:
-        /**
-         * @brief Allows us to specify if we are instructing a degree change
-         * or setting a speed
-         */
-        enum Type
-        {
-            Speed,
-            Degree
-        };
     private:
         static constexpr location_t value_loc = Message::type_loc + sizeof(msgType_t);
         static constexpr location_t valueType_loc = value_loc + sizeof(float);
