@@ -1,4 +1,4 @@
-#include "../include/EncoderMessage.hpp"
+s#include "../include/EncoderMessage.hpp"
 #include "../include/Log.hpp"
 
 using namespace genauto;
@@ -28,9 +28,9 @@ EncoderMessage::EncoderMessage(uint8_t* buffer)
          *
          * @return the value of how much the Pwm has changed.
          */
-uint16_t& EncoderMessage::value()
+int16_t& EncoderMessage::value()
 {
-    return get<uint16_t>(value_location);
+    return get<int16_t>(value_location);
 }
 
 

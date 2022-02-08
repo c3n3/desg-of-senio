@@ -13,8 +13,8 @@ namespace genauto {
             uint8_t pinNumber;
             uint8_t channel;
             int16_t dutyCycle_; // can be negative for backwards direction for motor.
-            bool pwmOn_;
-            uint16_t increment;
+            bool pwmOn_ = true;
+            uint16_t increment = 5;
     public:
 
         /**
@@ -30,7 +30,7 @@ namespace genauto {
          * 
          * @return uint8_t 
          */
-        uint8_t getDutyCycle();
+        uint16_t getDutyCycle();
 
 
         /**
@@ -38,7 +38,7 @@ namespace genauto {
          * 
          * @param dutyCycle 
          */
-        void setDutyCycle(uint8_t dutyCycle);
+        void setDutyCycle(int16_t dutyCycle);
 
 
         /**

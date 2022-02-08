@@ -29,7 +29,7 @@ namespace genauto {
          * 
          * @return uint16_t& 
          */
-        uint16_t& value();
+        int16_t& value();
 
         /**
          * @brief Convert to string
