@@ -1,11 +1,17 @@
-#include "../include/PwmMessage.hpp"
+#include "../include/ButtonMessage.hpp"
 #include "../include/Log.hpp"
 
 using namespace genauto;
 
-const msgType_t PwmMessage::classMsgType = MSG_TYPE('A', 'D');
+const msgType_t ButtonMessage::classMsgType = MSG_TYPE('A', 'C');
 
-PwmMessage::PwmMessage(uint8_t* buffer)
+/**
+         * @brief Create a stepper motor message
+         *
+         * @param type Type of the message
+         * @param value The value for the type
+         */
+ButtonMessage::ButtonMessage(uint8_t* buffer)
     : Message(buffer, msgSize)
 {
     if (size_() != msgSize) {
@@ -16,20 +22,15 @@ PwmMessage::PwmMessage(uint8_t* buffer)
     Message::type() = classMsgType;
 }
 
+
 /**
          * @brief gets the value of the message
          *
          * @return the value of how much the Pwm has changed.
          */
-int16_t& PwmMessage::dutyCycle()
+bool& ButtonMessage::pressed()
 {
-    return get<int16_t>(dutyCycle_location);
-}
-
-
-bool& PwmMessage::onOff()
-{
-    return get<bool>(onOff_location);
+    return get<bool>(pressed_location);
 }
 
 
@@ -38,12 +39,11 @@ bool& PwmMessage::onOff()
          *
          * @param sb
          */
-void PwmMessage::toString(StringBuilder& sb)
+void ButtonMessage::toString(StringBuilder &sb)
 {
-    sb.appendString("{PwmMessage; Duty Cycle:  ");
-    sb.appendInt(dutyCycle());
-    sb.appendString("onOff: ");
-    sb.appendFloat(onOff());
+    sb.appendString("{ButtonMessage; ");
+    sb.appendString("Pressed: ");
+    sb.appendInt(pressed());
     sb.appendString(", ");
     id().toString(sb);
     sb.appendChar('}');
