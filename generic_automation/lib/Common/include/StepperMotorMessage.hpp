@@ -64,12 +64,6 @@ namespace genauto
          * @brief Type of the message specific to class
          */
         static const msgType_t classMsgType;
-
-        operator Message()
-        {
-            dlog("TEST\n");
-            return Message(getBuffer());
-        }
     };
 }
 

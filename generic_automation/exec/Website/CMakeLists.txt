@@ -21,6 +21,16 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(${PROJECT_NAME} main.cc)
 
+# add the MathFunctions library
+add_subdirectory(lib/Common)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE Common)
+
+# add the binary tree to the search path for include files
+# so that we will find TutorialConfig.h
+target_include_directories(${PROJECT_NAME} PUBLIC
+                          ${CMAKE_CURRENT_SOURCE_DIR}/lib/Common/include
+                          )
 # ##############################################################################
 # If you include the drogon source code locally in your project, use this method
 # to add drogon 
