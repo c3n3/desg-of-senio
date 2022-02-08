@@ -17,12 +17,14 @@
                                             :keystring="id + ':' + outputId"/>
                                     </div>
                                     <div v-if="output.type === 'number'">
-                                        <OutputNumber
+                                        <Encoder
                                             :min="output.data.min"
                                             :max="output.data.max"
                                             :units="output.data.units"
                                             :persistent_input="output.persistent"
-                                            :keystring="id + ':' + outputId"/>
+                                            :major="id"
+                                            :minor="outputId"
+                                            />
                                     </div>
                                 </ul>
                             </div>
@@ -47,7 +49,7 @@
 </template>
 
 <script>
-import OutputNumber from './OutputNumber.vue'
+import Encoder from './Encoder.vue'
 import OutputBool from './OutputBool.vue'
 import InputNumber from './InputNumber.vue'
 export default {
@@ -59,7 +61,7 @@ export default {
       }
   },
   components: {
-      OutputNumber,
+      Encoder,
       OutputBool,
       InputNumber
   }

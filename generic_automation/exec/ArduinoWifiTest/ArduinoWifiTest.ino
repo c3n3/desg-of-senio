@@ -29,6 +29,9 @@ void loop()
             dlog("Got subscribe msg\n");
             SubscribeMessage* step = (SubscribeMessage*)msg;
             step->log();
+        } else {
+            dlog("Got unknown message\n");
+            msg->log();
         }
     }
 }
