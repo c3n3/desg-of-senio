@@ -1,8 +1,9 @@
 #include "../include/EncoderMessage.hpp"
+#include "../include/Log.hpp"
 
 using namespace genauto;
 
-const MessageBuffer::msgType_t EncoderMessage::classMsgType = MSG_TYPE('A', 'C');
+const msgType_t EncoderMessage::classMsgType = MSG_TYPE('A', 'C');
 
 /**
          * @brief Create a stepper motor message
@@ -10,21 +11,28 @@ const MessageBuffer::msgType_t EncoderMessage::classMsgType = MSG_TYPE('A', 'C')
          * @param type Type of the message
          * @param value The value for the type
          */
-EncoderMessage::EncoderMessage(MessageId id, uint16_t value)
-: Message16_t(id, classMsgType)
+EncoderMessage::EncoderMessage(uint8_t* buffer)
+    : Message(buffer, msgSize)
 {
-    set(value_location, value);
+    if (size_() != msgSize) {
+        dlog("Error: buffer size mismatch, watch for segfault.\n");
+    }
+
+    // Set type in case this is a new buffer
+    Message::type() = classMsgType;
 }
+
 
 /**
          * @brief gets the value of the message
          *
-         * @return the value of how much the encoder has changed.
+         * @return the value of how much the Pwm has changed.
          */
-uint8_t EncoderMessage::getValue()
+uint16_t& EncoderMessage::value()
 {
-    return get();
+    return get<int16_t>(value_location);
 }
+
 
 /**
          * @brief Convert to string
@@ -35,7 +43,7 @@ void EncoderMessage::toString(StringBuilder &sb)
 {
     sb.appendString("{EncoderMessage; ");
     sb.appendString("Value: ");
-    sb.appendFloat(value_);
+    sb.appendInt(value());
     sb.appendString(", ");
     id.toString(sb);
     sb.appendChar('}');
