@@ -2,11 +2,8 @@
 #include <WebServer.h>
 #include <HTTPClient.h>
 
-/*Put your SSID & Password*/
-const char *ssid = "KSU Guest"; // Enter SSID here
-const char *password = "";      //Enter Password here
-
-WebServer server(80);
+const char* ssid = "St. Isidores MHK Public"
+const char* password = "BeOurGuest";
 
 const char* serverName = "http://10.150.150.144:80/genauto/pages/devices/test";
 
@@ -73,6 +70,7 @@ void sendString(const char *url)
 void loop()
 {
   server.handleClient();
+  return;
   if (millis() - timer > timerDelay) {
     sendString(serverName);
     timer += timerDelay;

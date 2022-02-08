@@ -12,11 +12,9 @@ namespace genauto {
         private:
             uint8_t pinNumber;
             uint8_t channel;
-            uint8_t dutyCycle_;
-            uint32_t timeOn_;
-            uint8_t dir_;
-            uint32_t startTime_;
+            int16_t dutyCycle_; // can be negative for backwards direction for motor.
             bool pwmOn_;
+            uint16_t increment;
     public:
 
         /**
@@ -28,6 +26,14 @@ namespace genauto {
 
 
         /**
+         * @brief Get the Duty Cycle object
+         * 
+         * @return uint8_t 
+         */
+        uint8_t getDutyCycle();
+
+
+        /**
          * @brief Set the Duty Cycle object
          * 
          * @param dutyCycle 
@@ -36,19 +42,20 @@ namespace genauto {
 
 
         /**
-         * @brief Set the Time On object
+         * @brief Get the On Status object
          * 
-         * @param timeOn 
+         * @return true 
+         * @return false 
          */
-        void setTimeOn(uint32_t timeOn);
-
+        bool getOnStatus();
 
         /**
-         * @brief Set the Direction object
+         * @brief Set the On Status object
          * 
-         * @param dir 
+         * @param onStatus 
          */
-        void setDirection(uint8_t dir);
+        void setOnStatus(bool onStatus);
+
 
         /**
          * @brief executes the purpose of the PWM class

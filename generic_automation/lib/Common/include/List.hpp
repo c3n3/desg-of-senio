@@ -1,3 +1,5 @@
+#include <vector>
+
 #ifndef __GENAUTO_LIST_HPP__
 #define __GENAUTO_LIST_HPP__
 

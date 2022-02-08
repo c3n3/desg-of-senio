@@ -21,6 +21,8 @@ namespace genauto {
          */
         HexStringSerializer(int maxSize);
 
+        ~HexStringSerializer();
+
         /**
          * @brief A Result enum
          */

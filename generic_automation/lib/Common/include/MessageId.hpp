@@ -5,7 +5,7 @@
 #include "StringBuilder.hpp"
 
 namespace genauto {
-    struct MessageId {
+    struct __attribute__((packed)) MessageId {
         /**
          * @brief Major number id
          */
