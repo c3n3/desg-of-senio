@@ -1,9 +1,9 @@
-#include "../include/EncoderMessage.hpp"
+#include "../include/ButtonMessage.hpp"
 #include "../include/Log.hpp"
 
 using namespace genauto;
 
-const msgType_t EncoderMessage::classMsgType = MSG_TYPE('A', 'E');
+const msgType_t ButtonMessage::classMsgType = MSG_TYPE('A', 'C');
 
 /**
          * @brief Create a stepper motor message
@@ -11,7 +11,7 @@ const msgType_t EncoderMessage::classMsgType = MSG_TYPE('A', 'E');
          * @param type Type of the message
          * @param value The value for the type
          */
-EncoderMessage::EncoderMessage(uint8_t* buffer)
+ButtonMessage::ButtonMessage(uint8_t* buffer)
     : Message(buffer, msgSize)
 {
     if (size_() != msgSize) {
@@ -28,9 +28,9 @@ EncoderMessage::EncoderMessage(uint8_t* buffer)
          *
          * @return the value of how much the Pwm has changed.
          */
-uint16_t& EncoderMessage::value()
+bool& ButtonMessage::pressed()
 {
-    return get<uint16_t>(value_location);
+    return get<bool>(pressed_location);
 }
 
 
@@ -39,11 +39,11 @@ uint16_t& EncoderMessage::value()
          *
          * @param sb
          */
-void EncoderMessage::toString(StringBuilder &sb)
+void ButtonMessage::toString(StringBuilder &sb)
 {
-    sb.appendString("{EncoderMessage; ");
-    sb.appendString("Value: ");
-    sb.appendInt(value());
+    sb.appendString("{ButtonMessage; ");
+    sb.appendString("Pressed: ");
+    sb.appendInt(pressed());
     sb.appendString(", ");
     id().toString(sb);
     sb.appendChar('}');

@@ -1,5 +1,5 @@
-#ifndef __GENERIC_AUTOMATION_ENCODER_MESSAGE_HPP__
-#define __GENERIC_AUTOMATION_ENCODER_MESSAGE_HPP__
+#ifndef __GENERIC_AUTOMATION_ANALOG_MESSAGE_HPP__
+#define __GENERIC_AUTOMATION_ANALOG_MESSAGE_HPP__
 
 #include "Message.hpp"
 #include "StringBuilder.hpp"
@@ -11,25 +11,25 @@ namespace genauto {
     /**
      * @brief A stepper motor message
      */
-    class EncoderMessage : public Message {
+    class AnalogMessage : public Message {
         private:
         static constexpr location_t value_location = Message::type_loc + sizeof(msgType_t);
-        static constexpr uint16_t msgSize = Message::baseSize + sizeof(uint16_t);
+        static constexpr uint16_t msgSize = Message::baseSize + sizeof(float);
     public:
 
         /**
-         * @brief Construct a new Encoder Message object
+         * @brief Construct a new Analog Message object
          * 
          * @param buffer 
          */
-        EncoderMessage(uint8_t* buffer = nullptr);
+        AnalogMessage(uint8_t* buffer = nullptr);
 
         /**
          * @brief 
          * 
          * @return uint16_t& 
          */
-        uint16_t& value();
+        float& value();
 
         /**
          * @brief Convert to string
