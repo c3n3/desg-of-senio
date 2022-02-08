@@ -17,7 +17,7 @@ namespace genauto {
          */
         uint8_t minor_;
 
-        static const DIRECTION_BIT = sizeof(MessageId::major_) * 8 - 1;
+        static const uint8_t DIRECTION_BIT = sizeof(MessageId::major_) * 8 - 1;
     public:
         /**
          * @brief Specifies direction the message is going in
@@ -30,7 +30,7 @@ namespace genauto {
         /**
          * @brief Get major
          */
-        uint16_t getMajorId();
+        uint16_t getMajor();
 
         /**
          * @brief Get minor

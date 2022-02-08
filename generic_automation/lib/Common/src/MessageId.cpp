@@ -12,9 +12,14 @@ bool MessageId::operator <(const MessageId& other)
     return minor_ < other.minor_;
 }
 
-uint16_t MessageId::getMajorId()
+uint16_t MessageId::getMajor()
 {
-    
+    return major_;
+}
+
+uint8_t MessageId::getMinor()
+{
+    return minor_;
 }
 
 bool MessageId::operator ==(const MessageId& other)
