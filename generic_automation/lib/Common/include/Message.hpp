@@ -34,6 +34,7 @@ namespace genauto {
         static constexpr location_t size_loc = 0;
         static constexpr location_t id_loc = size_loc + sizeof(msgSize_t);
         static constexpr location_t type_loc = id_loc + sizeof(MessageId);
+        static constexpr location_t dirivedStart_loc = type_loc + sizeof(msgType_t);
 
         msgSize_t& size_();
 

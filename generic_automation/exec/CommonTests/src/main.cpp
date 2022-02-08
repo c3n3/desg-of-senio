@@ -1,5 +1,6 @@
 #include "StringBuilder.hpp"
 #include "StepperMotorMessage.hpp"
+#include "SubscribeMessage.hpp"
 #include "Message.hpp"
 #include "Log.hpp"
 #include "HexStringSerializer.hpp"
@@ -81,44 +82,23 @@ void send(Message* message)
 
 int main()
 {
-    // {
-    //     Message msg;
-    //     msg.type() = 90;
-    //     msg.id() = MessageId(90, 80);
-    //     StringBuilder sb(1000);
-    //     msg.toString(sb);
-    //     dlog("%s\n", sb.getString());
-
-    //     HexStringSerializer ser(1000);
-    //     if (ser.serialize(&msg) == HexStringSerializer::Success) {
-    //         dlog("%s\n", ser.getBuffer());
-    //     }
-    //     Message msg2;
-
-
-    //     if (ser.deserialize(&msg2) == HexStringSerializer::Success) {
-    //         sb.clear();
-    //         msg2.toString(sb);
-    //         dlog("%s\n", sb.getString());
-    //         Message msg4(msg2.getBuffer());
-    //         StepperMotorMessage msg7(msg2.getBuffer());
-    //         dlog("\n");
-
-    //         sb.clear();
-    //         dlog("\n");
-    //         msg4.toString(sb);
-    //         dlog("\n");
-    //         dlog("msg4 = %s\n", sb.getString());
-    //     }
-    // }
     Timer t("100 Volley");
     StepperMotorMessage message;
+    SubscribeMessage sm;
+    sm.id() = MessageId(97, 87);
+    sm.idFrom() = MessageId(97, 87);
+    sm.idTo() = MessageId(97, 86);
+
     message.id() = MessageId(78, 69);
     message.value() = 9.8;
     message.valueType() = StepperMotorMessage::Degree;
     for (int i = 0; i < 100; i++) {
-        send(&message);
-        message.id().major++;
+        if (i % 2) {
+            send(&message);
+            message.id().major++;
+        } else {
+            send(&sm);
+        }
     }
     t.log();
     // StringBuilder sb(1000);
