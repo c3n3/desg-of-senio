@@ -1,12 +1,6 @@
 #include "../include/Router.hpp"
 
-<<<<<<< HEAD
-
-
 bool Router::inMap(MessageId iD)
-=======
-bool Router::inMap(Message iD)
->>>>>>> 80f920e173ffe0e531c85b38e499b810a88b313e
 {
     if(idMap.contains(MessageId (iD)) == true)
     {
@@ -16,38 +10,21 @@ bool Router::inMap(Message iD)
         return false;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 80f920e173ffe0e531c85b38e499b810a88b313e
 void Router::Subscribe(Subscriber* sub, MessageId iD)
 {
     if(inMap(iD) == true)
     {
-<<<<<<< HEAD
         idMap[iD].pushBack(sub);
-    }
-    
-}
-
-void Router::Add(MessageId iD)
-{
-    subs = new List<Subscriber*>;
-
-}
-=======
-        idMap[iD].pushback(sub);
     }
 }
 
 void Router::Add(Subscriber* sub, MessageId iD)
 {
-    List<Subscriber*> subs = new List<Subscriber*>(sub);
-    idMap[iD].insert(sub);
+    idMap.insert(Pair<MessageId, List<Subscriber*>>(iD, List<Subscriber*>(25)));
+    idMap[iD].pushBack(sub);
 }
 
-void addPublisher(Publisher* pub)
+void addPublisher()
 {
-    List<Publisher*> pubs = new List<Subscriber*>(pub);
+    List<Publisher*> pubs(25);
 }
->>>>>>> 80f920e173ffe0e531c85b38e499b810a88b313e
