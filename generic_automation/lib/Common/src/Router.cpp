@@ -1,5 +1,6 @@
 #include "../include/Router.hpp"
 
+
 bool Router::inMap(MessageId iD)
 {
     if(idMap.contains(MessageId (iD)) == true)
@@ -24,7 +25,14 @@ void Router::Add(Subscriber* sub, MessageId iD)
     idMap[iD].pushBack(sub);
 }
 
-void addPublisher()
+void Router::addPublisher(Publisher* pub)
 {
-    List<Publisher*> pubs(25);
+    pubs.pushBack(pub);
+}
+
+void Router::Execute()
+{
+    Publisher* pub;
+    pub->tryGet();
+    
 }

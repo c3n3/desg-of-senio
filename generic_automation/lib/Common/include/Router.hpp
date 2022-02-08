@@ -19,8 +19,9 @@ namespace genauto {
         public:
 
             Map<MessageId, List<Subscriber*>> idMap;
-            List<Subscriber*> subs;
+            //List<Subscriber*> subs;
             List<Publisher*> pubs;
+            Publisher publish;
 
             /**
              * @brief checks if message iD is in a map
@@ -33,21 +34,31 @@ namespace genauto {
             /**
              * @brief If message iD is in map suscribe to message iD
              * 
+             * @param sub
+             * @param iD
+             * 
              */
             virtual void Subscribe(Subscriber* sub, MessageId iD);
 
             /**
             * @brief Creates list of subscribers and adds message id to subscribers
             * 
+            * @param sub
+            * @param iD
+            * 
             */
             virtual void Add(Subscriber* sub, MessageId iD);
 
             /**
-             * @brief Creates list of publishers
+             * @brief Adds publishers to a list
              * 
-             * @param pub 
+             * @param pub
+             *  
              */
-            virtual void addPublisher();
+            virtual void addPublisher(Publisher* pub);
+
+
+            virtual void Execute();
 
 
 
