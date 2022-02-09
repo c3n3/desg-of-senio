@@ -12,12 +12,12 @@ bool MessageId::operator <(const MessageId& other)
     return minor_ < other.minor_;
 }
 
-uint16_t MessageId::getMajor()
+major_t MessageId::getMajor()
 {
     return major_;
 }
 
-uint8_t MessageId::getMinor()
+minor_t MessageId::getMinor()
 {
     return minor_;
 }
@@ -32,7 +32,7 @@ bool MessageId::operator !=(const MessageId& other)
     return !(*this == other);
 }
 
-MessageId::MessageId(uint16_t major, uint8_t minor, Direction d)
+MessageId::MessageId(major_t major, minor_t minor, Direction d)
     : major_(
         (major & (~(0x0001 << DIRECTION_BIT))) | (((uint16_t)d) << DIRECTION_BIT)
         ), minor_(minor)

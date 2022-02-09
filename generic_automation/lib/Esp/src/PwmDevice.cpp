@@ -1,9 +1,13 @@
 #include "../include/PwmDevice.hpp"
+#include "../../Common/include/EncoderMessage.hpp"
+#include "../../Common/include/ButtonMessage.hpp"
 #include <stdint.h>
 
 static const uint16_t PWM_FREQUENCY = 5000;
 static const uint8_t PWM_RESOUTION = 8;
 //const genauto::Message::msgType_t genauto::Message::classMsgType = MSG_TYPE('A', 'C');
+
+using namespace genauto;
 
 /**
  * @brief Construct a new genauto::Pwm Device::pwm object
@@ -59,19 +63,27 @@ void genauto::PwmDevice::execute()
     Message* Msg = NULL;
     if(msgs_.dequeue(Msg) == Queue<Message*>::Success)
     {
+<<<<<<< HEAD
         if(Msg->type == EncoderMessage::classMsgType)
+=======
+        if(Msg->type() == EncoderMessage::classMsgType)
+>>>>>>> 9e4c276841d313ec5aa7ccf638e98b662cb571a1
         {
             EncoderMessage* eMsg = (EncoderMessage*)Msg;
-            int16_t val = dutyCycle_ + eMsg.value() * increment;
+            int16_t val = dutyCycle_ + eMsg->value() * increment;
             if(val > 255) dutyCycle_ = 255;
             else if(val < -255) dutyCycle_ = 0;
             else dutyCycle_ = val;
             if(pwmOn_) ledcWrite(channel, dutyCycle_); // only if the pwm device is set to on, write to the pin.
         }
+<<<<<<< HEAD
         if(Msg->type == ButtonMessage::classMsgType)
+=======
+        if(Msg->type() == ButtonMessage::classMsgType)
+>>>>>>> 9e4c276841d313ec5aa7ccf638e98b662cb571a1
         {
             ButtonMessage* bMsg = (ButtonMessage*)Msg;
-            if(bMsg.pressed() == true) pwmOn_ = !pwmOn_;
+            if(bMsg->pressed() == true) pwmOn_ = !pwmOn_;
             if(pwmOn_) ledcWrite(channel, dutyCycle_);
             else ledcWrite(channel, 0); // turn off the pwm device.
         }
@@ -87,4 +99,5 @@ void genauto::PwmDevice::execute()
             else ledcWrite(channel, 0);
         }
     }
+    ledcWrite(channel, dutyCycle_);
 }

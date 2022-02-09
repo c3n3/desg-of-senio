@@ -1,4 +1,4 @@
-s#include "../include/EncoderMessage.hpp"
+#include "../include/EncoderMessage.hpp"
 #include "../include/Log.hpp"
 
 using namespace genauto;
