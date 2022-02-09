@@ -48,3 +48,4 @@ void PwmMessage::toString(StringBuilder& sb)
     id().toString(sb);
     sb.appendChar('}');
 }
+

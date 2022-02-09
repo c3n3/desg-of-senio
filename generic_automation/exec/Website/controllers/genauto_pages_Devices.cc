@@ -1,8 +1,14 @@
 #include "genauto_pages_Devices.h"
+#include "Types.hpp"
 #include "Message.hpp"
+#include "EncoderMessage.hpp"
 #include "HexStringSerializer.hpp"
 #include <drogon/HttpClient.h>
 #include "../json/json.hpp"
+
+#include <curlpp/cURLpp.hpp>
+#include <curlpp/Options.hpp>
+
 using namespace genauto::pages;
 using json = nlohmann::json;
 
@@ -39,6 +45,7 @@ void Devices::deviceComm(const HttpRequestPtr &req,
     std::function<void (const HttpResponsePtr &)> &&callback,
     const std::string& data)
 {
+    callback(HttpResponse::newHttpResponse());
     uint8_t massiveBuffer[100];
     Message msg(massiveBuffer);
     LOG_DEBUG << "Called!";
@@ -47,7 +54,6 @@ void Devices::deviceComm(const HttpRequestPtr &req,
             msg.log();
         }
     }
-    callback(HttpResponse::newHttpResponse());
 
     
     // auto client = HttpClient::newHttpClient(
@@ -70,25 +76,32 @@ void Devices::deviceComm(const HttpRequestPtr &req,
     // LOG_DEBUG << "Called!";
 }
 
+static HexStringSerializer serializer(1000);
+
+static void send(Message* message)
+{
+    std::ostringstream os;
+    serializer.serialize(message);
+    std::string willSend = std::string("http://172.20.10.11?d=") + serializer.getBuffer();
+    std::cout << willSend << "\n";
+    os << curlpp::options::Url(willSend);
+}
+
 
 
 void Devices::encoderSend(const HttpRequestPtr &req,
     std::function<void (const HttpResponsePtr &)> &&callback,
-    const uint16_t& major,
-    const uint16_t& minor,
+    const major_t& major,
+    const minor_t& minor,
     const int16_t& inc)
 {
-    dlog("Encoder message\n");
     callback(HttpResponse::newHttpResponse());
-    Message m;
-    Message m2;
-    m2.id() = MessageId(major, minor, MessageId::From);
-    m2.type() = 0;
-    m2.log();
-    dlog("Major = %d\n", major);
-    m.id() = MessageId(major, minor, MessageId::To);
-    m.type() = 0;
+    EncoderMessage m;
+    dlog("Inc: %d\n", inc);
+    m.id() = MessageId(major,minor);
+    m.value() = inc;
     m.log();
+    send(&m);
     // void send(Message* message)
     // std::ostringstream os;
     // serilizer.serialize(message);

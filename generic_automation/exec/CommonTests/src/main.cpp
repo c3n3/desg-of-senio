@@ -1,6 +1,7 @@
 #include "StringBuilder.hpp"
 #include "StepperMotorMessage.hpp"
 #include "SubscribeMessage.hpp"
+#include "EncoderMessage.hpp"
 #include "Message.hpp"
 #include "Log.hpp"
 #include "HexStringSerializer.hpp"
@@ -11,6 +12,9 @@
 #include "Subscriber.hpp"
 #include <iostream>
 #include <sstream>
+#include <chrono>
+#include <thread>
+
 
 using namespace genauto;
 
@@ -74,7 +78,7 @@ void send(Message* message)
 {
     std::ostringstream os;
     serilizer.serialize(message);
-    std::string willSend = std::string("http://192.168.1.56?d=") + serilizer.getBuffer();
+    std::string willSend = std::string("http://172.20.10.11?d=") + serilizer.getBuffer();
     std::cout << willSend << "\n";
     os << curlpp::options::Url(willSend);
 
@@ -83,23 +87,14 @@ void send(Message* message)
 int main()
 {
     Timer t("100 Volley");
-    StepperMotorMessage message;
-    SubscribeMessage sm;
-    sm.id() = MessageId(97, 87);
-    sm.idFrom() = MessageId(97, 87);
-    sm.idTo() = MessageId(97, 86);
+    EncoderMessage encode;
+    encode.id() = MessageId(100, 100);
+    encode.value() = -1;
 
-    message.id() = MessageId(78, 69);
-    message.value() = 9.8;
-    message.valueType() = StepperMotorMessage::Degree;
-    for (int i = 0; i < 100; i++) {
-        if (i % 2) {
-            send(&message);
-        } else {
-            send(&sm);
-        }
+    for (int i = 0; i < 51; i++) {
+        send(&encode);
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
-    t.log();
     // StringBuilder sb(1000);
     // StepperMotorMessage msg;
     // msg.id() = MessageId(90, 10);

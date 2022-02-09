@@ -14,7 +14,7 @@ class Devices:public drogon::HttpController<Devices>
     METHOD_LIST_BEGIN
       METHOD_ADD(Devices::mainFun, "", Get);
       METHOD_ADD(Devices::update, "/update?data={}&keystring={}&type={}", Post);
-      METHOD_ADD(Devices::encoderSend, "/encoder_send?major={}&minor={}&inc={}", Get);
+      METHOD_ADD(Devices::encoderSend, "/encoder_send?major={}&minor={}&inc={}", Post);
       METHOD_ADD(Devices::deviceComm, "/_device_?d={}", Get);
     METHOD_LIST_END
 
@@ -33,8 +33,8 @@ class Devices:public drogon::HttpController<Devices>
 
     void encoderSend(const HttpRequestPtr &req,
                     std::function<void (const HttpResponsePtr &)> &&callback,
-                    const uint16_t& major,
-                    const uint16_t& minor,
+                    const major_t& major,
+                    const minor_t& minor,
                     const int16_t& inc);
     genauto::Database base;
 

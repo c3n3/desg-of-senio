@@ -14,7 +14,7 @@ namespace genauto {
     class EncoderMessage : public Message {
         private:
         static constexpr location_t value_location = Message::type_loc + sizeof(msgType_t);
-        static constexpr uint16_t msgSize = Message::baseSize + sizeof(uint16_t);
+        static constexpr uint16_t msgSize = Message::baseSize + sizeof(int16_t);
     public:
 
         /**

@@ -1,9 +1,13 @@
 #include "../include/PwmDevice.hpp"
+#include "../../Common/include/EncoderMessage.hpp"
+#include "../../Common/include/ButtonMessage.hpp"
 #include <stdint.h>
 
 static const uint16_t PWM_FREQUENCY = 5000;
 static const uint8_t PWM_RESOUTION = 8;
 //const genauto::Message::msgType_t genauto::Message::classMsgType = MSG_TYPE('A', 'C');
+
+using namespace genauto;
 
 /**
  * @brief Construct a new genauto::Pwm Device::pwm object
@@ -20,25 +24,25 @@ genauto::PwmDevice::PwmDevice(uint8_t pinNumber, uint8_t channel)
 }
 
 
-int16_t getDutyCycle()
+int16_t PwmDevice::getDutyCycle()
 {
     return dutyCycle_;
 }
 
 
-void setDutyCycle(int16_t dutyCycle)
+void PwmDevice::setDutyCycle(int16_t dutyCycle)
 {
     dutyCycle_ = dutyCycle;
 }
 
 
-bool getOnStatus()
+bool PwmDevice::getOnStatus()
 {
     return pwmOn_;
 }
 
 
-void setOnStatus(bool b)
+void PwmDevice::setOnStatus(bool b)
 {
     pwmOn_ = b;
 }
@@ -59,19 +63,19 @@ void genauto::PwmDevice::execute()
     Message* Msg = NULL;
     if(msgs_.dequeue(Msg) == Queue<Message*>::Success)
     {
-        if(Msg->msgType == EncoderMessage::classMsgType)
+        if(Msg->type() == EncoderMessage::classMsgType)
         {
             EncoderMessage* eMsg = (EncoderMessage*)Msg;
-            int16_t val = dutyCycle_ + eMsg.value() * increment;
+            int16_t val = dutyCycle_ + eMsg->value() * increment;
             if(val > 255) dutyCycle_ = 255;
             else if(val < -255) dutyCycle_ = 0;
             else dutyCycle_ = val;
             if(pwmOn_) ledcWrite(channel, dutyCycle_); // only if the pwm device is set to on, write to the pin.
         }
-        if(Msg->msgType == ButtonMessage::classMsgType)
+        if(Msg->type() == ButtonMessage::classMsgType)
         {
             ButtonMessage* bMsg = (ButtonMessage*)Msg;
-            if(bMsg.pressed() == true) pwmOn_ = !pwmOn_;
+            if(bMsg->pressed() == true) pwmOn_ = !pwmOn_;
             if(pwmOn_) ledcWrite(channel, dutyCycle_);
             else ledcWrite(channel, 0); // turn off the pwm device.
         }
@@ -80,4 +84,5 @@ void genauto::PwmDevice::execute()
         //    Pwm
         //}
     }
+    ledcWrite(channel, dutyCycle_);
 }

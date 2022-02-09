@@ -1,8 +1,10 @@
 #ifndef __GENAUTO_MESSAGE_ID_HPP__
 #define __GENAUTO_MESSAGE_ID_HPP__
 
-#include <stdint.h>
 #include "StringBuilder.hpp"
+#include "Types.hpp"
+
+#include <stdint.h>
 
 namespace genauto {
     class __attribute__((packed)) MessageId {
@@ -10,12 +12,12 @@ namespace genauto {
         /**
          * @brief Major number id
          */
-        uint16_t major_;
+        major_t major_;
 
         /**
          * @brief Minor number id
          */
-        uint8_t minor_;
+        minor_t minor_;
 
         static const uint8_t DIRECTION_BIT = sizeof(MessageId::major_) * 8 - 1;
     public:
@@ -30,14 +32,14 @@ namespace genauto {
         /**
          * @brief Get major
          */
-        uint16_t getMajor();
+        major_t getMajor();
 
         /**
          * @brief Get minor
          * 
          * @return uint8_t 
          */
-        uint8_t getMinor();
+        minor_t getMinor();
 
         /**
          * @brief Get the Direction object
@@ -76,7 +78,7 @@ namespace genauto {
          * @param major
          * @param minor
          */
-        MessageId(uint16_t major, uint8_t minor, Direction d = From);
+        MessageId(uint16_t major, minor_t minor, Direction d = From);
 
         /**
          * @brief Copy new id
