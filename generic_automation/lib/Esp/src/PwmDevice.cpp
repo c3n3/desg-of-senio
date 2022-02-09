@@ -17,32 +17,32 @@ genauto::PwmDevice::PwmDevice(uint8_t pinNumber, uint8_t channel)
 {
     ledcSetup(channel, PWM_FREQUENCY, PWM_RESOUTION); // setup PWM 
     ledcAttachPin(pinNumber, channel);
+    ledWrite(channel, 0);
 }
 
 
-int16_t getDutyCycle()
+int16_t PwmDevice::getDutyCycle()
 {
     return dutyCycle_;
 }
 
 
-void setDutyCycle(int16_t dutyCycle)
+void PwmDevice::setDutyCycle(int16_t dutyCycle)
 {
     dutyCycle_ = dutyCycle;
 }
 
 
-bool getOnStatus()
+bool PwmDevice::getOnStatus()
 {
     return pwmOn_;
 }
 
 
-void setOnStatus(bool b)
+void PwmDevice::setOnStatus(bool b)
 {
     pwmOn_ = b;
 }
-
 
 /*
 Need if statements to check and see what message type is in the queue.
@@ -59,7 +59,7 @@ void genauto::PwmDevice::execute()
     Message* Msg = NULL;
     if(msgs_.dequeue(Msg) == Queue<Message*>::Success)
     {
-        if(Msg->msgType == EncoderMessage::classMsgType)
+        if(Msg->type == EncoderMessage::classMsgType)
         {
             EncoderMessage* eMsg = (EncoderMessage*)Msg;
             int16_t val = dutyCycle_ + eMsg.value() * increment;
@@ -68,16 +68,23 @@ void genauto::PwmDevice::execute()
             else dutyCycle_ = val;
             if(pwmOn_) ledcWrite(channel, dutyCycle_); // only if the pwm device is set to on, write to the pin.
         }
-        if(Msg->msgType == ButtonMessage::classMsgType)
+        if(Msg->type == ButtonMessage::classMsgType)
         {
             ButtonMessage* bMsg = (ButtonMessage*)Msg;
             if(bMsg.pressed() == true) pwmOn_ = !pwmOn_;
             if(pwmOn_) ledcWrite(channel, dutyCycle_);
             else ledcWrite(channel, 0); // turn off the pwm device.
         }
-        //if(Msg->msgType == PwmMessage::classMsgType)
-        //{
-        //    Pwm
-        //}
+        if(Msg->type == PwmMessage::classMsgType)
+        {
+            PwmMessage* pMsg = (PwmMessage*)Msg;
+            pwmOn_ = pMsg.onOff();
+            int16_t tempDuty = pMsg.dutyCycle();
+            if(tempDuty >= -255 && tempDuty <= 255) dutyCycle_ = tempDuty;
+            else if(tempDuty > 255) dutyCycle_ = 255;
+            else dutyCycle_ = -255;
+            if(pwmOn_) ledcWrite(channel, dutyCycle_);
+            else ledcWrite(channel, 0);
+        }
     }
 }

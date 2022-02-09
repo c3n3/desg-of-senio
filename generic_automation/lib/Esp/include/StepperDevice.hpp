@@ -2,7 +2,7 @@
 #define __GENERIC_AUTOMATION_STEPPERDEVICE_HPP__
 
 #include <stdint.h>
-#include <Stepper.h>
+#include <ESP_FlexyStepper.h>
 
 namespace genauto {
     /**
@@ -12,7 +12,7 @@ namespace genauto {
     private:
     uint8_t stepPin;
     uint8_t dirPin;
-    Stepper myStepper;
+    ESP_FlexyStepper myStepper;
     public:
 
         /**
@@ -42,6 +42,12 @@ namespace genauto {
          * @param angle 
          */
         void setAngle(uint8_t angle);
+
+        /**
+         * @brief 
+         * 
+         */
+        void execute();
 
     };
 }

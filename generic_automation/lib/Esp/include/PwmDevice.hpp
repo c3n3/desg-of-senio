@@ -30,7 +30,7 @@ namespace genauto {
          * 
          * @return uint8_t 
          */
-        uint16_t getDutyCycle();
+        int16_t getDutyCycle();
 
 
         /**
