@@ -10,8 +10,13 @@ namespace genauto {
      */
     class StepperDevice {
     private:
-    uint8_t stepPin;
-    uint8_t dirPin;
+    float speed_;
+    float angle_;
+    uint8_t encoderStepScale_ = 10;
+    //float encoderAngleIncrement_;
+    uint8_t direction_;
+    uint8_t stepPin_;
+    uint8_t dirPin_;
     ESP_FlexyStepper myStepper;
     public:
 
@@ -27,7 +32,14 @@ namespace genauto {
          * 
          * @param speed 
          */
-        void setSpeed(uint8_t speed);
+        void setSpeed(float speed);
+
+        /**
+         * @brief Get the Speed object
+         * 
+         * @return uint8_t 
+         */
+        float getSpeed();
 
         /**
          * @brief Set the Direction object
@@ -37,11 +49,25 @@ namespace genauto {
         void setDirection(uint8_t dir);
 
         /**
+         * @brief Get the Direction object
+         * 
+         * @return uint8_t 
+         */
+        uint8_t getDirection();
+
+        /**
          * @brief Set the Angle object
          * 
          * @param angle 
          */
-        void setAngle(uint8_t angle);
+        void setAngle(float angle);
+
+        /**
+         * @brief Get the Angle object
+         * 
+         * @return uint8_t 
+         */
+        float getAngle();
 
         /**
          * @brief 

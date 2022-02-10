@@ -14,10 +14,11 @@ using namespace genauto;
  * 
  * @param pinNumber 
  */
-genauto::PwmDevice::PwmDevice(uint8_t pinNumber, uint8_t channel)  
+genauto::PwmDevice::PwmDevice(uint8_t pinNumber, uint8_t channel /*,uint8_t minorId*/)  
     : pinNumber(pinNumber),
     channel(channel),
-    Subscriber(10)
+    Subscriber(10)//,
+    // will need to add "minorId(MinorId)"
 {
     ledcSetup(channel, PWM_FREQUENCY, PWM_RESOUTION); // setup PWM 
     ledcAttachPin(pinNumber, channel);
@@ -63,11 +64,7 @@ void genauto::PwmDevice::execute()
     Message* Msg = NULL;
     if(msgs_.dequeue(Msg) == Queue<Message*>::Success)
     {
-<<<<<<< HEAD
         if(Msg->type == EncoderMessage::classMsgType)
-=======
-        if(Msg->type() == EncoderMessage::classMsgType)
->>>>>>> 9e4c276841d313ec5aa7ccf638e98b662cb571a1
         {
             EncoderMessage* eMsg = (EncoderMessage*)Msg;
             int16_t val = dutyCycle_ + eMsg->value() * increment;
@@ -76,11 +73,7 @@ void genauto::PwmDevice::execute()
             else dutyCycle_ = val;
             if(pwmOn_) ledcWrite(channel, dutyCycle_); // only if the pwm device is set to on, write to the pin.
         }
-<<<<<<< HEAD
         if(Msg->type == ButtonMessage::classMsgType)
-=======
-        if(Msg->type() == ButtonMessage::classMsgType)
->>>>>>> 9e4c276841d313ec5aa7ccf638e98b662cb571a1
         {
             ButtonMessage* bMsg = (ButtonMessage*)Msg;
             if(bMsg->pressed() == true) pwmOn_ = !pwmOn_;
