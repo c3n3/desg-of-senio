@@ -1,5 +1,6 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:final project circ 1-cache
+EELAYER 29 0
 EELAYER END
 $Descr A0 46811 33110
 encoding utf-8
@@ -14,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L RF_Module:ESP32-WROOM-32D U6
+L final-project-circ-1-rescue:ESP32-WROOM-32D-RF_Module U6
 U 1 1 61E970AF
 P 25350 15150
 F 0 "U6" H 25350 16731 50  0000 C CNN
@@ -220,7 +221,7 @@ Connection ~ 24400 11300
 Wire Wire Line
 	24400 11300 24400 11950
 $Comp
-L Connector:USB_B_Micro J1
+L final-project-circ-1-rescue:USB_B_Micro-Connector J1
 U 1 1 61F4B745
 P 18800 10250
 F 0 "J1" H 18857 10717 50  0000 C CNN
@@ -248,7 +249,7 @@ Wire Wire Line
 Wire Wire Line
 	20800 10050 20800 10450
 $Comp
-L Diode:PMEG3005EJ D6
+L final-project-circ-1-rescue:PMEG3005EJ-Diode D6
 U 1 1 61F6485B
 P 19800 10050
 F 0 "D6" H 19800 9834 50  0000 C CNN
@@ -1503,7 +1504,7 @@ F 3 "" H 19650 15250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom:SS8050-G Q4
+L final-project-circ-1-rescue:SS8050-G-Custom Q4
 U 1 1 6208535A
 P 15050 14000
 F 0 "Q4" H 15850 14487 60  0000 C CNN
@@ -1514,7 +1515,7 @@ F 3 "" H 15050 14000 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom:SS8050-G Q5
+L final-project-circ-1-rescue:SS8050-G-Custom Q5
 U 1 1 6208695C
 P 15150 15150
 F 0 "Q5" H 15950 15637 60  0000 C CNN
@@ -1549,7 +1550,7 @@ Connection ~ 14550 14000
 Wire Wire Line
 	14550 14000 14750 14000
 $Comp
-L SDPowSupply-rescue:LTC3895IFE-POWSYMBOLS U1
+L final-project-circ-1-rescue:LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue U1
 U 1 1 61FA0D0E
 P 10350 18150
 F 0 "U1" H 10800 13727 50  0000 C CNN
@@ -1929,7 +1930,7 @@ Wire Wire Line
 Wire Wire Line
 	11500 18900 11500 19900
 $Comp
-L SDPowSupply-rescue:FDD770N15A-POWSYMBOLS Q3
+L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue Q3
 U 1 1 62007216
 P 12350 22400
 F 0 "Q3" H 12556 22446 50  0000 L CNN
@@ -1940,7 +1941,7 @@ F 3 "http://www.ti.com/lit/gpn/csd17578q5a" V 12350 22400 50  0001 L CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L SDPowSupply-rescue:FDD770N15A-POWSYMBOLS Q2
+L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue Q2
 U 1 1 6200DB26
 P 11850 21400
 F 0 "Q2" H 12056 21354 50  0000 L CNN
@@ -1951,7 +1952,7 @@ F 3 "http://www.ti.com/lit/gpn/csd17578q5a" V 11850 21400 50  0001 L CNN
 	1    0    0    1   
 $EndComp
 $Comp
-L SDPowSupply-rescue:FDD770N15A-POWSYMBOLS Q1
+L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue Q1
 U 1 1 6200EB2C
 P 11550 20400
 F 0 "Q1" H 11756 20446 50  0000 L CNN
@@ -2390,6 +2391,6 @@ F 3 "" H 17550 17500 50  0001 C CNN
 	1    17550 17500
 	1    0    0    -1  
 $EndComp
-Text GLabel 15050 19700 2    50   Input ~ 0
+Text GLabel 14550 18450 2    50   Input ~ 0
 12v
 $EndSCHEMATC
