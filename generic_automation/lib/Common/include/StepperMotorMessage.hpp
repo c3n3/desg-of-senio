@@ -29,7 +29,7 @@ namespace genauto
         static constexpr location_t value_loc = Message::type_loc + sizeof(msgType_t);
         static constexpr location_t valueType_loc = value_loc + sizeof(float);
         static constexpr location_t direction_loc = valueType_loc + sizeof(Type);
-        static constexpr uint16_t msgSize = Message::baseSize + sizeof(Type) + sizeof(float) + sizeof(Type);
+        static constexpr uint16_t msgSize = Message::baseSize + sizeof(msgType_t) + sizeof(float) + sizeof(Type);
 
     public:
         /**

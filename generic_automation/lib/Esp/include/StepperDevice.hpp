@@ -2,7 +2,7 @@
 #define __GENERIC_AUTOMATION_STEPPERDEVICE_HPP__
 
 #include <stdint.h>
-#include <ESP_FlexyStepper.h>
+#include <AccelStepper.h>
 
 namespace genauto {
     /**
@@ -17,7 +17,7 @@ namespace genauto {
     uint8_t direction_;
     uint8_t stepPin_;
     uint8_t dirPin_;
-    ESP_FlexyStepper myStepper;
+    AccelStepper myStepper;
     public:
 
         /**
@@ -25,7 +25,21 @@ namespace genauto {
          * 
          * @param pinNumber 
          */
-        StepperDevice(uint8_t stepPin, uint8_t dirPin);
+        StepperDevice(uint8_t stepPin, uint8_t dirPin, int8_t minorId);
+
+        /**
+         * @brief Set the Enc Step Scale object
+         * 
+         * @param encStepScale 
+         */
+        void setEncStepScale(uint8_t encStepScale);
+
+        /**
+         * @brief Get the Enc Step Scale object, the scale for how many steps are taken for each click of an encoder.
+         * 
+         * @return uint8_t 
+         */
+        uint8_t getEncStepScale();
 
         /**
          * @brief Set the Speed object
