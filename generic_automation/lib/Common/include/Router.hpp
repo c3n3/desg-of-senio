@@ -18,10 +18,11 @@
 
 //         public:
 
-//             Map<MessageId, List<Subscriber*>> idMap;
-//             //List<Subscriber*> subs;
-//             List<Publisher*> pubs;
-//             Publisher publish;
+//           Map<MessageId, List<Subscriber*>> idMap;
+//            //List<Subscriber*> subs;
+//            List<Publisher*> pubs;
+//            Publisher pub;
+
 
 //             /**
 //              * @brief checks if message iD is in a map
@@ -57,8 +58,11 @@
 //              */
 //             virtual void addPublisher(Publisher* pub);
 
-
-//             virtual void Execute();
+//            /**
+//             *@brief  
+//             * 
+//             */
+//            virtual void Execute();
 
 
 

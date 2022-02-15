@@ -84,22 +84,10 @@ void send(Message* message)
 int main()
 {
          Router route;
-         MessageId iD;
-         Publisher* pub;
-         Subscriber* sub;
-
-         while(route.Execute)
+         
+         while()
          {
-             route.addPublisher(pub);
-             
-             if(route.inMap(iD) == false)
-             {
-                 route.Add(sub, iD);
-             }
-             else
-             {
-                 route.Subscribe(sub, iD);
-             }
+             route.execute();
          }
 
 

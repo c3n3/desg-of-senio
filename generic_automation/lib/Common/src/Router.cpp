@@ -30,9 +30,11 @@
 //     pubs.pushBack(pub);
 // }
 
-// void Router::Execute()
-// {
-//     Publisher* pub;
-//     pub->tryGet();
-    
-// }
+//void Router::Execute()
+//{
+//    Message* msg = pub.tryGet();
+//    MessageId id = msg->id();
+//    Subscriber* sub;
+
+//    sub->receive(msg);
+//}
