@@ -12,11 +12,8 @@ bool Router::inMap(MessageId iD)
 }
 
 void Router::Subscribe(Subscriber* sub, MessageId iD)
-{
-    if(inMap(iD) == true)
-    {
+{      if(inMap(iD) == true)
         idMap[iD].pushBack(sub);
-    }
 }
 
 void Router::Add(Subscriber* sub, MessageId iD)
@@ -32,7 +29,9 @@ void Router::addPublisher(Publisher* pub)
 
 void Router::Execute()
 {
-    Publisher* pub;
-    pub->tryGet();
-    
+    Message* msg = pub.tryGet();
+    MessageId id = msg->id();
+    Subscriber* sub;
+
+    sub->receive(msg);
 }

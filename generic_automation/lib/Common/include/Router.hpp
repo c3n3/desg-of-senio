@@ -6,6 +6,7 @@
 #include "Map.hpp"
 #include "List.hpp"
 #include "Publisher.hpp"
+#include "SubscribeMessage.hpp"
 
 using namespace genauto;
 
@@ -21,7 +22,8 @@ namespace genauto {
             Map<MessageId, List<Subscriber*>> idMap;
             //List<Subscriber*> subs;
             List<Publisher*> pubs;
-            Publisher publish;
+            Publisher pub;
+
 
             /**
              * @brief checks if message iD is in a map
@@ -57,7 +59,10 @@ namespace genauto {
              */
             virtual void addPublisher(Publisher* pub);
 
-
+            /**
+             *@brief  
+             * 
+             */
             virtual void Execute();
 
 
