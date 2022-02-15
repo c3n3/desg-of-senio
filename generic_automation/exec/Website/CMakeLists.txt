@@ -40,6 +40,20 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 # and comment out the following lines
 find_package(Drogon CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon)
+# find_package(Libcurlpp REQUIRED)
+
+
+
+find_library(CURL curl)
+find_library(CURLPP curlpp)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE "${CURL}")
+target_link_libraries(${PROJECT_NAME} PRIVATE "${CURLPP}")
+
+set ( CMAKE_CXX_FLAGS "-lcurl -lcurlpp")
+# set ( CMAKE_CXX_FLAGS "-lcurlpp")
+
+# target_link_libraries(${PROJECT_NAME} PRIVATE curlpp)
 
 # ##############################################################################
 

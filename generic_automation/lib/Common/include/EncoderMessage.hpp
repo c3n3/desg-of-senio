@@ -12,30 +12,24 @@ namespace genauto {
      * @brief A stepper motor message
      */
     class EncoderMessage : public Message {
+        private:
+        static constexpr location_t value_location = Message::type_loc + sizeof(msgType_t);
+        static constexpr uint16_t msgSize = Message::baseSize + sizeof(int16_t);
     public:
 
         /**
-         * @brief Create a stepper motor message
-         *
-         * @param type Type of the message
-         * @param value The value for the type
-         */
-        EncoderMessage(MessageId id, uint16_t val);
-
-        /**
-         * @brief gets the value of the message
-         *
-         * @return uint16_t
-         */
-        uint16_t getValue();
-
-        /**
-         * @brief Set the Value object
+         * @brief Construct a new Encoder Message object
          * 
-         * @param value 
+         * @param buffer 
          */
-        void setValue(uint16_t value);
+        EncoderMessage(uint8_t* buffer = nullptr);
 
+        /**
+         * @brief 
+         * 
+         * @return uint16_t& 
+         */
+        int16_t& value();
 
         /**
          * @brief Convert to string
@@ -47,9 +41,7 @@ namespace genauto {
         /**
          * @brief Type of the message specific to class
          */
-        static const Message::msgType_t classMsgType;
-    private:
-        uint16_t value_;
+        static const msgType_t classMsgType;
     };
 }
 

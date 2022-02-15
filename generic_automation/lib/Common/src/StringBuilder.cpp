@@ -34,7 +34,7 @@ StringBuilder::Result StringBuilder::appendChar(char c)
     return Success;
 }
 
-StringBuilder::Result StringBuilder::appendInt(int16_t num)
+StringBuilder::Result StringBuilder::appendInt(int32_t num)
 {
     if (num == 0) {
         return appendChar('0');

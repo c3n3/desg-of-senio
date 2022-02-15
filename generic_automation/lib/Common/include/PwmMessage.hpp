@@ -12,6 +12,11 @@ namespace genauto {
      * @brief A stepper motor message
      */
     class PwmMessage : public Message {
+        private:
+        static constexpr location_t dutyCycle_location = Message::type_loc + sizeof(msgType_t);
+        static constexpr location_t onOff_location = dutyCycle_location + sizeof(int16_t);
+        static constexpr uint16_t msgSize
+            = Message::baseSize + sizeof(int16_t) + sizeof(bool);
     public:
 
         /**
@@ -20,36 +25,24 @@ namespace genauto {
          * @param type Type of the message
          * @param value The value for the type
          */
-        PwmMessage(MessageId id, int16_t dutyCycle, bool onOff);
+        PwmMessage(uint8_t* buffer = nullptr);
+
 
         /**
-         * @brief gets the value of the message
-         *
-         * @return uint16_t
-         */
-        uint16_t getDutyCycle();
-
-        /**
-         * @brief Set the Value object
+         * @brief 
          * 
-         * @param value 
+         * @return int16_t& 
          */
-        void setDutyCycle(int16_t dutyCycle);
+        int16_t& dutyCycle();
 
 
         /**
-         * @brief gets the value of the message
-         *
-         * @return uint16_t
-         */
-        bool getOnOff();
-
-        /**
-         * @brief Set the Value object
+         * @brief 
          * 
-         * @param value 
+         * @return true 
+         * @return false 
          */
-        void setOnOff(bool onOff);
+        bool& onOff();
 
 
         /**
@@ -59,13 +52,11 @@ namespace genauto {
          */
         void toString(StringBuilder& sb);
         
+
         /**
          * @brief Type of the message specific to class
          */
-        static const Message::msgType_t classMsgType;
-    private:
-        int16_t dutyCycle_;
-        bool onOff_;
+        static const msgType_t classMsgType;
     };
 }
 

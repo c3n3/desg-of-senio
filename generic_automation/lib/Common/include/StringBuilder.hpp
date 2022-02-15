@@ -48,7 +48,7 @@ namespace genauto {
          *
          * @param num The number to add
          */
-        Result appendInt(int16_t num);
+        Result appendInt(int32_t num);
 
         /**
          * @brief Appends a float to the string

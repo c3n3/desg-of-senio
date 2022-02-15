@@ -11,7 +11,6 @@
 #include <type_traits>
 
 
-
 using namespace genauto;
 
 namespace genauto {
