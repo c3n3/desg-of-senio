@@ -3,6 +3,7 @@
 
 #include "../../Common/include/Publisher.hpp"
 #include <stdint.h>
+#include <ESP32Encoder.h>
 
 namespace genauto {
     /**
@@ -10,8 +11,10 @@ namespace genauto {
      */
     class EncoderDevice : public Publisher {
         private:
-            uint8_t pinNumber;
-            uint8_t pressed_;
+            uint8_t pinA;
+            uint8_t pinB;
+            bool flag;
+            int16_t count;
     public:
 
         /**
@@ -19,7 +22,7 @@ namespace genauto {
          * 
          * @param pinNumber 
          */
-        EncoderDevice(uint8_t pinNumber);
+        EncoderDevice(uint8_t pinA, uint8_t pinB);
 
         /**
          * @brief executes the purpose of the Encoder class

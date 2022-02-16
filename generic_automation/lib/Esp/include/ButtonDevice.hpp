@@ -11,7 +11,7 @@ namespace genauto {
     class ButtonDevice : public Publisher {
         private:
             uint8_t pinNumber;
-            uint8_t pressed_;
+            bool pressed_;
     public:
 
         /**

@@ -1,21 +1,27 @@
 #include "../include/EncoderDevice.hpp"
 #include "../../Common/include/EncoderMessage.hpp"
 #include <stdint.h>
+#include <ESP32Encoder.h>
 
 using namespace genauto;
 
 unsigned long lastTime = 0;
+ESP32Encoder encoder;
 
 /**
  * @brief Construct a new genauto::Pwm Device::pwm object
  *
  * @param pinNumber
  */
-genauto::EncoderDevice::EncoderDevice(uint8_t pinNumber /*, uint8_t minorId*/)
-    : pinNumber(pinNumber)
+genauto::EncoderDevice::EncoderDevice(uint8_t pinA, uint8_t pinB /*, uint8_t minorId*/)
+    : pinA(pinA),
+    pinB(pinB)
 // will need to add "minorId(MinorId)"
 {
-    pinMode(pinNumber, INPUT);
+    ESP32Encoder::useInternalWeakPullResistors=UP;
+	encoder.attachHalfQuad(pinA, pinB);
+    encoder2.clearCount();
+	lastTime = millis();
 }
 
 /**
@@ -27,10 +33,8 @@ void genauto::EncoderDevice::execute()
     if ((millis() - lastTime) >= 250)
     {
         lastTime = millis();
-        if (digitalRead(pinNumber))
-        {
-            pressed_ = true;
-        }
+        count = encoder2.getCount()
+        flag = true;
     }
 }
 
@@ -41,11 +45,11 @@ void genauto::EncoderDevice::execute()
  */
 Message *tryGet()
 {
-    if (pressed_)
+    if (flag)
     {
-        pressed_ = false;
-        EncoderMessage* bMsg = EncoderMessage::EncoderMessage(void);
-        bMsg->pressed() = true;
+        flag = false;
+        EncoderMessage* eMsg = EncoderMessage::EncoderMessage(void);
+        eMsg->value() = count;
         return bMsg
     }
 }
