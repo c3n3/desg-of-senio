@@ -28,9 +28,9 @@ AnalogMessage::AnalogMessage(uint8_t* buffer)
          *
          * @return the value of how much the Pwm has changed.
          */
-float& AnalogMessage::value()
+uint16_t& AnalogMessage::value()
 {
-    return get<float>(value_location);
+    return get<uint16_t>(value_location);
 }
 
 
