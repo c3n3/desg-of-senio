@@ -1,5 +1,5 @@
-#include "../include/ButtonDevice.hpp"
-#include "../../Common/include/ButtonMessage.hpp"
+#include "../include/EncoderDevice.hpp"
+#include "../../Common/include/EncoderMessage.hpp"
 #include <stdint.h>
 
 using namespace genauto;
@@ -11,7 +11,7 @@ unsigned long lastTime = 0;
  *
  * @param pinNumber
  */
-genauto::ButtonDevice::ButtonDevice(uint8_t pinNumber /*, uint8_t minorId*/)
+genauto::EncoderDevice::EncoderDevice(uint8_t pinNumber /*, uint8_t minorId*/)
     : pinNumber(pinNumber)
 // will need to add "minorId(MinorId)"
 {
@@ -22,7 +22,7 @@ genauto::ButtonDevice::ButtonDevice(uint8_t pinNumber /*, uint8_t minorId*/)
  * @brief
  *
  */
-void genauto::ButtonDevice::execute()
+void genauto::EncoderDevice::execute()
 {
     if ((millis() - lastTime) >= 250)
     {
@@ -44,7 +44,7 @@ Message *tryGet()
     if (pressed_)
     {
         pressed_ = false;
-        ButtonMessage* bMsg = ButtonMessage::ButtonMessage(void);
+        EncoderMessage* bMsg = EncoderMessage::EncoderMessage(void);
         bMsg->pressed() = true;
         return bMsg
     }
