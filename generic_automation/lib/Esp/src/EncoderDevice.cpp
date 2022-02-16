@@ -50,6 +50,6 @@ Message *tryGet()
         flag = false;
         EncoderMessage* eMsg = EncoderMessage::EncoderMessage(void);
         eMsg->value() = count;
-        return bMsg
+        return eMsg
     }
 }
