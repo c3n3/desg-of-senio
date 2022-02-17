@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L final-project-circ-1-rescue:ESP32-WROOM-32D-RF_Module U6
+L final-project-circ-1-rescue:ESP32-WROOM-32D-RF_Module-final-project-circ-1-rescue U6
 U 1 1 61E970AF
 P 25350 15150
 F 0 "U6" H 25350 16731 50  0000 C CNN
@@ -203,7 +203,7 @@ Wire Wire Line
 Wire Wire Line
 	24400 11300 27400 11300
 $Comp
-L final-project-circ-1-rescue:USB_B_Micro-Connector J1
+L final-project-circ-1-rescue:USB_B_Micro-Connector-final-project-circ-1-rescue J1
 U 1 1 61F4B745
 P 18800 10250
 F 0 "J1" H 18857 10717 50  0000 C CNN
@@ -231,7 +231,7 @@ Wire Wire Line
 Wire Wire Line
 	20800 10050 20800 10450
 $Comp
-L final-project-circ-1-rescue:PMEG3005EJ-Diode D6
+L final-project-circ-1-rescue:PMEG3005EJ-Diode-final-project-circ-1-rescue D6
 U 1 1 61F6485B
 P 19800 10050
 F 0 "D6" H 19800 9834 50  0000 C CNN
@@ -816,8 +816,6 @@ Wire Wire Line
 Wire Wire Line
 	24300 18950 25250 18950
 Wire Wire Line
-	21800 18250 22300 18250
-Wire Wire Line
 	25950 14650 26500 14650
 Text GLabel 26250 14850 2    50   Input ~ 0
 EN1
@@ -899,8 +897,6 @@ Wire Wire Line
 Text GLabel 21300 18550 0    50   Input ~ 0
 12v
 Wire Wire Line
-	21300 18550 22300 18550
-Wire Wire Line
 	22300 18950 22300 19550
 Wire Wire Line
 	22300 19550 22750 19550
@@ -928,8 +924,6 @@ Wire Wire Line
 	22850 19700 22850 19250
 Wire Wire Line
 	22850 19250 21850 19250
-Wire Wire Line
-	21850 19250 21850 18350
 Wire Wire Line
 	21850 18350 22300 18350
 Wire Wire Line
@@ -1333,16 +1327,12 @@ F 3 "~" H 30950 13500 50  0001 C CNN
 	1    30950 13500
 	1    0    0    -1  
 $EndComp
-Text GLabel 30400 13400 0    50   Input ~ 0
-Ex1
 Text GLabel 30400 13500 0    50   Input ~ 0
 Ex2
 Text GLabel 30400 13600 0    50   Input ~ 0
 Ex3
 Text GLabel 30400 13700 0    50   Input ~ 0
 Ex4
-Wire Wire Line
-	30750 13400 30400 13400
 Wire Wire Line
 	30750 13500 30400 13500
 Wire Wire Line
@@ -1397,7 +1387,7 @@ F 3 "" H 19650 15250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L final-project-circ-1-rescue:SS8050-G-Custom Q4
+L final-project-circ-1-rescue:SS8050-G-Custom-final-project-circ-1-rescue Q4
 U 1 1 6208535A
 P 15250 11000
 F 0 "Q4" H 16050 11487 60  0000 C CNN
@@ -1408,7 +1398,7 @@ F 3 "" H 15250 11000 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L final-project-circ-1-rescue:SS8050-G-Custom Q5
+L final-project-circ-1-rescue:SS8050-G-Custom-final-project-circ-1-rescue Q5
 U 1 1 6208695C
 P 15350 12150
 F 0 "Q5" H 16150 12637 60  0000 C CNN
@@ -1443,12 +1433,12 @@ Connection ~ 14750 11000
 Wire Wire Line
 	14750 11000 14950 11000
 $Comp
-L final-project-circ-1-rescue:LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue U1
+L final-project-circ-1-rescue:LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue U1
 U 1 1 61FA0D0E
 P 15250 15900
 F 0 "U1" H 15700 11477 50  0000 C CNN
 F 1 "LTC3895IFE" H 15700 11386 50  0000 C CNN
-F 2 "SDESIGN:LTC3895IFE" H 15250 15900 50  0001 C CNN
+F 2 "bigboard:LTC3895IFE" H 15250 15900 50  0001 C CNN
 F 3 "" H 15250 15900 50  0001 C CNN
 	1    15250 15900
 	1    0    0    -1  
@@ -1703,7 +1693,7 @@ U 1 1 61FBA8BC
 P 18050 17100
 F 0 "L1" H 18102 17146 50  0000 L CNN
 F 1 "33u" H 18102 17055 50  0000 L CNN
-F 2 "SDESIGN:MPXV1D1740L330" H 18050 17100 50  0001 C CNN
+F 2 "bigboard:MPXV1D1740L330" H 18050 17100 50  0001 C CNN
 F 3 "~" H 18050 17100 50  0001 C CNN
 	1    18050 17100
 	1    0    0    -1  
@@ -1823,7 +1813,7 @@ Wire Wire Line
 Wire Wire Line
 	16400 16650 16400 17650
 $Comp
-L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue Q3
+L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue Q3
 U 1 1 62007216
 P 17250 20150
 F 0 "Q3" H 17456 20196 50  0000 L CNN
@@ -1834,7 +1824,7 @@ F 3 "http://www.ti.com/lit/gpn/csd17578q5a" V 17250 20150 50  0001 L CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue Q2
+L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue Q2
 U 1 1 6200DB26
 P 16750 19150
 F 0 "Q2" H 16956 19104 50  0000 L CNN
@@ -1845,7 +1835,7 @@ F 3 "http://www.ti.com/lit/gpn/csd17578q5a" V 16750 19150 50  0001 L CNN
 	1    0    0    1   
 $EndComp
 $Comp
-L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue Q1
+L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue Q1
 U 1 1 6200EB2C
 P 16450 18150
 F 0 "Q1" H 16656 18196 50  0000 L CNN
@@ -2317,7 +2307,7 @@ U 1 1 621EEEC6
 P 19900 10950
 F 0 "U4" H 19875 11375 50  0000 C CNN
 F 1 "USBLC6-4" H 19875 11284 50  0000 C CNN
-F 2 "" H 19900 11400 50  0001 C CNN
+F 2 "bigboard:USBLC6-4SC6" H 19900 11400 50  0001 C CNN
 F 3 "" H 19900 11400 50  0001 C CNN
 	1    19900 10950
 	1    0    0    -1  
@@ -2369,16 +2359,53 @@ U 1 1 61FEAB5C
 P 24400 11800
 F 0 "D9" V 24446 11720 50  0000 R CNN
 F 1 "S1DTR" V 24355 11720 50  0000 R CNN
-F 2 "Motor Controller:SMAJ140CA" H 24400 11800 50  0001 C CNN
+F 2 "bigboard:SMAJ140CA" H 24400 11800 50  0001 C CNN
 F 3 "~" H 24400 11800 50  0001 C CNN
 	1    24400 11800
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Custom:L2293QTR U7
-U 1 1 6214ED7D
+L power:GND #PWR054
+U 1 1 62173E51
+P 19500 18200
+F 0 "#PWR054" H 19500 17950 50  0001 C CNN
+F 1 "GND" V 19505 18072 50  0000 R CNN
+F 2 "" H 19500 18200 50  0001 C CNN
+F 3 "" H 19500 18200 50  0001 C CNN
+	1    19500 18200
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR055
+U 1 1 62174EE6
+P 20100 18200
+F 0 "#PWR055" H 20100 17950 50  0001 C CNN
+F 1 "GND" H 20105 18027 50  0000 C CNN
+F 2 "" H 20100 18200 50  0001 C CNN
+F 3 "" H 20100 18200 50  0001 C CNN
+	1    20100 18200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+VDC #PWR036
+U 1 1 62176DF4
+P 19350 17950
+F 0 "#PWR036" H 19350 17850 50  0001 C CNN
+F 1 "+VDC" H 19350 18225 50  0000 C CNN
+F 2 "" H 19350 17950 50  0001 C CNN
+F 3 "" H 19350 17950 50  0001 C CNN
+	1    19350 17950
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	19350 17950 19500 17950
+Wire Wire Line
+	19500 17950 19500 18000
+$Comp
+L Custom:L2293QTR U8
+U 1 1 62208553
 P 22300 17450
-F 0 "U7" H 23300 17837 60  0000 C CNN
+F 0 "U8" H 23300 17837 60  0000 C CNN
 F 1 "L2293QTR" H 23300 17731 60  0000 C CNN
 F 2 "bigboard:L2293QTR" H 23300 17690 60  0001 C CNN
 F 3 "" H 22300 17450 60  0000 C CNN
@@ -2386,4 +2413,34 @@ F 3 "" H 22300 17450 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 22300 18550
+Wire Wire Line
+	21800 18250 22300 18250
+Wire Wire Line
+	21300 18550 22300 18550
+$Comp
+L Custom:SRD-S-112DM U7
+U 1 1 62253540
+P 19800 17900
+F 0 "U7" H 19800 18025 50  0000 C CNN
+F 1 "SRD-S-112DM" H 19800 17934 50  0000 C CNN
+F 2 "bigboard:SRD-S-112DM(F-11) Relay" H 19800 17900 50  0001 C CNN
+F 3 "" H 19800 17900 50  0001 C CNN
+	1    19800 17900
+	1    0    0    -1  
+$EndComp
+Text GLabel 20100 18000 2    50   Input ~ 0
+EX1
+$Comp
+L Connector:Conn_01x01_Female J2
+U 1 1 622786E8
+P 20300 18100
+F 0 "J2" H 20328 18126 50  0000 L CNN
+F 1 "Conn_01x01_Female" H 20328 18035 50  0000 L CNN
+F 2 "" H 20300 18100 50  0001 C CNN
+F 3 "~" H 20300 18100 50  0001 C CNN
+	1    20300 18100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	21850 18350 21850 19250
 $EndSCHEMATC
