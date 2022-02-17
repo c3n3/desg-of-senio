@@ -5,8 +5,6 @@
 
 using namespace genauto;
 
-unsigned long lastTime = 0;
-ESP32Encoder encoder;
 
 /**
  * @brief Construct a new genauto::Pwm Device::pwm object
@@ -20,7 +18,7 @@ genauto::EncoderDevice::EncoderDevice(uint8_t pinA, uint8_t pinB /*, uint8_t min
 {
     ESP32Encoder::useInternalWeakPullResistors=UP;
 	encoder.attachHalfQuad(pinA, pinB);
-    encoder2.clearCount();
+    encoder.clearCount();
 	lastTime = millis();
 }
 
@@ -33,10 +31,19 @@ void genauto::EncoderDevice::execute()
     if ((millis() - lastTime) >= 250)
     {
         lastTime = millis();
-        count = encoder2.getCount()
-        flag = true;
+        if(count != encoder.getCount())
+        {
+            count = encoder.getCount();
+            flag = true;
+        }
+        eMsg->value() = count;
     }
 }
+
+/// As of right now, this class does not implement a Queue for encoder messages,
+/// this shouldn't be a problem, but if it becomes a problem, we can implement
+/// a Queue.
+
 
 /**
  * @brief
@@ -48,8 +55,6 @@ Message *tryGet()
     if (flag)
     {
         flag = false;
-        EncoderMessage* eMsg = EncoderMessage::EncoderMessage(void);
-        eMsg->value() = count;
         return eMsg
     }
 }
