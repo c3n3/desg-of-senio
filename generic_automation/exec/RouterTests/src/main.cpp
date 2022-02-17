@@ -84,8 +84,9 @@ void send(Message* message)
 int main()
 {
          Router route;
+         auto it = idMap.begin();
          
-         while()
+         while(it != idMap.end())
          {
              route.execute();
          }
