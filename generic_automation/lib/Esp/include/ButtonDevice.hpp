@@ -20,7 +20,7 @@ namespace genauto {
          * 
          * @param pinNumber 
          */
-        ButtonDevice(uint8_t pinNumber);
+        ButtonDevice() = 0;
 
         /**
          * @brief executes the purpose of the Button class
@@ -28,6 +28,21 @@ namespace genauto {
          */
         void execute();
     };
+
+    template<int PIN>
+    class ButtonDeviceInst : public ButtonDevice {
+
+        ButtonDeviceInst()
+        {
+            // Init
+        }
+
+        static void isr()
+        {
+            // Do something
+            // use PIN
+        }
+    }
 }
 
 #endif
