@@ -1,9 +1,9 @@
-#include "../include/AnalogMessage.hpp"
+#include "../include/EncoderMessage.hpp"
 #include "../include/Log.hpp"
 
 using namespace genauto;
 
-const msgType_t AnalogMessage::classMsgType = MSG_TYPE('A', 'F');
+const msgType_t EncoderMessage::classMsgType = MSG_TYPE('A', 'E');
 
 /**
          * @brief Create a stepper motor message
@@ -11,7 +11,7 @@ const msgType_t AnalogMessage::classMsgType = MSG_TYPE('A', 'F');
          * @param type Type of the message
          * @param value The value for the type
          */
-AnalogMessage::AnalogMessage(uint8_t* buffer)
+EncoderMessage::EncoderMessage(uint8_t* buffer)
     : Message(buffer, msgSize)
 {
     if (size_() != msgSize) {
@@ -28,9 +28,9 @@ AnalogMessage::AnalogMessage(uint8_t* buffer)
          *
          * @return the value of how much the Pwm has changed.
          */
-uint16_t& AnalogMessage::value()
+int16_t& EncoderMessage::value()
 {
-    return get<uint16_t>(value_location);
+    return get<int16_t>(value_location);
 }
 
 
@@ -39,11 +39,11 @@ uint16_t& AnalogMessage::value()
          *
          * @param sb
          */
-void AnalogMessage::toString(StringBuilder &sb)
+void EncoderMessage::toString(StringBuilder &sb)
 {
-    sb.appendString("{AnalogMessage; ");
+    sb.appendString("{EncoderMessage; ");
     sb.appendString("Value: ");
-    sb.appendFloat(value());
+    sb.appendInt(value());
     sb.appendString(", ");
     id().toString(sb);
     sb.appendChar('}');

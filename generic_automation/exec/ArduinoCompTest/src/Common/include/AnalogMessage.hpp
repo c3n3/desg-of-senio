@@ -14,7 +14,7 @@ namespace genauto {
     class AnalogMessage : public Message {
         private:
         static constexpr location_t value_location = Message::type_loc + sizeof(msgType_t);
-        static constexpr uint16_t msgSize = Message::baseSize + sizeof(uint16_t);
+        static constexpr uint16_t msgSize = Message::baseSize + sizeof(float);
     public:
 
         /**
@@ -29,7 +29,7 @@ namespace genauto {
          * 
          * @return uint16_t& 
          */
-        uint16_t& value();
+        float& value();
 
         /**
          * @brief Convert to string

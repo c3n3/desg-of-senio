@@ -18,7 +18,7 @@ Message::Message(uint8_t* buffer, uint16_t size)
 }
 
 Message::Message (const Message& other)
-    : buffer_(nullptr),
+    : buffer_(nullptr), 
       alloc(false)
 {
     dlog("Vis?\n");

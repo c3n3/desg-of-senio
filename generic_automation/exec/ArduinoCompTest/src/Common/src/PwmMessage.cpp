@@ -1,17 +1,11 @@
-#include "../include/AnalogMessage.hpp"
+#include "../include/PwmMessage.hpp"
 #include "../include/Log.hpp"
 
 using namespace genauto;
 
-const msgType_t AnalogMessage::classMsgType = MSG_TYPE('A', 'F');
+const msgType_t PwmMessage::classMsgType = MSG_TYPE('A', 'D');
 
-/**
-         * @brief Create a stepper motor message
-         *
-         * @param type Type of the message
-         * @param value The value for the type
-         */
-AnalogMessage::AnalogMessage(uint8_t* buffer)
+PwmMessage::PwmMessage(uint8_t* buffer)
     : Message(buffer, msgSize)
 {
     if (size_() != msgSize) {
@@ -22,15 +16,20 @@ AnalogMessage::AnalogMessage(uint8_t* buffer)
     Message::type() = classMsgType;
 }
 
-
 /**
          * @brief gets the value of the message
          *
          * @return the value of how much the Pwm has changed.
          */
-uint16_t& AnalogMessage::value()
+int16_t& PwmMessage::dutyCycle()
 {
-    return get<uint16_t>(value_location);
+    return get<int16_t>(dutyCycle_location);
+}
+
+
+bool& PwmMessage::onOff()
+{
+    return get<bool>(onOff_location);
 }
 
 
@@ -39,12 +38,14 @@ uint16_t& AnalogMessage::value()
          *
          * @param sb
          */
-void AnalogMessage::toString(StringBuilder &sb)
+void PwmMessage::toString(StringBuilder& sb)
 {
-    sb.appendString("{AnalogMessage; ");
-    sb.appendString("Value: ");
-    sb.appendFloat(value());
+    sb.appendString("{PwmMessage; Duty Cycle:  ");
+    sb.appendInt(dutyCycle());
+    sb.appendString("onOff: ");
+    sb.appendFloat(onOff());
     sb.appendString(", ");
     id().toString(sb);
     sb.appendChar('}');
 }
+
