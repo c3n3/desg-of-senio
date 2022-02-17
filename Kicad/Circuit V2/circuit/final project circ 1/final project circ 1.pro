@@ -1,6 +1,6 @@
-update=2/16/2022 9:33:34 PM
+update=2/16/2022 9:34:37 PM
 version=1
-last_client=kicad
+last_client=pcbnew
 [general]
 version=1
 RootSch=
@@ -25,7 +25,7 @@ ERC_TestSimilarLabels=1
 [pcbnew]
 version=1
 PageLayoutDescrFile=
-LastNetListRead=netlist/final project circ 1.net
+LastNetListRead=Netlist/final project circ 1.net
 CopperLayerCount=2
 BoardThickness=1.6
 AllowMicroVias=0
@@ -44,7 +44,7 @@ ViaDrill1=0.4
 dPairWidth1=0.2
 dPairGap1=0.25
 dPairViaGap1=0.25
-SilkLineWidth=0.12
+SilkLineWidth=0.15
 SilkTextSizeV=1
 SilkTextSizeH=1
 SilkTextSizeThickness=0.15
@@ -56,8 +56,8 @@ CopperTextSizeH=1.5
 CopperTextThickness=0.3
 CopperTextItalic=0
 CopperTextUpright=1
-EdgeCutLineWidth=0.05
-CourtyardLineWidth=0.05
+EdgeCutLineWidth=0.09999999999999999
+CourtyardLineWidth=0.12
 OthersLineWidth=0.15
 OthersTextSizeV=1
 OthersTextSizeH=1
