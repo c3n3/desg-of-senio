@@ -36,6 +36,7 @@ class Devices:public drogon::HttpController<Devices>
                     const major_t& major,
                     const minor_t& minor,
                     const int16_t& inc);
+    
     genauto::Database base;
 
     HexStringSerializer serializer;

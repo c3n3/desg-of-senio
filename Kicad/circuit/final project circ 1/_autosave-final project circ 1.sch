@@ -555,7 +555,7 @@ F 3 "https://www.onsemi.com/pub/Collateral/BC818-D.pdf" H 17350 18250 50  0001 L
 	1    17350 18250
 	1    0    0    -1  
 $EndComp
-Text GLabel 18000 17850 2    50   Input ~ 0
+Text GLabel 18100 17800 2    50   Input ~ 0
 SS8050-G
 Text GLabel 17800 17200 2    50   Input ~ 0
 EN
