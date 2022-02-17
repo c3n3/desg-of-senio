@@ -2,4 +2,5 @@
   (lib (name "Motor drive")(type Legacy)(uri "${KIPRJMOD}/Motor drive.lib")(options "")(descr ""))
   (lib (name SDPowSupply-rescue)(type Legacy)(uri "C:/Users/cooki/Desktop/Classes/Senior design/Github/desg-of-senio/Kicad/SDPowSupply/SDPowSupply-rescue.lib")(options "")(descr ""))
   (lib (name final-project-circ-1-rescue)(type Legacy)(uri "${KIPRJMOD}/final project circ 1-rescue.lib")(options "")(descr ""))
+  (lib (name senior_design)(type Legacy)(uri ${KIPRJMOD}/senior_design.lib)(options "")(descr ""))
 )

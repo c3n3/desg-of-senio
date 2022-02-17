@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:final project circ 1-cache
-EELAYER 29 0
+EELAYER 30 0
 EELAYER END
 $Descr A0 46811 33110
 encoding utf-8
@@ -145,24 +144,12 @@ Wire Wire Line
 Wire Wire Line
 	28150 13300 28150 13200
 Connection ~ 28150 13200
-$Comp
-L Device:CP C24
-U 1 1 61EA84CA
-P 27400 12300
-F 0 "C24" H 27282 12254 50  0000 R CNN
-F 1 "100uf" H 27282 12345 50  0000 R CNN
-F 2 "Capacitor_Tantalum_SMD:CP_EIA-7343-40_Kemet-Y" H 27438 12150 50  0001 C CNN
-F 3 "~" H 27400 12300 50  0001 C CNN
-	1    27400 12300
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	28650 12450 28650 12900
 Wire Wire Line
 	27400 12450 27400 12900
 Wire Wire Line
 	28650 12450 27400 12450
-Connection ~ 27400 12450
 Text GLabel 24400 11100 1    50   Input ~ 0
 12v
 Wire Wire Line
@@ -187,8 +174,6 @@ Wire Wire Line
 	28150 13700 28150 15850
 Wire Wire Line
 	28150 15850 25950 15850
-Wire Wire Line
-	27400 11300 27400 12150
 $Comp
 L Regulator_Linear:AZ1117-3.3 U5
 U 1 1 61F42FEF
@@ -217,9 +202,6 @@ Wire Wire Line
 	24400 11950 24350 11950
 Wire Wire Line
 	24400 11300 27400 11300
-Connection ~ 24400 11300
-Wire Wire Line
-	24400 11300 24400 11950
 $Comp
 L final-project-circ-1-rescue:USB_B_Micro-Connector J1
 U 1 1 61F4B745
@@ -266,9 +248,9 @@ D+
 Text GLabel 19500 10350 2    50   Input ~ 0
 D-
 Wire Wire Line
-	19500 10250 19100 10250
+	19500 10250 19400 10250
 Wire Wire Line
-	19500 10350 19100 10350
+	19500 10350 19450 10350
 Text GLabel 18600 13350 0    50   Input ~ 0
 D+
 Text GLabel 18600 13450 0    50   Input ~ 0
@@ -317,8 +299,6 @@ F 3 "" H 18250 13550 50  0001 C CNN
 	1    18250 13550
 	1    0    0    -1  
 $EndComp
-Text GLabel 19800 10300 3    50   Input ~ 0
-AddProtectiontoD+-
 $Comp
 L Device:R R12
 U 1 1 61F7F9EC
@@ -467,10 +447,6 @@ F 3 "" H 20800 13750 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	20150 13750 20500 13750
-Text GLabel 21550 10450 1    50   Input ~ 0
-VDD33
-Wire Wire Line
-	21400 10450 21550 10450
 $Comp
 L Device:R R11
 U 1 1 61FA90CB
@@ -572,21 +548,6 @@ Wire Wire Line
 	17000 13750 16650 13750
 Wire Wire Line
 	16650 13750 16650 13800
-$Comp
-L Device:C C19
-U 1 1 62002F44
-P 21550 10750
-F 0 "C19" H 21665 10796 50  0000 L CNN
-F 1 "22uF" H 21665 10705 50  0000 L CNN
-F 2 "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B" H 21588 10600 50  0001 C CNN
-F 3 "~" H 21550 10750 50  0001 C CNN
-	1    21550 10750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	21550 10450 21550 10600
-Wire Wire Line
-	21550 10900 21550 11000
 Text GLabel 24600 13950 0    50   Input ~ 0
 EN
 Text GLabel 22500 13700 1    50   Input ~ 0
@@ -639,8 +600,6 @@ Wire Wire Line
 	22500 14650 22500 14750
 Wire Wire Line
 	24600 13950 24750 13950
-Text GLabel 23250 13200 0    50   Input ~ 0
-VDD33
 $Comp
 L Device:C C21
 U 1 1 62031C7C
@@ -664,14 +623,11 @@ F 3 "~" H 23750 13450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	23250 13200 23300 13200
-Wire Wire Line
 	23300 13200 23300 13300
 Wire Wire Line
 	23300 13200 23750 13200
 Wire Wire Line
 	23750 13200 23750 13300
-Connection ~ 23300 13200
 $Comp
 L power:GND #PWR039
 U 1 1 62044782
@@ -956,17 +912,6 @@ Text GLabel 21300 18550 0    50   Input ~ 0
 Wire Wire Line
 	21300 18550 22300 18550
 Connection ~ 22300 18550
-$Comp
-L Connector:Conn_01x04_Female J2
-U 1 1 621FF719
-P 22850 19900
-F 0 "J2" V 22696 20048 50  0000 L CNN
-F 1 "Conn_01x04_Female" V 22787 20048 50  0000 L CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical" H 22850 19900 50  0001 C CNN
-F 3 "~" H 22850 19900 50  0001 C CNN
-	1    22850 19900
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	22300 18950 22300 19550
 Wire Wire Line
@@ -999,33 +944,6 @@ Wire Wire Line
 	21850 19250 21850 18350
 Wire Wire Line
 	21850 18350 22300 18350
-$Comp
-L Device:D D9
-U 1 1 61FEAB5C
-P 24350 12700
-F 0 "D9" V 24396 12620 50  0000 R CNN
-F 1 "ES2DVRX" V 24305 12620 50  0000 R CNN
-F 2 "Motor Controller:SMAJ140CA" H 24350 12700 50  0001 C CNN
-F 3 "~" H 24350 12700 50  0001 C CNN
-	1    24350 12700
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:D D8
-U 1 1 61FEB42F
-P 23900 13200
-F 0 "D8" H 23900 12983 50  0000 C CNN
-F 1 "ES2DVRX" H 23900 13074 50  0000 C CNN
-F 2 "Motor Controller:SMAJ140CA" H 23900 13200 50  0001 C CNN
-F 3 "~" H 23900 13200 50  0001 C CNN
-	1    23900 13200
-	-1   0    0    1   
-$EndComp
-Connection ~ 23750 13200
-Wire Wire Line
-	24350 12850 24350 13200
-Wire Wire Line
-	24350 13200 24050 13200
 Wire Wire Line
 	24350 13200 25350 13200
 Connection ~ 24350 13200
@@ -1459,8 +1377,6 @@ Wire Wire Line
 	26050 14350 25950 14350
 Wire Wire Line
 	26050 14450 25950 14450
-Text GLabel 22000 10800 2    50   Input ~ 0
-Checkifthis22ufisneeded
 $Comp
 L Interface_USB:CP2102N-A01-GQFN28 U2
 U 1 1 62063C3D
@@ -1470,17 +1386,6 @@ F 1 "CP2102N-A01-GQFN28" H 19650 12470 50  0000 C CNN
 F 2 "Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm" H 20100 12750 50  0001 L CNN
 F 3 "https://www.silabs.com/documents/public/data-sheets/cp2102n-datasheet.pdf" H 19700 13200 50  0001 C CNN
 	1    19650 13950
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR036
-U 1 1 6208C991
-P 21550 11000
-F 0 "#PWR036" H 21550 10750 50  0001 C CNN
-F 1 "GND" H 21555 10827 50  0000 C CNN
-F 2 "" H 21550 11000 50  0001 C CNN
-F 3 "" H 21550 11000 50  0001 C CNN
-	1    21550 11000
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -2393,4 +2298,92 @@ F 3 "" H 17550 17500 50  0001 C CNN
 $EndComp
 Text GLabel 14550 18450 2    50   Input ~ 0
 12v
+$Comp
+L Connector:Conn_01x02_Male PWM?
+U 1 1 6212D534
+P 22650 19900
+F 0 "PWM?" V 22750 20250 50  0000 R CNN
+F 1 "Conn_01x02_Male" V 22550 20650 50  0000 R CNN
+F 2 "" H 22650 19900 50  0001 C CNN
+F 3 "~" H 22650 19900 50  0001 C CNN
+	1    22650 19900
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:Conn_01x02_Male PWM?
+U 1 1 62131CB2
+P 22850 19900
+F 0 "PWM?" V 22950 19600 50  0000 R CNN
+F 1 "Conn_01x02_Male" V 22800 19500 50  0000 R CNN
+F 2 "" H 22850 19900 50  0001 C CNN
+F 3 "~" H 22850 19900 50  0001 C CNN
+	1    22850 19900
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	27400 11300 27400 12450
+Connection ~ 27400 12450
+$Comp
+L senior_design:USBLC6-4 U?
+U 1 1 621EEEC6
+P 19900 10950
+F 0 "U?" H 19875 11375 50  0000 C CNN
+F 1 "USBLC6-4" H 19875 11284 50  0000 C CNN
+F 2 "" H 19900 11400 50  0001 C CNN
+F 3 "" H 19900 11400 50  0001 C CNN
+	1    19900 10950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	19450 10350 19450 10750
+Wire Wire Line
+	19450 10750 19550 10750
+Connection ~ 19450 10350
+Wire Wire Line
+	19450 10350 19100 10350
+Wire Wire Line
+	19400 10250 19400 10950
+Wire Wire Line
+	19400 10950 19550 10950
+Connection ~ 19400 10250
+Wire Wire Line
+	19400 10250 19100 10250
+$Comp
+L power:GND #PWR?
+U 1 1 6223808A
+P 19550 10850
+F 0 "#PWR?" H 19550 10600 50  0001 C CNN
+F 1 "GND" H 19555 10677 50  0000 C CNN
+F 2 "" H 19550 10850 50  0001 C CNN
+F 3 "" H 19550 10850 50  0001 C CNN
+	1    19550 10850
+	0    1    1    0   
+$EndComp
+NoConn ~ 20200 10750
+NoConn ~ 20200 10950
+Text GLabel 20200 10850 2    50   Input ~ 0
+VB
+Text GLabel 21400 10450 2    50   Input ~ 0
+3.3V_USBREG
+Text GLabel 23300 13200 0    50   Input ~ 0
+3.3V_USBREG
+Wire Wire Line
+	24400 11650 24400 11300
+Connection ~ 24400 11300
+Wire Wire Line
+	24350 12550 24350 13200
+Wire Wire Line
+	23750 13200 24350 13200
+Connection ~ 23750 13200
+$Comp
+L Device:D D9
+U 1 1 61FEAB5C
+P 24400 11800
+F 0 "D9" V 24446 11720 50  0000 R CNN
+F 1 "S1DTR" V 24355 11720 50  0000 R CNN
+F 2 "Motor Controller:SMAJ140CA" H 24400 11800 50  0001 C CNN
+F 3 "~" H 24400 11800 50  0001 C CNN
+	1    24400 11800
+	0    -1   -1   0   
+$EndComp
 $EndSCHEMATC
