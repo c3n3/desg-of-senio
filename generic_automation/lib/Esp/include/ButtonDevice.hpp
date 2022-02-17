@@ -12,6 +12,7 @@ namespace genauto {
         private:
             uint8_t pinNumber;
             bool pressed_;
+            unsigned long lastTime = 0;
     public:
 
         /**

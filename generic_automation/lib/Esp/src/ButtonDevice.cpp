@@ -4,7 +4,7 @@
 
 using namespace genauto;
 
-unsigned long lastTime = 0;
+static 
 
 /**
  * @brief Construct a new genauto::Pwm Device::pwm object
@@ -19,7 +19,10 @@ genauto::ButtonDevice::ButtonDevice(uint8_t pinNumber /*, uint8_t minorId*/)
 }
 
 
-
+void IRAM_ATTR handleButtonInterrupt_1()
+{
+    
+}
 
 /**
  * @brief
