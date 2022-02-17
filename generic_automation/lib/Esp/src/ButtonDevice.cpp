@@ -18,6 +18,9 @@ genauto::ButtonDevice::ButtonDevice(uint8_t pinNumber /*, uint8_t minorId*/)
     pinMode(pinNumber, INPUT);
 }
 
+
+
+
 /**
  * @brief
  *

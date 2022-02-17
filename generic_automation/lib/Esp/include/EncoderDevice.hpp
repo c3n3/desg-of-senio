@@ -15,6 +15,9 @@ namespace genauto {
             uint8_t pinB;
             bool flag;
             int16_t count;
+            unsigned long lastTime = 0;
+            ESP32Encoder encoder;
+            EncoderMessage* eMsg = EncoderMessage::EncoderMessage(void);
     public:
 
         /**
