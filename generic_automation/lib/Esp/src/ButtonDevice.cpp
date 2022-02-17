@@ -4,7 +4,6 @@
 
 using namespace genauto;
 
-static 
 
 /**
  * @brief Construct a new genauto::Pwm Device::pwm object
@@ -19,11 +18,6 @@ genauto::ButtonDevice::ButtonDevice(uint8_t pinNumber /*, uint8_t minorId*/)
 }
 
 
-void IRAM_ATTR handleButtonInterrupt_1()
-{
-    
-}
-
 /**
  * @brief
  *
@@ -32,10 +26,12 @@ void genauto::ButtonDevice::execute()
 {
     if ((millis() - lastTime) >= 250)
     {
-        lastTime = millis();
-        if (digitalRead(pinNumber))
+        if(pressed_)
         {
-            pressed_ = true;
+            bMsg = ButtonMessage::ButtonMessage(void);
+            bMsg->pressed();
+            lastTime = millis();
+            pressed_ = false;
         }
     }
 }
@@ -47,11 +43,8 @@ void genauto::ButtonDevice::execute()
  */
 Message *tryGet()
 {
-    if (pressed_)
+    if (send)
     {
-        pressed_ = false;
-        ButtonMessage* bMsg = ButtonMessage::ButtonMessage(void);
-        bMsg->pressed() = true;
         return bMsg
     }
 }
