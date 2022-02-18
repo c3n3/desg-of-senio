@@ -1,5 +1,6 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:final project circ 1-cache
+EELAYER 29 0
 EELAYER END
 $Descr A0 46811 33110
 encoding utf-8
@@ -14,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L final-project-circ-1-rescue:ESP32-WROOM-32D-RF_Module-final-project-circ-1-rescue U6
+L final-project-circ-1-rescue:ESP32-WROOM-32D-RF_Module-final-project-circ-1-rescue-final-project-circ-1-rescue U6
 U 1 1 61E970AF
 P 25350 15150
 F 0 "U6" H 25350 16731 50  0000 C CNN
@@ -203,7 +204,7 @@ Wire Wire Line
 Wire Wire Line
 	24400 11300 27400 11300
 $Comp
-L final-project-circ-1-rescue:USB_B_Micro-Connector-final-project-circ-1-rescue J1
+L final-project-circ-1-rescue:USB_B_Micro-Connector-final-project-circ-1-rescue-final-project-circ-1-rescue J1
 U 1 1 61F4B745
 P 18800 10250
 F 0 "J1" H 18857 10717 50  0000 C CNN
@@ -231,7 +232,7 @@ Wire Wire Line
 Wire Wire Line
 	20800 10050 20800 10450
 $Comp
-L final-project-circ-1-rescue:PMEG3005EJ-Diode-final-project-circ-1-rescue D6
+L final-project-circ-1-rescue:PMEG3005EJ-Diode-final-project-circ-1-rescue-final-project-circ-1-rescue D6
 U 1 1 61F6485B
 P 19800 10050
 F 0 "D6" H 19800 9834 50  0000 C CNN
@@ -925,8 +926,6 @@ Wire Wire Line
 Wire Wire Line
 	22850 19250 21850 19250
 Wire Wire Line
-	21850 19250 21850 18750
-Wire Wire Line
 	21850 18350 22300 18350
 Wire Wire Line
 	24350 13200 25350 13200
@@ -1389,7 +1388,7 @@ F 3 "" H 19650 15250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L final-project-circ-1-rescue:SS8050-G-Custom-final-project-circ-1-rescue Q4
+L final-project-circ-1-rescue:SS8050-G-Custom-final-project-circ-1-rescue-final-project-circ-1-rescue Q4
 U 1 1 6208535A
 P 15250 11000
 F 0 "Q4" H 16050 11487 60  0000 C CNN
@@ -1400,7 +1399,7 @@ F 3 "" H 15250 11000 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L final-project-circ-1-rescue:SS8050-G-Custom-final-project-circ-1-rescue Q5
+L final-project-circ-1-rescue:SS8050-G-Custom-final-project-circ-1-rescue-final-project-circ-1-rescue Q5
 U 1 1 6208695C
 P 15350 12150
 F 0 "Q5" H 16150 12637 60  0000 C CNN
@@ -1435,7 +1434,7 @@ Connection ~ 14750 11000
 Wire Wire Line
 	14750 11000 14950 11000
 $Comp
-L final-project-circ-1-rescue:LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue U1
+L final-project-circ-1-rescue:LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue U1
 U 1 1 61FA0D0E
 P 15250 15900
 F 0 "U1" H 15700 11477 50  0000 C CNN
@@ -1815,7 +1814,7 @@ Wire Wire Line
 Wire Wire Line
 	16400 16650 16400 17650
 $Comp
-L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue Q3
+L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue Q3
 U 1 1 62007216
 P 17250 20150
 F 0 "Q3" H 17456 20196 50  0000 L CNN
@@ -1826,7 +1825,7 @@ F 3 "http://www.ti.com/lit/gpn/csd17578q5a" V 17250 20150 50  0001 L CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue Q2
+L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue Q2
 U 1 1 6200DB26
 P 16750 19150
 F 0 "Q2" H 16956 19104 50  0000 L CNN
@@ -1837,7 +1836,7 @@ F 3 "http://www.ti.com/lit/gpn/csd17578q5a" V 16750 19150 50  0001 L CNN
 	1    0    0    1   
 $EndComp
 $Comp
-L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue Q1
+L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue Q1
 U 1 1 6200EB2C
 P 16450 18150
 F 0 "Q1" H 16656 18196 50  0000 L CNN
@@ -2404,7 +2403,7 @@ Wire Wire Line
 Wire Wire Line
 	19500 17950 19500 18000
 $Comp
-L Custom:L2293QTR U8
+L final-project-circ-1-rescue:L2293QTR-Custom U8
 U 1 1 62208553
 P 22300 17450
 F 0 "U8" H 23300 17837 60  0000 C CNN
@@ -2420,7 +2419,7 @@ Wire Wire Line
 Wire Wire Line
 	21300 18550 22300 18550
 $Comp
-L Custom:SRD-S-112DM U7
+L final-project-circ-1-rescue:SRD-S-112DM-Custom U7
 U 1 1 62253540
 P 19800 17900
 F 0 "U7" H 19800 18025 50  0000 C CNN
@@ -2443,4 +2442,6 @@ F 3 "~" H 20300 18100 50  0001 C CNN
 	1    20300 18100
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	21850 18350 21850 19250
 $EndSCHEMATC
