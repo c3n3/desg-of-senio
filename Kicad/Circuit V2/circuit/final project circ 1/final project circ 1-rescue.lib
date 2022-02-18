@@ -1,11 +1,11 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# ESP32-WROOM-32D-RF_Module-final-project-circ-1-rescue
+# ESP32-WROOM-32D-RF_Module-final-project-circ-1-rescue-final-project-circ-1-rescue
 #
-DEF ESP32-WROOM-32D-RF_Module-final-project-circ-1-rescue U 0 20 Y Y 1 F N
+DEF ESP32-WROOM-32D-RF_Module-final-project-circ-1-rescue-final-project-circ-1-rescue U 0 20 Y Y 1 F N
 F0 "U" -500 1350 50 H V L CNN
-F1 "ESP32-WROOM-32D-RF_Module-final-project-circ-1-rescue" 50 1350 50 H V L CNN
+F1 "ESP32-WROOM-32D-RF_Module-final-project-circ-1-rescue-final-project-circ-1-rescue" 50 1350 50 H V L CNN
 F2 "RF_Module:ESP32-WROOM-32" 0 -1500 50 H I C CNN
 F3 "" -300 50 50 H I C CNN
 $FPLIST
@@ -55,11 +55,11 @@ X IO33 9 600 -900 100 L 50 50 1 1 B
 ENDDRAW
 ENDDEF
 #
-# FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue
+# FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue
 #
-DEF FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue Q 0 20 Y N 1 F N
+DEF FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue Q 0 20 Y N 1 F N
 F0 "Q" 200 75 50 H V L CNN
-F1 "FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue" 200 0 50 H V L CNN
+F1 "FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue" 200 0 50 H V L CNN
 F2 "Package_TO_252_3_TabPin2" 200 -75 50 H I L CIN
 F3 "" 0 0 50 V I L CNN
 $FPLIST
@@ -90,11 +90,61 @@ X S 3 100 -200 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue
+# L2293QTR-Custom
 #
-DEF LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue U 0 40 Y Y 1 F N
+DEF L2293QTR-Custom U 0 10 Y Y 1 L N
+F0 "U" 1000 400 60 H V C CNN
+F1 "L2293QTR-Custom" 1000 300 60 H V C CNN
+F2 "VFQFPN32L_5X5X1_STM" 1000 240 60 H I C CNN
+F3 "" 0 0 60 H V C CNN
+$FPLIST
+ VFQFPN32L_5X5X1_STM
+$ENDFPLIST
+DRAW
+P 2 1 1 5 300 -1700 1700 -1700 N
+P 2 1 1 5 300 200 300 -1700 N
+P 2 1 1 5 1700 -1700 1700 200 N
+P 2 1 1 5 1700 200 300 200 N
+X NC 1 0 0 300 R 59 59 1 1 W
+X OUTPUT2 10 0 -900 300 R 59 59 1 1 O
+X INPUT2 11 0 -1000 300 R 59 59 1 1 I
+X VS 12 0 -1100 300 R 59 59 1 1 W
+X VS 13 0 -1200 300 R 59 59 1 1 W
+X ENABLE2 14 0 -1300 300 R 59 59 1 1 I
+X INPUT3 15 0 -1400 300 R 59 59 1 1 I
+X OUTPUT3 16 0 -1500 300 R 59 59 1 1 O
+X GND 17 2000 -1500 300 L 59 59 1 1 W
+X NC 18 2000 -1400 300 L 59 59 1 1 W
+X NC 19 2000 -1300 300 L 59 59 1 1 W
+X NC 2 0 -100 300 R 59 59 1 1 W
+X NC 20 2000 -1200 300 L 59 59 1 1 W
+X NC 21 2000 -1100 300 L 59 59 1 1 W
+X NC 22 2000 -1000 300 L 59 59 1 1 W
+X NC 23 2000 -900 300 L 59 59 1 1 W
+X GND 24 2000 -800 300 L 59 59 1 1 W
+X OUTPUT4 25 2000 -700 300 L 59 59 1 1 O
+X INPUT4 26 2000 -600 300 L 59 59 1 1 I
+X VSS 27 2000 -500 300 L 59 59 1 1 W
+X GND 28 2000 -400 300 L 59 59 1 1 W
+X ENABLE1 29 2000 -300 300 L 59 59 1 1 I
+X NC 3 0 -200 300 R 59 59 1 1 W
+X INPUT1 30 2000 -200 300 L 59 59 1 1 I
+X OUTPUT1 31 2000 -100 300 L 59 59 1 1 O
+X GND 32 2000 0 300 L 59 59 1 1 W
+X NC 4 0 -300 300 R 59 59 1 1 W
+X NC 5 0 -400 300 R 59 59 1 1 W
+X NC 6 0 -500 300 R 59 59 1 1 W
+X NC 7 0 -600 300 R 59 59 1 1 W
+X NC 8 0 -700 300 R 59 59 1 1 W
+X GND 9 0 -800 300 R 59 59 1 1 W
+ENDDRAW
+ENDDEF
+#
+# LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue
+#
+DEF LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue U 0 40 Y Y 1 F N
 F0 "U" 650 450 50 H V C CNN
-F1 "LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue" 100 450 50 H V C CNN
+F1 "LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue" 100 450 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -134,11 +184,11 @@ X GND 9 -100 -1750 100 R 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# PMEG3005EJ-Diode-final-project-circ-1-rescue
+# PMEG3005EJ-Diode-final-project-circ-1-rescue-final-project-circ-1-rescue
 #
-DEF PMEG3005EJ-Diode-final-project-circ-1-rescue D 0 20 N N 1 F N
+DEF PMEG3005EJ-Diode-final-project-circ-1-rescue-final-project-circ-1-rescue D 0 20 N N 1 F N
 F0 "D" 0 100 50 H V C CNN
-F1 "PMEG3005EJ-Diode-final-project-circ-1-rescue" 0 -100 50 H V C CNN
+F1 "PMEG3005EJ-Diode-final-project-circ-1-rescue-final-project-circ-1-rescue" 0 -100 50 H V C CNN
 F2 "Diode_SMD:D_SOD-323F" 0 -175 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -153,11 +203,28 @@ X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# SS8050-G-Custom-final-project-circ-1-rescue
+# SRD-S-112DM-Custom
 #
-DEF SS8050-G-Custom-final-project-circ-1-rescue Q 0 10 Y Y 1 L N
+DEF SRD-S-112DM-Custom U 0 40 Y Y 1 F N
+F0 "U" 0 0 50 H V C CNN
+F1 "SRD-S-112DM-Custom" 0 0 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+S -200 -50 200 -350 0 1 0 N
+X GND 1 -300 -300 100 R 50 50 1 1 O
+X Vin 2 -300 -100 100 R 50 50 1 1 I
+X L+ 3 300 -100 100 L 50 50 1 1 I
+X L- 4 300 -300 100 L 50 50 1 1 I
+X Output 5 300 -200 100 L 50 50 1 1 O
+ENDDRAW
+ENDDEF
+#
+# SS8050-G-Custom-final-project-circ-1-rescue-final-project-circ-1-rescue
+#
+DEF SS8050-G-Custom-final-project-circ-1-rescue-final-project-circ-1-rescue Q 0 10 Y Y 1 L N
 F0 "Q" 800 500 60 H V C CNN
-F1 "SS8050-G-Custom-final-project-circ-1-rescue" 800 400 60 H V C CNN
+F1 "SS8050-G-Custom-final-project-circ-1-rescue-final-project-circ-1-rescue" 800 400 60 H V C CNN
 F2 "TRAN_SS8050-G_CIP" 800 340 60 H I C CNN
 F3 "" 0 0 60 H V C CNN
 $FPLIST
@@ -188,11 +255,11 @@ X COLLECTOR 3 1600 200 300 L 59 59 1 1 U
 ENDDRAW
 ENDDEF
 #
-# USB_B_Micro-Connector-final-project-circ-1-rescue
+# USB_B_Micro-Connector-final-project-circ-1-rescue-final-project-circ-1-rescue
 #
-DEF USB_B_Micro-Connector-final-project-circ-1-rescue J 0 40 Y Y 1 F N
+DEF USB_B_Micro-Connector-final-project-circ-1-rescue-final-project-circ-1-rescue J 0 40 Y Y 1 F N
 F0 "J" -200 450 50 H V L CNN
-F1 "USB_B_Micro-Connector-final-project-circ-1-rescue" -200 350 50 H V L CNN
+F1 "USB_B_Micro-Connector-final-project-circ-1-rescue-final-project-circ-1-rescue" -200 350 50 H V L CNN
 F2 "" 150 -50 50 H I C CNN
 F3 "" 150 -50 50 H I C CNN
 $FPLIST
