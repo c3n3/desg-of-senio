@@ -23,17 +23,14 @@ namespace genauto {
         Capability(DeviceType t, minor_t id);
     };
 
-    template<int N>
-    class Capablities : public Message {
+    class CapabilitiesMessage : public Message {
+        const location_t COUNT_LOC = Message::derivedStart_loc;
+        const location_t CAPABILITIES_LOC = COUNT_LOC + sizeof(uint16_t);
     public:
-        Capability arr[N];
-        Capablities(Capability* input)
-        {
-            memcpy(arr, input, N);
-        }
+        CapabilitiesMessage(Capability* list = nullptr, uint16_t count = 0, msgBuf_t* buffer = nullptr);
+        uint16_t count();
+        Capability* capablities();
     };
-
-    extern Capablities<2> TestDevice_V1;
 }
 
 #endif

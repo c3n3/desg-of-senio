@@ -2,13 +2,14 @@
 #define __GENERIC_AUTOMATION_BUTTONDEVICE_HPP__
 
 #include "../../Common/include/Publisher.hpp"
+#include "../../Common/include/Device.hpp"
 #include <stdint.h>
 
 namespace genauto {
     /**
      * @brief Abstract message
      */
-    class ButtonDevice : public Publisher {
+    class ButtonDevice : public Publisher, public Device {
         private:
             uint8_t pinNumber;
             bool pressed_;

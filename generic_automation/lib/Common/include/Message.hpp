@@ -17,6 +17,7 @@ namespace genauto {
     typedef uint16_t msgType_t;
     typedef uint16_t msgSize_t;
     typedef uint16_t location_t;
+    typedef uint8_t msgBuf_t;
 
     #define MSG_TYPE(A, B) (((uint16_t)(A)) << 8) | ((uint16_t)(B))
 
@@ -33,7 +34,7 @@ namespace genauto {
         static constexpr location_t size_loc = 0;
         static constexpr location_t id_loc = size_loc + sizeof(msgSize_t);
         static constexpr location_t type_loc = id_loc + sizeof(MessageId);
-        static constexpr location_t dirivedStart_loc = type_loc + sizeof(msgType_t);
+        static constexpr location_t derivedStart_loc = type_loc + sizeof(msgType_t);
 
         msgSize_t& size_();
 
@@ -49,7 +50,7 @@ namespace genauto {
 
         msgType_t& type();
 
-        Message(uint8_t* buffer = nullptr, uint16_t size=baseSize);
+        Message(msgBuf_t* buffer = nullptr, uint16_t size=baseSize);
 
         virtual ~Message();
 

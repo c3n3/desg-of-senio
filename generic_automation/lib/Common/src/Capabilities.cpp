@@ -7,11 +7,21 @@ Capability::Capability(DeviceType t, minor_t id)
 {}
 
 
-#define TEST_DEVICE_V1_SIZE 2
+CapabilitiesMessage::CapabilitiesMessage(Capability* list, uint16_t count, msgBuf_t* buffer)
+    : Message(buffer, count * sizeof(Capability) + Message::baseSize)
+{
+    if (list != nullptr) {
+        memcpy(capablities(), list, count*sizeof(Capability));
+    }
+}
 
-static Capability testDeviceV1Caps[TEST_DEVICE_V1_SIZE] = {
-    Capability(Pwm, 10),
-    Capability(Pwm, 10)
-};
+Capability* CapabilitiesMessage::capablities()
+{
+    return get<Capability*>(CAPABILITIES_LOC);
+}
 
-Capablities<TEST_DEVICE_V1_SIZE> genauto::TestDevice_V1(testDeviceV1Caps);
+uint16_t CapabilitiesMessage::count()
+{
+    return get<uint16_t>(COUNT_LOC);
+}
+

@@ -15,7 +15,7 @@ namespace genauto
     class SubscribeMessage : public Message
     {
     private:
-        static constexpr location_t idFrom_loc = Message::dirivedStart_loc;
+        static constexpr location_t idFrom_loc = Message::derivedStart_loc;
         static constexpr location_t idTo_loc = idFrom_loc + sizeof(MessageId);
 
         static constexpr uint16_t msgSize
