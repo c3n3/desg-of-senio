@@ -34,14 +34,12 @@ void Router::Execute()
 {
     Message* msg = pub.tryGet();
     MessageId id = msg->id();
-    idMap.get(id);
-    idMap.insert(Pair<MessageId, List<Subscriber*>>(id, List<Subscriber*>(25)));
-    Subscriber* sub;
-
-    if(idMap.contains(MessageId (id)))
+    
+    
+    for(auto& List : idMap[id])
     {
+        Subscriber* sub = *&List;
         sub->receive(msg);
     }
-
     
 }
