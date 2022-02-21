@@ -2,7 +2,7 @@
 
 using namespace genauto;
 
-Subscriber::Subscriber(int queueSize) : msgs_(queueSize)
+Subscriber::Subscriber()
 {}
 
 void Subscriber::receive(Message* msg)

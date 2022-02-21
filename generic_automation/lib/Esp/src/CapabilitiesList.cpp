@@ -4,8 +4,7 @@
 #include "../include/ButtonDevice.hpp"
 #include "../include/PwmDevice.hpp"
 #include "../../Common/include/Defines.hpp"
-#include "Capabilities.hpp"
-
+    
 using namespace genauto;
 
 constexpr uint8_t TEST_DEVICE_V1_SIZE = 2;

@@ -10,7 +10,7 @@ StringBuilder::StringBuilder(uint32_t bufferSize)
 
 StringBuilder::~StringBuilder()
 {
-    delete buffer_;
+    delete[] buffer_;
 }
 
 StringBuilder::Result StringBuilder::appendString(const char* string)

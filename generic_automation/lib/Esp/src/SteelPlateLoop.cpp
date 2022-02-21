@@ -1,0 +1,50 @@
+#include "../include/SteelPlateLoop.hpp"
+#include "../include/WifiReceiver.hpp"
+#include "../include/WifiSender.hpp"
+#include "../include/CapabilitiesList.hpp"
+
+using namespace genauto;
+
+WifiReceiver* rec;
+
+WifiSender s("http://192.168.1.21");
+
+void genauto::runSteelPlateLoop()
+{
+    xTaskCreatePinnedToCore(
+        steelPlateLoop,
+        "steel plate loop",
+        1000,
+        NULL,
+        1,
+        NULL,
+        0
+    );
+}
+
+void genauto::steelPlateLoop(void* data)
+{
+    rec = WifiReceiver::getReceiver();
+
+    while (true)
+    {
+        { // Wifi rec
+            auto msgPtr = rec->tryGet();
+            if (msgPtr != nullptr) {
+                auto& list = CapabilitiesList::subscriberList;
+                for (int i = 0; i < list.getSize(); i++) {
+                    list.getList()[i]->receive(msgPtr);
+                }
+            }
+        }
+        { // Wifi send
+            auto& pubList = CapabilitiesList::publisherList;
+            for (int i = 0; i < pubList.getSize(); i++) {
+                auto msgPtr = pubList.getList()[i]->tryGet();
+                if (msgPtr != nullptr) {
+                    s.receive(msgPtr);
+                }
+            }
+        }
+    }
+}

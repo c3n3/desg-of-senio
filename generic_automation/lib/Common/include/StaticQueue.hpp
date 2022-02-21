@@ -5,7 +5,14 @@
 
 namespace genauto {
     template<typename T, int N = 100>
-    class Queue {
+    class StaticQueue {
+    public:
+        enum Result {
+            Success,
+            Failure
+        };
+    private:
+
         struct Node {
             Node() : next(nullptr), dequeued(false)
             {}
@@ -15,7 +22,7 @@ namespace genauto {
         };
         StaticAllocator<Node, N> buf_;
         Node* head_;
-        Result recursiveEnqueue(Node* node, T&& item)
+        Result recursiveEnqueue(Node* node, T item)
         {
             if (node->next == nullptr) {
                 Node* temp = buf_.alloc();
@@ -27,15 +34,10 @@ namespace genauto {
             return recursiveEnqueue(node->next, item);
         }
     public:
-        enum Result {
-            Success,
-            Failure
-        };
-
-        Queue() : count_(0), head_(nullptr), tail_(0)
+        StaticQueue() : head_(nullptr)
         {}
 
-        Result enqueue(T&& item)
+        Result enqueue(T item)
         {
             Result res;
             if (head_ == nullptr) {

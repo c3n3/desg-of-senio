@@ -2,7 +2,7 @@
 #define __GENAUTO_SUBSCRIBER_HPP__
 
 #include "Message.hpp"
-#include "Queue.hpp"
+#include "StaticQueue.hpp"
 
 namespace genauto {
     /**
@@ -11,13 +11,13 @@ namespace genauto {
      */
     class Subscriber {
     protected:
-        Queue<Message*> msgs_;
+        StaticQueue<Message*, 20> msgs_;
     public:
 
         /**
          * @brief Constructor
          */
-        Subscriber(int queueSize);
+        Subscriber();
 
         /**
          * @brief Receive some message

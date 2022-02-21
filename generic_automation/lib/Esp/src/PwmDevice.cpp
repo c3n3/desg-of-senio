@@ -18,7 +18,7 @@ using namespace genauto;
 genauto::PwmDevice::PwmDevice(uint8_t pinNumber, uint8_t channel /*,uint8_t minorId*/)  
     : pinNumber(pinNumber),
     channel(channel),
-    Subscriber(10)//,
+    Subscriber()//,
     // will need to add "minorId(MinorId)"
 {
     ledcSetup(channel, PWM_FREQUENCY, PWM_RESOUTION); // setup PWM 
@@ -63,7 +63,7 @@ This will make it easier for when we are doing local linking.
 void genauto::PwmDevice::execute()
 {
     Message* Msg = NULL;
-    if(msgs_.dequeue(Msg) == Queue<Message*>::Success)
+    if(msgs_.dequeue(Msg) == decltype(msgs_)::Success)
     {
         if(Msg->type() == EncoderMessage::classMsgType)
         {

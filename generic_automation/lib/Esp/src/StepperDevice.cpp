@@ -13,7 +13,7 @@ using namespace genauto;
 genauto::StepperDevice::StepperDevice(uint8_t stepPin, uint8_t dirPin, int8_t minorId)
     : dirPin(dirPin),
       stepPin(stepPin),
-      Subscriber(10),
+      Subscriber(),
       minorId(minorId),
       myStepper(AccelStepper(1, stepPin, dirPin))
 {
@@ -108,7 +108,7 @@ float StepperDevice::getAngle()
 void genauto::StepperDevice::execute()
 {
     Message *Msg = NULL;
-    if (msgs_.dequeue(Msg) == Queue<Message *>::Success)
+    if (msgs_.dequeue(Msg) == decltype(msgs_)::Success)
     {
         if (Msg->type() == EncoderMessage::classMsgType)
         {

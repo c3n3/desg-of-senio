@@ -15,7 +15,7 @@ class Devices:public drogon::HttpController<Devices>
       METHOD_ADD(Devices::mainFun, "", Get);
       METHOD_ADD(Devices::update, "/update?data={}&keystring={}&type={}", Post);
       METHOD_ADD(Devices::encoderSend, "/encoder_send?major={}&minor={}&inc={}", Post);
-      METHOD_ADD(Devices::deviceComm, "/_device_?d={}", Get);
+      ADD_METHOD_TO(Devices::deviceComm, "/_ps_?d={}", Get);
     METHOD_LIST_END
 
     void mainFun(const HttpRequestPtr &req,

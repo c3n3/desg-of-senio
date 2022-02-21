@@ -13,7 +13,8 @@ namespace genauto {
         Stepper,
         Switch,
         Button,
-        Encoder
+        Encoder,
+        Analog
     };
 
     class Capability {
