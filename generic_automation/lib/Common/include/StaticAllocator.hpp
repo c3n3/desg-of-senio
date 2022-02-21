@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include "Defines.hpp"
 
 namespace genauto {
     template<typename T, int N>
@@ -18,7 +19,7 @@ namespace genauto {
     public:
         T* alloc()
         {
-            for (int i = 0; i < sizeof(buffer_) / sizeof(BuffNode); i++) {
+            for (int i = 0; i < ARRSIZE(buffer_); i++) {
                 if (buffer_[i].free) {
                     buffer_[i].free = false;
                     return &buffer_[i].value;
