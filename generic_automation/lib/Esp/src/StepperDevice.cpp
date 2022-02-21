@@ -15,7 +15,7 @@ genauto::StepperDevice::StepperDevice(uint8_t stepPin, uint8_t dirPin, int8_t mi
       stepPin(stepPin),
       Subscriber(10),
       minorId(minorId),
-      myStepper(AccelStepper::AccelStepper(1, stepPin, dirPin))
+      myStepper(AccelStepper(1, stepPin, dirPin))
 {
 
 }

@@ -47,7 +47,7 @@ namespace genauto
     {
     public:
         static ButtonDeviceInst<PIN> *self;
-        static unsigned long time = 0;
+        static unsigned long time;
 
         ButtonDeviceInst()
         {
