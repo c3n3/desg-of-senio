@@ -3,6 +3,7 @@
 
 #include "../../Common/include/Publisher.hpp"
 #include "../../Common/include/EncoderMessage.hpp"
+#include "../../Common/include/Device.hpp"
 #include <stdint.h>
 #include <ESP32Encoder.h>
 
@@ -10,7 +11,7 @@ namespace genauto {
     /**
      * @brief Abstract message
      */
-    class EncoderDevice : public Publisher {
+    class EncoderDevice : public Publisher, public Device {
         private:
             uint8_t pinA;
             uint8_t pinB;
@@ -26,7 +27,7 @@ namespace genauto {
          * 
          * @param pinNumber 
          */
-        EncoderDevice(uint8_t pinA, uint8_t pinB);
+        EncoderDevice(uint8_t pinA, uint8_t pinB, minor_t minorId);
 
         /**
          * @brief executes the purpose of the Encoder class

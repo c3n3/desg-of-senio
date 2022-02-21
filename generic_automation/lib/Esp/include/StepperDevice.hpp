@@ -4,18 +4,18 @@
 #include <stdint.h>
 #include <AccelStepper.h>
 #include "../../Common/include/Subscriber.hpp"
+#include "../../Common/include/Device.hpp"
 
 namespace genauto {
     /**
      * @brief Abstract message
      */
-    class StepperDevice : public Subscriber {
+    class StepperDevice : public Subscriber, public Device {
     private:
     float speed_;
     float angle_;
     uint8_t encoderStepScale_ = 10;
     //float encoderAngleIncrement_;
-    int8_t minorId;
     uint8_t direction_;
     uint8_t stepPin;
     uint8_t dirPin;
@@ -28,7 +28,7 @@ namespace genauto {
          * 
          * @param pinNumber 
          */
-        StepperDevice(uint8_t stepPin, uint8_t dirPin, int8_t minorId);
+        StepperDevice(uint8_t stepPin, uint8_t dirPin, minor_t minorId);
 
         /**
          * @brief Set the Enc Step Scale object

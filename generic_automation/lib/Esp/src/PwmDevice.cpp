@@ -15,11 +15,11 @@ using namespace genauto;
  * 
  * @param pinNumber 
  */
-genauto::PwmDevice::PwmDevice(uint8_t pinNumber, uint8_t channel /*,uint8_t minorId*/)  
+genauto::PwmDevice::PwmDevice(uint8_t pinNumber, uint8_t channel, minor_t minorId)  
     : pinNumber(pinNumber),
     channel(channel),
-    Subscriber(10)//,
-    // will need to add "minorId(MinorId)"
+    Subscriber(10),
+    Device(minorId)
 {
     ledcSetup(channel, PWM_FREQUENCY, PWM_RESOUTION); // setup PWM 
     ledcAttachPin(pinNumber, channel);

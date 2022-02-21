@@ -3,8 +3,10 @@
 #include "../include/CapabilitiesList.hpp"
 #include "../include/ButtonDevice.hpp"
 #include "../include/PwmDevice.hpp"
+#include "../include/StepperDevice.hpp"
+#include "../../Common/include/Device.hpp"
 #include "../../Common/include/Defines.hpp"
-#include "Capabilities.hpp"
+#include "../../Common/include/Capabilities.hpp"
 
 using namespace genauto;
 
@@ -13,23 +15,27 @@ constexpr uint8_t SUBSCRIBER_SIZE = 1;
 constexpr uint8_t PUBLISHER_SIZE = 1;
 
 static Capability testDeviceV1Caps[] = {
-    Capability(Button, 10),
-    Capability(Pwm, 11)
+    Capability(Button, ConstantIds::Esp::NEW_IDS_START),
+    Capability(Pwm, ConstantIds::Esp::NEW_IDS_START + 1)
 };
 
 CapabilitiesMessage
 CapabilitiesList::capabilitiesList(testDeviceV1Caps, ARRSIZE(testDeviceV1Caps));
 
-ButtonDeviceInst<22> button;
-PwmDevice pwm(10, 0);
+ButtonDeviceInst<22> button(22, ConstantIds::Esp::NEW_IDS_START);
+PwmDevice pwm(10, 0, ConstantIds::Esp::NEW_IDS_START + 1);
+
+StepperDevice stepper(32, 33,  ConstantIds::Esp::NEW_IDS_START + 2);
 
 static Device* devices[] = {
     (Device*)&button,
-    (Device*)&pwm
+    (Device*)&pwm,
+    (Device*)&stepper
 };
 
 static Subscriber* subscribers[] = {
-    (Subscriber*)&pwm
+    (Subscriber*)&pwm,
+    (Subscriber*)&stepper
 };
 
 static Publisher* publishers[] = {

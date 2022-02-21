@@ -2,6 +2,7 @@
 #define __GENAUTO_DEVICE_HPP__
 
 #include <stdint.h>
+#include "../include/Message.hpp"
 
 namespace genauto {
     class Device {
@@ -9,12 +10,15 @@ namespace genauto {
         /**
          * @brief Id for minor type for message ids
          */
-        const uint8_t minorId;
+        const minor_t minorId;
 
         /**
          * @brief Do something
          */
         virtual void execute() = 0;
+
+
+        Device(minor_t minorId);
     };
 }
 

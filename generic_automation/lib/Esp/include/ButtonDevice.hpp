@@ -11,7 +11,7 @@ namespace genauto
     /**
      * @brief Abstract message
      */
-    class ButtonDevice : public Publisher
+    class ButtonDevice : public Publisher, public Device
     {
     private:
         uint8_t pinNumber;
@@ -26,7 +26,7 @@ namespace genauto
          *
          * @param pinNumber
          */
-        ButtonDevice(uint8_t pinNumber);
+        ButtonDevice(uint8_t pinNumber, minor_t minorId);
 
         /**
          * @brief executes the purpose of the Button class
