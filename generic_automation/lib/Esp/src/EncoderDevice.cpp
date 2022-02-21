@@ -11,10 +11,10 @@ using namespace genauto;
  *
  * @param pinNumber
  */
-genauto::EncoderDevice::EncoderDevice(uint8_t pinA, uint8_t pinB /*, uint8_t minorId*/)
+genauto::EncoderDevice::EncoderDevice(uint8_t pinA, uint8_t pinB, minor_t minorId)
     : pinA(pinA),
-    pinB(pinB)
-// will need to add "minorId(MinorId)"
+    pinB(pinB),
+    Device(minorId)
 {
     ESP32Encoder::useInternalWeakPullResistors=UP;
 	encoder.attachHalfQuad(pinA, pinB);

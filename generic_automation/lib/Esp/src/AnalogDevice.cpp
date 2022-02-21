@@ -1,5 +1,6 @@
 #include "../include/AnalogDevice.hpp"
 #include "../../Common/include/AnalogMessage.hpp"
+#include "../../Common/include/Device.hpp"
 #include <stdint.h>
 
 using namespace genauto;
@@ -9,9 +10,9 @@ using namespace genauto;
  *
  * @param pinNumber
  */
-genauto::AnalogDevice::AnalogDevice(uint8_t pinNumber /*, uint8_t minorId*/)
-    : pinNumber(pinNumber)
-// will need to add "minorId(MinorId)"
+genauto::AnalogDevice::AnalogDevice(uint8_t pinNumber, minor_t minorId)
+    : pinNumber(pinNumber),
+    Device(minorId)
 {
     lastTime = millis();
     readTime = lastTime;

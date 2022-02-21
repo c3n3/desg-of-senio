@@ -10,12 +10,12 @@ static const uint16_t stepsPerRevolution = 200;
 
 using namespace genauto;
 
-genauto::StepperDevice::StepperDevice(uint8_t stepPin, uint8_t dirPin, int8_t minorId)
+genauto::StepperDevice::StepperDevice(uint8_t stepPin, uint8_t dirPin, minor_t minorId)
     : dirPin(dirPin),
       stepPin(stepPin),
-      Subscriber(),
-      minorId(minorId),
-      myStepper(AccelStepper(1, stepPin, dirPin))
+      Subscriber(10),
+      myStepper(AccelStepper(1, stepPin, dirPin)),
+      Device(minorId)
 {
 
 }

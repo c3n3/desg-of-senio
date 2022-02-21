@@ -2,12 +2,17 @@
 #define __GENERIC_AUTOMATION_SWITCH_DEVICE_HPP__
 
 #include <stdint.h>
+#include "../../Common/include/Device.hpp"
+#include "../../Common/include/Subscriber.hpp"
 
 namespace genauto {
     /**
      * @brief Abstract message
      */
-    class SwitchDevice {
+    class SwitchDevice : public Subscriber, public Device {
+    private:
+        bool state = false;
+        uint8_t pinNumber;
     public:
 
         /**
@@ -15,15 +20,19 @@ namespace genauto {
          * 
          * @param pinNumber 
          */
-        SwitchDevice(uint8_t pinNumber);
+        SwitchDevice(uint8_t pinNumber, minor_t minorId);
 
         /**
-         * @brief Set the High Low object
+         * @brief 
          * 
-         * @param state 
          */
-        void setHighLow(bool state);
+        void changeState();
 
+        /**
+         * @brief 
+         * 
+         */
+        void execute();
     };
 }
 

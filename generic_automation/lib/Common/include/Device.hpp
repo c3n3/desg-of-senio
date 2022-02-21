@@ -16,6 +16,9 @@ namespace genauto {
          * @brief Do something
          */
         virtual void execute() = 0;
+
+
+        Device(minor_t minorId);
     };
 }
 

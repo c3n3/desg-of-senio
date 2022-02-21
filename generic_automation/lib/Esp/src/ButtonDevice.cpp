@@ -1,5 +1,7 @@
 #include "../include/ButtonDevice.hpp"
 #include "../../Common/include/ButtonMessage.hpp"
+#include "../../Common/include/MessageId.hpp"
+#include "../../Common/include/Device.hpp"
 #include <stdint.h>
 
 using namespace genauto;
@@ -10,9 +12,9 @@ using namespace genauto;
  *
  * @param pinNumber
  */
-genauto::ButtonDevice::ButtonDevice(uint8_t pinNumber /*, uint8_t minorId*/)
-    : pinNumber(pinNumber)
-// will need to add "minorId(MinorId)"
+genauto::ButtonDevice::ButtonDevice(uint8_t pinNumber, minor_t minorId)
+    : pinNumber(pinNumber),
+    Device(minorId)
 {
     pinMode(pinNumber, INPUT);
 }

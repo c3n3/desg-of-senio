@@ -2,13 +2,14 @@
 #define __GENERIC_AUTOMATION_PWMDEVICE_HPP__
 
 #include "../../Common/include/Subscriber.hpp"
+#include "../../Common/include/Device.hpp"
 #include <stdint.h>
 
 namespace genauto {
     /**
      * @brief Abstract message
      */
-    class PwmDevice : public Subscriber {
+    class PwmDevice : public Subscriber, public Device {
         private:
             uint8_t pinNumber;
             uint8_t channel;
@@ -22,7 +23,7 @@ namespace genauto {
          * 
          * @param pinNumber 
          */
-        PwmDevice(uint8_t pinNumber, uint8_t channel);
+        PwmDevice(uint8_t pinNumber, uint8_t channel, minor_t minorId);
 
 
         /**

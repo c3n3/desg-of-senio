@@ -2,10 +2,10 @@
 #define __GENAUTO_DEVICE_LIST_HPP__
 
 #include "../../Common/include/Device.hpp"
-#include "../../Common/include/Capabilities.hpp"
 #include "../../Common/include/Subscriber.hpp"
 #include "../../Common/include/Publisher.hpp"
 #include "../../Common/include/StaticList.hpp"
+#include "../../Common/include/Capabilities.hpp"
 
 namespace genauto {
     namespace CapabilitiesList {
