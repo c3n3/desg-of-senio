@@ -23,7 +23,7 @@ float& StepperMotorMessage::value()
 
 uint8_t& StepperMotorMessage::direction()
 {
-    reurn get<uint8_t>(direction_loc);
+    return get<uint8_t>(direction_loc);
 }
 
 StepperMotorMessage::Type& StepperMotorMessage::valueType()

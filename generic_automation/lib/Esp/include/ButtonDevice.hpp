@@ -3,6 +3,7 @@
 
 #include "../../Common/include/Publisher.hpp"
 #include "../../Common/include/Device.hpp"
+#include "../../Common/include/ButtonMessage.hpp"
 #include <stdint.h>
 
 namespace genauto
@@ -10,14 +11,6 @@ namespace genauto
     /**
      * @brief Abstract message
      */
-<<<<<<< HEAD
-    class ButtonDevice : public Publisher, public Device {
-        private:
-            uint8_t pinNumber;
-            bool pressed_;
-            unsigned long lastTime = 0;
-    public:
-=======
     class ButtonDevice : public Publisher
     {
     private:
@@ -25,8 +18,7 @@ namespace genauto
         bool pressed_ = false;
         unsigned long lastTime = 0;
         bool send = false;
-        ButtonMessage *bMsg = ButtonMessage::ButtonMessage(void);
->>>>>>> 6434d12e5bda437ccd4d5a317707e6d5db8a86e8
+        ButtonMessage *bMsg = ButtonMessage(NULL);
 
     public:
         /**
@@ -34,13 +26,20 @@ namespace genauto
          *
          * @param pinNumber
          */
-        ButtonDevice() = 0;
+        ButtonDevice(uint8_t pinNumber);
 
         /**
          * @brief executes the purpose of the Button class
          *
          */
         void execute();
+
+        /**
+         * @brief 
+         * 
+         * @return Message* 
+         */
+        Message *tryGet();
     };
 
     template <int PIN>
@@ -62,10 +61,10 @@ namespace genauto
             if ((millis() - ButtonDeviceInst<PIN>::time) > 500)
             {
                 ButtonDeviceInst<PIN>::self->pressed_ = true;
-                ButtonDeviceInst<PIN>::time) = millis();
+                ButtonDeviceInst<PIN>::time = millis();
             }
         }
-    }
+    };
 }
 
 #endif

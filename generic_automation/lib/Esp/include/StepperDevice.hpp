@@ -3,21 +3,24 @@
 
 #include <stdint.h>
 #include <AccelStepper.h>
+#include "../../Common/include/Subscriber.hpp"
 
 namespace genauto {
     /**
      * @brief Abstract message
      */
-    class StepperDevice {
+    class StepperDevice : public Subscriber {
     private:
     float speed_;
     float angle_;
     uint8_t encoderStepScale_ = 10;
     //float encoderAngleIncrement_;
+    int8_t minorId;
     uint8_t direction_;
-    uint8_t stepPin_;
-    uint8_t dirPin_;
-    AccelStepper myStepper;
+    uint8_t stepPin;
+    uint8_t dirPin;
+    bool motorOn = false;
+    AccelStepper myStepper = NULL;
     public:
 
         /**

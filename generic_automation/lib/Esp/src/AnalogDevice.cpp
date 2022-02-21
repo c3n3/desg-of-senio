@@ -4,7 +4,6 @@
 
 using namespace genauto;
 
-
 /**
  * @brief Construct a new genauto::Pwm Device::pwm object
  *
@@ -19,16 +18,16 @@ genauto::AnalogDevice::AnalogDevice(uint8_t pinNumber /*, uint8_t minorId*/)
 }
 
 /**
- * @brief the function that will be called every cycle of the main loop. 
+ * @brief the function that will be called every cycle of the main loop.
  *          Reads in values for the analog device and filters values for a more
  *          accurate representation of the last ~ 250ms and stores that average
  *          in the value variable.
  */
 void genauto::AnalogDevice::execute()
 {
-    if (millis() - readTime >= 10) // read these values more often, and filter 
+    if (millis() - readTime >= 10) // read these values more often, and filter
     {
-        accumValue += analogRead(analogReadPin);
+        accumValue += analogRead(pinNumber);
         count++;
         if ((millis() - lastTime) >= 250)
         {
@@ -46,13 +45,13 @@ void genauto::AnalogDevice::execute()
  *
  * @return Message*
  */
-Message *tryGet()
+Message *genauto::AnalogDevice::tryGet()
 {
     if (flag)
     {
         flag = false;
-        AnalogMessage *aMsg = AnalogMessage::AnalogMessage(void);
+        AnalogMessage *aMsg = AnalogMessage(NULL);
         aMsg->value() = value;
-        return bMsg
+        return aMsg;
     }
 }

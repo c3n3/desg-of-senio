@@ -1,4 +1,7 @@
 #include "../include/StepperDevice.hpp"
+#include "../../Common/include/EncoderMessage.hpp"
+#include "../../Common/include/ButtonMessage.hpp"
+#include "../../Common/include/StepperMotorMessage.hpp"
 //#include "../include/Device.hpp"
 #include <stdint.h>
 #include <AccelStepper.h>
@@ -7,14 +10,14 @@ static const uint16_t stepsPerRevolution = 200;
 
 using namespace genauto;
 
-genauto::StepperDevice::StepperDevice(uint8_t stepPin, uint8_t dirPin, uint8_t minorId)
+genauto::StepperDevice::StepperDevice(uint8_t stepPin, uint8_t dirPin, int8_t minorId)
     : dirPin(dirPin),
       stepPin(stepPin),
       Subscriber(10),
-      minorId(MinorId),
-      mystepper(AccelStepper::DRIVER(1, stepPin, dirPin))
+      minorId(minorId),
+      myStepper(AccelStepper::AccelStepper(1, stepPin, dirPin))
 {
-    myStepper.connectToPins(stepPin, dirPin);
+
 }
 
 /**
@@ -107,23 +110,23 @@ void genauto::StepperDevice::execute()
     Message *Msg = NULL;
     if (msgs_.dequeue(Msg) == Queue<Message *>::Success)
     {
-        if (Msg->type == EncoderMessage::classMsgType)
+        if (Msg->type() == EncoderMessage::classMsgType)
         {
             EncoderMessage *eMsg = (EncoderMessage *)Msg;
             long val = eMsg->value() * encoderStepScale_; // can be negative, lets it know to move CCW or CW which should be moving the encoder the same.
             myStepper.moveTo(val);
         }
-        if (Msg->type == ButtonMessage::classMsgType)
+        if (Msg->type() == ButtonMessage::classMsgType)
         {
             ButtonMessage *bMsg = (ButtonMessage *)Msg;
             if (bMsg->pressed() == true)
                 motorOn == !motorOn;
         }
-        if (Msg->type == StepperMotorMessage::classMsgType)
+        if (Msg->type() == StepperMotorMessage::classMsgType)
         {
             StepperMotorMessage *sMsg = (StepperMotorMessage *)Msg;
             float val = sMsg->value();
-            if(sMsg->ValueType() == StepperMotorMessage::Speed)
+            if(sMsg->valueType() == StepperMotorMessage::Speed)
             {
                 setSpeed(val);
             }

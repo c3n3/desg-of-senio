@@ -50,11 +50,12 @@ void genauto::EncoderDevice::execute()
  *
  * @return Message*
  */
-Message *tryGet()
+Message *genauto::EncoderDevice::tryGet()
 {
     if (flag)
     {
         flag = false;
-        return eMsg
+        EncoderMessage *eMsg = EncoderMessage(NULL);
+        return eMsg;
     }
 }

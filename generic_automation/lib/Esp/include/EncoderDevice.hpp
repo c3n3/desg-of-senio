@@ -2,6 +2,7 @@
 #define __GENERIC_AUTOMATION_ENCODERDEVICE_HPP__
 
 #include "../../Common/include/Publisher.hpp"
+#include "../../Common/include/EncoderMessage.hpp"
 #include <stdint.h>
 #include <ESP32Encoder.h>
 
@@ -17,7 +18,7 @@ namespace genauto {
             int16_t count;
             unsigned long lastTime = 0;
             ESP32Encoder encoder;
-            EncoderMessage* eMsg = EncoderMessage::EncoderMessage(void);
+            EncoderMessage* eMsg = EncoderMessage(NULL);
     public:
 
         /**
@@ -32,6 +33,13 @@ namespace genauto {
          * 
          */
         void execute();
+        
+        /**
+         * @brief 
+         * 
+         * @return Message* 
+         */
+        Message *tryGet();
     };
 }
 
