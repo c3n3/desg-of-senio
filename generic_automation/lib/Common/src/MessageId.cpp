@@ -12,6 +12,11 @@ bool MessageId::operator <(const MessageId& other)
     return minor_ < other.minor_;
 }
 
+void MessageId::set(Direction d)
+{
+    major_ = (major_ & (~(0x0001 << DIRECTION_BIT))) | (((uint16_t)d) << DIRECTION_BIT);
+}
+
 major_t MessageId::getMajor()
 {
     return major_;
@@ -33,10 +38,10 @@ bool MessageId::operator !=(const MessageId& other)
 }
 
 MessageId::MessageId(major_t major, minor_t minor, Direction d)
-    : major_(
-        (major & (~(0x0001 << DIRECTION_BIT))) | (((uint16_t)d) << DIRECTION_BIT)
-        ), minor_(minor)
-{}
+    : major_(), minor_(minor)
+{
+    set(d);
+}
 
 MessageId::MessageId() : major_(0), minor_(0)
 {}
@@ -52,4 +57,16 @@ void MessageId::toString(StringBuilder& sb) const
     sb.appendString(", m: ");
     sb.appendInt(minor_);
     sb.appendString(" }");
+}
+
+MessageId& MessageId::to()
+{
+    set(To);
+    return *this;
+}
+
+MessageId& MessageId::from()
+{
+    set(From);
+    return *this;
 }
