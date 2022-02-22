@@ -19,11 +19,9 @@ genauto::PwmDevice::PwmDevice(uint8_t pinNumber, uint8_t channel, minor_t minorI
     : pinNumber(pinNumber),
     channel(channel),
     Subscriber(),
-    Device(minorId)
+    Device(minorId),
+    inited(false)
 {
-    ledcSetup(channel, PWM_FREQUENCY, PWM_RESOUTION); // setup PWM 
-    ledcAttachPin(pinNumber, channel);
-    ledcWrite(channel, 0);
 }
 
 
@@ -62,6 +60,12 @@ This will make it easier for when we are doing local linking.
  */
 void genauto::PwmDevice::execute()
 {
+    if (!inited) {
+        ledcSetup(channel, PWM_FREQUENCY, PWM_RESOUTION); // setup PWM 
+        ledcAttachPin(pinNumber, channel);
+        ledcWrite(channel, 0);
+        inited = true;
+    }
     Message* Msg = NULL;
     if(msgs_.dequeue(Msg) == decltype(msgs_)::Success)
     {

@@ -16,6 +16,7 @@ namespace genauto {
             int16_t dutyCycle_; // can be negative for backwards direction for motor.
             bool pwmOn_ = true;
             uint16_t increment = 5;
+            bool inited;
     public:
 
         /**

@@ -4,52 +4,55 @@
 #include "../include/ButtonDevice.hpp"
 #include "../include/PwmDevice.hpp"
 #include "../include/StepperDevice.hpp"
+#include "../include/TimedPublisher.hpp"
 #include "../../Common/include/Device.hpp"
 #include "../../Common/include/Defines.hpp"
 #include "../../Common/include/Capabilities.hpp"
+#include "../include/config.hpp"
 
 using namespace genauto;
 
 constexpr uint8_t TEST_DEVICE_V1_SIZE = 2;
-constexpr uint8_t SUBSCRIBER_SIZE = 1;
-constexpr uint8_t PUBLISHER_SIZE = 1;
 
 static Capability testDeviceV1Caps[] = {
     Capability(Button, ConstantIds::Esp::NEW_IDS_START),
     Capability(Pwm, ConstantIds::Esp::NEW_IDS_START + 1)
 };
 
-CapabilitiesMessage
-CapabilitiesList::capabilitiesList(testDeviceV1Caps, ARRSIZE(testDeviceV1Caps));
+// CapabilitiesMessage
+// CapabilitiesList::capabilitiesList(testDeviceV1Caps, 0);
 
 ButtonDeviceInst<22> button(ConstantIds::Esp::NEW_IDS_START);
 PwmDevice pwm(10, 0, ConstantIds::Esp::NEW_IDS_START + 1);
 
 StepperDevice stepper(32, 33,  ConstantIds::Esp::NEW_IDS_START + 2);
 
-static Device* devices[] = {
+TimedPublisher timed(1000, MessageId(DEVICE_ID, ConstantIds::Esp::NEW_IDS_START + 2));
+
+Device* devices[] = {
     (Device*)&button,
     (Device*)&pwm,
     (Device*)&stepper
 };
 
-static Subscriber* subscribers[] = {
+Subscriber* subscribers[] = {
     (Subscriber*)&pwm,
     (Subscriber*)&stepper
 };
 
-static Publisher* publishers[] = {
-    (Publisher*)&button
+Publisher* publishers[] = {
+    (Publisher*)&button,
+    (Publisher*)&timed
 };
 
 StaticList<Subscriber*> CapabilitiesList::subscriberList(
-    subscribers, ARRSIZE(subscribers));
+    subscribers, 2);
 
 StaticList<Publisher*> CapabilitiesList::publisherList(
-    publishers, ARRSIZE(publishers));
+    publishers, 2);
 
 StaticList<Device*> CapabilitiesList::deviceList(
-    devices, ARRSIZE(devices));
+    devices, 3);
 
 
 void CapabilitiesList::init()

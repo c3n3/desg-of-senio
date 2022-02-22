@@ -3,8 +3,7 @@
 
 #ifdef ARDUINO
 #include "Arduino.h"
-#define _log(...)
-// #define log(...) Serial.printf("%s:%d: ", __FILE__, __LINE__); Serial.printf(__VA_ARGS__)
+#define _log(...) Serial.printf("%s:%d: ", __FILE__, __LINE__); Serial.printf(__VA_ARGS__)
 #else
 #include <stdio.h>
 #define _log(...) printf("%s:%d: ", __FILE__, __LINE__); printf(__VA_ARGS__)
