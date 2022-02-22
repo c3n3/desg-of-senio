@@ -139,9 +139,9 @@ $FPLIST
  D_*
 $ENDFPLIST
 DRAW
-P 2 0 1 10 -50 50 -50 -50 N
+P 2 0 1 8 -50 50 -50 -50 N
 P 2 0 1 0 50 0 -50 0 N
-P 4 0 1 10 50 50 50 -50 -50 0 50 50 N
+P 4 0 1 8 50 50 50 -50 -50 0 50 50 N
 X K 1 -150 0 100 R 50 50 1 1 P
 X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
@@ -183,9 +183,9 @@ $FPLIST
  LED_THT:*
 $ENDFPLIST
 DRAW
-P 2 0 1 10 -50 -50 -50 50 N
+P 2 0 1 8 -50 -50 -50 50 N
 P 2 0 1 0 -50 0 50 0 N
-P 4 0 1 10 50 -50 50 50 -50 0 50 -50 N
+P 4 0 1 8 50 -50 50 50 -50 0 50 -50 N
 P 5 0 1 0 -120 -30 -180 -90 -150 -90 -180 -90 -180 -60 N
 P 5 0 1 0 -70 -30 -130 -90 -100 -90 -130 -90 -130 -60 N
 X K 1 -150 0 100 R 50 50 1 1 P
@@ -222,9 +222,9 @@ $FPLIST
  D*DO?41*
 $ENDFPLIST
 DRAW
-P 2 0 1 10 -50 50 -50 -50 N
+P 2 0 1 8 -50 50 -50 -50 N
 P 2 0 1 0 50 0 -50 0 N
-P 4 0 1 10 50 50 50 -50 -50 0 50 50 N
+P 4 0 1 8 50 50 50 -50 -50 0 50 50 N
 X K 1 -150 0 100 R 50 50 1 1 P
 X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
@@ -242,8 +242,8 @@ $FPLIST
 $ENDFPLIST
 DRAW
 P 2 0 1 0 50 0 -50 0 N
-P 3 0 1 10 -50 -50 -50 50 -30 50 N
-P 4 0 1 10 50 -50 50 50 -50 0 50 -50 N
+P 3 0 1 8 -50 -50 -50 50 -30 50 N
+P 4 0 1 8 50 -50 50 50 -50 0 50 -50 N
 X K 1 -150 0 100 R 50 50 1 1 P
 X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
@@ -388,11 +388,11 @@ X C 3 100 200 100 D 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# final-project-circ-1-rescue_ESP32-WROOM-32D-RF_Module-final-project-circ-1-rescue-final-project-circ-1-rescue
+# final-project-circ-1-rescue_ESP32-WROOM-32D-RF_Module-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue
 #
-DEF final-project-circ-1-rescue_ESP32-WROOM-32D-RF_Module-final-project-circ-1-rescue-final-project-circ-1-rescue U 0 20 Y Y 1 F N
+DEF final-project-circ-1-rescue_ESP32-WROOM-32D-RF_Module-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue U 0 20 Y Y 1 F N
 F0 "U" -500 1350 50 H V L CNN
-F1 "final-project-circ-1-rescue_ESP32-WROOM-32D-RF_Module-final-project-circ-1-rescue-final-project-circ-1-rescue" 50 1350 50 H V L CNN
+F1 "final-project-circ-1-rescue_ESP32-WROOM-32D-RF_Module-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue" 50 1350 50 H V L CNN
 F2 "RF_Module:ESP32-WROOM-32" 0 -1500 50 H I C CNN
 F3 "" -300 50 50 H I C CNN
 $FPLIST
@@ -442,11 +442,11 @@ X IO33 9 600 -900 100 L 50 50 1 1 B
 ENDDRAW
 ENDDEF
 #
-# final-project-circ-1-rescue_FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue
+# final-project-circ-1-rescue_FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue
 #
-DEF final-project-circ-1-rescue_FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue Q 0 20 Y N 1 F N
+DEF final-project-circ-1-rescue_FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue Q 0 20 Y N 1 F N
 F0 "Q" 200 75 50 H V L CNN
-F1 "final-project-circ-1-rescue_FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue" 200 0 50 H V L CNN
+F1 "final-project-circ-1-rescue_FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue" 200 0 50 H V L CNN
 F2 "Package_TO_252_3_TabPin2" 200 -75 50 H I L CIN
 F3 "" 0 0 50 V I L CNN
 $FPLIST
@@ -477,11 +477,24 @@ X S 3 100 -200 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# final-project-circ-1-rescue_L2293QTR-Custom
+# final-project-circ-1-rescue_GND1-power
 #
-DEF final-project-circ-1-rescue_L2293QTR-Custom U 0 10 Y Y 1 L N
+DEF final-project-circ-1-rescue_GND1-power #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -250 50 H I C CNN
+F1 "final-project-circ-1-rescue_GND1-power" 0 -150 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
+X GND1 1 0 0 0 D 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# final-project-circ-1-rescue_L2293QTR-Custom-final-project-circ-1-rescue
+#
+DEF final-project-circ-1-rescue_L2293QTR-Custom-final-project-circ-1-rescue U 0 10 Y Y 1 L N
 F0 "U" 1000 400 60 H V C CNN
-F1 "final-project-circ-1-rescue_L2293QTR-Custom" 1000 300 60 H V C CNN
+F1 "final-project-circ-1-rescue_L2293QTR-Custom-final-project-circ-1-rescue" 1000 300 60 H V C CNN
 F2 "VFQFPN32L_5X5X1_STM" 1000 240 60 H I C CNN
 F3 "" 0 0 60 H V C CNN
 $FPLIST
@@ -527,11 +540,11 @@ X GND 9 0 -800 300 R 59 59 1 1 W
 ENDDRAW
 ENDDEF
 #
-# final-project-circ-1-rescue_LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue
+# final-project-circ-1-rescue_LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue
 #
-DEF final-project-circ-1-rescue_LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue U 0 40 Y Y 1 F N
+DEF final-project-circ-1-rescue_LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue U 0 40 Y Y 1 F N
 F0 "U" 650 450 50 H V C CNN
-F1 "final-project-circ-1-rescue_LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue" 100 450 50 H V C CNN
+F1 "final-project-circ-1-rescue_LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue" 100 450 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -571,11 +584,11 @@ X GND 9 -100 -1750 100 R 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# final-project-circ-1-rescue_PMEG3005EJ-Diode-final-project-circ-1-rescue-final-project-circ-1-rescue
+# final-project-circ-1-rescue_PMEG3005EJ-Diode-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue
 #
-DEF final-project-circ-1-rescue_PMEG3005EJ-Diode-final-project-circ-1-rescue-final-project-circ-1-rescue D 0 20 N N 1 F N
+DEF final-project-circ-1-rescue_PMEG3005EJ-Diode-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue D 0 20 N N 1 F N
 F0 "D" 0 100 50 H V C CNN
-F1 "final-project-circ-1-rescue_PMEG3005EJ-Diode-final-project-circ-1-rescue-final-project-circ-1-rescue" 0 -100 50 H V C CNN
+F1 "final-project-circ-1-rescue_PMEG3005EJ-Diode-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue" 0 -100 50 H V C CNN
 F2 "Diode_SMD:D_SOD-323F" 0 -175 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -590,11 +603,11 @@ X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# final-project-circ-1-rescue_SRD-S-112DM-Custom
+# final-project-circ-1-rescue_SRD-S-112DM-Custom-final-project-circ-1-rescue
 #
-DEF final-project-circ-1-rescue_SRD-S-112DM-Custom U 0 40 Y Y 1 F N
+DEF final-project-circ-1-rescue_SRD-S-112DM-Custom-final-project-circ-1-rescue U 0 40 Y Y 1 F N
 F0 "U" 0 0 50 H V C CNN
-F1 "final-project-circ-1-rescue_SRD-S-112DM-Custom" 0 0 50 H V C CNN
+F1 "final-project-circ-1-rescue_SRD-S-112DM-Custom-final-project-circ-1-rescue" 0 0 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -607,11 +620,11 @@ X Output 5 300 -200 100 L 50 50 1 1 O
 ENDDRAW
 ENDDEF
 #
-# final-project-circ-1-rescue_SS8050-G-Custom-final-project-circ-1-rescue-final-project-circ-1-rescue
+# final-project-circ-1-rescue_SS8050-G-Custom-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue
 #
-DEF final-project-circ-1-rescue_SS8050-G-Custom-final-project-circ-1-rescue-final-project-circ-1-rescue Q 0 10 Y Y 1 L N
+DEF final-project-circ-1-rescue_SS8050-G-Custom-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue Q 0 10 Y Y 1 L N
 F0 "Q" 800 500 60 H V C CNN
-F1 "final-project-circ-1-rescue_SS8050-G-Custom-final-project-circ-1-rescue-final-project-circ-1-rescue" 800 400 60 H V C CNN
+F1 "final-project-circ-1-rescue_SS8050-G-Custom-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue" 800 400 60 H V C CNN
 F2 "TRAN_SS8050-G_CIP" 800 340 60 H I C CNN
 F3 "" 0 0 60 H V C CNN
 $FPLIST
@@ -642,11 +655,11 @@ X COLLECTOR 3 1600 200 300 L 59 59 1 1 U
 ENDDRAW
 ENDDEF
 #
-# final-project-circ-1-rescue_USB_B_Micro-Connector-final-project-circ-1-rescue-final-project-circ-1-rescue
+# final-project-circ-1-rescue_USB_B_Micro-Connector-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue
 #
-DEF final-project-circ-1-rescue_USB_B_Micro-Connector-final-project-circ-1-rescue-final-project-circ-1-rescue J 0 40 Y Y 1 F N
+DEF final-project-circ-1-rescue_USB_B_Micro-Connector-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue J 0 40 Y Y 1 F N
 F0 "J" -200 450 50 H V L CNN
-F1 "final-project-circ-1-rescue_USB_B_Micro-Connector-final-project-circ-1-rescue-final-project-circ-1-rescue" -200 350 50 H V L CNN
+F1 "final-project-circ-1-rescue_USB_B_Micro-Connector-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue" -200 350 50 H V L CNN
 F2 "" 150 -50 50 H I C CNN
 F3 "" 150 -50 50 H I C CNN
 $FPLIST
@@ -706,19 +719,6 @@ X GND 1 0 0 0 D 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power_GND1
-#
-DEF power_GND1 #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power_GND1" 0 -150 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
-X GND1 1 0 0 0 D 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
 # power_LINE
 #
 DEF power_LINE #PWR 0 0 Y Y 1 F P
@@ -727,9 +727,8 @@ F1 "power_LINE" 0 150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
-P 2 0 1 0 -30 50 0 100 N
-P 2 0 1 0 0 0 0 100 N
-P 2 0 1 0 0 100 30 50 N
+C 0 75 25 0 1 0 N
+P 2 0 1 0 0 0 0 50 N
 X LINE 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
@@ -742,9 +741,8 @@ F1 "power_NEUT" 0 150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
-P 2 0 1 0 -30 50 0 100 N
-P 2 0 1 0 0 0 0 100 N
-P 2 0 1 0 0 100 30 50 N
+C 0 75 25 0 1 0 N
+P 2 0 1 0 0 0 0 50 N
 X NEUT 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
