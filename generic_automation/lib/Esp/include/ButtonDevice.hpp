@@ -13,7 +13,7 @@ namespace genauto
      */
     class ButtonDevice : public Publisher, public Device
     {
-    private:
+    protected:
         uint8_t pinNumber;
         bool pressed_ = false;
         unsigned long lastTime = 0;
@@ -49,7 +49,8 @@ namespace genauto
         static ButtonDeviceInst<PIN> *self;
         static unsigned long time;
 
-        ButtonDeviceInst()
+        ButtonDeviceInst(minor_t minorId)
+            : ButtonDevice(PIN, minorId)
         {
             pinMode(PIN, INPUT);
             attachInterrupt(digitalPinToInterrupt(PIN), isr, RISING);
@@ -65,6 +66,10 @@ namespace genauto
             }
         }
     };
+    template<int PIN> 
+        ButtonDeviceInst<PIN> *ButtonDeviceInst<PIN>::self = nullptr;
+    template<int PIN> 
+        unsigned long ButtonDeviceInst<PIN>::time = 0;
 }
 
 #endif

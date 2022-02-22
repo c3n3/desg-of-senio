@@ -2,6 +2,7 @@
 #define __GENERIC_AUTOMATION_ANALOG_DEVICE_HPP__
 
 #include "../../Common/include/Publisher.hpp"
+#include "../../Common/include/Device.hpp"
 #include <stdint.h>
 
 namespace genauto
@@ -9,7 +10,7 @@ namespace genauto
     /**
      * @brief Abstract message
      */
-    class AnalogDevice : public Publisher, public Device
+    class AnalogDevice : public Publisher, public Device 
     {
     private:
         uint8_t pinNumber;

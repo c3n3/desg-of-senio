@@ -31,7 +31,7 @@ void genauto::SwitchDevice::changeState()
  * @brief 
  * 
  */
-void execute()
+void genauto::SwitchDevice::execute()
 {
     Message *Msg = NULL;
     if (msgs_.dequeue(Msg) == Queue<Message *>::Success)
@@ -40,9 +40,9 @@ void execute()
         {
             ButtonMessage *bMsg = (ButtonMessage *)Msg;
             if (bMsg->pressed() == true)
-                self.changeState();
+                changeState();
         }
     }
     if (state) digitalWrite(pinNumber, HIGH);
-    else digitalWtire(pinNumber, LOW);
+    else digitalWrite(pinNumber, LOW);
 }
