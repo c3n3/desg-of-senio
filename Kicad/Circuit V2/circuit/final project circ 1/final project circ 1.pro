@@ -1,4 +1,4 @@
-update=2/18/2022 9:25:09 AM
+update=2/22/2022 11:59:43 AM
 version=1
 last_client=pcbnew
 [general]
@@ -25,7 +25,7 @@ ERC_TestSimilarLabels=1
 [pcbnew]
 version=1
 PageLayoutDescrFile=
-LastNetListRead=Netlist/final project circ 1(2).net
+LastNetListRead=Netlist/final project circ 1(3).net
 CopperLayerCount=2
 BoardThickness=1.6
 AllowMicroVias=0

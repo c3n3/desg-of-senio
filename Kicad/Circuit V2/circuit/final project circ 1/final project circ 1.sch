@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:final project circ 1-cache
-EELAYER 29 0
+EELAYER 30 0
 EELAYER END
 $Descr A0 46811 33110
 encoding utf-8
@@ -202,7 +201,7 @@ Wire Wire Line
 Wire Wire Line
 	24400 11950 24350 11950
 Wire Wire Line
-	24400 11300 27400 11300
+	24400 11300 25600 11300
 $Comp
 L final-project-circ-1-rescue:USB_B_Micro-Connector-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue J1
 U 1 1 61F4B745
@@ -320,7 +319,7 @@ U 1 1 61F8072B
 P 20350 9600
 F 0 "D7" V 20297 9680 50  0000 L CNN
 F 1 "LED" V 20388 9680 50  0000 L CNN
-F 2 "LED_SMD:LED_1206_3216Metric" H 20350 9600 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical" H 20350 9600 50  0001 C CNN
 F 3 "~" H 20350 9600 50  0001 C CNN
 	1    20350 9600
 	0    1    1    0   
@@ -2457,4 +2456,33 @@ F 3 "" H 15150 17650 50  0001 C CNN
 	1    15150 17650
 	0    1    1    0   
 $EndComp
+$Comp
+L Connector:Conn_01x02_Female J12
+U 1 1 6217B9E9
+P 25600 10650
+F 0 "J12" V 25538 10462 50  0000 R CNN
+F 1 "Conn_01x02_Female" V 25447 10462 50  0000 R CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical" H 25600 10650 50  0001 C CNN
+F 3 "~" H 25600 10650 50  0001 C CNN
+	1    25600 10650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0125
+U 1 1 6217CA20
+P 25700 10900
+F 0 "#PWR0125" H 25700 10650 50  0001 C CNN
+F 1 "GND" H 25705 10727 50  0000 C CNN
+F 2 "" H 25700 10900 50  0001 C CNN
+F 3 "" H 25700 10900 50  0001 C CNN
+	1    25700 10900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	25600 10850 25600 11300
+Connection ~ 25600 11300
+Wire Wire Line
+	25600 11300 27400 11300
+Wire Wire Line
+	25700 10850 25700 10900
 $EndSCHEMATC
