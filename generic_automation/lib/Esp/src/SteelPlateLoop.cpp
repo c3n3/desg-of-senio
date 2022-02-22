@@ -33,6 +33,9 @@ void genauto::steelPlateLoop(void* data)
             if (msgPtr != nullptr) {
                 auto& list = CapabilitiesList::subscriberList;
                 for (int i = 0; i < list.getSize(); i++) {
+                    StringBuilder sb(1000);
+                    msgPtr->toString(sb);
+                    dlog("Got %s\n", sb.getString());
                     list.getList()[i]->receive(msgPtr);
                 }
             }
@@ -42,6 +45,9 @@ void genauto::steelPlateLoop(void* data)
             for (int i = 0; i < pubList.getSize(); i++) {
                 auto msgPtr = pubList.getList()[i]->tryGet();
                 if (msgPtr != nullptr) {
+                    StringBuilder sb(1000);
+                    msgPtr->toString(sb);
+                    dlog("Sent %s\n", sb.getString());
                     s.receive(msgPtr);
                 }
             }
