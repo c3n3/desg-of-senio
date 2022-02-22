@@ -66,7 +66,7 @@ void subTest()
 
 }
 
-#include <curlpp/cURLpp.hpp>
+/*#include <curlpp/cURLpp.hpp>
 #include <curlpp/Options.hpp>
 
 HexStringSerializer serilizer(1000);
@@ -79,17 +79,34 @@ void send(Message* message)
     std::cout << willSend << "\n";
     os << curlpp::options::Url(willSend);
 
-}
+}*/
+
+class dummyPublisher : public Publisher{
+    public:
+    Message msg;
+        Message* tryGet()
+        {
+            return &msg;
+        }
+};
+
+class dummySubscriber : public Subscriber{
+    public:
+        void recieve(Message* msg)
+        {
+            std::cout << "Message Major: " << msg->id().getMajor() << "\n";
+            std::cout << "Message Minor: " << msg->id().getMinor() << "\n";
+        }
+};
+
+Message message;
 
 int main()
 {
-         Router route;
-         auto it = idMap.begin();
-         
-         while(it != idMap.end())
-         {
-             route.execute();
-         }
-
-
+        Router route;
+        dummyPublisher* pub;
+        dummySubscriber* sub;
+        route.addPublisher(pub);
+        route.Subscribe(sub, message.id());
+        route.Execute();
 }

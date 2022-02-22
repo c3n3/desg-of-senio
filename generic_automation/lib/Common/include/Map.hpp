@@ -104,7 +104,7 @@ namespace genauto {
             return getRecursive(key, tree_);
         }
 
-        bool contains(KT&& key)
+        bool contains(KT key)
         {
             return get(key) != nullptr;
         }
