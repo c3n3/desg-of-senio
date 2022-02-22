@@ -4,15 +4,15 @@
 #include "../include/ButtonDevice.hpp"
 #include "../include/PwmDevice.hpp"
 #include "../include/StepperDevice.hpp"
+#include "../include/TimedPublisher.hpp"
 #include "../../Common/include/Device.hpp"
 #include "../../Common/include/Defines.hpp"
 #include "../../Common/include/Capabilities.hpp"
+#include "../include/config.hpp"
 
 using namespace genauto;
 
 constexpr uint8_t TEST_DEVICE_V1_SIZE = 2;
-constexpr uint8_t SUBSCRIBER_SIZE = 1;
-constexpr uint8_t PUBLISHER_SIZE = 1;
 
 static Capability testDeviceV1Caps[] = {
     Capability(Button, ConstantIds::Esp::NEW_IDS_START),
@@ -27,6 +27,8 @@ PwmDevice pwm(10, 0, ConstantIds::Esp::NEW_IDS_START + 1);
 
 StepperDevice stepper(32, 33,  ConstantIds::Esp::NEW_IDS_START + 2);
 
+TimedPublisher timed(1000, MessageId(DEVICE_ID, ConstantIds::Esp::NEW_IDS_START + 2));
+
 static Device* devices[] = {
     (Device*)&button,
     (Device*)&pwm,
@@ -39,7 +41,8 @@ static Subscriber* subscribers[] = {
 };
 
 static Publisher* publishers[] = {
-    (Publisher*)&button
+    (Publisher*)&button,
+    (Publisher*)&timed
 };
 
 StaticList<Subscriber*> CapabilitiesList::subscriberList(
