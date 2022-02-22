@@ -13,7 +13,7 @@ using namespace genauto;
 genauto::StepperDevice::StepperDevice(uint8_t stepPin, uint8_t dirPin, minor_t minorId)
     : dirPin(dirPin),
       stepPin(stepPin),
-      Subscriber(10),
+      Subscriber(),
       myStepper(AccelStepper(1, stepPin, dirPin)),
       Device(minorId)
 {

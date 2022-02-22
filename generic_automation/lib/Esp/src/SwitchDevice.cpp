@@ -12,11 +12,9 @@ using namespace genauto;
  */
 genauto::SwitchDevice::SwitchDevice(uint8_t pinNumber, minor_t minorId)
     : pinNumber(pinNumber),
-    Subscriber(10),
+    Subscriber(),
     Device(minorId)
-{
-    
-}
+{}
 
 /**
  * @brief Construct a new genauto::Switch Device::change State object
@@ -34,13 +32,13 @@ void genauto::SwitchDevice::changeState()
 void genauto::SwitchDevice::execute()
 {
     Message *Msg = NULL;
-    if (msgs_.dequeue(Msg) == Queue<Message *>::Success)
+    if (msgs_.dequeue(Msg) == decltype(msgs_)::Success)
     {
         if (Msg->type() == ButtonMessage::classMsgType)
         {
             ButtonMessage *bMsg = (ButtonMessage *)Msg;
             if (bMsg->pressed() == true)
-                changeState();
+                changeState();  
         }
     }
     if (state) digitalWrite(pinNumber, HIGH);

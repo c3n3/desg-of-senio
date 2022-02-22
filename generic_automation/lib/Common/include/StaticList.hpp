@@ -10,8 +10,15 @@ namespace genauto {
         StaticList(T* input, uint16_t size)
             : list(input), size(size)
         {}
-        const T* getList();
-        const uint16_t getSize();
+        const T* getList()
+        {
+            return list;
+        }
+
+        const uint16_t getSize()
+        {
+            return size;
+        }
     };
 }
 

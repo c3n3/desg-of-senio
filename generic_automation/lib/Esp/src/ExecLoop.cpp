@@ -20,7 +20,13 @@
 #include "../../Common/include/Queue.hpp"
 #include "../../Common/include/Subscriber.hpp"
 
+using namespace genauto;
 
-void fireAK(){
-    
+void genauto::fireAK(){
+    auto& devices = CapabilitiesList::deviceList;
+    while (true) {
+        for (int i = 0; i < devices.getSize(); i++) {
+            devices.getList()[i]->execute();
+        }
+    }
 }

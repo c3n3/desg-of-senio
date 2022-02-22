@@ -9,10 +9,9 @@
 #include "src/Common/include/Timer.hpp"
 
 #include "src/Esp/include/SteelPlateLoop.hpp"
+#include "src/Esp/include/ExecLoop.hpp"
 
 using namespace genauto;
-
-PwmDevice p(13, 0);
 
 void setup()
 {
@@ -23,4 +22,5 @@ void setup()
 
 void loop()
 {
+    fireAK();
 }

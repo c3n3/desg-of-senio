@@ -18,7 +18,7 @@ using namespace genauto;
 genauto::PwmDevice::PwmDevice(uint8_t pinNumber, uint8_t channel, minor_t minorId)  
     : pinNumber(pinNumber),
     channel(channel),
-    Subscriber(10),
+    Subscriber(),
     Device(minorId)
 {
     ledcSetup(channel, PWM_FREQUENCY, PWM_RESOUTION); // setup PWM 
