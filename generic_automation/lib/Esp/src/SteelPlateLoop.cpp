@@ -2,6 +2,7 @@
 #include "../include/WifiReceiver.hpp"
 #include "../include/WifiSender.hpp"
 #include "../include/CapabilitiesList.hpp"
+#include "soc/rtc_wdt.h"
 
 using namespace genauto;
 
@@ -25,9 +26,10 @@ void genauto::runSteelPlateLoop()
 void genauto::steelPlateLoop(void* data)
 {
     rec = WifiReceiver::getReceiver();
-
     while (true)
     {
+        continue;
+        vTaskDelay(500 / portTICK_PERIOD_MS);
         { // Wifi rec
             auto msgPtr = rec->tryGet();
             if (msgPtr != nullptr) {

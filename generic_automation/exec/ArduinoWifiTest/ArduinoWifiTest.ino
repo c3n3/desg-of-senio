@@ -1,4 +1,5 @@
 #include "Arduino.h"
+#include "src/Common/include/Log.hpp"
 #include "src/Esp/include/WifiReceiver.hpp"
 #include "src/Common/include/StepperMotorMessage.hpp"
 #include "src/Common/include/EncoderMessage.hpp"
@@ -13,11 +14,20 @@
 
 using namespace genauto;
 
+#include "soc/rtc_wdt.h"
+
+
 void setup()
 {
+    rtc_wdt_protect_off();
+    rtc_wdt_disable();
+    disableCore0WDT();
+    disableLoopWDT();
     Serial.begin(115200);
-
+    delay(100);
+    WifiReceiver::getReceiver();
     runSteelPlateLoop();
+
 }
 
 void loop()
