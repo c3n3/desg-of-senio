@@ -1,5 +1,6 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:final project circ 1-cache
+EELAYER 29 0
 EELAYER END
 $Descr A0 46811 33110
 encoding utf-8
@@ -1755,7 +1756,7 @@ F 1 "100u" V 18389 16550 50  0000 C CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 18588 16400 50  0001 C CNN
 F 3 "~" H 18550 16550 50  0001 C CNN
 	1    18550 16550
-	-1   0    0    1   
+	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C C9
@@ -1766,7 +1767,7 @@ F 1 "100u" V 18839 16550 50  0000 C CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 19038 16400 50  0001 C CNN
 F 3 "~" H 19000 16550 50  0001 C CNN
 	1    19000 16550
-	-1   0    0    1   
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	18050 16400 18050 16200
@@ -1806,7 +1807,7 @@ F 1 "100u" V 19289 16550 50  0000 C CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 19488 16400 50  0001 C CNN
 F 3 "~" H 19450 16550 50  0001 C CNN
 	1    19450 16550
-	-1   0    0    1   
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	19000 16200 19450 16200
@@ -1923,7 +1924,7 @@ F 1 "100u" V 15389 13800 50  0000 C CNN
 F 2 "Capacitor_THT:CP_Radial_D16.0mm_P7.50mm" H 15588 13650 50  0001 C CNN
 F 3 "~" H 15550 13800 50  0001 C CNN
 	1    15550 13800
-	-1   0    0    1   
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	15550 13650 15250 13650
@@ -1961,7 +1962,7 @@ F 1 "1u" V 16739 13900 50  0000 C CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 16938 13750 50  0001 C CNN
 F 3 "~" H 16900 13900 50  0001 C CNN
 	1    16900 13900
-	-1   0    0    1   
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	16450 13250 16300 13250
@@ -2002,7 +2003,7 @@ F 1 "100u" V 16139 14450 50  0000 C CNN
 F 2 "Capacitor_THT:CP_Radial_D16.0mm_P7.50mm" H 16338 14300 50  0001 C CNN
 F 3 "~" H 16300 14450 50  0001 C CNN
 	1    16300 14450
-	-1   0    0    1   
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	16300 13850 16300 14200
@@ -2139,19 +2140,6 @@ F 3 "" H 20100 18200 50  0001 C CNN
 	1    20100 18200
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:+VDC #PWR036
-U 1 1 62176DF4
-P 19350 17950
-F 0 "#PWR036" H 19350 17850 50  0001 C CNN
-F 1 "+VDC" H 19350 18225 50  0000 C CNN
-F 2 "" H 19350 17950 50  0001 C CNN
-F 3 "" H 19350 17950 50  0001 C CNN
-	1    19350 17950
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	19350 17950 19500 17950
 Wire Wire Line
 	19500 17950 19500 18000
 $Comp
@@ -2485,4 +2473,17 @@ Wire Wire Line
 	25600 11300 27400 11300
 Wire Wire Line
 	25700 10850 25700 10900
+$Comp
+L power:LINE #PWR0126
+U 1 1 6218464F
+P 19350 17950
+F 0 "#PWR0126" H 19350 17800 50  0001 C CNN
+F 1 "LINE" H 19367 18123 50  0000 C CNN
+F 2 "" H 19350 17950 50  0001 C CNN
+F 3 "" H 19350 17950 50  0001 C CNN
+	1    19350 17950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	19350 17950 19500 17950
 $EndSCHEMATC
