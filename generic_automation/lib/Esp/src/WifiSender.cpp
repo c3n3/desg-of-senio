@@ -41,12 +41,7 @@ void WifiSender::receive(Message* msg)
     char* buffer = new char[urlLen + dataLen + prefixLen + 1];
     memcpy(buffer, url_, urlLen); 
     memcpy(buffer+urlLen, prefix, prefixLen); 
-    memcpy(buffer+urlLen+prefixLen, serializer_.getBuffer(), dataLen); 
-    // StringBuilder* sb = new StringBuilder(strlen(serializer_.getBuffer()) + strlen(url_) + 10);
-    // sb->appendString(url_);
-    // sb->appendString("/_ps_?d=");
-    // sb->appendString(serializer_.getBuffer());
-    // sb->appendChar('\0');
+    memcpy(buffer+urlLen+prefixLen, serializer_.getBuffer(), dataLen+1); 
     xTaskCreate(
         WifiSender::send,
         "SEND",

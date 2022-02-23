@@ -19,14 +19,14 @@ WifiSender sender("192.168.1.126");
 
 void setup()
 {
-    // rtc_wdt_protect_off();
-    // rtc_wdt_disable();
+    rtc_wdt_protect_off();
+    rtc_wdt_disable();
     disableCore0WDT();
     disableLoopWDT();
     Serial.begin(115200);
     delay(100);
     WifiReceiver::getReceiver();
-    // runSteelPlateLoop();
+    runSteelPlateLoop();
 
 }
 
@@ -34,9 +34,9 @@ Message msg;
 
 void loop()
 {
-    dlog("Here\n");
-    sender.receive(&msg);
-    dlog("Here\n");
-    delay(1000);
-    // fireAK();
+    // dlog("Here\n");
+    // sender.receive(&msg);
+    // dlog("Here\n");
+    // delay(1000);
+    fireAK();
 }
