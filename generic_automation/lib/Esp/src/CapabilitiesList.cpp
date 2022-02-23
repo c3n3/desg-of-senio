@@ -23,11 +23,7 @@ static Capability testDeviceV1Caps[] = {
 // CapabilitiesList::capabilitiesList(testDeviceV1Caps, 0);
 
 ButtonDeviceInst<22> button(ConstantIds::Esp::NEW_IDS_START);
-<<<<<<< HEAD
 PwmDevice pwm(13, 0, ConstantIds::Esp::NEW_IDS_START + 1);
-=======
-PwmDevice pwm(26, 0, ConstantIds::Esp::NEW_IDS_START + 1);
->>>>>>> 5eca04e973221246f69861466b265603a5497b11
 
 StepperDevice stepper(32, 33,  ConstantIds::Esp::NEW_IDS_START + 2);
 
