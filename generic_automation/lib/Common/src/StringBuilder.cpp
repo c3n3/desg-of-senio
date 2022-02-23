@@ -1,4 +1,5 @@
 #include "../include/StringBuilder.hpp"
+#include "../include/Log.hpp"
 #include <iostream>
 
 
@@ -6,7 +7,12 @@ using namespace genauto;
 
 StringBuilder::StringBuilder(uint32_t bufferSize)
     : buffer_(new char[bufferSize]), size_(bufferSize), index_(0)
-{}
+{
+    if (buffer_ == nullptr) {
+        elog("Cannot alloc %d\n", size_);
+        size_ = 0;
+    }
+}
 
 StringBuilder::~StringBuilder()
 {
