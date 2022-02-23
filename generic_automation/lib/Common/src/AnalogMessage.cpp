@@ -32,19 +32,3 @@ uint16_t& AnalogMessage::value()
 {
     return get<uint16_t>(value_location);
 }
-
-
-/**
-         * @brief Convert to string
-         *
-         * @param sb
-         */
-void AnalogMessage::toString(StringBuilder &sb)
-{
-    sb.appendString("{AnalogMessage; ");
-    sb.appendString("Value: ");
-    sb.appendFloat(value());
-    sb.appendString(", ");
-    id().toString(sb);
-    sb.appendChar('}');
-}

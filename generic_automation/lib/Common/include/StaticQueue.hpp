@@ -43,6 +43,7 @@ namespace genauto {
             if (head_ == nullptr) {
                 Node* temp = buf_.alloc();
                 if (temp == nullptr) {
+                    elog("Queue out of space\n");
                     res = Failure;
                 } else {
                     temp->value = item;
@@ -60,6 +61,7 @@ namespace genauto {
                 buf_.free(temp);
             }
             head_ = deq;
+            return res;
         }
 
         Result dequeue(T& returnItem)
@@ -68,6 +70,7 @@ namespace genauto {
             while (node != nullptr) {
                 if (!node->dequeued) {
                     returnItem = node->value;
+                    node->dequeued = true;
                     return Success;
                 }
                 node = node->next;

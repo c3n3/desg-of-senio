@@ -58,17 +58,6 @@ uint8_t* Message::getBuffer() const
     return buffer_;
 }
 
-void Message::toString(StringBuilder& sb)
-{
-    sb.appendString("{Message: [id: ");
-    id().toString(sb);
-    sb.appendString("], [size: ");
-    sb.appendInt(size());
-    sb.appendString("], [type: ");
-    sb.appendInt(type());
-    sb.appendString("]}");
-}
-
 void Message::setBuffer(uint8_t* buffer)
 {
     if (alloc) {
@@ -81,7 +70,5 @@ void Message::setBuffer(uint8_t* buffer)
 
 void Message::log()
 {
-    StringBuilder sb(1000);
-    toString(sb);
-    dlog("%s\n", sb.getString());
+    // TODO: Log here
 }

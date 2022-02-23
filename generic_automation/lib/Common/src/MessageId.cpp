@@ -50,15 +50,6 @@ MessageId::MessageId(const MessageId& other)
     : major_(other.major_), minor_(other.minor_)
 {}
 
-void MessageId::toString(StringBuilder& sb) const
-{
-    sb.appendString("{ MessageId M: ");
-    sb.appendInt(major_);
-    sb.appendString(", m: ");
-    sb.appendInt(minor_);
-    sb.appendString(" }");
-}
-
 MessageId& MessageId::to()
 {
     set(To);

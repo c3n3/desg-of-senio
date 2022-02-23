@@ -2,7 +2,6 @@
 #define __GENERIC_AUTOMATION_BUTTON_MESSAGE_HPP__
 
 #include "Message.hpp"
-#include "StringBuilder.hpp"
 #include "MessageId.hpp"
 
 #include <stdint.h>
@@ -31,13 +30,6 @@ namespace genauto {
          */
         bool& pressed();
 
-        /**
-         * @brief Convert to string
-         *
-         * @param sb
-         */
-        void toString(StringBuilder& sb);
-        
         /**
          * @brief Type of the message specific to class
          */

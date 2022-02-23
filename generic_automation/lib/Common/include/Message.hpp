@@ -2,7 +2,6 @@
 #define __GENAUTO_MESSAGE_HPP__
 
 #include "MessageId.hpp"
-#include "StringBuilder.hpp"
 #include "../include/Log.hpp"
 #include <stdlib.h>
 #include <stdio.h>
@@ -59,8 +58,6 @@ namespace genauto {
         uint16_t getSize();
 
         void setBuffer(uint8_t* buffer);
-
-        virtual void toString(StringBuilder& sb);
 
         template<typename MSG_T>
         operator MSG_T()

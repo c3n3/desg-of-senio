@@ -2,7 +2,6 @@
 #define __GENAUTO_SUBSCRIBE_MESSAGE_HPP__
 
 #include "Message.hpp"
-#include "StringBuilder.hpp"
 #include "MessageId.hpp"
 
 #include <stdint.h>
@@ -41,13 +40,6 @@ namespace genauto
          * @return float
          */
         MessageId& idTo();
-
-        /**
-         * @brief Convert to string
-         *
-         * @param sb
-         */
-        void toString(StringBuilder &sb);
 
         /**
          * @brief Type of the message specific to class

@@ -2,7 +2,6 @@
 #define __GENERIC_AUTOMATION_MESSAGE_PARSER_HPP__
 
 #include <stdint.h>
-#include "StringBuilder.hpp"
 
 namespace genauto {
     /**

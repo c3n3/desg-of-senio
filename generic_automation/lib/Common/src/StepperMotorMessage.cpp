@@ -30,18 +30,3 @@ StepperMotorMessage::Type& StepperMotorMessage::valueType()
 {
     return get<Type>(valueType_loc);
 }
-
-void StepperMotorMessage::toString(StringBuilder& sb)
-{
-    sb.appendString("{StepperMotorMessage; Type: ");
-    if (valueType() == Degree) {
-        sb.appendString("Degree, ");
-    } else {
-        sb.appendString("Speed, ");
-    }
-    sb.appendString("Value: ");
-    sb.appendFloat(value());
-    sb.appendString(", ");
-    id().toString(sb);
-    sb.appendChar('}');
-}

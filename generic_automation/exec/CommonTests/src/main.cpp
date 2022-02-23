@@ -1,4 +1,3 @@
-#include "StringBuilder.hpp"
 #include "StepperMotorMessage.hpp"
 #include "SubscribeMessage.hpp"
 #include "EncoderMessage.hpp"
@@ -10,6 +9,7 @@
 #include "Message.hpp"
 #include "Queue.hpp"
 #include "Subscriber.hpp"
+#include "StaticQueue.hpp"
 #include <iostream>
 #include <sstream>
 #include <chrono>
@@ -84,34 +84,18 @@ void send(Message* message)
 
 }
 
+StaticQueue<int, 100> q;
+
 int main()
 {
-    Timer t("100 Volley");
-    EncoderMessage encode;
-    encode.id() = MessageId(100, 100);
-    encode.value() = -1;
-
-    for (int i = 0; i < 51; i++) {
-        send(&encode);
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    for (int i = 0; i < 100; i++) {
+        if (q.enqueue(i) != StaticQueue<int, 100>::Success) {
+            std::cout << "Failure\n";
+        }
     }
-    // StringBuilder sb(1000);
-    // StepperMotorMessage msg;
-    // msg.id() = MessageId(90, 10);
-    // Message base = msg;
-
-    // StepperMotorMessage msg2 = base;
-    // std::cout << base.id().major << "\n";
-    // std::cout << msg.id().major << "\n";
-    // std::cout << msg.size() << "\n";
-    // std::cout << base.size() << "\n";
-    // std::cout << msg2.size() << "\n";
-    // std::cout << msg2.id().major << "\n";
-
-    // {
-    //     Message* basePtr = &msg;
-    //     basePtr->log();
-    //     StepperMotorMessage* ptr = (StepperMotorMessage*)basePtr;
-    //     ptr->log();
-    // }
+    int k;
+    for (int i = 0; i < 100; i++) {
+        q.dequeue(k);
+        std::cout << "K = " << k << "\n";
+    }
 }

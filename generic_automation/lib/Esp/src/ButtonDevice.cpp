@@ -50,4 +50,5 @@ Message *genauto::ButtonDevice::tryGet()
         send = false;
         return bMsg;
     }
+    return nullptr;
 }

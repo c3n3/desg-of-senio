@@ -33,19 +33,3 @@ bool& PwmMessage::onOff()
 }
 
 
-/**
-         * @brief Convert to string
-         *
-         * @param sb
-         */
-void PwmMessage::toString(StringBuilder& sb)
-{
-    sb.appendString("{PwmMessage; Duty Cycle:  ");
-    sb.appendInt(dutyCycle());
-    sb.appendString("onOff: ");
-    sb.appendFloat(onOff());
-    sb.appendString(", ");
-    id().toString(sb);
-    sb.appendChar('}');
-}
-

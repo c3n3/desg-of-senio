@@ -9,7 +9,6 @@ libCommon = shared_library('Common',
   './src/StepperMotorMessage.cpp',
   './src/SubscribeMessage.cpp',
   './src/EncoderMessage.cpp',
-  './src/StringBuilder.cpp',
   include_directories : inc,
   install : true,
   dependencies : [])
