@@ -41,41 +41,6 @@ void Devices::update(const HttpRequestPtr &req,
     base.save();
 }
 
-void Devices::deviceComm(const HttpRequestPtr &req,
-    std::function<void (const HttpResponsePtr &)> &&callback,
-    const std::string& data)
-{
-    callback(HttpResponse::newHttpResponse());
-    uint8_t massiveBuffer[100];
-    Message msg(massiveBuffer);
-    LOG_DEBUG << "Called!";
-    if (serializer.parse((uint8_t*)data.c_str(), data.length()) == HexStringSerializer::Success) {
-        if (serializer.deserialize(msg) == HexStringSerializer::Success) {
-            msg.log();
-        }
-    }
-
-    
-    // auto client = HttpClient::newHttpClient(
-    //     "http://10.150.148.214",80);
-	// auto newReq = HttpRequest::newHttpRequest();
-	// std::promise<bool> valid;
-	// req->setPath("/?test=ASDLKJFSD");
-    // LOG_DEBUG << "Called!";
-	// client->sendRequest(newReq, [&](ReqResult result, const HttpResponsePtr &response) {
-    // LOG_DEBUG << "Called!";
-	// 	if(response == nullptr) // If no server responce
-	// 		valid.set_value(false);
-	// 	valid.set_value(true);
-    // LOG_DEBUG << "Called!";
-	// });
-	// bool api_ok = valid.get_future().get(); // Wait for HTTP to response. Have to wait here otherwise crash the entire application
-
-    // LOG_DEBUG << "Called!";
-    // callback(HttpResponse::newHttpResponse());
-    // LOG_DEBUG << "Called!";
-}
-
 static HexStringSerializer serializer(1000);
 
 static void send(Message* message)
