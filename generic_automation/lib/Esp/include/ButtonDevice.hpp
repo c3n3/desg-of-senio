@@ -18,8 +18,7 @@ namespace genauto
         bool pressed_ = false;
         unsigned long lastTime = 0;
         bool send = false;
-        ButtonMessage *bMsg = ButtonMessage(NULL);
-
+        ButtonMessage bMsg;
     public:
         /**
          * @brief Construct a new Button Device object
@@ -55,14 +54,17 @@ namespace genauto
             pinMode(PIN, INPUT);
             attachInterrupt(digitalPinToInterrupt(PIN), isr, RISING);
             self = this;
+            Serial.println("f");
         }
 
         static void isr()
         {
+            Serial.println("a");
             if ((millis() - ButtonDeviceInst<PIN>::time) > 500)
             {
                 ButtonDeviceInst<PIN>::self->pressed_ = true;
                 ButtonDeviceInst<PIN>::time = millis();
+                Serial.println("b");
             }
         }
     };

@@ -1,40 +1,3 @@
-//#include "Arduino.h"
-//#include "src/Common/include/Log.hpp"
-//#include "src/Esp/include/WifiReceiver.hpp"
-//#include "src/Common/include/StepperMotorMessage.hpp"
-//#include "src/Common/include/EncoderMessage.hpp"
-//#include "src/Esp/include/PwmDevice.hpp"
-//#include "src/Common/include/SubscribeMessage.hpp"
-//#include "src/Common/include/Log.hpp"
-//#include "src/Common/include/StringBuilder.hpp"
-//#include "src/Common/include/Timer.hpp"
-//
-//#include "src/Esp/include/SteelPlateLoop.hpp"
-//#include "src/Esp/include/ExecLoop.hpp"
-//
-//using namespace genauto;
-//
-//#include "soc/rtc_wdt.h"
-//
-//
-//void setup()
-//{
-//    rtc_wdt_protect_off();
-//    rtc_wdt_disable();
-//    disableCore0WDT();
-//    disableLoopWDT();
-//    Serial.begin(115200);
-//    delay(100);
-//    WifiReceiver::getReceiver();
-//    //runSteelPlateLoop();
-//}
-//
-//void loop()
-//{
-//    //fireAK();
-//    
-//}
-
 #include "Arduino.h"
 #include "src/Common/include/Log.hpp"
 #include "src/Esp/include/WifiReceiver.hpp"
@@ -60,15 +23,15 @@ using namespace genauto;
 #include "soc/rtc_wdt.h"
 
 
-ButtonDeviceInst<14> bDev(1);
+ButtonDeviceInst bDev<14>(1);
 
 
 void setup()
 {
     rtc_wdt_protect_off();
     rtc_wdt_disable();
-    //disableCore0WDT();
-    //disableLoopWDT();
+    disableCore0WDT();
+    disableLoopWDT();
     Serial.begin(115200);
     delay(100);
     WifiReceiver::getReceiver();
@@ -76,10 +39,9 @@ void setup()
 
 void loop()
 {
-    bDev.execute();
-    Message* bMsg = bDev.tryGet();
-    ButtonMessage *butMsg = (ButtonMessage*)bMsg;
+    bDev->execute();
+    ButtonMessage* bMsg = bDev->tryGet();
     if(bMsg == nullptr) Serial.println("No Press");
     else Serial.println("Button Pressed");
-    delay(5);
+
 }
