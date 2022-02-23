@@ -14,12 +14,10 @@ using namespace genauto;
 genauto::EncoderDevice::EncoderDevice(uint8_t pinA, uint8_t pinB, minor_t minorId)
     : pinA(pinA),
     pinB(pinB),
-    Device(minorId)
+    Device(minorId),
+    inited(false)
 {
-    ESP32Encoder::useInternalWeakPullResistors=UP;
-	encoder.attachHalfQuad(pinA, pinB);
-    encoder.clearCount();
-	lastTime = millis();
+    
 }
 
 /**
@@ -28,6 +26,14 @@ genauto::EncoderDevice::EncoderDevice(uint8_t pinA, uint8_t pinB, minor_t minorI
  */
 void genauto::EncoderDevice::execute()
 {
+    if(!inited)
+    {
+        ESP32Encoder::useInternalWeakPullResistors=UP;
+	    encoder.attachHalfQuad(pinA, pinB);
+        encoder.clearCount();
+	    lastTime = millis();
+        inited = true;
+    }
     if ((millis() - lastTime) >= 250)
     {
         lastTime = millis();
