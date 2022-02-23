@@ -20,6 +20,7 @@ namespace genauto {
             unsigned long lastTime = 0;
             ESP32Encoder encoder;
             EncoderMessage* eMsg = EncoderMessage(NULL);
+            bool inited;
     public:
 
         /**
