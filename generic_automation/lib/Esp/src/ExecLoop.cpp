@@ -28,12 +28,7 @@ void genauto::fireAK(){
     auto& devices = CapabilitiesList::deviceList;
     while (true) {
         for (int i = 0; i < devices.getSize(); i++) {
-            try {
-                devices.getList()[i]->execute();
-            } catch (...) {
-                elog("ERROR: ");
-                elog("%d device failed\n", devices.getList()[i]->minorId);
-            }
+            devices.getList()[i]->execute();
         }
     }
 }

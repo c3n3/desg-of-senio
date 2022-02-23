@@ -60,33 +60,50 @@ This will make it easier for when we are doing local linking.
  */
 void genauto::PwmDevice::execute()
 {
+    dlog("\n");
     if (!inited) {
-        ledcSetup(channel, PWM_FREQUENCY, PWM_RESOUTION); // setup PWM 
-        ledcAttachPin(pinNumber, channel);
-        ledcWrite(channel, 0);
+    dlog("\n");
+        // ledcSetup(channel, PWM_FREQUENCY, PWM_RESOUTION); // setup PWM 
+    dlog("\n");
+        // ledcAttachPin(pinNumber, channel);
+    dlog("\n");
+    dlog("\n");
         inited = true;
+    dlog("\n");
     }
+    dlog("\n");
     Message* Msg = NULL;
+    dlog("\n");
     if(msgs_.dequeue(Msg) == decltype(msgs_)::Success)
+    dlog("\n");
     {
+    dlog("\n");
         if(Msg->type() == EncoderMessage::classMsgType)
         {
+    dlog("\n");
             EncoderMessage* eMsg = (EncoderMessage*)Msg;
+    dlog("\n");
             int16_t val = dutyCycle_ + eMsg->value() * increment;
+    dlog("\n");
             if(val > 255) dutyCycle_ = 255;
             else if(val < -255) dutyCycle_ = 0;
             else dutyCycle_ = val;
             if(pwmOn_) ledcWrite(channel, dutyCycle_); // only if the pwm device is set to on, write to the pin.
+    dlog("\n");
         }
+    dlog("\n");
         if(Msg->type() == ButtonMessage::classMsgType)
         {
+    dlog("\n");
             ButtonMessage* bMsg = (ButtonMessage*)Msg;
             if(bMsg->pressed() == true) pwmOn_ = !pwmOn_;
             if(pwmOn_) ledcWrite(channel, dutyCycle_);
             else ledcWrite(channel, 0); // turn off the pwm device.
+    dlog("\n");
         }
         if(Msg->type() == PwmMessage::classMsgType)
         {
+    dlog("\n");
             PwmMessage* pMsg = (PwmMessage*)Msg;
             pwmOn_ = pMsg->onOff();
             int16_t tempDuty = pMsg->dutyCycle();
@@ -95,7 +112,9 @@ void genauto::PwmDevice::execute()
             else dutyCycle_ = -255;
             if(pwmOn_) ledcWrite(channel, dutyCycle_);
             else ledcWrite(channel, 0);
+    dlog("\n");
         }
     }
     ledcWrite(channel, dutyCycle_);
+    dlog("\n");
 }
