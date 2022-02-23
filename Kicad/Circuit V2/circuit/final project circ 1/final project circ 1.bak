@@ -1,5 +1,6 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:final project circ 1-cache
+EELAYER 29 0
 EELAYER END
 $Descr A0 46811 33110
 encoding utf-8
@@ -14,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L final-project-circ-1-rescue:ESP32-WROOM-32D-RF_Module-final-project-circ-1-rescue-final-project-circ-1-rescue U6
+L final-project-circ-1-rescue:ESP32-WROOM-32D-RF_Module-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue U6
 U 1 1 61E970AF
 P 25350 15150
 F 0 "U6" H 25350 16731 50  0000 C CNN
@@ -201,9 +202,9 @@ Wire Wire Line
 Wire Wire Line
 	24400 11950 24350 11950
 Wire Wire Line
-	24400 11300 27400 11300
+	24400 11300 25600 11300
 $Comp
-L final-project-circ-1-rescue:USB_B_Micro-Connector-final-project-circ-1-rescue-final-project-circ-1-rescue J1
+L final-project-circ-1-rescue:USB_B_Micro-Connector-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue J1
 U 1 1 61F4B745
 P 18800 10250
 F 0 "J1" H 18857 10717 50  0000 C CNN
@@ -231,7 +232,7 @@ Wire Wire Line
 Wire Wire Line
 	20800 10050 20800 10450
 $Comp
-L final-project-circ-1-rescue:PMEG3005EJ-Diode-final-project-circ-1-rescue-final-project-circ-1-rescue D6
+L final-project-circ-1-rescue:PMEG3005EJ-Diode-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue D6
 U 1 1 61F6485B
 P 19800 10050
 F 0 "D6" H 19800 9834 50  0000 C CNN
@@ -319,7 +320,7 @@ U 1 1 61F8072B
 P 20350 9600
 F 0 "D7" V 20297 9680 50  0000 L CNN
 F 1 "LED" V 20388 9680 50  0000 L CNN
-F 2 "LED_SMD:LED_1206_3216Metric" H 20350 9600 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical" H 20350 9600 50  0001 C CNN
 F 3 "~" H 20350 9600 50  0001 C CNN
 	1    20350 9600
 	0    1    1    0   
@@ -1387,7 +1388,7 @@ F 3 "" H 19650 15250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L final-project-circ-1-rescue:SS8050-G-Custom-final-project-circ-1-rescue-final-project-circ-1-rescue Q4
+L final-project-circ-1-rescue:SS8050-G-Custom-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue Q4
 U 1 1 6208535A
 P 15250 11000
 F 0 "Q4" H 16050 11487 60  0000 C CNN
@@ -1398,7 +1399,7 @@ F 3 "" H 15250 11000 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L final-project-circ-1-rescue:SS8050-G-Custom-final-project-circ-1-rescue-final-project-circ-1-rescue Q5
+L final-project-circ-1-rescue:SS8050-G-Custom-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue Q5
 U 1 1 6208695C
 P 15350 12150
 F 0 "Q5" H 16150 12637 60  0000 C CNN
@@ -1433,7 +1434,7 @@ Connection ~ 14750 11000
 Wire Wire Line
 	14750 11000 14950 11000
 $Comp
-L final-project-circ-1-rescue:LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue U1
+L final-project-circ-1-rescue:LTC3895IFE-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue U1
 U 1 1 61FA0D0E
 P 15250 15900
 F 0 "U1" H 15700 11477 50  0000 C CNN
@@ -1692,7 +1693,7 @@ Wire Wire Line
 Wire Wire Line
 	16400 16650 16400 17650
 $Comp
-L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue Q3
+L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue Q3
 U 1 1 62007216
 P 17250 20150
 F 0 "Q3" H 17456 20196 50  0000 L CNN
@@ -1703,7 +1704,7 @@ F 3 "http://www.ti.com/lit/gpn/csd17578q5a" V 17250 20150 50  0001 L CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue Q2
+L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue Q2
 U 1 1 6200DB26
 P 16750 19150
 F 0 "Q2" H 16956 19104 50  0000 L CNN
@@ -1714,7 +1715,7 @@ F 3 "http://www.ti.com/lit/gpn/csd17578q5a" V 16750 19150 50  0001 L CNN
 	1    0    0    1   
 $EndComp
 $Comp
-L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue Q1
+L final-project-circ-1-rescue:FDD770N15A-POWSYMBOLS-SDPowSupply-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue-final-project-circ-1-rescue Q1
 U 1 1 6200EB2C
 P 16450 18150
 F 0 "Q1" H 16656 18196 50  0000 L CNN
@@ -1755,7 +1756,7 @@ F 1 "100u" V 18389 16550 50  0000 C CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 18588 16400 50  0001 C CNN
 F 3 "~" H 18550 16550 50  0001 C CNN
 	1    18550 16550
-	-1   0    0    1   
+	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C C9
@@ -1766,7 +1767,7 @@ F 1 "100u" V 18839 16550 50  0000 C CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 19038 16400 50  0001 C CNN
 F 3 "~" H 19000 16550 50  0001 C CNN
 	1    19000 16550
-	-1   0    0    1   
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	18050 16400 18050 16200
@@ -1806,7 +1807,7 @@ F 1 "100u" V 19289 16550 50  0000 C CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 19488 16400 50  0001 C CNN
 F 3 "~" H 19450 16550 50  0001 C CNN
 	1    19450 16550
-	-1   0    0    1   
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	19000 16200 19450 16200
@@ -1923,7 +1924,7 @@ F 1 "100u" V 15389 13800 50  0000 C CNN
 F 2 "Capacitor_THT:CP_Radial_D16.0mm_P7.50mm" H 15588 13650 50  0001 C CNN
 F 3 "~" H 15550 13800 50  0001 C CNN
 	1    15550 13800
-	-1   0    0    1   
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	15550 13650 15250 13650
@@ -1961,7 +1962,7 @@ F 1 "1u" V 16739 13900 50  0000 C CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 16938 13750 50  0001 C CNN
 F 3 "~" H 16900 13900 50  0001 C CNN
 	1    16900 13900
-	-1   0    0    1   
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	16450 13250 16300 13250
@@ -2002,7 +2003,7 @@ F 1 "100u" V 16139 14450 50  0000 C CNN
 F 2 "Capacitor_THT:CP_Radial_D16.0mm_P7.50mm" H 16338 14300 50  0001 C CNN
 F 3 "~" H 16300 14450 50  0001 C CNN
 	1    16300 14450
-	-1   0    0    1   
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	16300 13850 16300 14200
@@ -2139,23 +2140,10 @@ F 3 "" H 20100 18200 50  0001 C CNN
 	1    20100 18200
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:+VDC #PWR036
-U 1 1 62176DF4
-P 19350 17950
-F 0 "#PWR036" H 19350 17850 50  0001 C CNN
-F 1 "+VDC" H 19350 18225 50  0000 C CNN
-F 2 "" H 19350 17950 50  0001 C CNN
-F 3 "" H 19350 17950 50  0001 C CNN
-	1    19350 17950
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	19350 17950 19500 17950
 Wire Wire Line
 	19500 17950 19500 18000
 $Comp
-L final-project-circ-1-rescue:L2293QTR-Custom U8
+L final-project-circ-1-rescue:L2293QTR-Custom-final-project-circ-1-rescue U8
 U 1 1 62208553
 P 22300 17450
 F 0 "U8" H 23300 17837 60  0000 C CNN
@@ -2171,7 +2159,7 @@ Wire Wire Line
 Wire Wire Line
 	21300 18550 22300 18550
 $Comp
-L final-project-circ-1-rescue:SRD-S-112DM-Custom U7
+L final-project-circ-1-rescue:SRD-S-112DM-Custom-final-project-circ-1-rescue U7
 U 1 1 62253540
 P 19800 17900
 F 0 "U7" H 19800 18025 50  0000 C CNN
@@ -2199,10 +2187,10 @@ Wire Wire Line
 Wire Wire Line
 	15350 12150 15350 12100
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0102
 U 1 1 6212112F
 P 18800 10650
-F 0 "#PWR?" H 18800 10400 50  0001 C CNN
+F 0 "#PWR0102" H 18800 10400 50  0001 C CNN
 F 1 "GND" H 18805 10477 50  0000 C CNN
 F 2 "" H 18800 10650 50  0001 C CNN
 F 3 "" H 18800 10650 50  0001 C CNN
@@ -2210,10 +2198,10 @@ F 3 "" H 18800 10650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0103
 U 1 1 62122220
 P 16900 14050
-F 0 "#PWR?" H 16900 13800 50  0001 C CNN
+F 0 "#PWR0103" H 16900 13800 50  0001 C CNN
 F 1 "GND1" H 16905 13877 50  0000 C CNN
 F 2 "" H 16900 14050 50  0001 C CNN
 F 3 "" H 16900 14050 50  0001 C CNN
@@ -2221,10 +2209,10 @@ F 3 "" H 16900 14050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0104
 U 1 1 62123099
 P 17350 14050
-F 0 "#PWR?" H 17350 13800 50  0001 C CNN
+F 0 "#PWR0104" H 17350 13800 50  0001 C CNN
 F 1 "GND1" H 17355 13877 50  0000 C CNN
 F 2 "" H 17350 14050 50  0001 C CNN
 F 3 "" H 17350 14050 50  0001 C CNN
@@ -2232,10 +2220,10 @@ F 3 "" H 17350 14050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0105
 U 1 1 62123DD9
 P 16300 14600
-F 0 "#PWR?" H 16300 14350 50  0001 C CNN
+F 0 "#PWR0105" H 16300 14350 50  0001 C CNN
 F 1 "GND1" H 16305 14427 50  0000 C CNN
 F 2 "" H 16300 14600 50  0001 C CNN
 F 3 "" H 16300 14600 50  0001 C CNN
@@ -2243,10 +2231,10 @@ F 3 "" H 16300 14600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0106
 U 1 1 62124B1B
 P 15550 13950
-F 0 "#PWR?" H 15550 13700 50  0001 C CNN
+F 0 "#PWR0106" H 15550 13700 50  0001 C CNN
 F 1 "GND1" H 15555 13777 50  0000 C CNN
 F 2 "" H 15550 13950 50  0001 C CNN
 F 3 "" H 15550 13950 50  0001 C CNN
@@ -2254,10 +2242,10 @@ F 3 "" H 15550 13950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0107
 U 1 1 621257E1
 P 14250 13650
-F 0 "#PWR?" H 14250 13400 50  0001 C CNN
+F 0 "#PWR0107" H 14250 13400 50  0001 C CNN
 F 1 "GND1" V 14255 13522 50  0000 R CNN
 F 2 "" H 14250 13650 50  0001 C CNN
 F 3 "" H 14250 13650 50  0001 C CNN
@@ -2265,10 +2253,10 @@ F 3 "" H 14250 13650 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0108
 U 1 1 62126840
 P 18050 15100
-F 0 "#PWR?" H 18050 14850 50  0001 C CNN
+F 0 "#PWR0108" H 18050 14850 50  0001 C CNN
 F 1 "GND1" H 18055 14927 50  0000 C CNN
 F 2 "" H 18050 15100 50  0001 C CNN
 F 3 "" H 18050 15100 50  0001 C CNN
@@ -2276,10 +2264,10 @@ F 3 "" H 18050 15100 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0109
 U 1 1 621275A4
 P 15700 15450
-F 0 "#PWR?" H 15700 15200 50  0001 C CNN
+F 0 "#PWR0109" H 15700 15200 50  0001 C CNN
 F 1 "GND1" H 15705 15277 50  0000 C CNN
 F 2 "" H 15700 15450 50  0001 C CNN
 F 3 "" H 15700 15450 50  0001 C CNN
@@ -2287,10 +2275,10 @@ F 3 "" H 15700 15450 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0110
 U 1 1 6212831E
 P 15150 15650
-F 0 "#PWR?" H 15150 15400 50  0001 C CNN
+F 0 "#PWR0110" H 15150 15400 50  0001 C CNN
 F 1 "GND1" V 15155 15522 50  0000 R CNN
 F 2 "" H 15150 15650 50  0001 C CNN
 F 3 "" H 15150 15650 50  0001 C CNN
@@ -2303,10 +2291,10 @@ Connection ~ 14250 13650
 Wire Wire Line
 	14250 13650 14250 13850
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0111
 U 1 1 62293309
 P 19500 18200
-F 0 "#PWR?" H 19500 17950 50  0001 C CNN
+F 0 "#PWR0111" H 19500 17950 50  0001 C CNN
 F 1 "GND1" V 19505 18072 50  0000 R CNN
 F 2 "" H 19500 18200 50  0001 C CNN
 F 3 "" H 19500 18200 50  0001 C CNN
@@ -2314,10 +2302,10 @@ F 3 "" H 19500 18200 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0112
 U 1 1 622943D9
 P 18550 16700
-F 0 "#PWR?" H 18550 16450 50  0001 C CNN
+F 0 "#PWR0112" H 18550 16450 50  0001 C CNN
 F 1 "GND1" H 18555 16527 50  0000 C CNN
 F 2 "" H 18550 16700 50  0001 C CNN
 F 3 "" H 18550 16700 50  0001 C CNN
@@ -2325,10 +2313,10 @@ F 3 "" H 18550 16700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0113
 U 1 1 6229513B
 P 19000 16700
-F 0 "#PWR?" H 19000 16450 50  0001 C CNN
+F 0 "#PWR0113" H 19000 16450 50  0001 C CNN
 F 1 "GND1" H 19005 16527 50  0000 C CNN
 F 2 "" H 19000 16700 50  0001 C CNN
 F 3 "" H 19000 16700 50  0001 C CNN
@@ -2336,10 +2324,10 @@ F 3 "" H 19000 16700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0114
 U 1 1 62295E96
 P 19450 16700
-F 0 "#PWR?" H 19450 16450 50  0001 C CNN
+F 0 "#PWR0114" H 19450 16450 50  0001 C CNN
 F 1 "GND1" H 19455 16527 50  0000 C CNN
 F 2 "" H 19450 16700 50  0001 C CNN
 F 3 "" H 19450 16700 50  0001 C CNN
@@ -2347,10 +2335,10 @@ F 3 "" H 19450 16700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0115
 U 1 1 622DEDAF
 P 14300 17150
-F 0 "#PWR?" H 14300 16900 50  0001 C CNN
+F 0 "#PWR0115" H 14300 16900 50  0001 C CNN
 F 1 "GND1" V 14305 17022 50  0000 R CNN
 F 2 "" H 14300 17150 50  0001 C CNN
 F 3 "" H 14300 17150 50  0001 C CNN
@@ -2358,10 +2346,10 @@ F 3 "" H 14300 17150 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0116
 U 1 1 622DFAAE
 P 14300 17550
-F 0 "#PWR?" H 14300 17300 50  0001 C CNN
+F 0 "#PWR0116" H 14300 17300 50  0001 C CNN
 F 1 "GND1" V 14305 17422 50  0000 R CNN
 F 2 "" H 14300 17550 50  0001 C CNN
 F 3 "" H 14300 17550 50  0001 C CNN
@@ -2369,10 +2357,10 @@ F 3 "" H 14300 17550 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0117
 U 1 1 622E0923
 P 14300 17950
-F 0 "#PWR?" H 14300 17700 50  0001 C CNN
+F 0 "#PWR0117" H 14300 17700 50  0001 C CNN
 F 1 "GND1" V 14305 17822 50  0000 R CNN
 F 2 "" H 14300 17950 50  0001 C CNN
 F 3 "" H 14300 17950 50  0001 C CNN
@@ -2380,10 +2368,10 @@ F 3 "" H 14300 17950 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0118
 U 1 1 6234DAEA
 P 15150 18400
-F 0 "#PWR?" H 15150 18150 50  0001 C CNN
+F 0 "#PWR0118" H 15150 18150 50  0001 C CNN
 F 1 "GND1" V 15155 18272 50  0000 R CNN
 F 2 "" H 15150 18400 50  0001 C CNN
 F 3 "" H 15150 18400 50  0001 C CNN
@@ -2391,10 +2379,10 @@ F 3 "" H 15150 18400 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0119
 U 1 1 6234EADF
 P 15150 19150
-F 0 "#PWR?" H 15150 18900 50  0001 C CNN
+F 0 "#PWR0119" H 15150 18900 50  0001 C CNN
 F 1 "GND1" V 15155 19022 50  0000 R CNN
 F 2 "" H 15150 19150 50  0001 C CNN
 F 3 "" H 15150 19150 50  0001 C CNN
@@ -2402,10 +2390,10 @@ F 3 "" H 15150 19150 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0120
 U 1 1 6234FD7D
 P 14750 19650
-F 0 "#PWR?" H 14750 19400 50  0001 C CNN
+F 0 "#PWR0120" H 14750 19400 50  0001 C CNN
 F 1 "GND1" V 14755 19522 50  0000 R CNN
 F 2 "" H 14750 19650 50  0001 C CNN
 F 3 "" H 14750 19650 50  0001 C CNN
@@ -2413,10 +2401,10 @@ F 3 "" H 14750 19650 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0121
 U 1 1 624047F1
 P 15150 20150
-F 0 "#PWR?" H 15150 19900 50  0001 C CNN
+F 0 "#PWR0121" H 15150 19900 50  0001 C CNN
 F 1 "GND1" V 15155 20022 50  0000 R CNN
 F 2 "" H 15150 20150 50  0001 C CNN
 F 3 "" H 15150 20150 50  0001 C CNN
@@ -2424,10 +2412,10 @@ F 3 "" H 15150 20150 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0122
 U 1 1 62405A96
 P 17100 18650
-F 0 "#PWR?" H 17100 18400 50  0001 C CNN
+F 0 "#PWR0122" H 17100 18400 50  0001 C CNN
 F 1 "GND1" V 17105 18522 50  0000 R CNN
 F 2 "" H 17100 18650 50  0001 C CNN
 F 3 "" H 17100 18650 50  0001 C CNN
@@ -2435,10 +2423,10 @@ F 3 "" H 17100 18650 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0123
 U 1 1 62406929
 P 16850 18950
-F 0 "#PWR?" H 16850 18700 50  0001 C CNN
+F 0 "#PWR0123" H 16850 18700 50  0001 C CNN
 F 1 "GND1" H 16855 18777 50  0000 C CNN
 F 2 "" H 16850 18950 50  0001 C CNN
 F 3 "" H 16850 18950 50  0001 C CNN
@@ -2446,14 +2434,56 @@ F 3 "" H 16850 18950 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND1 #PWR?
+L final-project-circ-1-rescue:GND1-power #PWR0124
 U 1 1 621445DE
 P 15150 17650
-F 0 "#PWR?" H 15150 17400 50  0001 C CNN
+F 0 "#PWR0124" H 15150 17400 50  0001 C CNN
 F 1 "GND1" V 15155 17522 50  0000 R CNN
 F 2 "" H 15150 17650 50  0001 C CNN
 F 3 "" H 15150 17650 50  0001 C CNN
 	1    15150 17650
 	0    1    1    0   
 $EndComp
+$Comp
+L Connector:Conn_01x02_Female J12
+U 1 1 6217B9E9
+P 25600 10650
+F 0 "J12" V 25538 10462 50  0000 R CNN
+F 1 "Conn_01x02_Female" V 25447 10462 50  0000 R CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical" H 25600 10650 50  0001 C CNN
+F 3 "~" H 25600 10650 50  0001 C CNN
+	1    25600 10650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0125
+U 1 1 6217CA20
+P 25700 10900
+F 0 "#PWR0125" H 25700 10650 50  0001 C CNN
+F 1 "GND" H 25705 10727 50  0000 C CNN
+F 2 "" H 25700 10900 50  0001 C CNN
+F 3 "" H 25700 10900 50  0001 C CNN
+	1    25700 10900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	25600 10850 25600 11300
+Connection ~ 25600 11300
+Wire Wire Line
+	25600 11300 27400 11300
+Wire Wire Line
+	25700 10850 25700 10900
+$Comp
+L power:LINE #PWR0126
+U 1 1 6218464F
+P 19350 17950
+F 0 "#PWR0126" H 19350 17800 50  0001 C CNN
+F 1 "LINE" H 19367 18123 50  0000 C CNN
+F 2 "" H 19350 17950 50  0001 C CNN
+F 3 "" H 19350 17950 50  0001 C CNN
+	1    19350 17950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	19350 17950 19500 17950
 $EndSCHEMATC

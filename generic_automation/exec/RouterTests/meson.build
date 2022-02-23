@@ -1,7 +1,7 @@
-project('CommonTests', 'cpp')
+project('RouterTests', 'cpp')
 Common = dependency('Common', fallback : ['Common', 'Common_dep'])
 
 extra_args = ['-Oz']
 
-executable('CommonTests', 'src/main.cpp',
+executable('RouterTests', 'src/main.cpp',
     dependencies : [Common], c_args: extra_args)
