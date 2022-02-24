@@ -67,47 +67,42 @@ int16_t encVal = 0;
 AnalogDevice aDev(36, 3);
 uint16_t aVal;
 const uint8_t LED_PIN = 13;
-SwitchDevice sDev(13, 4);
+//SwitchDevice sDev(13, 4);
+PwmDevice pDev(LED_PIN, 0, 5);
+StepperDevice stepDev(32, 33, 6);
 
 
 void setup()
 {
     rtc_wdt_protect_off();
     rtc_wdt_disable();
-<<<<<<< HEAD
     //disableCore0WDT();
     //disableLoopWDT();
     Serial.begin(115200);
     delay(100);
     //WifiReceiver::getReceiver();
-=======
-    disableCore0WDT();
-    disableLoopWDT();
-    Serial.begin(115200);
-    delay(100);
-    WifiReceiver::getReceiver();
-    runSteelPlateLoop();
-
->>>>>>> 599c9422b4c245f5481de77f9f76fbeaa4c76faf
 }
 
 void loop()
 {
-<<<<<<< HEAD
     bDev.execute();
     Message* bMsg = bDev.tryGet();
     ButtonMessage *butMsg = (ButtonMessage*)bMsg;
-    if(bMsg == nullptr) {}
+    if(bMsg == nullptr) {} //{dlog("button message nullptr\n");}
     else 
     {
       Serial.println("Button Pressed");
-      sDev.receive((Message*)butMsg);
+      //sDev.receive((Message*)butMsg);
     }
     
     eDev.execute();
     Message* eMsg = eDev.tryGet();
     EncoderMessage *encMsg = (EncoderMessage*)eMsg;
-    if(eMsg != nullptr) encVal = encMsg->value();
+    if(eMsg != nullptr) 
+    {
+      pDev.receive((Message*)encMsg);
+      stepDev.receive((Message*)encMsg);
+    }
     //dlog("Encoder Value: %d\n", encVal);
 
     aDev.execute();
@@ -119,15 +114,12 @@ void loop()
       //dlog("analog value: %d\n", aVal);
     }
 
-    sDev.execute();
+    //sDev.execute();
+
+    pDev.execute();
+    stepDev.execute();
+
     
     
     delay(100);
-=======
-    // dlog("Here\n");
-    // sender.receive(&msg);
-    // dlog("Here\n");
-    // delay(1000);
-    fireAK();
->>>>>>> 599c9422b4c245f5481de77f9f76fbeaa4c76faf
 }

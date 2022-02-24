@@ -69,12 +69,12 @@ void genauto::PwmDevice::execute()
     Message* Msg = NULL;
     if(msgs_.dequeue(Msg) == decltype(msgs_)::Success)
     {
-        if(Msg->type() == EncoderMessage::classMsgType)
+        if(Msg->type() == EncoderMessage::classMsgType) /// going to need to modify this for directions.
         {
             EncoderMessage* eMsg = (EncoderMessage*)Msg;
             int16_t val = dutyCycle_ + eMsg->value() * increment;
             if(val > 255) dutyCycle_ = 255;
-            else if(val < -255) dutyCycle_ = 0;
+            else if(val <= 0) dutyCycle_ = 0; // change for testing to 0 so no overflow negative.
             else dutyCycle_ = val;
             if(pwmOn_) ledcWrite(channel, dutyCycle_); // only if the pwm device is set to on, write to the pin.
         }
