@@ -75,45 +75,26 @@ static void constructDevice(Capability device, json& output)
     output["tag"] = deviceTypeToString(device.type);
     switch (device.type) {
         case Pwm:
-            output["data"] = {
-                {"max", "100"},
-                {"min", "0"},
-                {"units", "%"}
-            };
-            output["persistent"] = {
-                {"increment", "5"},
-                {"name", std::string("PWM " + std::to_string(device.id))}
-            };
+            output["data"] = {{"max", "100"},{"min", "0"},{"units", "%"}};
+            output["persistent"] = {{"increment", "5"},{"name", std::string("PWM " + std::to_string(device.id))}};
+            break;
         case Stepper:
             output["data"] = {{"max", "inf"},{"min", "-inf"},{"units", "degrees"}};
             output["persistent"] = {{"increment", "15"},{"name", ("Stepper " + std::to_string(device.id))},{"units", "degrees"}};
+            break;
         case Analog:
-            //         "2": {
-            //     "data": {
-            //         "max": 3.3,
-            //         "min": 0
-            //     },
-            //     "persistent": {
-            //         "name": "Analog A",
-            //         "normalize": "100",
-            //         "units": "C"
-            //     },
-            //     "tag": "analog",
-            //     "type": "number"
-            // }
             output["data"] = {{"max", "3.3"},{"min", "0"}};
             output["persistent"] = {{"name", "Analog " + std::to_string(device.id)},{"normalize", "3.3"},{"units", "V"}};
+            break;
         case Button:
-            //             "0": {
-            //     "persistent": {
-            //         "name": "ButtonA"
-            //     },
-            //     "tag": "button",
-            //     "type": "bool"
-            // },
-            output[""]
+            output["persistent"] = {"name", ("Button " + std::to_string(device.id))};
+            break;
         case Encoder:
+            output["persistent"] = {"name", ("Encoder " + std::to_string(device.id))};
+            break;
         case Switch:
+            output["persistent"] = {"name", ("Switch " + std::to_string(device.id))};
+            break;
         default:
         return;
     }
@@ -136,6 +117,7 @@ void DevicesDatabase::update(CapabilitiesMessage* msg, std::string deviceId)
         } else if (!device["outputs"][id].is_null() && device["outputs"][id]["type"] == type) {
             continue;
         }
+        switch (device)
     }
 }
 
