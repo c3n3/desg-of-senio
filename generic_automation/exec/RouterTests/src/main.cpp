@@ -1,4 +1,3 @@
-#include "StringBuilder.hpp"
 #include "StepperMotorMessage.hpp"
 #include "Message.hpp"
 #include "Log.hpp"

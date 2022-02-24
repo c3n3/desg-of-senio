@@ -54,17 +54,14 @@ namespace genauto
             pinMode(PIN, INPUT);
             attachInterrupt(digitalPinToInterrupt(PIN), isr, RISING);
             self = this;
-            Serial.println("f");
         }
 
         static void isr()
         {
-            Serial.println("a");
             if ((millis() - ButtonDeviceInst<PIN>::time) > 500)
             {
                 ButtonDeviceInst<PIN>::self->pressed_ = true;
                 ButtonDeviceInst<PIN>::time = millis();
-                Serial.println("b");
             }
         }
     };

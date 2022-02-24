@@ -33,18 +33,3 @@ int16_t& EncoderMessage::value()
     return get<int16_t>(value_location);
 }
 
-
-/**
-         * @brief Convert to string
-         *
-         * @param sb
-         */
-void EncoderMessage::toString(StringBuilder &sb)
-{
-    sb.appendString("{EncoderMessage; ");
-    sb.appendString("Value: ");
-    sb.appendInt(value());
-    sb.appendString(", ");
-    id().toString(sb);
-    sb.appendChar('}');
-}

@@ -1,7 +1,6 @@
 #ifndef __GENAUTO_MESSAGE_ID_HPP__
 #define __GENAUTO_MESSAGE_ID_HPP__
 
-#include "StringBuilder.hpp"
 #include "Types.hpp"
 
 #include <stdint.h>
@@ -113,12 +112,6 @@ namespace genauto {
          */
         MessageId();
 
-        /**
-         * @brief Makes a string from the id
-         *
-         * @param sb the builder to create string from
-         */
-        void toString(StringBuilder& sb) const;
     };
 
     namespace ConstantIds {

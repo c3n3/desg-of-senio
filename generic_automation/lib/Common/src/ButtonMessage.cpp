@@ -32,19 +32,3 @@ bool& ButtonMessage::pressed()
 {
     return get<bool>(pressed_location);
 }
-
-
-/**
-         * @brief Convert to string
-         *
-         * @param sb
-         */
-void ButtonMessage::toString(StringBuilder &sb)
-{
-    sb.appendString("{ButtonMessage; ");
-    sb.appendString("Pressed: ");
-    sb.appendInt(pressed());
-    sb.appendString(", ");
-    id().toString(sb);
-    sb.appendChar('}');
-}

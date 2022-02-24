@@ -7,7 +7,6 @@
 #include "../include/StepperDevice.hpp"
 #include "../include/SwitchDevice.hpp"
 #include "../include/WifiReceiver.hpp"
-#include "../../Common/include/StringBuilder.hpp"
 #include "../../Common/include/StepperMotorMessage.hpp"
 #include "../../Common/include/SubscribeMessage.hpp"
 #include "../../Common/include/EncoderMessage.hpp"

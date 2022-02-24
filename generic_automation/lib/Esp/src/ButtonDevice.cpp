@@ -26,7 +26,6 @@ genauto::ButtonDevice::ButtonDevice(uint8_t pinNumber, minor_t minorId)
  */
 void genauto::ButtonDevice::execute()
 {
-    Serial.println("c");
     if ((millis() - lastTime) >= 250)
     {
         if(pressed_)
@@ -50,8 +49,6 @@ Message *genauto::ButtonDevice::tryGet()
     {
         send = false;
         return &bMsg;
-        Serial.println("d");
     }
-    Serial.println("e");
     return nullptr;
 }

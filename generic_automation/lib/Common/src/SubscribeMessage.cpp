@@ -23,14 +23,3 @@ MessageId& SubscribeMessage::idTo()
     return get<MessageId>(idTo_loc);
 }
 
-void SubscribeMessage::toString(StringBuilder &sb)
-{
-    sb.appendString("{SubscribeMessage; Type: ");
-    sb.appendString("From: ");
-    idFrom().toString(sb);
-    sb.appendString(" To: ");
-    idTo().toString(sb);
-    sb.appendString(", ");
-    id().toString(sb);
-    sb.appendChar('}');
-}

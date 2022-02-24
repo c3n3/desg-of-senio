@@ -28,6 +28,7 @@ void genauto::AnalogDevice::execute()
 {
     if (millis() - readTime >= 10) // read these values more often, and filter
     {
+        //dlog("analogRead(): %d\n", analogRead(pinNumber));
         accumValue += analogRead(pinNumber);
         count++;
         if ((millis() - lastTime) >= 250)
@@ -35,6 +36,7 @@ void genauto::AnalogDevice::execute()
             lastTime = millis();
             flag = true;
             value = accumValue / count;
+            //dlog("HERE %d\n", value);
             accumValue = 0;
             count = 0;
         }
@@ -51,8 +53,7 @@ Message *genauto::AnalogDevice::tryGet()
     if (flag)
     {
         flag = false;
-        AnalogMessage *aMsg = AnalogMessage(NULL);
-        aMsg->value() = value;
-        return aMsg;
+        aMsg.value() = value;
+        return &aMsg;
     }
 }

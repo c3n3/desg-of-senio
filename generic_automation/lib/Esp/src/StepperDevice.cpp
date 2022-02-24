@@ -107,6 +107,7 @@ float StepperDevice::getAngle()
  */
 void genauto::StepperDevice::execute()
 {
+    dlog("Here\n");
     Message *Msg = NULL;
     if (msgs_.dequeue(Msg) == decltype(msgs_)::Success)
     {

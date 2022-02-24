@@ -41,6 +41,7 @@
 #include "src/Common/include/StepperMotorMessage.hpp"
 #include "src/Common/include/EncoderMessage.hpp"
 #include "src/Common/include/ButtonMessage.hpp"
+#include "src/Common/include/AnalogMessage.hpp"
 #include "src/Esp/include/ButtonDevice.hpp"
 #include "src/Esp/include/AnalogDevice.hpp"
 #include "src/Esp/include/EncoderDevice.hpp"
@@ -49,7 +50,7 @@
 #include "src/Esp/include/PwmDevice.hpp"
 #include "src/Common/include/SubscribeMessage.hpp"
 #include "src/Common/include/Log.hpp"
-#include "src/Common/include/StringBuilder.hpp"
+//#include "src/Common/include/StringBuilder.hpp"
 #include "src/Common/include/Timer.hpp"
 
 #include "src/Esp/include/SteelPlateLoop.hpp"
@@ -61,6 +62,12 @@ using namespace genauto;
 
 
 ButtonDeviceInst<14> bDev(1);
+EncoderDevice eDev(26,25,2);
+int16_t encVal = 0;
+AnalogDevice aDev(36, 3);
+uint16_t aVal;
+const uint8_t LED_PIN = 13;
+SwitchDevice sDev(13, 4);
 
 
 void setup()
@@ -71,7 +78,7 @@ void setup()
     //disableLoopWDT();
     Serial.begin(115200);
     delay(100);
-    WifiReceiver::getReceiver();
+    //WifiReceiver::getReceiver();
 }
 
 void loop()
@@ -79,7 +86,30 @@ void loop()
     bDev.execute();
     Message* bMsg = bDev.tryGet();
     ButtonMessage *butMsg = (ButtonMessage*)bMsg;
-    if(bMsg == nullptr) Serial.println("No Press");
-    else Serial.println("Button Pressed");
-    delay(5);
+    if(bMsg == nullptr) {}
+    else 
+    {
+      Serial.println("Button Pressed");
+      sDev.receive((Message*)butMsg);
+    }
+    
+    eDev.execute();
+    Message* eMsg = eDev.tryGet();
+    EncoderMessage *encMsg = (EncoderMessage*)eMsg;
+    if(eMsg != nullptr) encVal = encMsg->value();
+    //dlog("Encoder Value: %d\n", encVal);
+
+    aDev.execute();
+    Message* aMsg = aDev.tryGet();
+    AnalogMessage *algMsg = (AnalogMessage*)aMsg;
+    if(algMsg != nullptr) 
+    {
+      aVal = algMsg->value();
+      //dlog("analog value: %d\n", aVal);
+    }
+
+    sDev.execute();
+    
+    
+    delay(100);
 }

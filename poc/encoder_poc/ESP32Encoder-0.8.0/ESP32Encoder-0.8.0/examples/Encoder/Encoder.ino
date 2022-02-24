@@ -25,7 +25,7 @@ void setup(){
 	// use pin 19 and 18 for the first encoder
 	encoder.attachHalfQuad(19, 18);
 	// use pin 17 and 16 for the second encoder
-	encoder2.attachHalfQuad(17, 16);
+	encoder2.attachHalfQuad(26, 25);
 		
 	// set starting count value after attaching
 	encoder.setCount(37);
