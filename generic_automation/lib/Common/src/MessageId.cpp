@@ -2,7 +2,7 @@
 
 using namespace genauto;
 
-bool MessageId::operator <(const MessageId& other)
+bool MessageId::operator <(const MessageId& other) const
 {
     if (major_ < other.major_) {
         return true;

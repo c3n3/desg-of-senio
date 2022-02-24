@@ -74,7 +74,7 @@ namespace genauto {
          * @param other 
          * @return bool 
          */
-        bool operator <(const MessageId& other);
+        bool operator <(const MessageId& other) const;
 
         /**
          * @brief Equals
