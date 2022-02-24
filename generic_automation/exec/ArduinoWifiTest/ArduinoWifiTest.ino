@@ -74,15 +74,26 @@ void setup()
 {
     rtc_wdt_protect_off();
     rtc_wdt_disable();
+<<<<<<< HEAD
     //disableCore0WDT();
     //disableLoopWDT();
     Serial.begin(115200);
     delay(100);
     //WifiReceiver::getReceiver();
+=======
+    disableCore0WDT();
+    disableLoopWDT();
+    Serial.begin(115200);
+    delay(100);
+    WifiReceiver::getReceiver();
+    runSteelPlateLoop();
+
+>>>>>>> 599c9422b4c245f5481de77f9f76fbeaa4c76faf
 }
 
 void loop()
 {
+<<<<<<< HEAD
     bDev.execute();
     Message* bMsg = bDev.tryGet();
     ButtonMessage *butMsg = (ButtonMessage*)bMsg;
@@ -112,4 +123,11 @@ void loop()
     
     
     delay(100);
+=======
+    // dlog("Here\n");
+    // sender.receive(&msg);
+    // dlog("Here\n");
+    // delay(1000);
+    fireAK();
+>>>>>>> 599c9422b4c245f5481de77f9f76fbeaa4c76faf
 }

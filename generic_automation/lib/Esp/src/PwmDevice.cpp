@@ -60,26 +60,17 @@ This will make it easier for when we are doing local linking.
  */
 void genauto::PwmDevice::execute()
 {
-    dlog("Here\n");
     if (!inited) {
-    dlog("Here\n");
         ledcSetup(channel, PWM_FREQUENCY, PWM_RESOUTION); // setup PWM 
-    dlog("Here\n");
         ledcAttachPin(pinNumber, channel);
-    dlog("Here\n");
         ledcWrite(channel, 0);
-    dlog("Here\n");
         inited = true;
-    dlog("Here\n");
     }
-    dlog("Here\n");
     Message* Msg = NULL;
     if(msgs_.dequeue(Msg) == decltype(msgs_)::Success)
     {
-    dlog("Here\n");
         if(Msg->type() == EncoderMessage::classMsgType)
         {
-    dlog("Here\n");
             EncoderMessage* eMsg = (EncoderMessage*)Msg;
             int16_t val = dutyCycle_ + eMsg->value() * increment;
             if(val > 255) dutyCycle_ = 255;
