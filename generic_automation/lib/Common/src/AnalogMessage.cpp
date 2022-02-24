@@ -1,9 +1,10 @@
+#include "../include/MessageTypeRegistry.hpp"
 #include "../include/AnalogMessage.hpp"
 #include "../include/Log.hpp"
 
 using namespace genauto;
 
-const msgType_t AnalogMessage::classMsgType = MSG_TYPE('A', 'F');
+static MessageTypeRegistry<AnalogMessage::classMsgType> r;
 
 /**
          * @brief Create a stepper motor message

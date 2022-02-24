@@ -33,7 +33,7 @@ namespace genauto {
         /**
          * @brief Type of the message specific to class
          */
-        static const msgType_t classMsgType;
+        static constexpr msgType_t classMsgType = 0x0001;
     };
 }
 

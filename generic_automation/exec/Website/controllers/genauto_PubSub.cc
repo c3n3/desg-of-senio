@@ -1,6 +1,9 @@
 #include "genauto_PubSub.h"
 #include "Log.hpp"
 #include "HexStringSerializer.hpp"
+#include "Capabilities.hpp"
+#include "../database/Database.h"
+
 using namespace genauto;
 //add definition of your processing function here
 
@@ -11,10 +14,37 @@ void PubSub::handle(const HttpRequestPtr &req,
 {
     HexStringSerializer serializer(1000);
     uint8_t buffer[1000];
-    callback(HttpResponse::newHttpResponse());
     LOG_DEBUG << "Got " << data << "\n";
     serializer.parse((uint8_t*)data.c_str(), data.size());
     Message msg(buffer, sizeof(buffer));
-    serializer.deserialize(&msg);
-    msg.log();
+    if (serializer.deserialize(&msg) != HexStringSerializer::Success) {
+        elog("Error occurred while parsing\n");
+        callback(HttpResponse::newHttpResponse());
+        return;
+    }
+
+    if (msg.type() == CapabilitiesMessage::classMsgType) {
+        CapabilitiesMessage real(msg);
+        real.log();
+        dlog("Got mac = %s\n", real.mac());
+        auto resp=HttpResponse::newHttpResponse();
+        resp->setStatusCode(k200OK);
+        resp->setContentTypeCode(CT_TEXT_HTML);
+        if (JsonFile::deviceIds.j.contains(real.mac())) {
+            resp->setBody(JsonFile::deviceIds.j[real.mac()]);
+        } else {
+            int max = 1;
+            for (auto& el : JsonFile::deviceIds.j.items()) {
+                int key = std::stoi(el.key());
+                if (key > max) {
+                    key = max;
+                }
+            }
+            resp->setBody(std::to_string(max + 1));
+            JsonFile::deviceIds.j[real.mac()] = std::to_string(max + 1);
+            JsonFile::deviceIds.save();
+        }
+        callback(resp);
+    }
+    callback(HttpResponse::newHttpResponse());
 }

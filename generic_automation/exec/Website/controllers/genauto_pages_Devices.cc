@@ -12,7 +12,7 @@
 using namespace genauto::pages;
 using json = nlohmann::json;
 
-Devices::Devices() : base("../database/devices.json"), serializer(1000)
+Devices::Devices() : serializer(1000)
 {}
 
 void Devices::mainFun(
@@ -24,7 +24,7 @@ void Devices::mainFun(
     HttpViewData data;
     std::string database;
     
-    base.htmlOutput(database);
+    Database::deviceBase.htmlOutput(database);
     data.insert("json", database);
     auto resp=HttpResponse::newHttpViewResponse("Devices.csp",data);
     callback(resp);
@@ -37,8 +37,8 @@ void Devices::update(const HttpRequestPtr &req,
                     const std::string& type)
 {
     json parsed = json::parse(data);
-    base.update(keystring, type, parsed);
-    base.save();
+    Database::deviceBase.update(keystring, type, parsed);
+    Database::deviceBase.save();
 }
 
 static HexStringSerializer serializer(1000);

@@ -50,3 +50,32 @@ void Database::htmlOutput(std::string& str)
     str = read.str();
     genauto::removeNewLines(str);
 }
+
+
+Database Database::deviceBase("../database/devices.json");
+
+
+JsonFile::JsonFile(const char* fileName) : filename(fileName)
+{
+    load();
+}
+
+void JsonFile::load()
+{
+    std::ifstream file(filename, std::ifstream::binary);
+    if (file.is_open()) {
+        file >> j;
+        file.close();
+    }
+}
+
+
+void JsonFile::save()
+{
+    std::ofstream file(filename);
+    file << j;
+    file.close();
+}
+
+
+JsonFile JsonFile::deviceIds("../database/deviceIds.json");

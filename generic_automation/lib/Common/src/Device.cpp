@@ -4,6 +4,8 @@
 
 using namespace genauto;
 
+major_t genauto::deviceId = 0;
+
 genauto::Device::Device(minor_t minorId)
     : minorId(minorId)
 {

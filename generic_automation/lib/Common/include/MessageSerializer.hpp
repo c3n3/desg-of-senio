@@ -4,8 +4,7 @@
 #include "Message.hpp"
 
 #include <stdint.h>
-#include <cstring>
-#include <iostream>
+
 namespace genauto {
     /**
      * @brief Used to serialize and deserialize messages

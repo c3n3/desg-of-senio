@@ -44,7 +44,7 @@ namespace genauto
         /**
          * @brief Type of the message specific to class
          */
-        static const msgType_t classMsgType = MSG_TYPE('A', 'D');
+        static constexpr msgType_t classMsgType = 0x0006;
     };
 }
 

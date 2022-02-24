@@ -3,19 +3,21 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-String WifiSender::send_(void* data)
+void WifiSender::send_(void* data)
 {
     delete[] data;
 }
 
 WifiSender::WifiSender(const char* url)
-    : url_(url), serializer_(200)
+    : url_(url), serializer_(100)
 {}
 
-void WifiSender::send(Message* msg)
+String WifiSender::syncSend(Message* msg)
 {
-    String ret;
+    String ret = "";
+    dlog("Size = %d\n", msg->size());
     serializer_.serialize(msg);
+    dlog("Parse = %s\n", serializer_.getBuffer());
     uint16_t urlLen = strlen(url_);
     uint16_t dataLen = strlen(serializer_.getBuffer());
     const char* prefix = "/_ps_?d=";
@@ -26,7 +28,6 @@ void WifiSender::send(Message* msg)
     memcpy(buffer+urlLen, prefix, prefixLen); 
     memcpy(buffer+urlLen+prefixLen, serializer_.getBuffer(), dataLen+1); 
     dlog("Sending to %s\n", buffer);
-    dlog("Data= %s\n", serializer_.getBuffer());
     if (WiFi.status() == WL_CONNECTED)
     {
         char* url = (char*)buffer;
@@ -53,10 +54,11 @@ void WifiSender::send(Message* msg)
     //     1,
     //     NULL
     // );
+    delete buffer;
     return ret;
 }
 
 void WifiSender::receive(Message* msg)
 {
-    send(msg);
+    syncSend(msg);
 }

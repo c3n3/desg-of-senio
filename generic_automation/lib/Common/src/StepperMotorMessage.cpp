@@ -1,9 +1,10 @@
+#include "../include/MessageTypeRegistry.hpp"
 #include "../include/StepperMotorMessage.hpp"
 #include "../include/Log.hpp"
 
 using namespace genauto;
 
-const msgType_t StepperMotorMessage::classMsgType = MSG_TYPE('A', 'B');
+static MessageTypeRegistry<StepperMotorMessage::classMsgType> r;
 
 StepperMotorMessage::StepperMotorMessage(uint8_t* buffer)
     : Message(buffer, msgSize)

@@ -14,20 +14,20 @@ using namespace genauto;
 
 constexpr uint8_t TEST_DEVICE_V1_SIZE = 2;
 
-static Capability testDeviceV1Caps[] = {
-    Capability(Button, ConstantIds::Esp::NEW_IDS_START),
-    Capability(Pwm, ConstantIds::Esp::NEW_IDS_START + 1)
+Capability testDeviceV1Caps[2] = {
+    Capability(Pwm, 10),
+    Capability(Pwm, 12)
 };
 
-// CapabilitiesMessage
-// CapabilitiesList::capabilitiesList(testDeviceV1Caps, 0);
+CapabilitiesMessage*
+CapabilitiesList::capabilitiesList = nullptr;
 
 ButtonDeviceInst<22> button(ConstantIds::Esp::NEW_IDS_START);
 PwmDevice pwm(13, 0, ConstantIds::Esp::NEW_IDS_START + 1);
 
 StepperDevice stepper(32, 33,  ConstantIds::Esp::NEW_IDS_START + 2);
 
-TimedPublisher timed(1000, MessageId(DEVICE_ID, ConstantIds::Esp::NEW_IDS_START + 2));
+TimedPublisher timed(1000, MessageId(0, ConstantIds::Esp::NEW_IDS_START + 2));
 
 Device* devices[] = {
     (Device*)&button,
@@ -59,4 +59,5 @@ void CapabilitiesList::init()
 {
     // Add all subscribers to the router
     // All devices will subscribe to messages to themselves
+    capabilitiesList = new CapabilitiesMessage(testDeviceV1Caps, ARRSIZE(testDeviceV1Caps));
 }

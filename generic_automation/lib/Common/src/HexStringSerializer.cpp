@@ -20,9 +20,7 @@ HexStringSerializer::Result HexStringSerializer::serialize(Message* msg)
         return Failure;
     }
     uint8_t* serial = msg->getBuffer();
-    buffer_[0] = (msg->type() & 0xFF00) >> 8;
-    buffer_[1] = (msg->type() & 0x00FF);
-    int index = sizeof(msgType_t);
+    int index = 0;
     // Iterate over bytes
     for (int i = 0; i < msg->size(); i++) {
         // Iterate over 4 bits (hex)
@@ -32,6 +30,7 @@ HexStringSerializer::Result HexStringSerializer::serialize(Message* msg)
         }
     }
     buffer_[index] = '\0';
+    dlog("Buffer = %s\n", (char*)buffer_);
     currentSize_ = msg->size();
 
     return Success;
@@ -41,6 +40,7 @@ HexStringSerializer::Result HexStringSerializer::parse(const uint8_t* incoming, 
 {
     int byteOn = 0;
     if (size > maxSize_ - bufferIdx_) {
+        dlog("Message size too large. Max=%d, Got=%d\n", maxSize_, size);
         return Failure;
     }
     for (int i = 0; i < size; i++) {
@@ -63,11 +63,10 @@ HexStringSerializer::Result HexStringSerializer::deserialize(Message* msg)
         return Failure;
     }
     uint8_t* buffer = msg->getBuffer();
-    dlog("Size = %d\n", msg->size());
+    dlog("Size = %d, current size=%d\n", msg->size(), currentSize_);
     for (int i = 0; i < msg->size()*2 && i < currentSize_; i += 2) {
-        uint8_t byteTwo = ((buffer_[
-                sizeof(msgType_t) + i + 1] - 'A')) << 4;
-        uint8_t byteOne = ((buffer_[sizeof(msgType_t) + i] - 'A'));
+        uint8_t byteTwo = ((buffer_[i + 1] - 'A')) << 4;
+        uint8_t byteOne = ((buffer_[i] - 'A'));
         buffer[(i / 2)] = byteTwo | byteOne;
     }
     return Success;

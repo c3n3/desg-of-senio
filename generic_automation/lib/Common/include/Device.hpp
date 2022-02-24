@@ -5,6 +5,9 @@
 #include "MessageId.hpp"
 
 namespace genauto {
+
+    extern major_t deviceId;
+
     class Device {
     public:
         /**

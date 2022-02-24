@@ -1,9 +1,10 @@
+#include "../include/MessageTypeRegistry.hpp"
 #include "../include/EncoderMessage.hpp"
 #include "../include/Log.hpp"
 
 using namespace genauto;
 
-const msgType_t EncoderMessage::classMsgType = MSG_TYPE('A', 'E');
+static MessageTypeRegistry<EncoderMessage::classMsgType> r;
 
 /**
          * @brief Create a stepper motor message
