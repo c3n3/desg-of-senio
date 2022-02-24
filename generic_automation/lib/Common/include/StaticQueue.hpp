@@ -28,6 +28,7 @@ namespace genauto {
                 Node* temp = buf_.alloc();
                 if (temp == nullptr) return Failure;
                 temp->value = item;
+                temp->dequeued = false;
                 node->next = temp;
                 return Success;
             }
@@ -48,6 +49,7 @@ namespace genauto {
                 } else {
                     temp->value = item;
                 }
+                temp->dequeued = false;
                 head_ = temp;
                 res = Success;
                 goto Cleanup;
@@ -56,9 +58,14 @@ namespace genauto {
             Cleanup: ;
             Node* deq = head_;
             while (deq != nullptr && deq->dequeued) {
+                dlog("\n");
                 Node* temp = deq;
+                dlog("\n");
                 deq = deq->next;
+                dlog("\n");
+                temp->next = nullptr;
                 buf_.free(temp);
+                dlog("\n");
             }
             head_ = deq;
             return res;
@@ -74,6 +81,7 @@ namespace genauto {
                     return Success;
                 }
                 node = node->next;
+                //dlog("dequeue\n");
             }
             return Failure;
         }
@@ -84,6 +92,7 @@ namespace genauto {
             int count = 0;
             while (node != nullptr) {
                 node = node->next;
+                dlog("count\n");
                 count++;
             }
         }

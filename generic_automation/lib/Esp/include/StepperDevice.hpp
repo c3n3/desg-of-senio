@@ -14,13 +14,13 @@ namespace genauto {
     private:
     float speed_;
     float angle_;
-    uint8_t encoderStepScale_ = 10;
+    uint8_t encoderStepScale_ = 1000;
     //float encoderAngleIncrement_;
     uint8_t direction_;
     uint8_t stepPin;
     uint8_t dirPin;
-    bool motorOn = false;
-    AccelStepper myStepper = NULL;
+    bool motorOn;
+    AccelStepper myStepper;
     public:
 
         /**

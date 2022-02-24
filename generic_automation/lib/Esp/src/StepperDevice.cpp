@@ -15,9 +15,14 @@ genauto::StepperDevice::StepperDevice(uint8_t stepPin, uint8_t dirPin, minor_t m
       stepPin(stepPin),
       Subscriber(),
       myStepper(AccelStepper(1, stepPin, dirPin)),
-      Device(minorId)
+      Device(minorId),
+      motorOn(true)
 {
-
+    pinMode(stepPin, OUTPUT);
+    pinMode(dirPin, OUTPUT);
+    myStepper.setMaxSpeed(900);
+    myStepper.setSpeed(400);
+    speed_ = 400;
 }
 
 /**
@@ -110,11 +115,13 @@ void genauto::StepperDevice::execute()
     Message *Msg = NULL;
     if (msgs_.dequeue(Msg) == decltype(msgs_)::Success)
     {
+        dlog("first if\n");
         if (Msg->type() == EncoderMessage::classMsgType)
         {
+            dlog("in encoder if\n");
             EncoderMessage *eMsg = (EncoderMessage *)Msg;
-            long val = eMsg->value() * encoderStepScale_; // can be negative, lets it know to move CCW or CW which should be moving the encoder the same.
-            myStepper.moveTo(val);
+            int16_t val = eMsg->value() * encoderStepScale_; // can be negative, lets it know to move CCW or CW which should be moving the encoder the same.
+            myStepper.move(val);
         }
         if (Msg->type() == ButtonMessage::classMsgType)
         {
@@ -140,6 +147,7 @@ void genauto::StepperDevice::execute()
     }
     if (motorOn)
     {
+        dlog("motor on\n");
         myStepper.run();
     }
 }
