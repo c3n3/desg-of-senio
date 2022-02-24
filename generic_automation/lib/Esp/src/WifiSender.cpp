@@ -3,14 +3,38 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-void WifiSender::send(void* data)
+void WifiSender::send_(void* data)
 {
-    elog("\n");
+    delete[] data;
+}
+
+WifiSender::WifiSender(const char* url)
+    : url_(url), serializer_(100)
+{}
+
+String WifiSender::syncSend(Message* msg)
+{
+    String ret = "";
+    dlog("Size = %d\n", msg->size());
+    serializer_.serialize(msg);
+    dlog("Parse = %s\n", serializer_.getBuffer());
+    uint16_t urlLen = strlen(url_);
+    uint16_t dataLen = strlen(serializer_.getBuffer());
+    const char* prefix = "/_ps_?d=";
+    uint16_t prefixLen = strlen("/_ps_?d=");
+
+    char* buffer = new char[urlLen + dataLen + prefixLen + 1];
+    memcpy(buffer, url_, urlLen); 
+    memcpy(buffer+urlLen, prefix, prefixLen); 
+    memcpy(buffer+urlLen+prefixLen, serializer_.getBuffer(), dataLen+1); 
+    dlog("Sending to %s\n", buffer);
     if (WiFi.status() == WL_CONNECTED)
     {
+        char* url = (char*)buffer;
         HTTPClient http;
-        http.begin("");
+        http.begin(url);
         int httpResponseCode = http.GET();
+        ret = http.getString();
         if (httpResponseCode <= 0)
         {
             elog("Error: %d\n", httpResponseCode);
@@ -22,32 +46,19 @@ void WifiSender::send(void* data)
     {
         elog("Disconnected wifi\n");
     }
-    delete data;
-    vTaskDelete(NULL);
+    // xTaskCreate(
+    //     WifiSender::send,
+    //     "SEND",
+    //     2000,
+    //     nullptr,
+    //     1,
+    //     NULL
+    // );
+    delete buffer;
+    return ret;
 }
-
-WifiSender::WifiSender(const char* url)
-    : url_(url), serializer_(200)
-{}
 
 void WifiSender::receive(Message* msg)
 {
-    serializer_.serialize(msg);
-    uint16_t urlLen = strlen(url_);
-    uint16_t dataLen = strlen(serializer_.getBuffer());
-    const char* prefix = "/_ps_?d=";
-    uint16_t prefixLen = strlen("/_ps_?d=");
-
-    char* buffer = new char[urlLen + dataLen + prefixLen + 1];
-    memcpy(buffer, url_, urlLen); 
-    memcpy(buffer+urlLen, prefix, prefixLen); 
-    memcpy(buffer+urlLen+prefixLen, serializer_.getBuffer(), dataLen+1); 
-    xTaskCreate(
-        WifiSender::send,
-        "SEND",
-        2000,
-        nullptr,
-        1,
-        NULL
-    );
+    syncSend(msg);
 }

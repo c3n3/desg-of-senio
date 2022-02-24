@@ -1,9 +1,10 @@
 #include "../include/PwmMessage.hpp"
 #include "../include/Log.hpp"
+#include "../include/MessageTypeRegistry.hpp"
 
 using namespace genauto;
 
-const msgType_t PwmMessage::classMsgType = MSG_TYPE('A', 'D');
+static MessageTypeRegistry<PwmMessage::classMsgType> r;
 
 PwmMessage::PwmMessage(uint8_t* buffer)
     : Message(buffer, msgSize)

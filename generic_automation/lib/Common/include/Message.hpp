@@ -2,12 +2,11 @@
 #define __GENAUTO_MESSAGE_HPP__
 
 #include "MessageId.hpp"
+#include "MessageTypeRegistry.hpp"
 #include "../include/Log.hpp"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <utility>
-#include <type_traits>
 
 
 using namespace genauto;
@@ -18,7 +17,7 @@ namespace genauto {
     typedef uint16_t location_t;
     typedef uint8_t msgBuf_t;
 
-    #define MSG_TYPE(A, B) (((uint16_t)(A)) << 8) | ((uint16_t)(B))
+    #define MESSAGE_ID_UNIQUE(class) static genauto::MessageTypeRegistry<class::classMsgType> r
 
     class Message {
     protected:
@@ -65,7 +64,7 @@ namespace genauto {
             return MSG_T(getBuffer());
         }
 
-        void log();
+        virtual void log();
 
         Message (const Message& other);
     };

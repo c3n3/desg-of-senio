@@ -10,10 +10,13 @@
 #include "Queue.hpp"
 #include "Subscriber.hpp"
 #include "StaticQueue.hpp"
+#include "MessageTypeRegistry.hpp"
+#include "Capabilities.hpp"
 #include <iostream>
 #include <sstream>
 #include <chrono>
 #include <thread>
+#include <map>
 
 
 using namespace genauto;
@@ -84,18 +87,14 @@ void send(Message* message)
 
 }
 
-StaticQueue<int, 100> q;
+
+static MessageTypeRegistry<10> r;
+static MessageTypeRegistry<101> t;
+Map<MessageId, int> map;
 
 int main()
 {
-    for (int i = 0; i < 100; i++) {
-        if (q.enqueue(i) != StaticQueue<int, 100>::Success) {
-            std::cout << "Failure\n";
-        }
-    }
-    int k;
-    for (int i = 0; i < 100; i++) {
-        q.dequeue(k);
-        std::cout << "K = " << k << "\n";
-    }
+    map.insert(Pair<MessageId, int>(MessageId(), 10));
+    std::cout << "Sup\n";
+    std::cout << "count = " << MessageTypeRegistry<10>::count << "\n";
 }

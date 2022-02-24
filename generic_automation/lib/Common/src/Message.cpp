@@ -1,4 +1,5 @@
 #include "../include/Message.hpp"
+#include "../include/MessageTypeRegistry.hpp"
 
 using namespace genauto;
 
@@ -13,6 +14,7 @@ Message::Message(uint8_t* buffer, uint16_t size)
         alloc = true;
         size_() = size;
     } else {
+        size_() = size;
         setBuffer(buffer);
     }
 }
@@ -21,7 +23,6 @@ Message::Message (const Message& other)
     : buffer_(nullptr),
       alloc(false)
 {
-    dlog("Vis?\n");
     setBuffer(other.getBuffer());
 }
 
@@ -71,4 +72,5 @@ void Message::setBuffer(uint8_t* buffer)
 void Message::log()
 {
     // TODO: Log here
+    dlog("Message: id = {%x,%x}, type = %x, size=%d\n", id().getMajor(), id().getMinor(), type(), size());
 }

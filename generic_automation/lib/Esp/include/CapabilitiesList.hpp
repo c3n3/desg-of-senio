@@ -12,7 +12,7 @@ namespace genauto {
         extern StaticList<Device*> deviceList;
         extern StaticList<Publisher*> publisherList;
         extern StaticList<Subscriber*> subscriberList;
-        extern CapabilitiesMessage capabilitiesList;
+        extern CapabilitiesMessage* capabilitiesList;
         void init();
     }
 }

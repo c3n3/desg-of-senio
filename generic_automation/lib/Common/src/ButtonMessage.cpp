@@ -1,9 +1,10 @@
+#include "../include/MessageTypeRegistry.hpp"
 #include "../include/ButtonMessage.hpp"
 #include "../include/Log.hpp"
 
 using namespace genauto;
 
-const msgType_t ButtonMessage::classMsgType = MSG_TYPE('A', 'C');
+static MessageTypeRegistry<ButtonMessage::classMsgType> r;
 
 /**
          * @brief Create a stepper motor message

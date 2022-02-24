@@ -1,7 +1,7 @@
-#include <vector>
-
 #ifndef __GENAUTO_LIST_HPP__
 #define __GENAUTO_LIST_HPP__
+
+#include <stdint.h>
 
 namespace genauto {
     template<typename T>

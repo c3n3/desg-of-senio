@@ -1,6 +1,9 @@
 #include "../include/SubscribeMessage.hpp"
+#include "../include/MessageTypeRegistry.hpp"
 
 using namespace genauto;
+
+static MessageTypeRegistry<SubscribeMessage::classMsgType> r;
 
 SubscribeMessage::SubscribeMessage(uint8_t* buffer)
     : Message(buffer, msgSize)
@@ -22,4 +25,3 @@ MessageId& SubscribeMessage::idTo()
 {
     return get<MessageId>(idTo_loc);
 }
-

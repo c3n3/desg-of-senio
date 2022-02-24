@@ -4,8 +4,7 @@
 #include "MessageSerializer.hpp"
 #include "Message.hpp"
 #include <stdint.h>
-#include <cstring>
-#include <iostream>
+
 namespace genauto {
     class HexStringSerializer {
 

@@ -6,7 +6,6 @@
 
 static const uint16_t PWM_FREQUENCY = 5000;
 static const uint8_t PWM_RESOUTION = 8;
-//const genauto::Message::msgType_t genauto::Message::classMsgType = MSG_TYPE('A', 'C');
 
 using namespace genauto;
 
