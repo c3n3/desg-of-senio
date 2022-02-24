@@ -15,7 +15,8 @@ using namespace genauto;
 
 #include "soc/rtc_wdt.h"
 
-WifiSender sender("192.168.1.126");
+WifiSender sender("http://172.20.10.2");
+Message msg;
 
 void setup()
 {
@@ -27,16 +28,15 @@ void setup()
     delay(100);
     WifiReceiver::getReceiver();
     runSteelPlateLoop();
-
+    msg.id() = MessageId(90, 20);
+    msg.type() = MSG_TYPE('A','A');
 }
 
-Message msg;
 
 void loop()
 {
-    // dlog("Here\n");
-    // sender.receive(&msg);
-    // dlog("Here\n");
-    // delay(1000);
-    fireAK();
+    msg.log();
+    sender.receive(&msg);
+    delay(1000);
+    // fireAK();
 }

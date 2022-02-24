@@ -13,6 +13,7 @@ Message::Message(uint8_t* buffer, uint16_t size)
         alloc = true;
         size_() = size;
     } else {
+        size_() = size;
         setBuffer(buffer);
     }
 }
@@ -71,4 +72,5 @@ void Message::setBuffer(uint8_t* buffer)
 void Message::log()
 {
     // TODO: Log here
+    dlog("Message: id = {%x,%x}, type = %x\n", id().getMajor(), id().getMinor(), type());
 }

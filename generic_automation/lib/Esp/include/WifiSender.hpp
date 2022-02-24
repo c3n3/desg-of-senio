@@ -10,9 +10,10 @@ namespace genauto {
     class WifiSender {
         HexStringSerializer serializer_;
         const char* url_;
-        static void send(void* sb);
+        static void send_(void* sb);
     public:
         void receive(Message* msg);
+        String syncSend(Message* msg);
         WifiSender(const char* url);
     };
 }

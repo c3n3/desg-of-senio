@@ -41,6 +41,7 @@ void genauto::steelPlateLoop(void* data)
             auto& pubList = CapabilitiesList::publisherList;
             for (int i = 0; i < pubList.getSize(); i++) {
                 auto msgPtr = pubList.getList()[i]->tryGet();
+                continue;
                 if (msgPtr != nullptr) {
                     s.receive(msgPtr);
                 }
