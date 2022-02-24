@@ -31,7 +31,11 @@ void PubSub::handle(const HttpRequestPtr &req,
         resp->setStatusCode(k200OK);
         resp->setContentTypeCode(CT_TEXT_HTML);
         if (JsonFile::deviceIds.j.contains(real.mac())) {
-            resp->setBody(JsonFile::deviceIds.j[real.mac()]);
+            std::string id = JsonFile::deviceIds.j[real.mac()];
+            resp->setBody(id);
+            if (DevicesDatabase::exists(id)) {
+                DevicesDatabase::update(&real, id);
+            }
         } else {
             int max = 1;
             for (auto& el : JsonFile::deviceIds.j.items()) {
