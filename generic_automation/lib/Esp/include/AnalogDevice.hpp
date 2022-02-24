@@ -3,6 +3,7 @@
 
 #include "../../Common/include/Publisher.hpp"
 #include "../../Common/include/Device.hpp"
+#include "../../Common/include/AnalogMessage.hpp"
 #include <stdint.h>
 
 namespace genauto
@@ -20,6 +21,7 @@ namespace genauto
         unsigned long readTime = 0;
         int16_t accumValue = 0; // sum of the values read in during ~ 250ms interval.
         uint8_t count = 0;      // number of values summed into accumValue
+        AnalogMessage aMsg;
     public:
         /**
          * @brief Construct a new Analog Device object

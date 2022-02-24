@@ -30,7 +30,7 @@ void genauto::ButtonDevice::execute()
     {
         if(pressed_)
         {
-            bMsg->pressed();
+            bMsg.pressed() = true;
             lastTime = millis();
             pressed_ = false;
             send = true;
@@ -48,7 +48,7 @@ Message *genauto::ButtonDevice::tryGet()
     if (send)
     {
         send = false;
-        return bMsg;
+        return &bMsg;
     }
     return nullptr;
 }

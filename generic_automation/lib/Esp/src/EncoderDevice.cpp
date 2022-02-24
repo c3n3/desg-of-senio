@@ -31,18 +31,24 @@ void genauto::EncoderDevice::execute()
         ESP32Encoder::useInternalWeakPullResistors=UP;
 	    encoder.attachHalfQuad(pinA, pinB);
         encoder.clearCount();
+        Serial.println("Encoder Start = " + String((int32_t)encoder.getCount()));
 	    lastTime = millis();
         inited = true;
+        //Serial.println("enc val: " + String((int32_t)encoder.getCount()) + "\n");
     }
     if ((millis() - lastTime) >= 250)
     {
+        //Serial.println("enc val: " + String((int32_t)encoder.getCount()) + "\n");
+        c = (int16_t)encoder.getCount();
+        //dlog("c: %d\n", c);
         lastTime = millis();
-        if(count != encoder.getCount())
+        if(count != c)
         {
-            count = encoder.getCount();
+            //dlog("count %d\n", count);
+            count = c;
             flag = true;
         }
-        eMsg->value() = count;
+        eMsg.value() = count;
     }
 }
 
@@ -61,7 +67,7 @@ Message *genauto::EncoderDevice::tryGet()
     if (flag)
     {
         flag = false;
-        EncoderMessage *eMsg = EncoderMessage(NULL);
-        return eMsg;
+        return &eMsg; // fixed, was returning message instead of address of msg
     }
+    return nullptr;
 }

@@ -18,8 +18,7 @@ namespace genauto
         bool pressed_ = false;
         unsigned long lastTime = 0;
         bool send = false;
-        ButtonMessage *bMsg = ButtonMessage(NULL);
-
+        ButtonMessage bMsg;
     public:
         /**
          * @brief Construct a new Button Device object

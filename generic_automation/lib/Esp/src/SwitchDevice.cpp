@@ -14,7 +14,9 @@ genauto::SwitchDevice::SwitchDevice(uint8_t pinNumber, minor_t minorId)
     : pinNumber(pinNumber),
     Subscriber(),
     Device(minorId)
-{}
+{
+    pinMode(pinNumber, OUTPUT);
+}
 
 /**
  * @brief Construct a new genauto::Switch Device::change State object
@@ -23,6 +25,7 @@ genauto::SwitchDevice::SwitchDevice(uint8_t pinNumber, minor_t minorId)
 void genauto::SwitchDevice::changeState()
 {
     state = !state;
+    dlog("state\n");
 }
 
 /**
@@ -31,16 +34,22 @@ void genauto::SwitchDevice::changeState()
  */
 void genauto::SwitchDevice::execute()
 {
-    Message *Msg = NULL;
+    Message *Msg = nullptr;
     if (msgs_.dequeue(Msg) == decltype(msgs_)::Success)
     {
+        dlog("message received\n");
         if (Msg->type() == ButtonMessage::classMsgType)
         {
+            dlog("buttonMessage\n");
             ButtonMessage *bMsg = (ButtonMessage *)Msg;
             if (bMsg->pressed() == true)
                 changeState();  
         }
     }
-    if (state) digitalWrite(pinNumber, HIGH);
+    if (state)
+    {
+         digitalWrite(pinNumber, HIGH);
+         dlog("output the signal\n");
+    }
     else digitalWrite(pinNumber, LOW);
 }
