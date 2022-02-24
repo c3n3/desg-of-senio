@@ -36,7 +36,7 @@ namespace genauto {
         uint16_t& count();
         char* mac();
         Capability* capablities();
-        static constexpr msgType_t classMsgType = 0x0006;
+        static constexpr msgType_t classMsgType = 0x0007;
 
         void log();
     };
