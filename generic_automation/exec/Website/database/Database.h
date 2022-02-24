@@ -17,30 +17,27 @@ namespace genauto {
 
         static JsonFile deviceIds;
     };
-    class Database {
+    class DevicesDatabase {
     public:
-        Database(const char* fileName);
-        void load();
+
+        DevicesDatabase(const char* fileName);
+
         void update(
             const std::string& keystring, const std::string& type, const json& input);
-        void save();
+
         void htmlOutput(std::string& data);
-        static Database deviceBase;
-    private:
-        const char* fileName;
-        json data;
+        
+        JsonFile data;
 
-    };
+        static DevicesDatabase deviceBase;
 
-    class Devices {
-    public:
         // Generate the json into the devices database
-        static void generate(CapabilitiesMessage* msg);
+        static void generate(CapabilitiesMessage* msg, std::string deviceId);
 
         // If any discrepencies are found, update
-        static void update(CapabilitiesMessage* msg);
+        static void update(CapabilitiesMessage* msg, std::string deviceId);
 
         // Check to see if the device is in existance
-        static bool exists(CapabilitiesMessage* msg);
+        static bool exists(std::string deviceId);
     };
 }

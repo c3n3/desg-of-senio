@@ -16,6 +16,8 @@ namespace genauto {
         Analog
     };
 
+    constexpr const char* deviceTypeToString(DeviceType t);
+
     class __attribute__((packed)) Capability {
     public:
         DeviceType type;

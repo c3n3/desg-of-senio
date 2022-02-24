@@ -64,36 +64,65 @@ using namespace genauto;
 
 #include <vector>
 
-Message msg;
+ButtonDeviceInst<14> bDev(1);
+EncoderDevice eDev(26,25,2);
+int16_t encVal = 0;
+AnalogDevice aDev(36, 3);
+uint16_t aVal;
+const uint8_t LED_PIN = 13;
+//SwitchDevice sDev(13, 4);
+PwmDevice pDev(LED_PIN, 0, 5);
+StepperDevice stepDev(32, 33, 6);
+
 
 void setup()
 {
     rtc_wdt_protect_off();
     rtc_wdt_disable();
-    disableCore0WDT();
-    disableLoopWDT();
+    //disableCore0WDT();
+    //disableLoopWDT();
     Serial.begin(115200);
     delay(100);
-
-    CapabilitiesList::init();
-    WifiReceiver::getReceiver();
-    WifiSender sender(SERVER_IP);
-    dlog("Sending:\n");
-    CapabilitiesList::capabilitiesList->log();
-    String result = sender.syncSend(CapabilitiesList::capabilitiesList);
-    if (result == "") {
-        elog("Error, did not acquire device id. Maybe server ip is incorrect?\n");
-    } else {
-        genauto::deviceId = result.toInt();
-        dlog("Acquired device id %x\n", genauto::deviceId);
-    }
-    msg.id() = MessageId(90, 20);
-    msg.type() = 0x0001;
+    //WifiReceiver::getReceiver();
 }
 
 void loop()
 {
-    msg.log();
-    delay(1000);
-    // fireAK();
+    bDev.execute();
+    Message* bMsg = bDev.tryGet();
+    ButtonMessage *butMsg = (ButtonMessage*)bMsg;
+    if(bMsg == nullptr) {} //{dlog("button message nullptr\n");}
+    else 
+    {
+      Serial.println("Button Pressed");
+      //sDev.receive((Message*)butMsg);
+    }
+    
+    eDev.execute();
+    Message* eMsg = eDev.tryGet();
+    EncoderMessage *encMsg = (EncoderMessage*)eMsg;
+    if(eMsg != nullptr) 
+    {
+      pDev.receive((Message*)encMsg);
+      stepDev.receive((Message*)encMsg);
+    }
+    //dlog("Encoder Value: %d\n", encVal);
+
+    aDev.execute();
+    Message* aMsg = aDev.tryGet();
+    AnalogMessage *algMsg = (AnalogMessage*)aMsg;
+    if(algMsg != nullptr) 
+    {
+      aVal = algMsg->value();
+      //dlog("analog value: %d\n", aVal);
+    }
+
+    //sDev.execute();
+
+    pDev.execute();
+    stepDev.execute();
+
+    
+    
+    delay(100);
 }

@@ -37,8 +37,7 @@ void Devices::update(const HttpRequestPtr &req,
                     const std::string& type)
 {
     json parsed = json::parse(data);
-    Database::deviceBase.update(keystring, type, parsed);
-    Database::deviceBase.save();
+    DevicesDatabase::deviceBase.update(keystring, type, parsed);
 }
 
 static HexStringSerializer serializer(1000);
