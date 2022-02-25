@@ -18,7 +18,7 @@ import axios from 'axios'
 
 export default {
   props: ['tag', 'persistent_input', 'keystring'],
-  name: 'OutputBool',
+  name: 'Button',
   data: function () {
       return {
           value: null,

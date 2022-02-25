@@ -2,7 +2,7 @@
 #include "Log.hpp"
 #include "HexStringSerializer.hpp"
 #include "Capabilities.hpp"
-#include "../database/Database.h"
+#include "../database/Database.hpp"
 
 using namespace genauto;
 //add definition of your processing function here

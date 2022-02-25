@@ -10,8 +10,8 @@
                             <h5>Output: </h5>
                             <div v-for="(output, outputId) in device.outputs" :key="outputId">
                                 <ul class="device-line">
-                                    <div v-if="output.type === 'bool'">
-                                        <OutputBool
+                                    <div v-if="output.type === 'button'">
+                                        <Button
                                             :tag="output.tag"
                                             :persistent_input="output.persistent"
                                             :keystring="id + ':' + outputId"/>
@@ -31,7 +31,7 @@
                             <h5>Input: </h5>
                             <div v-for="(input, inputId) in device.inputs" :key="inputId">
                                 <ul class="device-line">
-                                    <InputNumber
+                                    <Analog
                                         v-if="input.type == 'number'"
                                         :min="input.data.min"
                                         :max="input.data.max"
@@ -50,8 +50,8 @@
 
 <script>
 import Encoder from './Encoder.vue'
-import OutputBool from './OutputBool.vue'
-import InputNumber from './InputNumber.vue'
+import Button from './Button.vue'
+import Analog from './Analog.vue'
 export default {
   props: ['propdata'],
   name: 'Devices',
@@ -62,8 +62,8 @@ export default {
   },
   components: {
       Encoder,
-      OutputBool,
-      InputNumber
+      Button,
+      Analog
   }
 }
 </script>

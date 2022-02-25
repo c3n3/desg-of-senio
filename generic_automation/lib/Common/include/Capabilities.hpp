@@ -16,7 +16,21 @@ namespace genauto {
         Analog
     };
 
-    constexpr const char* deviceTypeToString(DeviceType t);
+    constexpr const char* deviceTypeToString(DeviceType t)
+    {
+    #define CASE(v) case v: return #v
+    switch (t) 
+    {
+        CASE(Pwm);
+        CASE(Stepper);
+        CASE(Switch);
+        CASE(Button);
+        CASE(Encoder);
+        CASE(Analog);
+        return "";
+    }
+    #undef CASE
+}
 
     class __attribute__((packed)) Capability {
     public:

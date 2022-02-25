@@ -1,4 +1,4 @@
-#include "Database.h"
+#include "Database.hpp"
 #include "../common/Common.h"
 #include <iostream>
 #include <fstream>
@@ -66,7 +66,28 @@ JsonFile JsonFile::deviceIds("../database/deviceIds.json");
 
 void DevicesDatabase::generate(CapabilitiesMessage* msg, std::string deviceId)
 {
+    deviceBase.data.j[deviceId]["inputs"] = {};
+    deviceBase.data.j[deviceId]["outputs"] = {};
+    update(msg, deviceId);
+}
 
+
+static json createEncoder(std::string max, std::string min, std::string units)
+{
+    return {
+        {"data", {{"max", max}, {"min", min}, {"units", units}}, },
+        {"persistent", {"name", "Encoder"}},
+        {"tag", "encoder"},
+        {"type", "encoder"}
+    };
+}
+
+static json createButton()
+{
+    return {
+        {"tag", "button"},
+        {"type", "button"},
+    };
 }
 
 static void constructDevice(Capability device, json& output)
@@ -75,12 +96,11 @@ static void constructDevice(Capability device, json& output)
     output["tag"] = deviceTypeToString(device.type);
     switch (device.type) {
         case Pwm:
-            output["data"] = {{"max", "100"},{"min", "0"},{"units", "%"}};
             output["persistent"] = {{"increment", "5"},{"name", std::string("PWM " + std::to_string(device.id))}};
             break;
         case Stepper:
             output["data"] = {{"max", "inf"},{"min", "-inf"},{"units", "degrees"}};
-            output["persistent"] = {{"increment", "15"},{"name", ("Stepper " + std::to_string(device.id))},{"units", "degrees"}};
+            output["persistent"] = {{"increment", "90"},{"name", ("Stepper " + std::to_string(device.id))},{"units", "degrees"}};
             break;
         case Analog:
             output["data"] = {{"max", "3.3"},{"min", "0"}};
@@ -117,7 +137,26 @@ void DevicesDatabase::update(CapabilitiesMessage* msg, std::string deviceId)
         } else if (!device["outputs"][id].is_null() && device["outputs"][id]["type"] == type) {
             continue;
         }
-        switch (device)
+        switch (cap.type) {
+            case Pwm:
+            case Stepper:
+            case Switch:
+                constructDevice(cap, device["outputs"][id]);
+            break;
+            case Analog:
+            case Button:
+            case Encoder:
+                constructDevice(cap, device["inputs"][id]);
+            break;
+        }
+    }
+    for (auto& el : device.items()) {
+        bool found = false;
+        for (int i = 0; i < count; i++) {
+            if (el.key() != std::to_string(list[i].id)) {
+                
+            }
+        }
     }
 }
 

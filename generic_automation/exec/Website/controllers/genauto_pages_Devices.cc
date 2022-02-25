@@ -24,7 +24,7 @@ void Devices::mainFun(
     HttpViewData data;
     std::string database;
     
-    Database::deviceBase.htmlOutput(database);
+    DevicesDatabase::deviceBase.htmlOutput(database);
     data.insert("json", database);
     auto resp=HttpResponse::newHttpViewResponse("Devices.csp",data);
     callback(resp);
