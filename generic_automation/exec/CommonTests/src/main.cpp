@@ -95,6 +95,7 @@ Map<MessageId, int> map;
 int main()
 {
     map.insert(Pair<MessageId, int>(MessageId(), 10));
+    dlog("res = %d\n", )
     std::cout << "Sup\n";
     std::cout << "count = " << MessageTypeRegistry<10>::count << "\n";
 }

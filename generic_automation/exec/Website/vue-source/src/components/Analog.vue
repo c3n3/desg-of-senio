@@ -45,7 +45,7 @@ import axios from 'axios'
 
 export default {
     props: ['keystring', 'min', 'max', 'persistent_input'],
-    name: 'InputNumber',
+    name: 'Analog',
     data: function () {
         return {
             edit_name: false,

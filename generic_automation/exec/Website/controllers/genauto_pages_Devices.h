@@ -1,7 +1,7 @@
 #pragma once
 #include "HexStringSerializer.hpp"
 #include <drogon/HttpController.h>
-#include "../database/Database.h"
+#include "../database/Database.hpp"
 using namespace drogon;
 namespace genauto
 {
