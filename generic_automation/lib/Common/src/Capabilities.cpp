@@ -10,7 +10,23 @@ using namespace genauto;
 MESSAGE_ID_UNIQUE(CapabilitiesMessage);
 
 // constexpr const char* genauto::deviceTypeToString(DeviceType t)
+<<<<<<< HEAD
+// {
+//     #define CASE(v) case v: return #v
+//     switch (t) 
+//     {
+//         CASE(Pwm);
+//         CASE(Stepper);
+//         CASE(Switch);
+//         CASE(Button);
+//         CASE(Encoder);
+//         CASE(Analog);
+//     }
+//     #undef CASE
+// }
+=======
 
+>>>>>>> 79ee99d8b91025bc1585f8b7a96710dd2aff4bea
 
 
 Capability::Capability(DeviceType t, minor_t id)

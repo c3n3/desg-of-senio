@@ -58,14 +58,10 @@ namespace genauto {
             Cleanup: ;
             Node* deq = head_;
             while (deq != nullptr && deq->dequeued) {
-                dlog("\n");
                 Node* temp = deq;
-                dlog("\n");
                 deq = deq->next;
-                dlog("\n");
                 temp->next = nullptr;
                 buf_.free(temp);
-                dlog("\n");
             }
             head_ = deq;
             return res;

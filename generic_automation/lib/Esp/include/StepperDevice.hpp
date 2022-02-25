@@ -5,6 +5,7 @@
 #include <AccelStepper.h>
 #include "../../Common/include/Subscriber.hpp"
 #include "../../Common/include/Device.hpp"
+#include "StepperMotor.hpp"
 
 namespace genauto {
     /**
@@ -12,15 +13,23 @@ namespace genauto {
      */
     class StepperDevice : public Subscriber, public Device {
     private:
-    float speed_;
+    float speed_ = 3;
     float angle_;
-    uint8_t encoderStepScale_ = 1000;
+    float encoderStepScale_ = 5;
     //float encoderAngleIncrement_;
     uint8_t direction_;
     uint8_t stepPin;
     uint8_t dirPin;
     bool motorOn;
-    AccelStepper myStepper;
+    StepperMotor myStepper;
+
+    enum Mode
+        {
+            Step,
+            Degrees,
+            StepsSecond,
+            DegreesSecond
+        }mode;
     public:
 
         /**
@@ -35,14 +44,14 @@ namespace genauto {
          * 
          * @param encStepScale 
          */
-        void setEncStepScale(uint8_t encStepScale);
+        void setEncStepScale(float encStepScale);
 
         /**
          * @brief Get the Enc Step Scale object, the scale for how many steps are taken for each click of an encoder.
          * 
          * @return uint8_t 
          */
-        uint8_t getEncStepScale();
+        float getEncStepScale();
 
         /**
          * @brief Set the Speed object
