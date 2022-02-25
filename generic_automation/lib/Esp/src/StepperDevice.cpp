@@ -39,7 +39,7 @@ public:
 
     // Construct a stepper motor
     StepperMotor(uint8_t dirPin, uint8_t stepPin, uint16_t stepsPerRev = 200)
-        : dirPin_(dirPin), stepPin_(stepPin), stepsPerRev_(stepsPerRev), msInterval_(0), direction_(LOW)
+        : dirPin_(dirPin), stepPin_(stepPin), stepsPerRev_(stepsPerRev), msInterval_(0), direction_((Direction)LOW)
     {
         pinMode(dirPin_, OUTPUT);
         pinMode(stepPin_, OUTPUT);
@@ -55,7 +55,7 @@ public:
             msInterval_ = 0;
             return;
         }
-        direction_ =  rpm < 0 ? LOW : HIGH;
+        direction_ =  (Direction)(rpm < 0 ? LOW : HIGH);
         // 1000ms / 1s *  (second / step)
         msInterval_ = 1000 / rpmToStepsPerSecond(rpm);
     }
@@ -67,7 +67,7 @@ public:
             msInterval_ = 0;
             return;
         }
-        direction_ = dps < 0 ? LOW : HIGH;
+        direction_ = (Direction)(dps < 0 ? LOW : HIGH);
         // 1000ms / 1s *  (second / step)
         msInterval_ = 1000 / dpsToStepsPerSecond(dps);
     }
@@ -87,7 +87,7 @@ public:
     void setSpeedMsi(float msi)
     {
         msInterval_ = abs(msi);
-        direction_ = msi < 0 ? Backward : Forward;
+        direction_ = (Direction)(msi < 0 ? Backward : Forward);
     }
 
     // Step the motor

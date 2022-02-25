@@ -55,8 +55,4 @@ void setup()
 }
 
 void loop()
-{
-    msg.log();
-    delay(1000);
-    // fireAK();
-}
+{}

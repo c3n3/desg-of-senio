@@ -68,7 +68,9 @@ void DevicesDatabase::generate(CapabilitiesMessage* msg, std::string deviceId)
 {
     deviceBase.data.j[deviceId]["inputs"] = {};
     deviceBase.data.j[deviceId]["outputs"] = {};
+    deviceBase.data.j[deviceId]["name"] = ("Device " + deviceId);
     update(msg, deviceId);
+    deviceBase.data.save();
 }
 
 
@@ -92,32 +94,38 @@ static json createButton()
 
 static void constructDevice(Capability device, json& output)
 {
-    output["type"] = deviceTypeToString(device.type);
     output["tag"] = deviceTypeToString(device.type);
     switch (device.type) {
         case Pwm:
-            output["persistent"] = {{"increment", "5"},{"name", std::string("PWM " + std::to_string(device.id))}};
+            output["persistent"] = {{"increment", "5"},{"name", std::string("Pwm " + std::to_string(device.id))}};
+            output["type"] = deviceTypeToString(Encoder);
             break;
         case Stepper:
             output["data"] = {{"max", "inf"},{"min", "-inf"},{"units", "degrees"}};
             output["persistent"] = {{"increment", "90"},{"name", ("Stepper " + std::to_string(device.id))},{"units", "degrees"}};
+            output["type"] = deviceTypeToString(Encoder);
             break;
         case Analog:
             output["data"] = {{"max", "3.3"},{"min", "0"}};
             output["persistent"] = {{"name", "Analog " + std::to_string(device.id)},{"normalize", "3.3"},{"units", "V"}};
+            output["type"] = deviceTypeToString(Analog);
             break;
         case Button:
             output["persistent"] = {"name", ("Button " + std::to_string(device.id))};
+            output["type"] = deviceTypeToString(Button);
             break;
         case Encoder:
             output["persistent"] = {"name", ("Encoder " + std::to_string(device.id))};
+            output["type"] = deviceTypeToString(Encoder);
             break;
         case Switch:
             output["persistent"] = {"name", ("Switch " + std::to_string(device.id))};
+            output["type"] = deviceTypeToString(Switch);
             break;
         default:
-        return;
+            break;
     }
+    std::cout << "Created: " << output.dump() << "\n";
 }
 
 void DevicesDatabase::update(CapabilitiesMessage* msg, std::string deviceId)
@@ -132,11 +140,12 @@ void DevicesDatabase::update(CapabilitiesMessage* msg, std::string deviceId)
         Capability& cap = list[i];
         std::string id = std::to_string(cap.id);
         std::string type = deviceTypeToString(cap.type);
-        if (!device["inputs"][id].is_null() && device["inputs"][id]["type"] == type) {
+        if (!device["inputs"][id].is_null() && deviceBase.data.j[deviceId]["inputs"][id]["type"] == type) {
             continue;
-        } else if (!device["outputs"][id].is_null() && device["outputs"][id]["type"] == type) {
+        } else if (!device["outputs"][id].is_null() && deviceBase.data.j[deviceId]["outputs"][id]["type"] == type) {
             continue;
         }
+        json dev;
         switch (cap.type) {
             case Pwm:
             case Stepper:
@@ -146,18 +155,38 @@ void DevicesDatabase::update(CapabilitiesMessage* msg, std::string deviceId)
             case Analog:
             case Button:
             case Encoder:
-                constructDevice(cap, device["inputs"][id]);
+                constructDevice(cap, deviceBase.data.j[deviceId]["inputs"][id]);
             break;
         }
     }
-    for (auto& el : device.items()) {
+    for (auto& el : deviceBase.data.j[deviceId]["inputs"].items()) {
         bool found = false;
         for (int i = 0; i < count; i++) {
-            if (el.key() != std::to_string(list[i].id)) {
-                
+            std::cout << "Checking " << el.key() << " vs " << std::to_string(list[i].id) << "\n";
+            if (el.key() == std::to_string(list[i].id)) {
+                found = true;
+                break;
             }
         }
+        if (!found) {
+            deviceBase.data.j[deviceId].erase(el.key());
+        }
     }
+    for (auto& el : deviceBase.data.j[deviceId]["outputs"].items()) {
+        bool found = false;
+        for (int i = 0; i < count; i++) {
+            std::cout << "Checking " << el.key() << " vs " << std::to_string(list[i].id) << "\n";
+            if (el.key() == std::to_string(list[i].id)) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            deviceBase.data.j[deviceId].erase(el.key());
+        }
+    }
+    std::cout << "Out " << DevicesDatabase::deviceBase.data.j.dump() << "\n";
+    DevicesDatabase::deviceBase.data.save();
 }
 
 bool DevicesDatabase::exists(std::string deviceId)

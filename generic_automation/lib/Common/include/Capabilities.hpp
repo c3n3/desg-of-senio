@@ -18,17 +18,13 @@ namespace genauto {
 
     constexpr const char* deviceTypeToString(DeviceType t)
     {
-    #define CASE(v) case v: return #v
-    switch (t) 
-    {
-        CASE(Pwm);
-        CASE(Stepper);
-        CASE(Switch);
-        CASE(Button);
-        CASE(Encoder);
-        CASE(Analog);
-        return "";
-    }
+    #define CASE(v) t == v ? #v :
+    return CASE(Pwm)
+        CASE(Stepper)
+        CASE(Switch)
+        CASE(Button)
+        CASE(Encoder)
+        CASE(Analog) "";
     #undef CASE
 }
 

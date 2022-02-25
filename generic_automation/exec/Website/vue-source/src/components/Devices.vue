@@ -10,13 +10,13 @@
                             <h5>Output: </h5>
                             <div v-for="(output, outputId) in device.outputs" :key="outputId">
                                 <ul class="device-line">
-                                    <div v-if="output.type === 'button'">
+                                    <div v-if="output.type === 'Button'">
                                         <Button
                                             :tag="output.tag"
                                             :persistent_input="output.persistent"
                                             :keystring="id + ':' + outputId"/>
                                     </div>
-                                    <div v-if="output.type === 'number'">
+                                    <div v-if="output.type === 'Encoder'">
                                         <Encoder
                                             :min="output.data.min"
                                             :max="output.data.max"
@@ -32,7 +32,7 @@
                             <div v-for="(input, inputId) in device.inputs" :key="inputId">
                                 <ul class="device-line">
                                     <Analog
-                                        v-if="input.type == 'number'"
+                                        v-if="input.type == 'Analog'"
                                         :min="input.data.min"
                                         :max="input.data.max"
                                         :keystring="id + ':' + inputId"
@@ -64,6 +64,9 @@ export default {
       Encoder,
       Button,
       Analog
+  },
+  mounted() {
+      console.log("Wat is up\n");
   }
 }
 </script>
