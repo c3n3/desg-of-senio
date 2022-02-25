@@ -18,17 +18,19 @@ namespace genauto
          * @brief Allows us to specify if we are instructing a degree change
          * or setting a speed
          */
-        enum Type
+        enum Mode
         {
-            Speed,
-            Degree
+            Step,
+            Degrees,
+            StepsSecond,
+            DegreesSecond
         };
 
     private:
         static constexpr location_t value_loc = Message::type_loc + sizeof(msgType_t);
         static constexpr location_t valueType_loc = value_loc + sizeof(float);
-        static constexpr location_t direction_loc = valueType_loc + sizeof(Type);
-        static constexpr uint16_t msgSize = Message::baseSize + sizeof(msgType_t) + sizeof(float) + sizeof(Type);
+        static constexpr location_t stepScale_loc = valueType_loc + sizeof(Mode);
+        static constexpr uint16_t msgSize = Message::baseSize + sizeof(msgType_t) + sizeof(float) + sizeof(float) + sizeof(Mode);
 
     public:
         /**
@@ -46,18 +48,19 @@ namespace genauto
         float& value();
 
         /**
-         * @brief
-         *
-         * @return uint8_t
+         * @brief 
+         * 
+         * @return float& 
          */
-        uint8_t& direction();
+        float& stepScale();
+
 
         /**
          * @brief Gets the type of the message
          *
          * @return Type
          */
-        Type& valueType();
+        Mode& modeType();
 
         /**
          * @brief Type of the message specific to class

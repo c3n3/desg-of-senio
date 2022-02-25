@@ -22,12 +22,13 @@ float& StepperMotorMessage::value()
     return get<float>(value_loc);
 }
 
-uint8_t& StepperMotorMessage::direction()
+float& StepperMotorMessage::stepScale()
 {
-    return get<uint8_t>(direction_loc);
+    return get<float>(stepScale_loc);
 }
 
-StepperMotorMessage::Type& StepperMotorMessage::valueType()
+
+StepperMotorMessage::Mode& StepperMotorMessage::modeType()
 {
-    return get<Type>(valueType_loc);
+    return get<Mode>(valueType_loc);
 }

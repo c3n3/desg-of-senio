@@ -38,7 +38,6 @@
 #include "Arduino.h"
 #include "src/Common/include/Log.hpp"
 #include "src/Esp/include/WifiReceiver.hpp"
-#include "src/Esp/include/WifiSender.hpp"
 #include "src/Common/include/StepperMotorMessage.hpp"
 #include "src/Common/include/EncoderMessage.hpp"
 #include "src/Common/include/ButtonMessage.hpp"
@@ -53,8 +52,7 @@
 #include "src/Common/include/Log.hpp"
 //#include "src/Common/include/StringBuilder.hpp"
 #include "src/Common/include/Timer.hpp"
-#include "src/Esp/include/CapabilitiesList.hpp"
-#include "src/Esp/include/config.hpp"
+
 #include "src/Esp/include/SteelPlateLoop.hpp"
 #include "src/Esp/include/ExecLoop.hpp"
 
@@ -62,7 +60,6 @@ using namespace genauto;
 
 #include "soc/rtc_wdt.h"
 
-#include <vector>
 
 ButtonDeviceInst<14> bDev(1);
 EncoderDevice eDev(26,25,2);
@@ -84,10 +81,17 @@ void setup()
     Serial.begin(115200);
     delay(100);
     //WifiReceiver::getReceiver();
+    stepDev.setSpeed(-2);
 }
+
+//void loop()
+//{
+//  stepDev.execute();
+//}
 
 void loop()
 {
+    //Timer t("HI");
     bDev.execute();
     Message* bMsg = bDev.tryGet();
     ButtonMessage *butMsg = (ButtonMessage*)bMsg;
@@ -121,8 +125,5 @@ void loop()
 
     pDev.execute();
     stepDev.execute();
-
-    
-    
-    delay(100);
+    //t.log();
 }
