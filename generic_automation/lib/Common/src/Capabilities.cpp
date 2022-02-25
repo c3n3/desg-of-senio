@@ -2,6 +2,7 @@
 
 #ifdef ESP32
 #include <WiFi.h>
+#include "lwip/inet.h"
 #endif
 
 using namespace genauto;
@@ -37,6 +38,11 @@ CapabilitiesMessage::CapabilitiesMessage(Capability* list, uint16_t countIn, msg
 char* CapabilitiesMessage::mac()
 {
     return &get<char>(MAC_LOC);
+}
+
+uint32_t& CapabilitiesMessage::ip()
+{
+    return get<uint32_t>(IP_LOC);
 }
 
 Capability* CapabilitiesMessage::capablities()

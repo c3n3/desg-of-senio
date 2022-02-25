@@ -10,6 +10,8 @@
 #include "../../Common/include/Capabilities.hpp"
 #include "../include/config.hpp"
 
+#include <WiFi.h>
+
 using namespace genauto;
 
 constexpr uint8_t TEST_DEVICE_V1_SIZE = 2;
@@ -60,4 +62,5 @@ void CapabilitiesList::init()
     // Add all subscribers to the router
     // All devices will subscribe to messages to themselves
     capabilitiesList = new CapabilitiesMessage(testDeviceV1Caps, ARRSIZE(testDeviceV1Caps));
+    capabilitiesList->ip() = WiFi.localIP();
 }

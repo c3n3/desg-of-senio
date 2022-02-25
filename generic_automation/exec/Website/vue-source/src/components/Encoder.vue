@@ -35,7 +35,7 @@
 import axios from 'axios'
 
 export default {
-    props: ['min', 'max', 'units', 'major', 'minor', 'persistent_input', 'device'],
+    props: ['min', 'max', 'units', 'major', 'minor', 'persistent_input', 'device', 'type'],
     name: 'Encoder',
     data: function () {
         return {
@@ -95,8 +95,8 @@ export default {
                     var postStr = '/genauto/pages/devices/update'
                         + "?data=" + JSON.stringify(this.persistent)
                         + "&keystring=" + this.keystring
-                        + "&type=outputs";
-                    axios.get(postStr
+                        + "&type=" + this.type;
+                    axios.post(postStr
                         ,{ params: {}})
                         .then(response => this.responseData = response.data)
                         .catch(error => {});

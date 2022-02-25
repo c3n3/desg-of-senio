@@ -13,7 +13,7 @@ using namespace genauto;
 
 
 /*Put your SSID & Password*/
-const char *ssid = SSID; // Enter SSID here
+const char *ssid = WIFI_SSID; // Enter SSID here
 const char *password = PASSWORD;      //Enter Password here
 
 WifiReceiver* WifiReceiver::receiver = nullptr;

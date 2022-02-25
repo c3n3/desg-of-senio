@@ -17,7 +17,7 @@
 import axios from 'axios'
 
 export default {
-  props: ['tag', 'persistent_input', 'keystring'],
+  props: ['tag', 'persistent_input', 'keystring', 'type'],
   name: 'Button',
   data: function () {
       return {
@@ -49,7 +49,7 @@ export default {
                 var postStr = '/genauto/pages/devices/update'
                     + "?data=" + JSON.stringify(this.persistent)
                     + "&keystring=" + this.keystring
-                    + "&type=outputs";
+                    + "&type=" + this.type;
                 axios.post(postStr
                     ,{ params: {}})
                     .then(response => this.responseData = response.data)

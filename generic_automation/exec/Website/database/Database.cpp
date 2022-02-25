@@ -97,6 +97,7 @@ static void constructDevice(Capability device, json& output)
     output["tag"] = deviceTypeToString(device.type);
     switch (device.type) {
         case Pwm:
+            output["data"] = {{"max", "inf"},{"min", "-inf"},{"units", "%"}};
             output["persistent"] = {{"increment", "5"},{"name", std::string("Pwm " + std::to_string(device.id))}};
             output["type"] = deviceTypeToString(Encoder);
             break;
@@ -125,7 +126,6 @@ static void constructDevice(Capability device, json& output)
         default:
             break;
     }
-    std::cout << "Created: " << output.dump() << "\n";
 }
 
 void DevicesDatabase::update(CapabilitiesMessage* msg, std::string deviceId)
@@ -140,9 +140,9 @@ void DevicesDatabase::update(CapabilitiesMessage* msg, std::string deviceId)
         Capability& cap = list[i];
         std::string id = std::to_string(cap.id);
         std::string type = deviceTypeToString(cap.type);
-        if (!device["inputs"][id].is_null() && deviceBase.data.j[deviceId]["inputs"][id]["type"] == type) {
+        if (device["inputs"].contains(id) && deviceBase.data.j[deviceId]["inputs"][id]["type"] == type) {
             continue;
-        } else if (!device["outputs"][id].is_null() && deviceBase.data.j[deviceId]["outputs"][id]["type"] == type) {
+        } else if (device["outputs"].contains(id) && deviceBase.data.j[deviceId]["outputs"][id]["type"] == type) {
             continue;
         }
         json dev;
@@ -185,7 +185,6 @@ void DevicesDatabase::update(CapabilitiesMessage* msg, std::string deviceId)
             deviceBase.data.j[deviceId].erase(el.key());
         }
     }
-    std::cout << "Out " << DevicesDatabase::deviceBase.data.j.dump() << "\n";
     DevicesDatabase::deviceBase.data.save();
 }
 

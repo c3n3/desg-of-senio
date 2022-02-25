@@ -38,8 +38,9 @@ void setup()
     Serial.begin(115200);
     delay(100);
 
-    CapabilitiesList::init();
     WifiReceiver::getReceiver();
+    CapabilitiesList::init();
+    dlog("Ip = %d\n", CapabilitiesList::capabilitiesList->ip());
     WifiSender sender(SERVER_IP);
     dlog("Sending:\n");
     CapabilitiesList::capabilitiesList->log();

@@ -14,7 +14,9 @@
                                         <Button
                                             :tag="output.tag"
                                             :persistent_input="output.persistent"
-                                            :keystring="id + ':' + outputId"/>
+                                            :keystring="id + ':' + outputId"
+                                            :type="'outputs'"
+                                            />
                                     </div>
                                     <div v-if="output.type === 'Encoder'">
                                         <Encoder
@@ -24,6 +26,7 @@
                                             :persistent_input="output.persistent"
                                             :major="id"
                                             :minor="outputId"
+                                            :type="'outputs'"
                                             />
                                     </div>
                                 </ul>
@@ -37,6 +40,7 @@
                                         :max="input.data.max"
                                         :keystring="id + ':' + inputId"
                                         :persistent_input="input.persistent"
+                                        :type="'inputs'"
                                     />
                                 </ul>
                             </div>
