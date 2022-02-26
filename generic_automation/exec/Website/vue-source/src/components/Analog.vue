@@ -5,8 +5,9 @@
             v-model="persistent.name"
             @blur="edit_name = false; $emit('update')"
             @keyup.enter="edit_name = false; $emit('update')"
-            v-focus>
+            v-focus> 
         <h4 v-else @click="edit_name = true" class="pointer"> {{persistent.name}} </h4>
+        <div class="tag-label">Type: {{tag}}</div>
         <div class="input-number-value">
             <div>Value: {{value}}</div>&nbsp;
             <div>
