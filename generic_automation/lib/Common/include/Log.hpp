@@ -13,6 +13,6 @@
 
 #define dlog(...) _log(__VA_ARGS__)
 
-#define elog(...) _log(__VA_ARGS__)
+#define elog(...) _printf("%s:%d:ERROR: ",  __FILE__, __LINE__); _printf(__VA_ARGS__)
 
 #endif

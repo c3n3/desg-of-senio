@@ -6,13 +6,13 @@ using namespace genauto;
 
 static MessageTypeRegistry<PwmMessage::classMsgType> r;
 
-PwmMessage::PwmMessage(uint8_t* buffer)
-    : Message(buffer, msgSize)
-{
-    if (size_() != msgSize) {
-        dlog("Error: buffer size mismatch, watch for segfault.\n");
-    }
+PwmMessage::PwmMessage(uint8_t* buffer, uint16_t bufferSize)
+    : Message(buffer, bufferSize)
+{}
 
+PwmMessage::PwmMessage()
+    : Message(msgSize)
+{
     // Set type in case this is a new buffer
     Message::type() = classMsgType;
 }

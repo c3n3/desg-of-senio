@@ -27,7 +27,7 @@ static void doNothing()
 
 WifiReceiver::WifiReceiver()
     : serializer(sizeof(msgBuffer)),
-    cur(msgBuffer), gotMsg(false)
+    cur(msgBuffer, sizeof(msgBuffer)), gotMsg(false)
 {
     WiFi.begin(ssid, password);
 

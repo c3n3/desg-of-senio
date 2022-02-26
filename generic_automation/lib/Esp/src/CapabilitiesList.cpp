@@ -16,9 +16,11 @@ using namespace genauto;
 
 constexpr uint8_t TEST_DEVICE_V1_SIZE = 2;
 
-Capability testDeviceV1Caps[2] = {
-    Capability(Pwm, 10),
-    Capability(Pwm, 12)
+Capability testDeviceV1Caps[] = {
+    Capability(Pwm, 9),
+    Capability(Button, 10),
+    Capability(Stepper, 11),
+    Capability(Encoder, 12)
 };
 
 CapabilitiesMessage*

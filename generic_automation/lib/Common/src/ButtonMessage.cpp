@@ -12,13 +12,13 @@ static MessageTypeRegistry<ButtonMessage::classMsgType> r;
          * @param type Type of the message
          * @param value The value for the type
          */
-ButtonMessage::ButtonMessage(uint8_t* buffer)
-    : Message(buffer, msgSize)
-{
-    if (size_() != msgSize) {
-        dlog("Error: buffer size mismatch, watch for segfault.\n");
-    }
+ButtonMessage::ButtonMessage(uint8_t* buffer, uint16_t bufferSize)
+    : Message(buffer, bufferSize)
+{}
 
+ButtonMessage::ButtonMessage()
+    : Message(msgSize)
+{
     // Set type in case this is a new buffer
     Message::type() = classMsgType;
 }

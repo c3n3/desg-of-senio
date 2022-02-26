@@ -4,6 +4,8 @@
 #include "Capabilities.hpp"
 #include "../database/Database.hpp"
 
+#include <arpa/inet.h>
+
 using namespace genauto;
 //add definition of your processing function here
 
@@ -24,17 +26,24 @@ void PubSub::handle(const HttpRequestPtr &req,
     }
 
     if (msg.type() == CapabilitiesMessage::classMsgType) {
-        CapabilitiesMessage real(msg);
+        CapabilitiesMessage real(msg.getBuffer(), msg.getBufferSize());
         real.log();
         std::string devId;
         dlog("Got mac = %s\n", real.mac());
         auto resp=HttpResponse::newHttpResponse();
         resp->setStatusCode(k200OK);
         resp->setContentTypeCode(CT_TEXT_HTML);
-        if (JsonFile::deviceIds.j.contains(real.mac())) {
-            devId = JsonFile::deviceIds.j[real.mac()];
-            resp->setBody(devId);
-        } else {
+        bool found = false;
+        for (auto& el : JsonFile::deviceIds.j.items()) {
+            if (!el.value().is_object()) {
+                continue;
+            }
+            if (el.value()["mac"] == real.mac()) {
+                devId = el.key();
+                resp->setBody(devId);
+            }
+        }
+        if (!found) {
             int max = 1;
             for (auto& el : JsonFile::deviceIds.j.items()) {
                 int key = std::stoi(el.key());
@@ -43,11 +52,16 @@ void PubSub::handle(const HttpRequestPtr &req,
                 }
             }
             devId = std::to_string(max + 1);
-            JsonFile::deviceIds.j[real.mac()] = std::to_string(max + 1);
-            JsonFile::deviceIds.save();
+            JsonFile::deviceIds.j[devId]["mac"] = real.mac();
+
         }
         resp->setBody(devId);
         callback(resp);
+
+        in_addr ip;
+        ip.s_addr = real.ip();
+        JsonFile::deviceIds.j[devId]["ip"] = inet_ntoa(ip);
+        JsonFile::deviceIds.save();
 
         if (DevicesDatabase::exists(devId)) {
             dlog("Updating dev %s\n", devId.c_str());

@@ -12,15 +12,14 @@ static MessageTypeRegistry<AnalogMessage::classMsgType> r;
          * @param type Type of the message
          * @param value The value for the type
          */
-AnalogMessage::AnalogMessage(uint8_t* buffer)
-    : Message(buffer, msgSize)
-{
-    if (size_() != msgSize) {
-        dlog("Error: buffer size mismatch, watch for segfault.\n");
-    }
+AnalogMessage::AnalogMessage(uint8_t* buffer, uint16_t bufferSize)
+    : Message(buffer, bufferSize)
+{}
 
-    // Set type in case this is a new buffer
-    Message::type() = classMsgType;
+AnalogMessage::AnalogMessage()
+    : Message(msgSize)
+{
+    type() = classMsgType;
 }
 
 

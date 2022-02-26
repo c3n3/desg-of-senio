@@ -95,6 +95,7 @@ static json createButton()
 static void constructDevice(Capability device, json& output)
 {
     output["tag"] = deviceTypeToString(device.type);
+    std::cout << "Adding " << deviceTypeToString(device.type) << "\n";
     switch (device.type) {
         case Pwm:
             output["data"] = {{"max", "inf"},{"min", "-inf"},{"units", "%"}};
@@ -112,15 +113,15 @@ static void constructDevice(Capability device, json& output)
             output["type"] = deviceTypeToString(Analog);
             break;
         case Button:
-            output["persistent"] = {"name", ("Button " + std::to_string(device.id))};
+            output["persistent"] = json::object({{"name", ("Button " + std::to_string(device.id))}});
             output["type"] = deviceTypeToString(Button);
             break;
         case Encoder:
-            output["persistent"] = {"name", ("Encoder " + std::to_string(device.id))};
+            output["persistent"] = json::object({{"name", ("Encoder " + std::to_string(device.id))}});
             output["type"] = deviceTypeToString(Encoder);
             break;
         case Switch:
-            output["persistent"] = {"name", ("Switch " + std::to_string(device.id))};
+            output["persistent"] = json::object({{"name", ("Switch " + std::to_string(device.id))}});
             output["type"] = deviceTypeToString(Switch);
             break;
         default:

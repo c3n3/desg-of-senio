@@ -21,7 +21,8 @@ namespace genauto {
          * 
          * @param buffer 
          */
-        ButtonMessage(uint8_t* buffer = nullptr);
+        ButtonMessage(uint8_t* buffer, uint16_t bufferSize);
+        ButtonMessage();
 
         /**
          * @brief 

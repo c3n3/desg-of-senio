@@ -22,10 +22,13 @@ namespace genauto {
     class Message {
     protected:
         uint8_t* buffer_;
-        
+        uint16_t bufferSize_;
         template<typename T>
         T& get(location_t location)
         {
+            if (location > bufferSize_) {
+                elog("Buffer size exceeded. Invalid results will occur.\n");
+            }
             return *(T*)(buffer_ + location);
         }
 
@@ -48,21 +51,17 @@ namespace genauto {
 
         msgType_t& type();
 
-        Message(msgBuf_t* buffer = nullptr, uint16_t size=baseSize);
+        Message(msgBuf_t* buffer, uint16_t bufferSize);
+
+        Message(uint16_t size=baseSize);
 
         virtual ~Message();
 
         uint8_t* getBuffer() const;
 
-        uint16_t getSize();
+        uint16_t getBufferSize();
 
         void setBuffer(uint8_t* buffer);
-
-        template<typename MSG_T>
-        operator MSG_T()
-        {
-            return MSG_T(getBuffer());
-        }
 
         virtual void log();
 

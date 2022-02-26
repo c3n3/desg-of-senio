@@ -3,27 +3,39 @@
 
 using namespace genauto;
 
-Message::Message(uint8_t* buffer, uint16_t size)
-    :   buffer_(buffer),
-        alloc(false)
+Message::Message(uint16_t size)
+    : alloc(true),
+      bufferSize_(size)
 {
-    if (buffer == nullptr) {
-        dlog("Alloc %d\n", size);
-        buffer_ = new uint8_t[size];
-        memset(buffer_, 0, size);
-        alloc = true;
-        size_() = size;
-    } else {
-        size_() = size;
-        setBuffer(buffer);
+    if (size < baseSize) {
+        elog("Message size less than base size\n");
     }
+    dlog("Alloc %d\n", size);
+    buffer_ = new uint8_t[size];
+    memset(buffer_, 0, size);
+    alloc = true;
+    size_() = size;
+}
+
+Message::Message(uint8_t* buffer, uint16_t bufferSize)
+    : buffer_(buffer),
+      bufferSize_(bufferSize),
+      alloc(false)
+{
+    setBuffer(buffer);
 }
 
 Message::Message (const Message& other)
     : buffer_(nullptr),
-      alloc(false)
+      alloc(false),
+      bufferSize_(other.bufferSize_)
 {
     setBuffer(other.getBuffer());
+}
+
+uint16_t Message::getBufferSize()
+{
+    return bufferSize_;
 }
 
 Message::~Message()
@@ -71,6 +83,5 @@ void Message::setBuffer(uint8_t* buffer)
 
 void Message::log()
 {
-    // TODO: Log here
     dlog("Message: id = {%x,%x}, type = %x, size=%d\n", id().getMajor(), id().getMinor(), type(), size());
 }
