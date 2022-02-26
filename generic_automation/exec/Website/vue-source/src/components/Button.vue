@@ -7,9 +7,10 @@
         @keyup.enter="edit_name = false; $emit('update')"
         v-focus>
     <h4 v-else @click="edit_name = true" class="pointer"> {{persistent.name}} </h4>
-    <div>
+    <div v-if="type == 'outputs'">
         {{tag}} <input type="checkbox" v-model="value" @change="check($event)">
     </div>
+    <div class="tag-label">Type: {{tag}}</div>
   </div>
 </template>
 
