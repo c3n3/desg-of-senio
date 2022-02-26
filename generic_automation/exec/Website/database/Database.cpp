@@ -95,7 +95,7 @@ static json createButton()
 static void constructDevice(Capability device, json& output)
 {
     output["tag"] = deviceTypeToString(device.type);
-    std::cout << "Adding " << deviceTypeToString(device.type) << "\n";
+    dlog("Updating %s - %d\n", deviceTypeToString(device.type), device.id);
     switch (device.type) {
         case Pwm:
             output["data"] = {{"max", "inf"},{"min", "-inf"},{"units", "%"}};
@@ -137,13 +137,17 @@ void DevicesDatabase::update(CapabilitiesMessage* msg, std::string deviceId)
     if (device.is_null()) {
         return;
     }
+    dlog("Count = %d\n", count);
     for (int i = 0 ; i < count; i++) {
         Capability& cap = list[i];
         std::string id = std::to_string(cap.id);
         std::string type = deviceTypeToString(cap.type);
+        dlog("updating %s-%d\n", deviceTypeToString(cap.type), cap.id);
         if (device["inputs"].contains(id) && deviceBase.data.j[deviceId]["inputs"][id]["type"] == type) {
+            dlog("Skipping %s-%d\n", deviceTypeToString(cap.type), cap.id);
             continue;
         } else if (device["outputs"].contains(id) && deviceBase.data.j[deviceId]["outputs"][id]["type"] == type) {
+            dlog("Skipping %s-%d\n", deviceTypeToString(cap.type), cap.id);
             continue;
         }
         json dev;
@@ -163,7 +167,6 @@ void DevicesDatabase::update(CapabilitiesMessage* msg, std::string deviceId)
     for (auto& el : deviceBase.data.j[deviceId]["inputs"].items()) {
         bool found = false;
         for (int i = 0; i < count; i++) {
-            std::cout << "Checking " << el.key() << " vs " << std::to_string(list[i].id) << "\n";
             if (el.key() == std::to_string(list[i].id)) {
                 found = true;
                 break;
@@ -176,7 +179,6 @@ void DevicesDatabase::update(CapabilitiesMessage* msg, std::string deviceId)
     for (auto& el : deviceBase.data.j[deviceId]["outputs"].items()) {
         bool found = false;
         for (int i = 0; i < count; i++) {
-            std::cout << "Checking " << el.key() << " vs " << std::to_string(list[i].id) << "\n";
             if (el.key() == std::to_string(list[i].id)) {
                 found = true;
                 break;

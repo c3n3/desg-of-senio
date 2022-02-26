@@ -65,7 +65,10 @@ void setup()
     }
     msg.id() = MessageId(90, 20);
     msg.type() = 0x0001;
+    // runSteelPlateLoop();
 }
 
 void loop()
-{}
+{
+    steelPlateLoop(nullptr);
+}

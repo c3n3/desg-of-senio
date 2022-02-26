@@ -20,7 +20,9 @@ Capability testDeviceV1Caps[] = {
     Capability(Pwm, 9),
     Capability(Button, 10),
     Capability(Stepper, 11),
-    Capability(Encoder, 12)
+    Capability(Encoder, 12),
+    Capability(Button, 13),
+    Capability(Button, 14)
 };
 
 CapabilitiesMessage*

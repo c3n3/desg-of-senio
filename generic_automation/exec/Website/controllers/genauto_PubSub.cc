@@ -38,7 +38,8 @@ void PubSub::handle(const HttpRequestPtr &req,
             if (!el.value().is_object()) {
                 continue;
             }
-            if (el.value()["mac"] == real.mac()) {
+            if (el.value()["mac"].get<std::string>() == real.mac()) {
+                found = true;
                 devId = el.key();
                 resp->setBody(devId);
             }
@@ -47,8 +48,9 @@ void PubSub::handle(const HttpRequestPtr &req,
             int max = 1;
             for (auto& el : JsonFile::deviceIds.j.items()) {
                 int key = std::stoi(el.key());
+                dlog("Checking %d\n", key);
                 if (key > max) {
-                    key = max;
+                    max = key;
                 }
             }
             devId = std::to_string(max + 1);

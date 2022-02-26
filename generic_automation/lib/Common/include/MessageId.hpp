@@ -16,15 +16,6 @@ namespace genauto {
             To = 1
         };
     private:
-        /**
-         * @brief Major number id
-         */
-        major_t major_;
-
-        /**
-         * @brief Minor number id
-         */
-        minor_t minor_;
 
         /**
          * @brief Set the 
@@ -33,16 +24,43 @@ namespace genauto {
          */
         void set(Direction d);
 
-        static const uint8_t DIRECTION_BIT = sizeof(MessageId::major_) * 8 - 1;
     public:
         /**
+         * @brief Major number id
+         */
+        major_t major;
+
+        /**
+         * @brief Minor number id
+         */
+        minor_t minor;
+
+        /**
          * @brief Get major
+         * TODO: REMOVE
          */
         major_t getMajor();
 
         /**
+         * @brief Set the Major
+         *
+         * TODO: REMOVE
+         * @return major_t 
+         */
+        void setMajor(major_t m);
+
+        /**
+         * @brief Set the Minor
+         *
+         * TODO: REMOVE
+         * @return major_t 
+         */
+        void setMinor(minor_t m);
+
+        /**
          * @brief Get minor
          * 
+         * TODO: REMOVE
          * @return uint8_t 
          */
         minor_t getMinor();
@@ -111,7 +129,9 @@ namespace genauto {
          * @brief Default ctor
          */
         MessageId();
-
+    
+    private:
+        static const uint8_t DIRECTION_BIT = sizeof(MessageId::major) * 8 - 1;
     };
 
     namespace ConstantIds {

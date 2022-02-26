@@ -14,7 +14,7 @@ Capability::Capability(DeviceType t, minor_t id)
 {}
 
 CapabilitiesMessage::CapabilitiesMessage(Capability* list, uint16_t countIn)
-    : Message(countIn * sizeof(Capability) + Message::baseSize + sizeof(uint16_t) + MAC_STR_LEN)
+    : Message(countIn * sizeof(Capability) + Message::baseSize + sizeof(uint16_t) + MAC_STR_LEN + sizeof(uint32_t))
 {
     dlog("Count: %d\n", countIn);
 #ifdef ESP32

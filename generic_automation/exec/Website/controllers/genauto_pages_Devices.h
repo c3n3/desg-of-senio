@@ -29,7 +29,7 @@ class Devices:public drogon::HttpController<Devices>
     void encoderSend(const HttpRequestPtr &req,
                     std::function<void (const HttpResponsePtr &)> &&callback,
                     const major_t& major,
-                    const minor_t& minor,
+                    const uint32_t& minor,
                     const int16_t& inc);
 
     HexStringSerializer serializer;

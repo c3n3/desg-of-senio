@@ -31,7 +31,7 @@ HexStringSerializer::Result HexStringSerializer::serialize(Message* msg)
     }
     buffer_[index] = '\0';
     dlog("Buffer = %s\n", (char*)buffer_);
-    currentSize_ = msg->size();
+    currentSize_ = msg->size()*2;
 
     return Success;
 }
@@ -63,8 +63,7 @@ HexStringSerializer::Result HexStringSerializer::deserialize(Message* msg)
         return Failure;
     }
     uint8_t* buffer = msg->getBuffer();
-    dlog("Size = %d, current size=%d\n", msg->size(), currentSize_);
-    for (int i = 0; i < msg->size()*2 && i < currentSize_; i += 2) {
+    for (int i = 0; i < msg->getBufferSize()*2 && i < currentSize_; i += 2) {
         uint8_t byteTwo = ((buffer_[i + 1] - 'A')) << 4;
         uint8_t byteOne = ((buffer_[i] - 'A'));
         buffer[(i / 2)] = byteTwo | byteOne;

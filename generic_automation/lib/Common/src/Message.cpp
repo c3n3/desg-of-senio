@@ -83,5 +83,5 @@ void Message::setBuffer(uint8_t* buffer)
 
 void Message::log()
 {
-    dlog("Message: id = {%x,%x}, type = %x, size=%d\n", id().getMajor(), id().getMinor(), type(), size());
+    dlog("Message: id = {%x,%d}, type = %x, size=%d\n", id().getMajor(), id().getMinor(), type(), size());
 }

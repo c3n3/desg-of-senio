@@ -3,9 +3,10 @@
 #include "Message.hpp"
 #include "EncoderMessage.hpp"
 #include "HexStringSerializer.hpp"
-#include <drogon/HttpClient.h>
+#include "../database/Database.hpp"
 #include "../json/json.hpp"
 
+#include <drogon/HttpClient.h>
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Options.hpp>
 
@@ -42,30 +43,48 @@ void Devices::update(const HttpRequestPtr &req,
 
 static HexStringSerializer serializer(1000);
 
-static void send(Message* message)
-{
-    std::ostringstream os;
-    serializer.serialize(message);
-    std::string willSend = std::string("http://172.20.10.11?d=") + serializer.getBuffer();
-    std::cout << willSend << "\n";
-    os << curlpp::options::Url(willSend);
+template <class F>
+void call_async(F&& fun) {
+    auto futptr = std::make_shared<std::future<void>>();
+    *futptr = std::async(std::launch::async, [futptr, fun]() {
+        fun();
+    });
 }
 
 
 
+static void send(Message* message)
+{
+    std::string id = std::to_string(message->id().getMajor());
+    if (!JsonFile::deviceIds.j.contains(id)) {
+        elog("Invalid id %s\n", id.c_str());
+        return;
+    }
+    std::string ip = JsonFile::deviceIds.j[id]["ip"];
+
+    // Set as sending to
+    message->id().to();
+
+    std::string willSend = std::string("http://") + ip + std::string("?d=") + serializer.getBuffer();
+    serializer.serialize(message);
+    std::cout << willSend << "\n";
+    std::ostringstream os;
+    os << curlpp::options::Url(willSend);
+ }
+
 void Devices::encoderSend(const HttpRequestPtr &req,
     std::function<void (const HttpResponsePtr &)> &&callback,
     const major_t& major,
-    const minor_t& minor,
+    const uint32_t& minor,
     const int16_t& inc)
 {
-    callback(HttpResponse::newHttpResponse());
     EncoderMessage m;
-    dlog("Inc: %d\n", inc);
-    m.id() = MessageId(major,minor);
+    m.id().major = major;
+    m.id().minor = minor;
     m.value() = inc;
-    m.log();
     send(&m);
+    dlog("DONE\n");
+    callback(HttpResponse::newHttpResponse());
     // void send(Message* message)
     // std::ostringstream os;
     // serilizer.serialize(message);
