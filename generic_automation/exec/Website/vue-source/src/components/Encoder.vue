@@ -7,7 +7,8 @@
         @keyup.enter="edit_name = false; $emit('update')"
         v-focus>
     <h4 v-else @click="edit_name = true" class="pointer"> {{persistent.name}} </h4>
-    <div class="number-container">
+    
+    <div v-if="type === 'outputs'" class="number-container">
         <div>
             <div class="custom-button" id="plus" @click="inc">+</div>
             <div class="custom-button" id="minus" @click="dec">-</div>
@@ -28,6 +29,7 @@
         </div>
         Value: {{value}} {{units}}
     </div>
+    <div class="tag-label">Type: {{tag}}</div>
 </div>
 </template>
 
@@ -35,7 +37,7 @@
 import axios from 'axios'
 
 export default {
-    props: ['min', 'max', 'units', 'major', 'minor', 'persistent_input', 'device'],
+    props: ['min', 'max', 'units', 'major', 'minor', 'persistent_input', 'device', 'type', 'tag'],
     name: 'Encoder',
     data: function () {
         return {
@@ -95,8 +97,8 @@ export default {
                     var postStr = '/genauto/pages/devices/update'
                         + "?data=" + JSON.stringify(this.persistent)
                         + "&keystring=" + this.keystring
-                        + "&type=outputs";
-                    axios.get(postStr
+                        + "&type=" + this.type;
+                    axios.post(postStr
                         ,{ params: {}})
                         .then(response => this.responseData = response.data)
                         .catch(error => {});

@@ -14,7 +14,9 @@
                                         <Button
                                             :tag="output.tag"
                                             :persistent_input="output.persistent"
-                                            :keystring="id + ':' + outputId"/>
+                                            :keystring="id + ':' + outputId"
+                                            :type="'outputs'"
+                                            />
                                     </div>
                                     <div v-if="output.type === 'Encoder'">
                                         <Encoder
@@ -24,6 +26,8 @@
                                             :persistent_input="output.persistent"
                                             :major="id"
                                             :minor="outputId"
+                                            :type="'outputs'"
+                                            :tag="output.tag"
                                             />
                                     </div>
                                 </ul>
@@ -31,13 +35,32 @@
                             <h5>Input: </h5>
                             <div v-for="(input, inputId) in device.inputs" :key="inputId">
                                 <ul class="device-line">
-                                    <Analog
-                                        v-if="input.type == 'Analog'"
-                                        :min="input.data.min"
-                                        :max="input.data.max"
-                                        :keystring="id + ':' + inputId"
-                                        :persistent_input="input.persistent"
-                                    />
+                                    <div v-if="input.type == 'Analog'">
+                                        <Analog
+                                            :min="input.data.min"
+                                            :max="input.data.max"
+                                            :keystring="id + ':' + inputId"
+                                            :persistent_input="input.persistent"
+                                            :type="'inputs'"
+                                            :tag="input.tag"
+                                        />
+                                    </div>
+                                    <div v-if="input.type == 'Encoder'">
+                                        <Encoder
+                                            :keystring="id + ':' + inputId"
+                                            :persistent_input="input.persistent"
+                                            :tag="input.tag"
+                                            :type="'inputs'"
+                                        />
+                                    </div>
+                                    <div v-if="input.type == 'Button'">
+                                        <Button
+                                            :tag="input.tag"
+                                            :persistent_input="input.persistent"
+                                            :keystring="id + ':' + inputId"
+                                            :type="'inputs'"
+                                        />
+                                    </div>
                                 </ul>
                             </div>
                         </div>
@@ -72,4 +95,9 @@ export default {
 </script>
 
 <style>
+
+.tag-label {
+    font-size: 12px;
+}
+
 </style>

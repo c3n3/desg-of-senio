@@ -4,7 +4,7 @@
 
 using namespace genauto;
 
-static MessageTypeRegistry<EncoderMessage::classMsgType> r;
+MESSAGE_ID_UNIQUE(EncoderMessage);
 
 /**
          * @brief Create a stepper motor message
@@ -12,15 +12,14 @@ static MessageTypeRegistry<EncoderMessage::classMsgType> r;
          * @param type Type of the message
          * @param value The value for the type
          */
-EncoderMessage::EncoderMessage(uint8_t* buffer)
-    : Message(buffer, msgSize)
-{
-    if (size_() != msgSize) {
-        dlog("Error: buffer size mismatch, watch for segfault.\n");
-    }
+EncoderMessage::EncoderMessage(uint8_t* buffer, uint16_t bufferSize)
+    : Message(buffer, bufferSize)
+{}
 
-    // Set type in case this is a new buffer
-    Message::type() = classMsgType;
+EncoderMessage::EncoderMessage()
+    : Message(msgSize)
+{
+    type() = classMsgType;
 }
 
 

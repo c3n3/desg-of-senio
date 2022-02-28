@@ -8,11 +8,91 @@
 #include <AccelStepper.h>
 #include "../include/StepperMotor.hpp"
 
-
-
 static const uint16_t stepsPerRevolution = 200;
 
 using namespace genauto;
+
+// // Construct a stepper motor
+// StepperMotor::StepperMotor(uint8_t dirPin, uint8_t stepPin, uint16_t stepsPerRev = 200)
+//     : dirPin_(dirPin), stepPin_(stepPin), stepsPerRev_(stepsPerRev), msInterval_(0), direction_((Direction)LOW)
+// {
+//     pinMode(dirPin_, OUTPUT);
+//     pinMode(stepPin_, OUTPUT);
+//     digitalWrite(dirPin_, LOW);
+//     digitalWrite(stepPin_, LOW);
+// }
+
+
+// // In revolutions per minute
+// void StepperMotor::setSpeedRpm(float rpm)
+// {
+//     if (rpm == 0) {
+//         msInterval_ = 0;
+//         return;
+//     }
+//     direction_ =  (Direction)(rpm < 0 ? LOW : HIGH);
+//     // 1000ms / 1s *  (second / step)
+//     msInterval_ = 1000 / rpmToStepsPerSecond(rpm);
+// }
+
+// // In degrees per second
+// void StepperMotor::setSpeedDps(float dps)
+// {
+//     if (dps == 0) {
+//         msInterval_ = 0;
+//         return;
+//     }
+//     direction_ = (Direction)(dps < 0 ? LOW : HIGH);
+//     // 1000ms / 1s *  (second / step)
+//     msInterval_ = 1000 / dpsToStepsPerSecond(dps);
+// }
+
+// // In steps per second
+// void StepperMotor::setSpeedSps(float sps)
+// {
+//     if (sps == 0) {
+//         msInterval_ = 0;
+//         return;
+//     }
+//     // 1000ms / 1s *  (second / step)
+//     msInterval_ = 1000 / sps;
+// }
+
+// // In millisecond interval
+// void StepperMotor::setSpeedMsi(float msi)
+// {
+//     msInterval_ = abs(msi);
+//     direction_ = (Direction)(msi < 0 ? Backward : Forward);
+// }
+
+// // Step the motor
+// void StepperMotor::step()
+// {
+//     digitalWrite(dirPin_, direction_);
+//     digitalWrite(stepPin_,HIGH); 
+//     delayMicroseconds(500); 
+//     digitalWrite(stepPin_,LOW); 
+//     delayMicroseconds(500); 
+// }
+
+// // Step the motor for a direction
+// void StepperMotor::step(Direction dir)
+// {
+//     msInterval_ = 0;
+//     direction_ = dir;
+//     step();
+// }
+
+// // Must be called continuously
+// void StepperMotor::run()
+// {
+//     if (msInterval_ == 0) return;
+//     if (millis() - time_ > msInterval_) {
+//         step();
+//         time_ += msInterval_;
+//     }
+// }
+
 
 genauto::StepperDevice::StepperDevice(uint8_t stepPin, uint8_t dirPin, minor_t minorId)
     : dirPin(dirPin),

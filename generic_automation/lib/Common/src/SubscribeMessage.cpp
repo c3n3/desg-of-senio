@@ -5,13 +5,9 @@ using namespace genauto;
 
 static MessageTypeRegistry<SubscribeMessage::classMsgType> r;
 
-SubscribeMessage::SubscribeMessage(uint8_t* buffer)
-    : Message(buffer, msgSize)
+SubscribeMessage::SubscribeMessage(uint8_t* buffer, uint16_t bufferSize)
+    : Message(buffer, bufferSize)
 {
-    if (size_() != msgSize) {
-        dlog("Error: buffer size mismatch, watch for segfault.\n");
-    }
-
     // Set type in case this is a new buffer
     Message::type() = classMsgType;
 }

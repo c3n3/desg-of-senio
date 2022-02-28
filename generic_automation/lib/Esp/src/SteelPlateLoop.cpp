@@ -30,9 +30,12 @@ void genauto::steelPlateLoop(void* data)
     {
         { // Wifi rec
             auto msgPtr = rec->tryGet();
+            delay(1000);
             if (msgPtr != nullptr) {
                 auto& list = CapabilitiesList::subscriberList;
                 for (int i = 0; i < list.getSize(); i++) {
+                    msgPtr->log();
+                    continue;
                     list.getList()[i]->receive(msgPtr);
                 }
             }

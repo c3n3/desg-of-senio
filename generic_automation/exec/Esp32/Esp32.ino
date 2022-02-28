@@ -29,6 +29,8 @@ using namespace genauto;
 
 Message msg;
 
+HexStringSerializer ser(1000);
+
 void setup()
 {
     rtc_wdt_protect_off();
@@ -38,11 +40,22 @@ void setup()
     Serial.begin(115200);
     delay(100);
 
-    CapabilitiesList::init();
     WifiReceiver::getReceiver();
+    CapabilitiesList::init();
+    dlog("Ip = %d\n", CapabilitiesList::capabilitiesList->ip());
     WifiSender sender(SERVER_IP);
     dlog("Sending:\n");
     CapabilitiesList::capabilitiesList->log();
+
+    ser.serialize(CapabilitiesList::capabilitiesList);
+    uint8_t buffer[1000];
+    Message msg(buffer, sizeof(buffer));
+
+    ser.deserialize(&msg);
+
+    CapabilitiesMessage real(msg.getBuffer(), msg.getBufferSize());
+    real.log();
+
     String result = sender.syncSend(CapabilitiesList::capabilitiesList);
     if (result == "") {
         elog("Error, did not acquire device id. Maybe server ip is incorrect?\n");
@@ -52,7 +65,10 @@ void setup()
     }
     msg.id() = MessageId(90, 20);
     msg.type() = 0x0001;
+    // runSteelPlateLoop();
 }
 
 void loop()
-{}
+{
+    steelPlateLoop(nullptr);
+}

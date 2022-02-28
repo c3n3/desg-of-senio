@@ -38,7 +38,8 @@ namespace genauto
          *
          * @param buffer The buffer for the message
          */
-        StepperMotorMessage(uint8_t *buffer = nullptr);
+        StepperMotorMessage(uint8_t *buffer, uint16_t bufferSize);
+        StepperMotorMessage();
 
         /**
          * @brief gets the value of the message

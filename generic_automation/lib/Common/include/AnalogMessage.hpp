@@ -21,7 +21,8 @@ namespace genauto {
          * 
          * @param buffer 
          */
-        AnalogMessage(uint8_t* buffer = nullptr);
+        AnalogMessage(uint8_t* buffer, uint16_t bufferSize);
+        AnalogMessage();
 
         /**
          * @brief 

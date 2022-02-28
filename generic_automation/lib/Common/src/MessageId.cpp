@@ -4,32 +4,32 @@ using namespace genauto;
 
 bool MessageId::operator <(const MessageId& other) const
 {
-    if (major_ < other.major_) {
+    if (major < other.major) {
         return true;
-    } else if (other.major_ < major_) {
+    } else if (other.major < major) {
         return false;
     }
-    return minor_ < other.minor_;
+    return minor < other.minor;
 }
 
 void MessageId::set(Direction d)
 {
-    major_ = (major_ & (~(0x0001 << DIRECTION_BIT))) | (((uint16_t)d) << DIRECTION_BIT);
+    major = (major & (~(0x0001 << DIRECTION_BIT))) | (((uint16_t)d) << DIRECTION_BIT);
 }
 
 major_t MessageId::getMajor()
 {
-    return major_;
+    return major;
 }
 
 minor_t MessageId::getMinor()
 {
-    return minor_;
+    return minor;
 }
 
 bool MessageId::operator ==(const MessageId& other)
 {
-    return major_ == other.major_ && minor_ == other.minor_;
+    return major == other.major && minor == other.minor;
 }
 
 bool MessageId::operator !=(const MessageId& other)
@@ -38,17 +38,27 @@ bool MessageId::operator !=(const MessageId& other)
 }
 
 MessageId::MessageId(major_t major, minor_t minor, Direction d)
-    : major_(), minor_(minor)
+    : major(), minor(minor)
 {
     set(d);
 }
 
-MessageId::MessageId() : major_(0), minor_(0)
+MessageId::MessageId() : major(0), minor(0)
 {}
 
 MessageId::MessageId(const MessageId& other)
-    : major_(other.major_), minor_(other.minor_)
+    : major(other.major), minor(other.minor)
 {}
+
+void MessageId::setMajor(major_t m)
+{
+    major = m;
+}
+
+void MessageId::setMinor(minor_t m)
+{
+    minor = m;
+}
 
 MessageId& MessageId::to()
 {
