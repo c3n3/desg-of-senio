@@ -2,6 +2,7 @@
 #include "Types.hpp"
 #include "Message.hpp"
 #include "EncoderMessage.hpp"
+#include "ButtonMessage.hpp"
 #include "HexStringSerializer.hpp"
 #include "../database/Database.hpp"
 #include "../json/json.hpp"
@@ -83,7 +84,7 @@ void Devices::encoderSend(const HttpRequestPtr &req,
     m.id().minor = minor;
     m.value() = inc;
     send(&m);
-    dlog("DONE\n");
+    dlog("TRIED to send ENCODER\n");
     callback(HttpResponse::newHttpResponse());
     // void send(Message* message)
     // std::ostringstream os;
@@ -91,4 +92,19 @@ void Devices::encoderSend(const HttpRequestPtr &req,
     // std::string willSend = std::string("http://10.150.148.214?d=") + serilizer.getBuffer();
     // std::cout << willSend << "\n";
     // os << curlpp::options::Url(willSend);
+}
+
+void Devices::buttonSend(const HttpRequestPtr &req,
+    std::function<void (const HttpResponsePtr &)> &&callback,
+    const major_t& major,
+    const uint32_t& minor,
+    const bool& on)
+{
+    ButtonMessage m;
+    m.id().major = major;
+    m.id().minor = minor;
+    m.pressed() = true;
+    send(&m);
+    dlog("Tried to SEND BUTTON\n");
+    callback(HttpResponse::newHttpResponse());
 }
