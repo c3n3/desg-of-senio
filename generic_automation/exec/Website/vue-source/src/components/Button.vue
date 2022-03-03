@@ -7,9 +7,10 @@
         @keyup.enter="edit_name = false; $emit('update')"
         v-focus>
     <h4 v-else @click="edit_name = true" class="pointer"> {{persistent.name}} </h4>
-    <div>
-        {{tag}} <input type="checkbox" v-model="value" @change="check($event)">
+    <div v-if="type == 'outputs'">
+        <input type="checkbox" v-model="value" @change="check($event)">
     </div>
+    <div class="tag-label">&nbsp;&nbsp;&nbsp;&nbsp;Type: {{tag}}</div>
   </div>
 </template>
 
@@ -17,8 +18,8 @@
 import axios from 'axios'
 
 export default {
-  props: ['tag', 'persistent_input', 'keystring'],
-  name: 'OutputBool',
+  props: ['tag', 'persistent_input', 'keystring', 'type'],
+  name: 'Button',
   data: function () {
       return {
           value: null,
@@ -49,7 +50,7 @@ export default {
                 var postStr = '/genauto/pages/devices/update'
                     + "?data=" + JSON.stringify(this.persistent)
                     + "&keystring=" + this.keystring
-                    + "&type=outputs";
+                    + "&type=" + this.type;
                 axios.post(postStr
                     ,{ params: {}})
                     .then(response => this.responseData = response.data)

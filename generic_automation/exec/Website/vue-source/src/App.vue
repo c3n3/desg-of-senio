@@ -1,5 +1,8 @@
 <template>
+<div>
+    Hello
   <Devices :propdata="devices"/>
+</div>
 </template>
 
 <script>

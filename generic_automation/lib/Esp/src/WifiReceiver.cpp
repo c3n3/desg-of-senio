@@ -13,7 +13,7 @@ using namespace genauto;
 
 
 /*Put your SSID & Password*/
-const char *ssid = SSID; // Enter SSID here
+const char *ssid = WIFI_SSID; // Enter SSID here
 const char *password = PASSWORD;      //Enter Password here
 
 WifiReceiver* WifiReceiver::receiver = nullptr;
@@ -27,7 +27,7 @@ static void doNothing()
 
 WifiReceiver::WifiReceiver()
     : serializer(sizeof(msgBuffer)),
-    cur(msgBuffer), gotMsg(false)
+    cur(msgBuffer, sizeof(msgBuffer)), gotMsg(false)
 {
     WiFi.begin(ssid, password);
 
@@ -57,7 +57,10 @@ void WifiReceiver::handleConnect()
     if (server.hasArg("d"))
     {
         String arg = server.arg("d");
-        Serial.println(arg);
+        dlog("Got %s\n", arg.c_str());
+        if (arg == "") {
+            elog("Invalid input\n");
+        }
         if (receiver->serializer.parse(
             (const uint8_t*)arg.c_str(),arg.length())
             == HexStringSerializer::Failure)
@@ -80,6 +83,7 @@ Message* WifiReceiver::tryGet()
             &cur) == HexStringSerializer::Success)
         {
             receiver->gotMsg = false;
+            cur.log();
             t.log();
             return &cur;
         }

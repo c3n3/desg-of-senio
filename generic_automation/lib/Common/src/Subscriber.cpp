@@ -7,7 +7,5 @@ Subscriber::Subscriber()
 
 void Subscriber::receive(Message* msg)
 {
-    dlog("\n");
     msgs_.enqueue(msg);
-    dlog("\n");
 }

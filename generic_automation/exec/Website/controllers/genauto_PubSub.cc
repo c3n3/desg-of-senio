@@ -2,7 +2,9 @@
 #include "Log.hpp"
 #include "HexStringSerializer.hpp"
 #include "Capabilities.hpp"
-#include "../database/Database.h"
+#include "../database/Database.hpp"
+
+#include <arpa/inet.h>
 
 using namespace genauto;
 //add definition of your processing function here
@@ -24,31 +26,52 @@ void PubSub::handle(const HttpRequestPtr &req,
     }
 
     if (msg.type() == CapabilitiesMessage::classMsgType) {
-        CapabilitiesMessage real(msg);
+        CapabilitiesMessage real(msg.getBuffer(), msg.getBufferSize());
         real.log();
+        std::string devId;
         dlog("Got mac = %s\n", real.mac());
         auto resp=HttpResponse::newHttpResponse();
         resp->setStatusCode(k200OK);
         resp->setContentTypeCode(CT_TEXT_HTML);
-        if (JsonFile::deviceIds.j.contains(real.mac())) {
-            std::string id = JsonFile::deviceIds.j[real.mac()];
-            resp->setBody(id);
-            if (DevicesDatabase::exists(id)) {
-                DevicesDatabase::update(&real, id);
+        bool found = false;
+        for (auto& el : JsonFile::deviceIds.j.items()) {
+            if (!el.value().is_object()) {
+                continue;
             }
-        } else {
+            if (el.value()["mac"].get<std::string>() == real.mac()) {
+                found = true;
+                devId = el.key();
+                resp->setBody(devId);
+            }
+        }
+        if (!found) {
             int max = 1;
             for (auto& el : JsonFile::deviceIds.j.items()) {
                 int key = std::stoi(el.key());
+                dlog("Checking %d\n", key);
                 if (key > max) {
-                    key = max;
+                    max = key;
                 }
             }
-            resp->setBody(std::to_string(max + 1));
-            JsonFile::deviceIds.j[real.mac()] = std::to_string(max + 1);
-            JsonFile::deviceIds.save();
+            devId = std::to_string(max + 1);
+            JsonFile::deviceIds.j[devId]["mac"] = real.mac();
+
         }
+        resp->setBody(devId);
         callback(resp);
+
+        in_addr ip;
+        ip.s_addr = real.ip();
+        JsonFile::deviceIds.j[devId]["ip"] = inet_ntoa(ip);
+        JsonFile::deviceIds.save();
+
+        if (DevicesDatabase::exists(devId)) {
+            dlog("Updating dev %s\n", devId.c_str());
+            DevicesDatabase::update(&real, devId);
+        } else {
+            dlog("Generating dev %s\n", devId.c_str());
+            DevicesDatabase::generate(&real, devId);
+        }
     }
     callback(HttpResponse::newHttpResponse());
 }

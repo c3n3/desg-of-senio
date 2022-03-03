@@ -25,7 +25,8 @@ namespace genauto
          *
          * @param buffer The buffer for the message
          */
-        SubscribeMessage(uint8_t* buffer = nullptr);
+        SubscribeMessage(uint8_t* buffer, uint16_t bufferSize);
+        SubscribeMessage();
 
         /**
          * @brief Tells what id will come from

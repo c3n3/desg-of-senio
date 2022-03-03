@@ -6,6 +6,7 @@ project(Common VERSION 1.0.1 DESCRIPTION "mylib description")
 
 add_library(Common SHARED
     src/EncoderMessage.cpp
+    src/ButtonMessage.cpp
     src/Capabilities.cpp
     src/HexStringSerializer.cpp
     src/Message.cpp

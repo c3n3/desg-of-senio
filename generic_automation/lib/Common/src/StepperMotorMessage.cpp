@@ -6,13 +6,13 @@ using namespace genauto;
 
 static MessageTypeRegistry<StepperMotorMessage::classMsgType> r;
 
-StepperMotorMessage::StepperMotorMessage(uint8_t* buffer)
-    : Message(buffer, msgSize)
-{
-    if (size_() != msgSize) {
-        dlog("Error: buffer size mismatch, watch for segfault.\n");
-    }
+StepperMotorMessage::StepperMotorMessage(uint8_t* buffer, uint16_t bufferSize)
+    : Message(buffer, bufferSize)
+{}
 
+StepperMotorMessage::StepperMotorMessage()
+    : Message(msgSize)
+{
     // Set type in case this is a new buffer
     Message::type() = classMsgType;
 }
@@ -22,12 +22,13 @@ float& StepperMotorMessage::value()
     return get<float>(value_loc);
 }
 
-uint8_t& StepperMotorMessage::direction()
+float& StepperMotorMessage::stepScale()
 {
-    return get<uint8_t>(direction_loc);
+    return get<float>(stepScale_loc);
 }
 
-StepperMotorMessage::Type& StepperMotorMessage::valueType()
+
+StepperMotorMessage::Mode& StepperMotorMessage::modeType()
 {
-    return get<Type>(valueType_loc);
+    return get<Mode>(valueType_loc);
 }

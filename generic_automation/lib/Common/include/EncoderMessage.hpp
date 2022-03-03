@@ -21,7 +21,14 @@ namespace genauto {
          * 
          * @param buffer 
          */
-        EncoderMessage(uint8_t* buffer = nullptr);
+        EncoderMessage(uint8_t* buffer, uint16_t bufferSize);
+
+        /**
+         * @brief Construct a new Encoder Message object
+         * 
+         * @param buffer 
+         */
+        EncoderMessage();
 
         /**
          * @brief 

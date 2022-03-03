@@ -5,8 +5,9 @@
             v-model="persistent.name"
             @blur="edit_name = false; $emit('update')"
             @keyup.enter="edit_name = false; $emit('update')"
-            v-focus>
+            v-focus> 
         <h4 v-else @click="edit_name = true" class="pointer"> {{persistent.name}} </h4>
+        <div class="tag-label">&nbsp;&nbsp;&nbsp;&nbsp;Type: {{tag}}</div>
         <div class="input-number-value">
             <div>Value: {{value}}</div>&nbsp;
             <div>
@@ -44,8 +45,8 @@
 import axios from 'axios'
 
 export default {
-    props: ['keystring', 'min', 'max', 'persistent_input'],
-    name: 'InputNumber',
+    props: ['keystring', 'min', 'max', 'persistent_input', 'type'],
+    name: 'Analog',
     data: function () {
         return {
             edit_name: false,
@@ -99,7 +100,7 @@ export default {
                     var postStr = '/genauto/pages/devices/update'
                         + "?data=" + JSON.stringify(this.persistent)
                         + "&keystring=" + this.keystring
-                        + "&type=inputs";
+                        + "&type=" + this.type;
                     axios.post(postStr
                         ,{ params: {}})
                         .then(response => this.responseData = response.data)

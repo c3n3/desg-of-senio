@@ -24,7 +24,8 @@ namespace genauto {
          * @param type Type of the message
          * @param value The value for the type
          */
-        PwmMessage(uint8_t* buffer = nullptr);
+        PwmMessage();
+        PwmMessage(uint8_t* buffer, uint16_t bufferSize);
 
 
         /**

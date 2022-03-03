@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include "src/Common/include/Log.hpp"
 #include "src/Esp/include/WifiReceiver.hpp"
+#include "src/Esp/include/WifiSender.hpp"
 #include "src/Common/include/StepperMotorMessage.hpp"
 #include "src/Common/include/EncoderMessage.hpp"
 #include "src/Common/include/ButtonMessage.hpp"
@@ -15,7 +16,8 @@
 #include "src/Common/include/Log.hpp"
 //#include "src/Common/include/StringBuilder.hpp"
 #include "src/Common/include/Timer.hpp"
-
+#include "src/Esp/include/CapabilitiesList.hpp"
+#include "src/Esp/include/config.hpp"
 #include "src/Esp/include/SteelPlateLoop.hpp"
 #include "src/Esp/include/ExecLoop.hpp"
 
@@ -23,8 +25,11 @@ using namespace genauto;
 
 #include "soc/rtc_wdt.h"
 
+#include <vector>
 
 Message msg;
+
+HexStringSerializer ser(1000);
 
 void setup()
 {
@@ -34,16 +39,23 @@ void setup()
     disableLoopWDT();
     Serial.begin(115200);
     delay(100);
-<<<<<<< HEAD
-    //WifiReceiver::getReceiver();
-    stepDev.setSpeed(-2);
-=======
 
-    CapabilitiesList::init();
     WifiReceiver::getReceiver();
+    CapabilitiesList::init();
+    dlog("Ip = %d\n", CapabilitiesList::capabilitiesList->ip());
     WifiSender sender(SERVER_IP);
     dlog("Sending:\n");
     CapabilitiesList::capabilitiesList->log();
+
+    ser.serialize(CapabilitiesList::capabilitiesList);
+    uint8_t buffer[1000];
+    Message msg(buffer, sizeof(buffer));
+
+    ser.deserialize(&msg);
+
+    CapabilitiesMessage real(msg.getBuffer(), msg.getBufferSize());
+    real.log();
+
     String result = sender.syncSend(CapabilitiesList::capabilitiesList);
     if (result == "") {
         elog("Error, did not acquire device id. Maybe server ip is incorrect?\n");
@@ -53,49 +65,10 @@ void setup()
     }
     msg.id() = MessageId(90, 20);
     msg.type() = 0x0001;
->>>>>>> 79ee99d8b91025bc1585f8b7a96710dd2aff4bea
+    // runSteelPlateLoop();
 }
-
-//void loop()
-//{
-//  stepDev.execute();
-//}
 
 void loop()
 {
-    //Timer t("HI");
-    bDev.execute();
-    Message* bMsg = bDev.tryGet();
-    ButtonMessage *butMsg = (ButtonMessage*)bMsg;
-    if(bMsg == nullptr) {} //{dlog("button message nullptr\n");}
-    else 
-    {
-      Serial.println("Button Pressed");
-      //sDev.receive((Message*)butMsg);
-    }
-    
-    eDev.execute();
-    Message* eMsg = eDev.tryGet();
-    EncoderMessage *encMsg = (EncoderMessage*)eMsg;
-    if(eMsg != nullptr) 
-    {
-      pDev.receive((Message*)encMsg);
-      stepDev.receive((Message*)encMsg);
-    }
-    //dlog("Encoder Value: %d\n", encVal);
-
-    aDev.execute();
-    Message* aMsg = aDev.tryGet();
-    AnalogMessage *algMsg = (AnalogMessage*)aMsg;
-    if(algMsg != nullptr) 
-    {
-      aVal = algMsg->value();
-      //dlog("analog value: %d\n", aVal);
-    }
-
-    //sDev.execute();
-
-    pDev.execute();
-    stepDev.execute();
-    //t.log();
+    steelPlateLoop(nullptr);
 }
