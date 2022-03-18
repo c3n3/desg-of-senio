@@ -63,7 +63,6 @@ void setup()
 
 void loop()
 {
-<<<<<<< HEAD
     //Timer t("HI");
     bDev.execute();
     Message* bMsg = bDev.tryGet();
@@ -99,9 +98,4 @@ void loop()
     pDev.execute();
     stepDev.execute();
     //t.log();
-=======
-    msg.log();
-    delay(1000);
-    // fireAK();
->>>>>>> 79ee99d8b91025bc1585f8b7a96710dd2aff4bea
 }

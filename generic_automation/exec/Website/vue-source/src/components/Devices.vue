@@ -98,6 +98,7 @@ export default {
 
 .tag-label {
     font-size: 12px;
+    margin-bottom: 5px;
 }
 
 </style>
