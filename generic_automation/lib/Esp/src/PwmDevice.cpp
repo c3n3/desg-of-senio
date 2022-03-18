@@ -65,8 +65,8 @@ void genauto::PwmDevice::execute()
         ledcWrite(channel, 0);
         inited = true;
     }
-    Message* Msg = NULL;
-    if(msgs_.dequeue(Msg) == decltype(msgs_)::Success)
+    Message* Msg = nextMessage();
+    if(Msg != NULL)
     {
         if(Msg->type() == EncoderMessage::classMsgType) /// going to need to modify this for directions.
         {

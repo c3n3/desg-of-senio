@@ -34,8 +34,8 @@ void genauto::SwitchDevice::changeState()
  */
 void genauto::SwitchDevice::execute()
 {
-    Message *Msg = nullptr;
-    if (msgs_.dequeue(Msg) == decltype(msgs_)::Success)
+    Message *Msg = nextMessage();
+    if (Msg != nullptr)
     {
         dlog("message received\n");
         if (Msg->type() == ButtonMessage::classMsgType)

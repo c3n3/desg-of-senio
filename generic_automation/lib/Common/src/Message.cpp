@@ -85,3 +85,8 @@ void Message::log()
 {
     dlog("Message: id = {%x,%d}, type = %x, size=%d\n", id().getMajor(), id().getMinor(), type(), size());
 }
+
+uint16_t Message::getSizeSafe()
+{
+    return size() > getBufferSize() ? getBufferSize() : size();
+}

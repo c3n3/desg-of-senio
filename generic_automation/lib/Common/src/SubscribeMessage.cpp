@@ -3,7 +3,7 @@
 
 using namespace genauto;
 
-static MessageTypeRegistry<SubscribeMessage::classMsgType> r;
+MESSAGE_ID_UNIQUE(SubscribeMessage);
 
 SubscribeMessage::SubscribeMessage(uint8_t* buffer, uint16_t bufferSize)
     : Message(buffer, bufferSize)
