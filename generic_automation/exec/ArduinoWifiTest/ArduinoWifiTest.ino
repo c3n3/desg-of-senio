@@ -34,10 +34,6 @@ void setup()
     disableLoopWDT();
     Serial.begin(115200);
     delay(100);
-<<<<<<< HEAD
-    //WifiReceiver::getReceiver();
-    stepDev.setSpeed(-2);
-=======
 
     CapabilitiesList::init();
     WifiReceiver::getReceiver();
@@ -53,7 +49,6 @@ void setup()
     }
     msg.id() = MessageId(90, 20);
     msg.type() = 0x0001;
->>>>>>> 79ee99d8b91025bc1585f8b7a96710dd2aff4bea
 }
 
 //void loop()

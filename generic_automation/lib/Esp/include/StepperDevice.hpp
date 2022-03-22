@@ -25,9 +25,7 @@ namespace genauto {
 
     enum Mode
         {
-            Step,
             Degrees,
-            StepsSecond,
             DegreesSecond
         }mode;
     public:

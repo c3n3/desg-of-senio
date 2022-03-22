@@ -21,8 +21,10 @@ namespace genauto
         const uint8_t stepPin_;
         const uint16_t stepsPerRev_;
         uint16_t msInterval_;
+        uint16_t msIntervalPos_;
         Direction direction_;
         unsigned long time_;
+        uint16_t stepsLeft_;
 
         // Simple calculation function
         uint16_t rpmToStepsPerSecond(float rpm)
@@ -48,6 +50,30 @@ namespace genauto
             digitalWrite(stepPin_, LOW);
         }
 
+        void setDegreesToStep(float degrees, float dps)
+        {
+            if (degrees == 0)
+            {
+                msInterval_ = 0;
+                return;
+            }
+            direction_ = (Direction)(degrees < 0 ? LOW : HIGH);
+            stepsLeft = degrees / 360 * stepsPerRev_;
+            if (dps > -500 && dps < 500)
+                msIntervalPos_ = 1000 / dpsToStepsPerSecond(dps);
+        }
+
+        void runSteps()
+        {
+            if (msInterval_ == 0)
+                return;
+            if ((millis() - time_ > msInterval_) && (stepsLeft > 0))
+            {
+                step();
+                time_ += msInterval_;
+            }
+        }
+
         // In revolutions per minute
         void setSpeedRpm(float rpm)
         {
@@ -71,7 +97,8 @@ namespace genauto
             }
             direction_ = (Direction)(dps < 0 ? LOW : HIGH);
             // 1000ms / 1s *  (second / step)
-            if(dps > -500 && dps < 500) msInterval_ = 1000 / dpsToStepsPerSecond(dps);
+            if (dps > -500 && dps < 500)
+                msInterval_ = 1000 / dpsToStepsPerSecond(dps);
         }
 
         // In steps per second
@@ -98,9 +125,9 @@ namespace genauto
         {
             digitalWrite(dirPin_, direction_);
             digitalWrite(stepPin_, HIGH);
-            //delayMicroseconds(500);
+            // delayMicroseconds(500);
             digitalWrite(stepPin_, LOW);
-            //delayMicroseconds(500);
+            // delayMicroseconds(500);
         }
 
         // Step the motor for a direction

@@ -139,18 +139,10 @@ float StepperDevice::getEncStepScale()
 void StepperDevice::setSpeed(float speed)
 {
     speed_ = speed;
-    //myStepper.setSpeedSps(speed_);
-    if(mode == Step)
-    {
-
-    }
+    myStepper.setSpeedDps(speed_);
     else if (mode == Degrees)
     {
 
-    }
-    else if (mode == StepsSecond)
-    {
-        myStepper.setSpeedSps(speed_);
     }
     else if (mode == DegreesSecond)
     {
@@ -263,6 +255,7 @@ void genauto::StepperDevice::execute()
     if (motorOn)
     {
         //dlog("motor on\n");
-        myStepper.run();
+        if (mode == Degrees) mystepper.runSteps();
+        else myStepper.run();
     }
 }
