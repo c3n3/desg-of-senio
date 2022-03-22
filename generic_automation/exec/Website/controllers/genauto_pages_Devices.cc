@@ -9,6 +9,7 @@
 
 #include <drogon/HttpClient.h>
 #include <curlpp/cURLpp.hpp>
+#include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
 
 using namespace genauto::pages;
@@ -28,7 +29,7 @@ void Devices::mainFun(
     
     DevicesDatabase::deviceBase.htmlOutput(database);
     data.insert("json", database);
-    auto resp=HttpResponse::newHttpViewResponse("Devices.csp",data);
+    auto resp=HttpResponse::newHttpViewResponse("Devices.csp", data);
     callback(resp);
 }
 
@@ -66,11 +67,12 @@ static void send(Message* message)
     // Set as sending to
     message->id().to();
 
-    std::string willSend = std::string("http://") + ip + std::string("?d=") + serializer.getBuffer();
     serializer.serialize(message);
-    std::cout << willSend << "\n";
-    std::ostringstream os;
-    os << curlpp::options::Url(willSend);
+    std::string willSend = std::string("http://") + ip + std::string("?d=") + serializer.getBuffer();
+    std::cout << "Will send: " << willSend << "\n";
+    cURLpp::Easy handle;
+    handle.setOpt(curlpp::options::Url(willSend));
+    handle.perform();
  }
 
 void Devices::encoderSend(const HttpRequestPtr &req,
@@ -84,14 +86,7 @@ void Devices::encoderSend(const HttpRequestPtr &req,
     m.id().minor = minor;
     m.value() = inc;
     send(&m);
-    dlog("TRIED to send ENCODER\n");
     callback(HttpResponse::newHttpResponse());
-    // void send(Message* message)
-    // std::ostringstream os;
-    // serilizer.serialize(message);
-    // std::string willSend = std::string("http://10.150.148.214?d=") + serilizer.getBuffer();
-    // std::cout << willSend << "\n";
-    // os << curlpp::options::Url(willSend);
 }
 
 void Devices::buttonSend(const HttpRequestPtr &req,

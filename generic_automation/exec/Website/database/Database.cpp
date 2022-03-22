@@ -11,6 +11,26 @@ DevicesDatabase::DevicesDatabase(const char* fileName) : data(fileName)
     data.load();
 }
 
+static void removeSub(std::string& keystring, std::string& device)
+{
+    
+}
+
+static void updateLinks(const json& oldLinks, const json& newLinks, std::string& device)
+{
+    // Terribly ineffecient algo, but not important here
+
+    // If not found, we must remove the sub
+    for (const auto& el : oldLinks.items()) {
+        bool found = false;
+        for (const auto& nel : newLinks.items()) {
+            if (nel.value() == el.value()) {
+                found = true;
+            }
+        }
+    }
+}
+
 void DevicesDatabase::update(
     const std::string& keystring, const std::string& type, const json& input)
 {
@@ -21,6 +41,9 @@ void DevicesDatabase::update(
     getline(str, device, ':');
     getline(str, subDevice, ':');
     auto& persistent = data.j[device][type][subDevice]["persistent"];
+    if (type == "outputs") {
+        updateLinks(persistent["linked"], input["linked"], device);
+    }
     for (auto& el : input.items()) {
         persistent[el.key()] = el.value();
     }
@@ -99,12 +122,12 @@ static void constructDevice(Capability device, json& output)
     switch (device.type) {
         case Pwm:
             output["data"] = {{"max", "inf"},{"min", "-inf"},{"units", "%"}};
-            output["persistent"] = {{"increment", "5"},{"name", std::string("Pwm " + std::to_string(device.id))}};
+            output["persistent"] = {{"linked", json::array()},{"increment", "5"},{"name", std::string("Pwm " + std::to_string(device.id))}};
             output["type"] = deviceTypeToString(Encoder);
             break;
         case Stepper:
             output["data"] = {{"max", "inf"},{"min", "-inf"},{"units", "degrees"}};
-            output["persistent"] = {{"increment", "90"},{"name", ("Stepper " + std::to_string(device.id))},{"units", "degrees"}};
+            output["persistent"] = {{"linked", json::array()},{"increment", "90"},{"name", ("Stepper " + std::to_string(device.id))},{"units", "degrees"}};
             output["type"] = deviceTypeToString(Encoder);
             break;
         case Analog:
@@ -121,7 +144,7 @@ static void constructDevice(Capability device, json& output)
             output["type"] = deviceTypeToString(Encoder);
             break;
         case Switch:
-            output["persistent"] = json::object({{"name", ("Switch " + std::to_string(device.id))}});
+            output["persistent"] = json::object({{"linked", json::array()},{"name", ("Switch " + std::to_string(device.id))}});
             output["type"] = deviceTypeToString(Switch);
             break;
         default:
@@ -143,12 +166,17 @@ void DevicesDatabase::update(CapabilitiesMessage* msg, std::string deviceId)
         std::string id = std::to_string(cap.id);
         std::string type = deviceTypeToString(cap.type);
         dlog("updating %s-%d\n", deviceTypeToString(cap.type), cap.id);
-        if (device["inputs"].contains(id) && deviceBase.data.j[deviceId]["inputs"][id]["type"] == type) {
+        if (device["inputs"].contains(id) && deviceBase.data.j[deviceId]["inputs"][id]["tag"] == type) {
             dlog("Skipping %s-%d\n", deviceTypeToString(cap.type), cap.id);
             continue;
-        } else if (device["outputs"].contains(id) && deviceBase.data.j[deviceId]["outputs"][id]["type"] == type) {
+        } else if (device["outputs"].contains(id) && deviceBase.data.j[deviceId]["outputs"][id]["tag"] == type) {
             dlog("Skipping %s-%d\n", deviceTypeToString(cap.type), cap.id);
             continue;
+        } else {
+            std::cout << device["outputs"].contains(id) << "\n";
+            std::cout << deviceBase.data.j[deviceId]["outputs"][id]["type"] << "\n";
+            dlog("Device did not contain %s - %d creating\n", deviceTypeToString(cap.type), cap.id);
+            dlog("Device did not contain %s - %s creating\n", deviceTypeToString(cap.type), id.c_str());
         }
         json dev;
         switch (cap.type) {
@@ -164,6 +192,7 @@ void DevicesDatabase::update(CapabilitiesMessage* msg, std::string deviceId)
             break;
         }
     }
+    std::vector<std::string> remove;
     for (auto& el : deviceBase.data.j[deviceId]["inputs"].items()) {
         bool found = false;
         for (int i = 0; i < count; i++) {
@@ -173,9 +202,13 @@ void DevicesDatabase::update(CapabilitiesMessage* msg, std::string deviceId)
             }
         }
         if (!found) {
-            deviceBase.data.j[deviceId].erase(el.key());
+            remove.push_back(el.key());
         }
     }
+    for (auto& el : remove) {
+        deviceBase.data.j[deviceId]["inputs"].erase(el);
+    }
+    remove.clear();
     for (auto& el : deviceBase.data.j[deviceId]["outputs"].items()) {
         bool found = false;
         for (int i = 0; i < count; i++) {
@@ -185,8 +218,12 @@ void DevicesDatabase::update(CapabilitiesMessage* msg, std::string deviceId)
             }
         }
         if (!found) {
-            deviceBase.data.j[deviceId].erase(el.key());
+            remove.push_back(el.key());
         }
+    }
+
+    for (auto& el : remove) {
+        deviceBase.data.j[deviceId]["outputs"].erase(el);
     }
     DevicesDatabase::deviceBase.data.save();
 }

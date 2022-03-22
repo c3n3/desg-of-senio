@@ -78,13 +78,10 @@ Message* WifiReceiver::tryGet()
     server.handleClient();
     if (receiver->gotMsg) {
         main.log();
-        Timer t("Message Parse");
         if (receiver->serializer.deserialize(
             &cur) == HexStringSerializer::Success)
         {
             receiver->gotMsg = false;
-            cur.log();
-            t.log();
             return &cur;
         }
     }

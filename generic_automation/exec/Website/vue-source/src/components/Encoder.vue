@@ -30,6 +30,26 @@
         </div>
         Value: {{value}} {{units}}
     </div>
+    <br v-if="type == 'outputs'">
+    <div class="links-wrapper-wrapper" v-if="type == 'outputs'">
+        <div class="links-wrapper">
+            Link device to input(s):
+            <div v-for="(device, dev_id) in devices" :key="dev_id" class="device-links">
+                {{device.name}}:
+                <div class="links">
+                    <div v-for="(input, id) in device.inputs" :key="id" class="link-item">
+                        <label :for="id"> {{input['persistent']['name']}}</label><br>
+                        <input
+                        type="checkbox"
+                        :id="id"
+                        :value="dev_id + ':' + id"
+                        v-model="persistent['linked']"
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </template>
 
@@ -37,10 +57,11 @@
 import axios from 'axios'
 
 export default {
-    props: ['min', 'max', 'units', 'major', 'minor', 'persistent_input', 'device', 'type', 'tag'],
+    props: ['min', 'max', 'units', 'major', 'minor', 'persistent_input', 'device', 'type', 'tag', 'devices'],
     name: 'Encoder',
     data: function () {
         return {
+            linked: [],
             value: 0,
             keystring: this.major + ":" + this.minor,
             persistent: this.persistent_input,
