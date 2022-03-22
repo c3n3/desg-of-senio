@@ -21,6 +21,9 @@
 #include "src/Esp/include/SteelPlateLoop.hpp"
 #include "src/Esp/include/ExecLoop.hpp"
 
+#include "src/Common/include/BufferQueue.hpp"
+
+
 using namespace genauto;
 
 #include "soc/rtc_wdt.h"

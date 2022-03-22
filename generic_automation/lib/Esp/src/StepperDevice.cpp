@@ -208,8 +208,8 @@ float StepperDevice::getAngle()
 void genauto::StepperDevice::execute()
 {
     //Timer t("NAME");
-    Message *Msg = NULL;
-    if (msgs_.dequeue(Msg) == decltype(msgs_)::Success)
+    Message *Msg = nextMessage();
+    if (Msg != NULL)
     {
         //dlog("first if\n");
         if (Msg->type() == EncoderMessage::classMsgType)

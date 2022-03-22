@@ -7,7 +7,8 @@
         @keyup.enter="edit_name = false; $emit('update')"
         v-focus>
     <h4 v-else @click="edit_name = true" class="pointer"> {{persistent.name}} </h4>
-    
+    <div class="tag-label">&nbsp;&nbsp;&nbsp;&nbsp;Type: {{tag}}</div>
+
     <div v-if="type === 'outputs'" class="number-container">
         <div>
             <div class="custom-button" id="plus" @click="inc">+</div>
@@ -29,7 +30,6 @@
         </div>
         Value: {{value}} {{units}}
     </div>
-    <div class="tag-label">Type: {{tag}}</div>
 </div>
 </template>
 
@@ -60,11 +60,11 @@ export default {
     },
     methods: {
         inc: function() {
-            this.value = this.normalize(parseInt(this.value) + this.persistent.increment);
+            this.value = this.normalize(parseInt(this.value) + parseInt(this.persistent.increment));
             this.send(this.persistent.increment);
         },
         dec: function() {
-            this.value = this.normalize(parseInt(this.value) - this.persistent.increment);
+            this.value = this.normalize(parseInt(this.value) - parseInt(this.persistent.increment));
             this.send(-this.persistent.increment);
         },
         send: function(increment) {

@@ -8,9 +8,9 @@
         v-focus>
     <h4 v-else @click="edit_name = true" class="pointer"> {{persistent.name}} </h4>
     <div v-if="type == 'outputs'">
-        {{tag}} <input type="checkbox" v-model="value" @change="check($event)">
+        <input type="checkbox" v-model="value" @change="check($event)">
     </div>
-    <div class="tag-label">Type: {{tag}}</div>
+    <div class="tag-label">&nbsp;&nbsp;&nbsp;&nbsp;Type: {{tag}}</div>
   </div>
 </template>
 
