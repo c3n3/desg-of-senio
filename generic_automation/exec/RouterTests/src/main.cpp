@@ -103,9 +103,9 @@ Message message;
 int main()
 {
         Router route;
-        dummyPublisher* pub;
-        dummySubscriber* sub;
-        route.addPublisher(pub);
-        route.Subscribe(sub, message.id());
-        route.Execute();
+        dummyPublisher pub;
+        dummySubscriber sub;
+        route.addPublisher(&pub);
+        route.subscribe(&sub, message.id());
+        route.execute();
 }
