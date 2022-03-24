@@ -91,7 +91,7 @@ class dummyPublisher : public Publisher{
 
 class dummySubscriber : public Subscriber{
     public:
-        void recieve(Message* msg)
+        void receive(Message* msg)
         {
             std::cout << "Message Major: " << msg->id().getMajor() << "\n";
             std::cout << "Message Minor: " << msg->id().getMinor() << "\n";
@@ -100,13 +100,14 @@ class dummySubscriber : public Subscriber{
 
 class dummyMajorSubscriber : public Subscriber{
     public:
-        void recieve(Message* msg)
+        void receive(Message* msg)
         {
             std::cout << "Message Major: " << msg->id().getMajor() << "\n";
         }
 };
 
 Message message;
+Message majorMessage;
 
 int main()
 {
@@ -116,10 +117,11 @@ int main()
         dummyMajorSubscriber majorSub;
         route.addPublisher(&pub);
         route.subscribe(&sub, message.id());
-        route.subscribeToMajor(&majorSub, message.id().getMajor());
+        route.subscribeToMajor(&majorSub, majorMessage.id().getMajor());
         route.execute();
-        route.removeSubscribe(message.id());
-        route.removeSubscribeToMajor(message.id().getMajor());
-
+        route.removeSubscribe(&sub ,message.id());
+        route.removeSubscribeToMajor(&majorSub, message.id().getMajor());
+        route.addPublisher(&pub);
+        route.execute();
 
 }

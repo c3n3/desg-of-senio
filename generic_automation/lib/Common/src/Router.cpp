@@ -27,7 +27,6 @@
    {
        idMap.insert(Pair<MessageId, std::vector<Subscriber*>>(iD, std::vector<Subscriber*>({})));
        idMap[iD].push_back(sub);
-       std::cout << idMap[iD].size();
    }
 
    void Router::addPublisher(Publisher* pub)
@@ -43,23 +42,37 @@
        }
            
         majorIdMap[majorId].push_back(sub);
-        std::cout << majorIdMap[majorId].size();
    }
 
-   void Router::removeSubscribeToMajor(major_t majorId)
+   void Router::removeSubscribeToMajor(Subscriber* sub, major_t majorId)
    {
        if(majorIdMap.contains(majorId) == true)
-       {
-           majorIdMap[majorId].pop_back();
+       { 
+           for(int i = 0; i < majorIdMap[majorId].size(); i++)
+           {
+                if(sub == majorIdMap[majorId][i])
+                {
+                    majorIdMap[majorId].erase(majorIdMap[majorId].begin()+i);
+                    std::cout << "Subscriber at: " << majorIdMap[majorId][i] << " Unsubscribed from: " << " Major: " << majorId << "\n";
+                }
+           }
+           
        }
        
    }
 
-   void Router::removeSubscribe(MessageId iD)
+   void Router::removeSubscribe(Subscriber* sub, MessageId iD)
    {
        if(idMap.contains(iD) == true)
        {
-           idMap[iD].pop_back();
+           for(int i = 0; i < idMap[iD].size(); i++)
+           {
+               if(sub = idMap[iD][i])
+               {
+                   idMap[iD].erase(idMap[iD].begin()+i);
+                   std::cout << "Subscriber at: " << idMap[iD][i] << " Unsubscribed from: " << " Major: " << iD.getMajor() << " Minor: " << iD.getMinor() << "\n";
+               }
+           }
        }
    }
 
@@ -79,6 +92,7 @@
                 {
                     sub->receive(msg);
                 }
+
                  
              }
 

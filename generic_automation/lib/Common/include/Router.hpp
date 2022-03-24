@@ -6,6 +6,7 @@
   #include "Map.hpp"
   #include <vector>
   #include "Publisher.hpp"
+  #include <algorithm>
 
   using namespace genauto;
 
@@ -74,14 +75,14 @@
                  * 
                  * 
                  */
-                virtual void removeSubscribeToMajor(major_t majorId);
+                virtual void removeSubscribeToMajor(Subscriber* sub, major_t majorId);
 
                 /**
                  * @brief remove subscriber
                  * 
                  * 
                  */
-                virtual void removeSubscribe(MessageId iD); 
+                virtual void removeSubscribe(Subscriber* sub, MessageId iD); 
 
                 /**
                 *@brief receive message

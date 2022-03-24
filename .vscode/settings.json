@@ -71,6 +71,7 @@
         "shared_mutex": "cpp",
         "thread": "cpp",
         "netfwd": "cpp",
-        "stop_token": "cpp"
+        "stop_token": "cpp",
+        "coroutine": "cpp"
     }
 }
