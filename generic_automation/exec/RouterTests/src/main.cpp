@@ -91,21 +91,37 @@ class dummyPublisher : public Publisher{
 
 class dummySubscriber : public Subscriber{
     public:
-        void recieve(Message* msg)
+        void receive(Message* msg)
         {
             std::cout << "Message Major: " << msg->id().getMajor() << "\n";
             std::cout << "Message Minor: " << msg->id().getMinor() << "\n";
         }
 };
 
+class dummyMajorSubscriber : public Subscriber{
+    public:
+        void receive(Message* msg)
+        {
+            std::cout << "Message Major: " << msg->id().getMajor() << "\n";
+        }
+};
+
 Message message;
+Message majorMessage;
 
 int main()
 {
         Router route;
-        dummyPublisher* pub;
-        dummySubscriber* sub;
-        route.addPublisher(pub);
-        route.Subscribe(sub, message.id());
-        route.Execute();
+        dummyPublisher pub;
+        dummySubscriber sub;
+        dummyMajorSubscriber majorSub;
+        route.addPublisher(&pub);
+        route.subscribe(&sub, message.id());
+        route.subscribeToMajor(&majorSub, majorMessage.id().getMajor());
+        route.execute();
+        route.removeSubscribe(&sub ,message.id());
+        route.removeSubscribeToMajor(&majorSub, message.id().getMajor());
+        route.addPublisher(&pub);
+        route.execute();
+
 }

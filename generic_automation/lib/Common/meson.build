@@ -13,6 +13,7 @@ libCommon = shared_library('Common',
   './src/EncoderMessage.cpp',
   './src/Capabilities.cpp',
   './src/Router.cpp',
+  './src/Subscriber.cpp',
   include_directories : inc,
   install : true,
   dependencies : [])

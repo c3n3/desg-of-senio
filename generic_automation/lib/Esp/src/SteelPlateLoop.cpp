@@ -37,7 +37,6 @@ void genauto::steelPlateLoop(void* data)
             if (msgPtr != nullptr) {
                 auto& list = CapabilitiesList::subscriberList;
                 for (int i = 0; i < list.getSize(); i++) {
-                    msgPtr->log();
                     list.getList()[i]->receive(msgPtr);
                 }
             }

@@ -46,6 +46,7 @@ namespace genauto
          * @brief Type of the message specific to class
          */
         static constexpr msgType_t classMsgType = 0x0006;
+        static constexpr minor_t SUB_MINOR_ID = 0xff;
     };
 }
 

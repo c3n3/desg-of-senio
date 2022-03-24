@@ -16,6 +16,7 @@
                                             :persistent_input="output.persistent"
                                             :keystring="id + ':' + outputId"
                                             :type="'outputs'"
+                                            :links="device.inputs"
                                             />
                                     </div>
                                     <div v-if="output.type === 'Encoder'">
@@ -28,6 +29,7 @@
                                             :minor="outputId"
                                             :type="'outputs'"
                                             :tag="output.tag"
+                                            :devices="devices"
                                             />
                                     </div>
                                 </ul>

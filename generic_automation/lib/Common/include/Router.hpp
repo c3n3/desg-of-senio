@@ -6,6 +6,7 @@
   #include "Map.hpp"
   #include <vector>
   #include "Publisher.hpp"
+  #include <algorithm>
 
   using namespace genauto;
 
@@ -18,6 +19,7 @@
          public:
 
             Map<MessageId, std::vector<Subscriber*>> idMap;
+            Map<major_t, std::vector<Subscriber*>> majorIdMap;
             std::vector<Subscriber*> subs;
             std::vector<Publisher*> pubs;
             
@@ -42,7 +44,7 @@
                 * @param iD
                 * 
                 */
-               virtual void Subscribe(Subscriber* sub, MessageId iD);
+               virtual void subscribe(Subscriber* sub, MessageId iD);
 
                /**
                * @brief Creates list of subscribers and adds message id to subscribers
@@ -51,7 +53,7 @@
                * @param iD
                * 
                */
-               virtual void Add(Subscriber* sub, MessageId iD);
+               virtual void add(Subscriber* sub, MessageId iD);
 
                /**
                 * @brief Adds publishers to a list
@@ -61,11 +63,32 @@
                 */
                virtual void addPublisher(Publisher* pub);
 
-              /**
-               *@brief  
-               * 
-               */
-              virtual void Execute();
+               /**
+                * @brief subscribe to specific major ID
+                * 
+                * 
+                */
+                virtual void subscribeToMajor(Subscriber* sub, major_t majorId);
+
+                /**
+                 * @brief remove subscriber to major ID 
+                 * 
+                 * 
+                 */
+                virtual void removeSubscribeToMajor(Subscriber* sub, major_t majorId);
+
+                /**
+                 * @brief remove subscriber
+                 * 
+                 * 
+                 */
+                virtual void removeSubscribe(Subscriber* sub, MessageId iD); 
+
+                /**
+                *@brief receive message
+                * 
+                */
+               virtual void execute();
 
 
 
