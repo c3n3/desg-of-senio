@@ -18,8 +18,20 @@ using namespace genauto;
 constexpr uint8_t TEST_DEVICE_V1_SIZE = 2;
 
 Capability testDeviceV1Caps[] = {
-    Capability(Pwm, 9),
-    Capability(Button, 10),
+    Capability(Button, ConstantIds::Esp::NEW_IDS_START),
+    Capability(Button, ConstantIds::Esp::NEW_IDS_START + 1),
+    Capability(Button, ConstantIds::Esp::NEW_IDS_START = 2),
+    Capability(Pwm, ConstantIds::Esp::NEW_IDS_START + 3),
+    Capability(Pwm, ConstantIds::Esp::NEW_IDS_START + 4),
+    Capability(Stepper, ConstantIds::Esp::NEW_IDS_START + 5),
+    Capability(Stepper, ConstantIds::Esp::NEW_IDS_START + 6),
+    Capability(Stepper, ConstantIds::Esp::NEW_IDS_START + 7),
+    Capability(Encoder, ConstantIds::Esp::NEW_IDS_START + 8),
+    Capability(Encoder, ConstantIds::Esp::NEW_IDS_START + 9),
+    Capability(Analog, ConstantIds::Esp::NEW_IDS_START + 10),
+    Capability(Analog, ConstantIds::Esp::NEW_IDS_START + 11),
+    Capability(Switch, ConstantIds::Esp::NEW_IDS_START + 12),
+    Capability(Switch, ConstantIds::Esp::NEW_IDS_START + 13)
 };
 
 CapabilitiesMessage*
