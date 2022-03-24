@@ -74,14 +74,14 @@
                  * 
                  * 
                  */
-                virtual void removeSubscribeToMajor(Subscriber* sub, major_t majorId);
+                virtual void removeSubscribeToMajor(major_t majorId);
 
                 /**
                  * @brief remove subscriber
                  * 
                  * 
                  */
-                virtual void removeSubscribe(Subscriber* sub, MessageId iD); 
+                virtual void removeSubscribe(MessageId iD); 
 
                 /**
                 *@brief receive message

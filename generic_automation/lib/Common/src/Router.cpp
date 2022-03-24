@@ -43,6 +43,24 @@
        }
            
         majorIdMap[majorId].push_back(sub);
+        std::cout << majorIdMap[majorId].size();
+   }
+
+   void Router::removeSubscribeToMajor(major_t majorId)
+   {
+       if(majorIdMap.contains(majorId) == true)
+       {
+           majorIdMap[majorId].pop_back();
+       }
+       
+   }
+
+   void Router::removeSubscribe(MessageId iD)
+   {
+       if(idMap.contains(iD) == true)
+       {
+           idMap[iD].pop_back();
+       }
    }
 
   void Router::execute()
@@ -52,9 +70,19 @@
      {
          Message* msg = pub->tryGet();
          MessageId id = msg->id();
+         major_t majorId = id.getMajor();
          if(msg != NULL)
          {
              for(auto& sub : idMap[id])
+             {
+                if(sub != NULL)
+                {
+                    sub->receive(msg);
+                }
+                 
+             }
+
+             for(auto& sub : majorIdMap[majorId])
              {
                 if(sub != NULL)
                 {
