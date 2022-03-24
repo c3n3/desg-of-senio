@@ -7,7 +7,7 @@ Subscriber::Subscriber() : msg_(buffer_, maxMsgSize)
 
 void Subscriber::receive(Message* msg)
 {
-    dlog("Fomr thje tihbigs\n");
+    //dlog("Fomr thje tihbigs\n");
     if (!msgs_.enqueue(msg->getBuffer(), msg->getSizeSafe())) {
         elog("Failed enqueue of message\n");
     }

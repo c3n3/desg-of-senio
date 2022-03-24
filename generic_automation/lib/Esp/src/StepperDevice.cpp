@@ -140,15 +140,6 @@ void StepperDevice::setSpeed(float speed)
 {
     speed_ = speed;
     myStepper.setSpeedDps(speed_);
-    else if (mode == Degrees)
-    {
-
-    }
-    else if (mode == DegreesSecond)
-    {
-        myStepper.setSpeedDps(speed_); // negative speed for CCW, positive speed for CW
-    }
-    //dlog("speed: %d\n", (int)speed_);
 }
 
 /**
@@ -217,8 +208,10 @@ void genauto::StepperDevice::execute()
             //dlog("in encoder if\n");
             EncoderMessage *eMsg = (EncoderMessage *)Msg;
             int16_t val = eMsg->value() * encoderStepScale_; // can be negative, lets it know to move CCW or CW which should be moving the encoder the same.
-            setSpeed(speed_ + val); 
-            dlog("speed: %d\n", (int)speed_);
+            //dlog("val: %d\n", val);
+            if(mode == DegreesSecond) setSpeed(speed_ + val); 
+            else myStepper.setDegreesToStep(val, speed_);
+            //dlog("speed: %d\n", (int)speed_);
         }
         if (Msg->type() == ButtonMessage::classMsgType)
         {
@@ -235,27 +228,22 @@ void genauto::StepperDevice::execute()
             if (sMsg->modeType() == StepperMotorMessage::DegreesSecond)
             {
                 mode = DegreesSecond;
-            }
-            else if (sMsg->modeType() == StepperMotorMessage::StepsSecond)
-            {
-                mode = StepsSecond;
-            }
-            else if (sMsg->modeType() == StepperMotorMessage::Step)
-            {
-                mode = Step;
+                setSpeed(val);
             }
             if (sMsg->modeType() == StepperMotorMessage::Degrees)
             {
                 mode = Degrees;
+                dlog("val: %d\n", (int)val);
+                dlog("speed: %d\n", (int)speed_);
+                myStepper.setDegreesToStep(val, speed_);
             }
-            setSpeed(val);
         }
     }
     //t.log();
     if (motorOn)
     {
         //dlog("motor on\n");
-        if (mode == Degrees) mystepper.runSteps();
+        if (mode == Degrees) myStepper.runSteps();
         else myStepper.run();
     }
 }

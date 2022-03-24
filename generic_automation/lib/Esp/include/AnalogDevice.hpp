@@ -19,7 +19,7 @@ namespace genauto
         bool flag = false;
         unsigned long lastTime = 0;
         unsigned long readTime = 0;
-        int16_t accumValue = 0; // sum of the values read in during ~ 250ms interval.
+        uint32_t accumValue = 0; // sum of the values read in during ~ 250ms interval.
         uint8_t count = 0;      // number of values summed into accumValue
         AnalogMessage aMsg;
     public:

@@ -26,12 +26,17 @@ genauto::AnalogDevice::AnalogDevice(uint8_t pinNumber, minor_t minorId)
  */
 void genauto::AnalogDevice::execute()
 {
-    if (millis() - readTime >= 10) // read these values more often, and filter
+    if (millis() - readTime >= 100) // read these values more often, and filter
     {
-        //dlog("analogRead(): %d\n", analogRead(pinNumber));
-        accumValue += analogRead(pinNumber);
+        //delay(10);
+        //dlog("analogRead(): \n"); // for some reason when I comment this line out, the values go crazy, wtf
+        uint16_t aRead;
+        aRead = analogRead(pinNumber);
+        //dlog("analogRead(): %d\n", aRead);
+        accumValue += aRead;
         count++;
-        if ((millis() - lastTime) >= 250)
+        readTime = millis(); // wasn't updating the readTime so it was going into the wrapping if () statement every cycle so it was reading hella fast
+        if ((millis() - lastTime) >= 500)
         {
             lastTime = millis();
             flag = true;
@@ -39,6 +44,22 @@ void genauto::AnalogDevice::execute()
             //dlog("HERE %d\n", value);
             accumValue = 0;
             count = 0;
+            
+            if(true) // change this to if(thermistor)
+            {
+                
+                float resistor = 9907.0; // test my resistor, see if its maybe off by 20%`
+                float Vi = 3.3/4095.0 * (float)value;
+                Vi += 0.1; // voltage correction factor
+                //dlog("value: %d\n", (int)value);
+                uint32_t resistance = Vi * resistor / (3.3 - Vi);
+                // resistor values from kty81-210 data sheet, written as polynomial trend line
+                float temp = 1.02192985237609e-03 + 1.65394923419592e-07 * pow(log(resistance),3) - 2.47620754758454e-07 * pow(log(resistance),2) + 2.41453242427025e-04 * log(resistance);
+                temp = 1/temp;
+                temp -= 273.15; // K to C
+                value = temp * 1.8 + 32; // C to F
+                //dlog("resistance: %d\n", resistance); // this for testing purposes
+            }
         }
     }
 }
@@ -56,4 +77,5 @@ Message *genauto::AnalogDevice::tryGet()
         aMsg.value() = value;
         return &aMsg;
     }
+    return nullptr;
 }

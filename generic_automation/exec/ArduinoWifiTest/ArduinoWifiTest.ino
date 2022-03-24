@@ -1,6 +1,43 @@
+//#include "Arduino.h"
+//#include "src/Common/include/Log.hpp"
+//#include "src/Esp/include/WifiReceiver.hpp"
+//#include "src/Common/include/StepperMotorMessage.hpp"
+//#include "src/Common/include/EncoderMessage.hpp"
+//#include "src/Esp/include/PwmDevice.hpp"
+//#include "src/Common/include/SubscribeMessage.hpp"
+//#include "src/Common/include/Log.hpp"
+//#include "src/Common/include/StringBuilder.hpp"
+//#include "src/Common/include/Timer.hpp"
+//
+//#include "src/Esp/include/SteelPlateLoop.hpp"
+//#include "src/Esp/include/ExecLoop.hpp"
+//
+//using namespace genauto;
+//
+//#include "soc/rtc_wdt.h"
+//
+//
+//void setup()
+//{
+//    rtc_wdt_protect_off();
+//    rtc_wdt_disable();
+//    disableCore0WDT();
+//    disableLoopWDT();
+//    Serial.begin(115200);
+//    delay(100);
+//    WifiReceiver::getReceiver();
+//    //runSteelPlateLoop();
+//}
+//
+//void loop()
+//{
+//    //fireAK();
+//    
+//}
+
 #include "Arduino.h"
 #include "src/Common/include/Log.hpp"
-#include "src/Esp/include/WifiReceiver.hpp"
+//#include "src/Esp/include/WifiReceiver.hpp"
 #include "src/Common/include/StepperMotorMessage.hpp"
 #include "src/Common/include/EncoderMessage.hpp"
 #include "src/Common/include/ButtonMessage.hpp"
@@ -16,39 +53,43 @@
 //#include "src/Common/include/StringBuilder.hpp"
 #include "src/Common/include/Timer.hpp"
 
-#include "src/Esp/include/SteelPlateLoop.hpp"
-#include "src/Esp/include/ExecLoop.hpp"
+// #include "src/Esp/include/SteelPlateLoop.hpp"
+// #include "src/Esp/include/ExecLoop.hpp"
 
 using namespace genauto;
 
 #include "soc/rtc_wdt.h"
 
 
-Message msg;
+ButtonDeviceInst<14> bDev(1);
+EncoderDevice eDev(26,25,2);
+int16_t encVal = 0;
+AnalogDevice aDev(39, 3);
+uint16_t aVal;
+const uint8_t LED_PIN = 13;
+//SwitchDevice sDev(13, 4);
+PwmDevice pDev(LED_PIN, 0, 5);
+StepperDevice stepDev(32, 33, 6);
+
 
 void setup()
 {
     rtc_wdt_protect_off();
     rtc_wdt_disable();
-    disableCore0WDT();
-    disableLoopWDT();
+    //disableCore0WDT();
+    //disableLoopWDT();
     Serial.begin(115200);
     delay(100);
-
-    CapabilitiesList::init();
-    WifiReceiver::getReceiver();
-    WifiSender sender(SERVER_IP);
-    dlog("Sending:\n");
-    CapabilitiesList::capabilitiesList->log();
-    String result = sender.syncSend(CapabilitiesList::capabilitiesList);
-    if (result == "") {
-        elog("Error, did not acquire device id. Maybe server ip is incorrect?\n");
-    } else {
-        genauto::deviceId = result.toInt();
-        dlog("Acquired device id %x\n", genauto::deviceId);
-    }
-    msg.id() = MessageId(90, 20);
-    msg.type() = 0x0001;
+    //WifiReceiver::getReceiver();
+    stepDev.setSpeed(0);
+    StepperMotorMessage sMsg;
+    sMsg.modeType() = StepperMotorMessage::Mode::DegreesSecond; // Degrees
+    sMsg.value() = 300;
+    sMsg.stepScale() = 20;
+    stepDev.receive((Message*)&sMsg);
+    // sMsg.modeType() = StepperMotorMessage::Mode::Degrees;
+    // sMsg.value() = 360;
+    // stepDev.receive((Message*)&sMsg);
 }
 
 //void loop()
@@ -58,6 +99,7 @@ void setup()
 
 void loop()
 {
+    //dlog("analog value: %d\n", analogRead(39));
     //Timer t("HI");
     bDev.execute();
     Message* bMsg = bDev.tryGet();
@@ -85,7 +127,7 @@ void loop()
     if(algMsg != nullptr) 
     {
       aVal = algMsg->value();
-      //dlog("analog value: %d\n", aVal);
+      //dlog("analog value: %u\n", aVal);
     }
 
     //sDev.execute();
@@ -93,4 +135,6 @@ void loop()
     pDev.execute();
     stepDev.execute();
     //t.log();
+    // delay(100);
+    // dlog("%d\n", analogRead(39));
 }
