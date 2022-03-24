@@ -11,6 +11,25 @@
         <input type="checkbox" v-model="value" @change="check($event)">
     </div>
     <div class="tag-label">&nbsp;&nbsp;&nbsp;&nbsp;Type: {{tag}}</div>
+    <br v-if="type == 'outputs'">
+    <div class="links-wrapper-wrapper" v-if="type == 'outputs'">
+        <div class="links-wrapper">
+            Link device to input(s):
+            <div v-for="(device, id) in devices" :key="id" class="device-links">
+                {{device.name}}:
+                <div class="links">
+                    <div v-for="(input, id) in device.inputs" :key="id" class="link-item">
+                        <label for="{{id}}"> {{input['persistent']['name']}}</label><br>
+                        <input
+                        type="checkbox"
+                        id="{{id}}"
+                        name="{{inputs[id]['persistent']['name']}}"
+                        value="{{inputs[id]['persistent']['name']}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
 </template>
 
@@ -18,11 +37,12 @@
 import axios from 'axios'
 
 export default {
-  props: ['tag', 'persistent_input', 'keystring', 'type'],
+  props: ['tag', 'persistent_input', 'keystring', 'type', 'links'],
   name: 'Button',
   data: function () {
       return {
           value: null,
+          linked: null,
           edit_name: false,
           persistent: this.persistent_input,
           responseData: null,
@@ -59,6 +79,10 @@ export default {
           },
           deep: true
       }
+  },
+  mounted() {
+    console.log("Got: ");   
+    console.log(this.links);   
   }
 }
 </script>

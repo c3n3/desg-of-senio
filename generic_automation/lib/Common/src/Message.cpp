@@ -10,7 +10,7 @@ Message::Message(uint16_t size)
     if (size < baseSize) {
         elog("Message size less than base size\n");
     }
-    dlog("Alloc %d\n", size);
+    // dlog("Alloc %d\n", size);
     buffer_ = new uint8_t[size];
     memset(buffer_, 0, size);
     alloc = true;
@@ -41,7 +41,7 @@ uint16_t Message::getBufferSize()
 Message::~Message()
 {
     if (alloc) {
-        dlog("De-alloc %d\n", size_());
+        // dlog("De-alloc %d\n", size_());
         delete[] buffer_;
     }
 }
@@ -84,4 +84,9 @@ void Message::setBuffer(uint8_t* buffer)
 void Message::log()
 {
     dlog("Message: id = {%x,%d}, type = %x, size=%d\n", id().getMajor(), id().getMinor(), type(), size());
+}
+
+uint16_t Message::getSizeSafe()
+{
+    return size() > getBufferSize() ? getBufferSize() : size();
 }

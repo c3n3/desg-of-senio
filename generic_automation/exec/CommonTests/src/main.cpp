@@ -1,3 +1,4 @@
+#include <iostream>
 #include "StepperMotorMessage.hpp"
 #include "SubscribeMessage.hpp"
 #include "EncoderMessage.hpp"
@@ -12,7 +13,6 @@
 #include "StaticQueue.hpp"
 #include "MessageTypeRegistry.hpp"
 #include "Capabilities.hpp"
-#include <iostream>
 #include <sstream>
 #include <chrono>
 #include <thread>
@@ -89,4 +89,23 @@ void send(Message* message)
 
 int main()
 {
+    Map<std::string, std::string> map;
+
+
+
+    map.insert("VEE", "Another thing");
+    map.insert("KEY", "Possibility");
+    map.insert("ZZZ", "look");
+    map.insert("000", "polish");
+    map.insert("TEE", "832749273");
+
+    for (int i = 0; i < map.size(); i++) {
+        Pair<std::string, std::string>& kt = *map.index(i);
+        std::cout << "KEY: " << kt.one << " VAL: " << kt.two << "\n";
+    }
+
+    for (auto it = map.begin(); it != map.end(); it++) {
+
+        std::cout << "KEY: " << (*it).one << " VAL: " << (*it).two << "\n";
+    }
 }

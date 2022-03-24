@@ -15,9 +15,7 @@ WifiSender::WifiSender(const char* url)
 String WifiSender::syncSend(Message* msg)
 {
     String ret = "";
-    dlog("Size = %d\n", msg->size());
     serializer_.serialize(msg);
-    dlog("Parse = %s\n", serializer_.getBuffer());
     uint16_t urlLen = strlen(url_);
     uint16_t dataLen = strlen(serializer_.getBuffer());
     const char* prefix = "/_ps_?d=";
@@ -27,7 +25,6 @@ String WifiSender::syncSend(Message* msg)
     memcpy(buffer, url_, urlLen); 
     memcpy(buffer+urlLen, prefix, prefixLen); 
     memcpy(buffer+urlLen+prefixLen, serializer_.getBuffer(), dataLen+1); 
-    dlog("Sending to %s\n", buffer);
     if (WiFi.status() == WL_CONNECTED)
     {
         char* url = (char*)buffer;

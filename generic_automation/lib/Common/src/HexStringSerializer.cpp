@@ -30,7 +30,6 @@ HexStringSerializer::Result HexStringSerializer::serialize(Message* msg)
         }
     }
     buffer_[index] = '\0';
-    dlog("Buffer = %s\n", (char*)buffer_);
     currentSize_ = msg->size()*2;
 
     return Success;

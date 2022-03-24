@@ -1,6 +1,5 @@
 <template>
 <div>
-    Hello
   <Devices :propdata="devices"/>
 </div>
 </template>
@@ -16,7 +15,7 @@ export default {
   },
   data: function () {
     return {
-      devices: JSON.parse(window.jsonInput)
+      devices: JSON.parse(window.jsonInput) // 
     }
   },
   mounted() {
@@ -104,5 +103,26 @@ export default {
 }
 h4 {
     margin-bottom: 5px;
+}
+.links {
+    border: #b52b09 solid 2px;
+    display: flex;
+    padding: 5px;
+}
+.links-wrapper {
+    display: flex;
+    flex-direction: column;
+    border: grey solid 1px;
+    align-items: flex-start;
+    padding: 5px;
+}
+.link-item {
+    margin-right: 10px;
+}
+.device-links {
+    margin: 5px;
+}
+.links-wrapper-wrapper {
+    display: flex;
 }
 </style>

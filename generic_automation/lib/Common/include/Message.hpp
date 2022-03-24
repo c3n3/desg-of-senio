@@ -66,6 +66,8 @@ namespace genauto {
         virtual void log();
 
         Message (const Message& other);
+
+        uint16_t getSizeSafe();
     };
 }
 
