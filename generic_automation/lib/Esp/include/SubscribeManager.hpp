@@ -1,8 +1,8 @@
 #ifndef __GENAUTO_SUBSCRIBE_MANGER__
 #define __GENAUTO_SUBSCRIBE_MANGER__
 
-#include "Device.hpp"
-#include "Router.hpp"
+#include "../../Common/include/Device.hpp"
+#include "../../Common/include/Router.hpp"
 
 namespace genauto {
     class SubscribeManager : public Device, public Subscriber {

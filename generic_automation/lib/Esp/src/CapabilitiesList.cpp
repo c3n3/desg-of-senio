@@ -4,6 +4,9 @@
 #include "../include/ButtonDevice.hpp"
 #include "../include/PwmDevice.hpp"
 #include "../include/StepperDevice.hpp"
+#include "../include/SwitchDevice.hpp"
+#include "../include/AnalogDevice.hpp"
+#include "../include/EncoderDevice.hpp"
 #include "../include/TimedPublisher.hpp"
 #include "../../Common/include/Device.hpp"
 #include "../../Common/include/DebugDevice.hpp"
@@ -15,12 +18,12 @@
 
 using namespace genauto;
 
-constexpr uint8_t TEST_DEVICE_V1_SIZE = 2;
+//constexpr uint8_t TEST_DEVICE_V1_SIZE = 2;
 
 Capability testDeviceV1Caps[] = {
     Capability(Button, ConstantIds::Esp::NEW_IDS_START),
     Capability(Button, ConstantIds::Esp::NEW_IDS_START + 1),
-    Capability(Button, ConstantIds::Esp::NEW_IDS_START = 2),
+    Capability(Button, ConstantIds::Esp::NEW_IDS_START + 2),
     Capability(Pwm, ConstantIds::Esp::NEW_IDS_START + 3),
     Capability(Pwm, ConstantIds::Esp::NEW_IDS_START + 4),
     Capability(Stepper, ConstantIds::Esp::NEW_IDS_START + 5),

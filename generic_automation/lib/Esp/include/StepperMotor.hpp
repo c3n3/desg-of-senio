@@ -62,6 +62,7 @@ namespace genauto
             float val = degrees / 360.0 * (float)stepsPerRev_;
             if(val < 0) val = 0 - val;
             stepsLeft += (int)val;
+            dlog("steps left: %d\n", stepsLeft);
             //dlog("stepsPerRev: %d\n", (int)stepsPerRev_);
             // if (dps > -500 && dps < 500)
             //     msInterval_ = 1000 / dpsToStepsPerSecond(dps);

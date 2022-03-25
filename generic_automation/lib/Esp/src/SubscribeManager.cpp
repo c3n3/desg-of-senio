@@ -16,7 +16,7 @@ void SubscribeManager::execute()
         for (int i = 0; i < list.getSize(); i++) {
             if (real.idTo().minor == list.getList()[i]->minorId) {
                 // Add to the router
-                devRouter_->Subscribe((Subscriber*)list.getList()[i], real.idTo());
+                //devRouter_->Subscribe((Subscriber*)list.getList()[i], real.idTo());
             }
         }
     }
@@ -26,5 +26,5 @@ SubscribeManager::SubscribeManager(minor_t minor, Router* devRouter)
     : Device(minor), devRouter_(devRouter)
 {
     MessageId id(deviceId, SubscribeMessage::SUB_MINOR_ID);
-    devRouter_->Subscribe(this, id);
+    //devRouter_->Subscribe(this, id);
 }

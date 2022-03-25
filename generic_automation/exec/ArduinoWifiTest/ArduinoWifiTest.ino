@@ -99,6 +99,7 @@ void setup()
 
 void loop()
 {
+    dlog("what is going on");
     //dlog("analog value: %d\n", analogRead(39));
     //Timer t("HI");
     bDev.execute();
