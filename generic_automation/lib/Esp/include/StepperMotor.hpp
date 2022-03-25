@@ -79,7 +79,7 @@ namespace genauto
                 step();
                 time_ += msInterval_;
                 stepsLeft--;
-                //dlog("runSteps, stepsLeft: %d\n", (int)stepsLeft);
+                dlog("runSteps, stepsLeft: %d\n", (int)stepsLeft);
             }
         }
 
