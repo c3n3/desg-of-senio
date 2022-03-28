@@ -18,31 +18,31 @@
 
 using namespace genauto;
 
-//constexpr uint8_t TEST_DEVICE_V1_SIZE = 2;
+constexpr uint8_t TEST_DEVICE_V1_SIZE = 2;
 
 Capability testDeviceV1Caps[] = {
-    // Capability(Button, ConstantIds::Esp::NEW_IDS_START),
-    // Capability(Button, ConstantIds::Esp::NEW_IDS_START + 1),
-    // Capability(Button, ConstantIds::Esp::NEW_IDS_START + 2),
-    // Capability(Pwm, ConstantIds::Esp::NEW_IDS_START + 3),
-    // Capability(Pwm, ConstantIds::Esp::NEW_IDS_START + 4),
-    // Capability(Stepper, ConstantIds::Esp::NEW_IDS_START + 5),
-    // Capability(Stepper, ConstantIds::Esp::NEW_IDS_START + 6),
-    // Capability(Stepper, ConstantIds::Esp::NEW_IDS_START + 7),
-    // Capability(Encoder, ConstantIds::Esp::NEW_IDS_START + 8),
-    // Capability(Encoder, ConstantIds::Esp::NEW_IDS_START + 9),
-    // Capability(Analog, ConstantIds::Esp::NEW_IDS_START + 10),
-    // Capability(Analog, ConstantIds::Esp::NEW_IDS_START + 11),
-    // Capability(Switch, ConstantIds::Esp::NEW_IDS_START + 12),
-    // Capability(Switch, ConstantIds::Esp::NEW_IDS_START + 13)
+    Capability(Button, ConstantIds::Esp::NEW_IDS_START),
+    Capability(Button, ConstantIds::Esp::NEW_IDS_START + 1),
+    Capability(Button, ConstantIds::Esp::NEW_IDS_START + 2),
+    Capability(Pwm, ConstantIds::Esp::NEW_IDS_START + 3),
+    Capability(Pwm, ConstantIds::Esp::NEW_IDS_START + 4),
+    Capability(Stepper, ConstantIds::Esp::NEW_IDS_START + 5),
+    Capability(Stepper, ConstantIds::Esp::NEW_IDS_START + 6),
+    Capability(Stepper, ConstantIds::Esp::NEW_IDS_START + 7),
+    Capability(Encoder, ConstantIds::Esp::NEW_IDS_START + 8),
+    Capability(Encoder, ConstantIds::Esp::NEW_IDS_START + 9),
+    Capability(Analog, ConstantIds::Esp::NEW_IDS_START + 10),
+    Capability(Analog, ConstantIds::Esp::NEW_IDS_START + 11),
+    Capability(Switch, ConstantIds::Esp::NEW_IDS_START + 12),
+    Capability(Switch, ConstantIds::Esp::NEW_IDS_START + 13)
 };
 
 CapabilitiesMessage*
 CapabilitiesList::capabilitiesList = nullptr;
 
-ButtonDeviceInst<5> button1(ConstantIds::Esp::NEW_IDS_START);
-ButtonDeviceInst<14> button2(ConstantIds::Esp::NEW_IDS_START + 1);
-ButtonDeviceInst<15> button3(ConstantIds::Esp::NEW_IDS_START + 2);
+ButtonDeviceInst<34> button1(ConstantIds::Esp::NEW_IDS_START);
+ButtonDeviceInst<35> button2(ConstantIds::Esp::NEW_IDS_START + 1);
+ButtonDeviceInst<36> button3(ConstantIds::Esp::NEW_IDS_START + 2);
 
 PwmDevice pwm1(21, 0, ConstantIds::Esp::NEW_IDS_START + 3);
 PwmDevice pwm2(18, 0, ConstantIds::Esp::NEW_IDS_START + 4);
@@ -51,11 +51,11 @@ StepperDevice stepper1(32, 33,  ConstantIds::Esp::NEW_IDS_START + 5);
 StepperDevice stepper2(26, 27,  ConstantIds::Esp::NEW_IDS_START + 6);
 StepperDevice stepper3(23, 25,  ConstantIds::Esp::NEW_IDS_START + 7);
 
-EncoderDevice encoder1(34, 35, ConstantIds::Esp::NEW_IDS_START + 8);
-EncoderDevice encoder2(36, 39, ConstantIds::Esp::NEW_IDS_START + 9);
+EncoderDevice encoder1(4, 5, ConstantIds::Esp::NEW_IDS_START + 8);
+EncoderDevice encoder2(13, 39, ConstantIds::Esp::NEW_IDS_START + 9);
 
-AnalogDevice analog1(4, ConstantIds::Esp::NEW_IDS_START + 10);
-AnalogDevice analog2(13, ConstantIds::Esp::NEW_IDS_START + 11);
+AnalogDevice analog1(14, ConstantIds::Esp::NEW_IDS_START + 10);
+AnalogDevice analog2(15, ConstantIds::Esp::NEW_IDS_START + 11);
 
 SwitchDevice switch1(16, ConstantIds::Esp::NEW_IDS_START + 12);
 SwitchDevice switch2(17, ConstantIds::Esp::NEW_IDS_START + 13);
@@ -69,25 +69,25 @@ Device* devices[] = {
 };
 
 Subscriber* subscribers[] = {
-    // (Subscriber*)&stepper1,
-    // (Subscriber*)&stepper2,
-    // (Subscriber*)&stepper3,
-    // (Subscriber*)&pwm1,
-    // (Subscriber*)&pwm2,
-    // (Subscriber*)&switch1,
-    // (Subscriber*)&switch2,
-    // (Subscriber*)&deb
+    (Subscriber*)&stepper1,
+    (Subscriber*)&stepper2,
+    (Subscriber*)&stepper3,
+    (Subscriber*)&pwm1,
+    (Subscriber*)&pwm2,
+    (Subscriber*)&switch1,
+    (Subscriber*)&switch2,
+    (Subscriber*)&deb
 };
 
 Publisher* publishers[] = {
-    // (Publisher*)&button1,
-    // (Publisher*)&button2,
-    // (Publisher*)&button3,
-    // (Publisher*)&encoder1,
-    // (Publisher*)&encoder2,
-    // (Publisher*)&analog1,
-    // (Publisher*)&analog2,
-    // (Publisher*)&timed
+    (Publisher*)&button1,
+    (Publisher*)&button2,
+    (Publisher*)&button3,
+    (Publisher*)&encoder1,
+    (Publisher*)&encoder2,
+    (Publisher*)&analog1,
+    (Publisher*)&analog2,
+    (Publisher*)&timed
 };
 
 StaticList<Subscriber*> CapabilitiesList::subscriberList(

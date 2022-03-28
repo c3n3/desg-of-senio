@@ -103,12 +103,12 @@ genauto::StepperDevice::StepperDevice(uint8_t stepPin, uint8_t dirPin, minor_t m
       motorOn(true),
       mode(DegreesSecond)
 {
-    //pinMode(stepPin, OUTPUT);
-    //pinMode(dirPin, OUTPUT);
-    //myStepper.setMaxSpeed(900);
-    //myStepper.setSpeed(400);
-    //speed_ = 400;
-      myStepper.setSpeedDps(speed_);
+    // pinMode(stepPin, OUTPUT);
+    // pinMode(dirPin, OUTPUT);
+    // myStepper.setMaxSpeed(900);
+    // myStepper.setSpeed(400);
+    // speed_ = 400;
+    myStepper.setSpeedDps(speed_);
 }
 
 /**
@@ -205,13 +205,13 @@ void genauto::StepperDevice::execute()
         //dlog("first if\n");
         if (Msg->type() == EncoderMessage::classMsgType)
         {
-            //dlog("in encoder if\n");
+            // dlog("in encoder if\n");
             EncoderMessage *eMsg = (EncoderMessage *)Msg;
-            int16_t val = eMsg->value() * encoderStepScale_; // can be negative, lets it know to move CCW or CW which should be moving the encoder the same.
-            //dlog("val: %d\n", val);
+            int16_t val = (int16_t)eMsg->value() * encoderStepScale_; // can be negative, lets it know to move CCW or CW which should be moving the encoder the same.
+            // dlog("val: %d\n", val);
             if(mode == DegreesSecond) setSpeed(speed_ + val); 
             else myStepper.setDegreesToStep(val, speed_);
-            //dlog("speed: %d\n", (int)speed_);
+            // dlog("speed: %d\n", (int)speed_);
         }
         if (Msg->type() == ButtonMessage::classMsgType)
         {
@@ -233,9 +233,9 @@ void genauto::StepperDevice::execute()
             if (sMsg->modeType() == StepperMotorMessage::Degrees)
             {
                 mode = Degrees;
-                dlog("val: %d\n", (int)val);
-                dlog("speed: %d\n", (int)speed_);
-                myStepper.setDegreesToStep(val, speed_);
+                // dlog("val: %d\n", (int)val);
+                // dlog("speed: %d\n", (int)speed_);
+                myStepper.setDegreesToStep((int)val, speed_);
             }
         }
     }
