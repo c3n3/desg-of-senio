@@ -276,28 +276,8 @@ Wire Wire Line
 	25250 18250 24300 18250
 Wire Wire Line
 	24300 18950 25250 18950
-Text GLabel 24450 17750 2    50   Input ~ 0
-EN1
-Text GLabel 22150 18750 0    50   Input ~ 0
-EN2
-Wire Wire Line
-	24300 17750 24450 17750
 Wire Wire Line
 	22150 18750 22300 18750
-Text GLabel 24450 17650 2    50   Input ~ 0
-IN1
-Text GLabel 22150 18450 0    50   Input ~ 0
-IN2
-Text GLabel 22150 18850 0    50   Input ~ 0
-IN3
-Text GLabel 24450 18050 2    50   Input ~ 0
-IN4
-Wire Wire Line
-	24300 17650 24450 17650
-Wire Wire Line
-	24450 18050 24300 18050
-Wire Wire Line
-	22150 18450 22300 18450
 Wire Wire Line
 	22150 18850 22300 18850
 $Comp
@@ -1900,4 +1880,51 @@ Text GLabel 23050 15500 0    50   Input ~ 0
 14
 Wire Wire Line
 	23050 15500 23250 15500
+$Comp
+L Custom:SN74LVC2G06DCKR U3
+U 1 1 624C81FC
+P 21250 15850
+F 0 "U3" H 21250 16420 50  0000 C CNN
+F 1 "SN74LVC2G06DCKR" H 21250 16329 50  0000 C CNN
+F 2 "SOT65P210X110-6N" H 21250 15850 50  0001 L BNN
+F 3 "" H 21250 15850 50  0001 L BNN
+	1    21250 15850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	22900 14400 21950 14400
+Wire Wire Line
+	21950 14400 21950 15550
+Connection ~ 22900 14400
+$Comp
+L power:GND #PWR033
+U 1 1 624DE9E3
+P 21950 16050
+F 0 "#PWR033" H 21950 15800 50  0001 C CNN
+F 1 "GND" H 21955 15877 50  0000 C CNN
+F 2 "" H 21950 16050 50  0001 C CNN
+F 3 "" H 21950 16050 50  0001 C CNN
+	1    21950 16050
+	1    0    0    -1  
+$EndComp
+Text GLabel 24300 17750 2    50   Input ~ 0
+21
+Text GLabel 22150 18750 0    50   Input ~ 0
+18
+Text GLabel 20550 15750 0    50   Input ~ 0
+22
+Text GLabel 20550 15850 0    50   Input ~ 0
+19
+Text GLabel 22150 18850 0    50   Input ~ 0
+19
+Text GLabel 21950 15750 2    50   Input ~ 0
+I22
+Text GLabel 21950 15850 2    50   Input ~ 0
+I19
+Text GLabel 24300 18050 2    50   Input ~ 0
+I19
+Text GLabel 22300 18450 0    50   Input ~ 0
+22
+Text GLabel 24300 17650 2    50   Input ~ 0
+I22
 $EndSCHEMATC
