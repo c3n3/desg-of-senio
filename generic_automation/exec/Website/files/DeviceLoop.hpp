@@ -17,8 +17,6 @@ namespace genauto {
 
         bool exec();
 
-        static DeviceLoop devLoop;
-
         void addDevice(Device* dev);
 
         void removeDevice(Device* dev);

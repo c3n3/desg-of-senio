@@ -34,7 +34,7 @@ String WifiSender::syncSend(Message* msg)
         ret = http.getString();
         if (httpResponseCode <= 0)
         {
-            elog("Error: %d\n", httpResponseCode);
+            elog("Error: %d, sending %s\n", httpResponseCode, buffer);
         }
         // Free resources
         http.end();

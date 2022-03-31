@@ -13,12 +13,20 @@ namespace genauto
      */
     class SubscribeMessage : public Message
     {
+    public:
+        enum Type : uint8_t {
+            Sub = 0,
+            Pub,
+            RemoveSub,
+            RemovePub,
+        };
     private:
         static constexpr location_t idFrom_loc = Message::derivedStart_loc;
         static constexpr location_t idTo_loc = idFrom_loc + sizeof(MessageId);
+        static constexpr location_t subType_loc = idTo_loc + sizeof(MessageId);
 
         static constexpr uint16_t msgSize
-            = Message::baseSize + sizeof(MessageId) + sizeof(MessageId);
+            = Message::baseSize + sizeof(MessageId) + sizeof(MessageId) + sizeof(Type);
     public:
         /**
          * @brief Create a stepper motor message
@@ -43,10 +51,16 @@ namespace genauto
         MessageId& idTo();
 
         /**
+         * @brief Which end this is at
+         *
+         * @return Type&
+         */
+        Type& subType();
+
+        /**
          * @brief Type of the message specific to class
          */
         static constexpr msgType_t classMsgType = 0x0006;
-        static constexpr minor_t SUB_MINOR_ID = 0xff;
     };
 }
 

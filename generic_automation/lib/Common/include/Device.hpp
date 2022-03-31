@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include "MessageId.hpp"
 #include "Subscriber.hpp"
+#include "Publisher.hpp"
 
 namespace genauto {
 
@@ -23,6 +24,9 @@ namespace genauto {
 
 
         Device(minor_t minorId);
+
+        virtual Subscriber* sub();
+        virtual Publisher* pub();
     };
 }
 

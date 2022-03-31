@@ -6,11 +6,8 @@
 #include "HexStringSerializer.hpp"
 #include "../database/Database.hpp"
 #include "../json/json.hpp"
-
 #include <drogon/HttpClient.h>
-#include <curlpp/cURLpp.hpp>
-#include <curlpp/Easy.hpp>
-#include <curlpp/Options.hpp>
+#include "../files/Common.h"
 
 using namespace genauto::pages;
 using json = nlohmann::json;
@@ -43,27 +40,6 @@ void Devices::update(const HttpRequestPtr &req,
     DevicesDatabase::deviceBase.update(keystring, type, parsed);
 }
 
-static HexStringSerializer serializer(1000);
-
-static void send(Message* message)
-{
-    std::string id = std::to_string(message->id().getMajor());
-    if (!JsonFile::deviceIds.j.contains(id)) {
-        elog("Invalid id %s\n", id.c_str());
-        return;
-    }
-    std::string ip = JsonFile::deviceIds.j[id]["ip"];
-
-    // Set as sending to
-    message->id().to();
-
-    serializer.serialize(message);
-    std::string willSend = std::string("http://") + ip + std::string("?d=") + serializer.getBuffer();
-    std::cout << "Will send: " << willSend << "\n";
-    cURLpp::Easy handle;
-    handle.setOpt(curlpp::options::Url(willSend));
-    handle.perform();
- }
 
 void Devices::encoderSend(const HttpRequestPtr &req,
     std::function<void (const HttpResponsePtr &)> &&callback,
@@ -75,7 +51,7 @@ void Devices::encoderSend(const HttpRequestPtr &req,
     m.id().major = major;
     m.id().minor = minor;
     m.value() = inc;
-    send(&m);
+    genauto::sendTo(&m);
     callback(HttpResponse::newHttpResponse());
 }
 
@@ -89,7 +65,7 @@ void Devices::buttonSend(const HttpRequestPtr &req,
     m.id().major = major;
     m.id().minor = minor;
     m.pressed() = true;
-    send(&m);
+    genauto::sendTo(&m);
     dlog("Tried to SEND BUTTON\n");
     callback(HttpResponse::newHttpResponse());
 }

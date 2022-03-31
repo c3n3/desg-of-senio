@@ -42,6 +42,8 @@ namespace genauto
          * @return Message* 
          */
         Message *tryGet();
+
+        Publisher* pub();
     };
 }
 

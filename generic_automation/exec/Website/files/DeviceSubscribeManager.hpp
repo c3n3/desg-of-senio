@@ -8,13 +8,15 @@
 #include "lib/Common/include/Publisher.hpp"
 #include "lib/Common/include/Router.hpp"
 #include "lib/Common/include/Map.hpp"
+
 namespace genauto {
     class DeviceSubscribeManager {
-        static Map<MessageId, DeviceSubscriber> map;
+        static Map<major_t, DeviceSubscriber> map;
         static Router r;
+        static DeviceLoop loop;
+    public:
         static void removeSub(MessageId& to, MessageId from);
         static void addSub(MessageId& to, MessageId from);
-        static void DeviceLoop loop;
     };
 }
 

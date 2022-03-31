@@ -30,8 +30,6 @@ bool DeviceLoop::exec()
     devsMutex.unlock();
 }
 
-DeviceLoop DeviceLoop::devLoop;
-
 DeviceLoop::DeviceLoop()
 {
     run();

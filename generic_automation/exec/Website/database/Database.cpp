@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <trantor/utils/Logger.h>
+#include "../files/DeviceSubscribeManager.hpp"
 
 using namespace genauto;
 
@@ -38,7 +39,9 @@ static void updateLinks(const json& oldLinks, const json& newLinks, MessageId id
             MessageId subId(std::string(el.value()).c_str());
             std::string major = std::to_string(subId.major);
             std::string minor = std::to_string(subId.minor);
+
             std::cout << "Removing  sub " << major + ":" + minor << " From " << id.major << "\n";
+            DeviceSubscribeManager::removeSub(id, subId);
         }
     }
 
@@ -54,7 +57,9 @@ static void updateLinks(const json& oldLinks, const json& newLinks, MessageId id
             MessageId subId(std::string(el.value()).c_str());
             std::string major = std::to_string(subId.major);
             std::string minor = std::to_string(subId.minor);
+
             std::cout << "Adding  sub " << major + ":" + minor << " For " << id.major << "\n";
+            DeviceSubscribeManager::addSub(id, subId);
         }
     }
 }

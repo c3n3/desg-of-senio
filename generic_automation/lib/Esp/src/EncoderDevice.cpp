@@ -57,7 +57,6 @@ void genauto::EncoderDevice::execute()
 /// this shouldn't be a problem, but if it becomes a problem, we can implement
 /// a Queue.
 
-
 /**
  * @brief
  *
@@ -71,4 +70,9 @@ Message *genauto::EncoderDevice::tryGet()
         return &eMsg; // fixed, was returning message instead of address of msg
     }
     return nullptr;
+}
+
+Publisher* genauto::EncoderDevice::pub()
+{
+    return static_cast<Publisher*>(this);
 }

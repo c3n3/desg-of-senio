@@ -4,7 +4,7 @@
   #include "MessageId.hpp"
   #include "Subscriber.hpp"
   #include "Map.hpp"
-  #include <vector>
+  #include <set>
   #include "Publisher.hpp"
   #include <algorithm>
 
@@ -18,10 +18,10 @@
        class Router {
          public:
 
-            Map<MessageId, std::vector<Subscriber*>> idMap;
-            Map<major_t, std::vector<Subscriber*>> majorIdMap;
-            std::vector<Subscriber*> subs;
-            std::vector<Publisher*> pubs;
+            Map<MessageId, std::set<Subscriber*>> idMap;
+            Map<major_t, std::set<Subscriber*>> majorIdMap;
+            std::set<Subscriber*> subs;
+            std::set<Publisher*> pubs;
             
                /**
                 * @brief constructor
@@ -62,6 +62,14 @@
                 *  
                 */
                virtual void addPublisher(Publisher* pub);
+
+               /**
+                * @brief Removes publishers to a list
+                * 
+                * @param pub
+                *  
+                */
+               virtual void removePublisher(Publisher* pub);
 
                /**
                 * @brief subscribe to specific major ID

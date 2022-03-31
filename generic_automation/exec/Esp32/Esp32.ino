@@ -48,69 +48,32 @@ public:
     }
 };
 
-Router r;
-DummyPub p0(MessageId(21, 41));
-DummyPub p1(MessageId(21, 42));
-DummyPub p2(MessageId(21, 42));
-DummyPub p3(MessageId(21, 43));
-
-DebugDevice d0(41);
-DebugDevice d1(42);
-DebugDevice d2(43);
 WifiSender sender = WifiSender(SERVER_IP);
 
 void setup()
 {
-    r.subscribe((Subscriber*)&d0, MessageId(21,d0.minorId));
-    r.subscribe((Subscriber*)&d1, MessageId(21,d1.minorId));
-    r.subscribe((Subscriber*)&d2, MessageId(21,d2.minorId));
-
-    dlog("This is not a thing\n");
-
     rtc_wdt_protect_off();
     rtc_wdt_disable();
     disableCore0WDT();
     disableLoopWDT();
     Serial.begin(115200);
     delay(100);
-    // r.addPublisher(&p0);
-    // r.addPublisher(&p1);
-    // r.addPublisher(&p2);
-    // r.addPublisher(&p3);
     WifiReceiver::getReceiver();
     CapabilitiesList::init();
     dlog("Ip = %d\n", CapabilitiesList::capabilitiesList->ip());
     dlog("Sending:\n");
     CapabilitiesList::capabilitiesList->log();
-
-    ser.serialize(CapabilitiesList::capabilitiesList);
-    uint8_t buffer[1000];
-    Message msg(buffer, sizeof(buffer));
-
-    ser.deserialize(&msg);
-
-    CapabilitiesMessage real(msg.getBuffer(), msg.getBufferSize());
-    real.log();
-
     String result = sender.syncSend(CapabilitiesList::capabilitiesList);
+
     if (result == "") {
         elog("Error, did not acquire device id. Maybe server ip is incorrect?\n");
     } else {
         genauto::deviceId = result.toInt();
         dlog("Acquired device id %x\n", genauto::deviceId);
     }
-    msg.id() = MessageId(90, 20);
-    msg.type() = 0x0001;
-    // runSteelPlateLoop();
 }
 
 void loop()
 {
-    // r.execute();
-    // d0.execute();
-    // d1.execute();
-    // d2.execute();
-    // dlog("This is a thing\n");
-    // delay(1000);
     steelPlateLoop(nullptr);
 }
