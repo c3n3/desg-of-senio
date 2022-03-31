@@ -6,6 +6,7 @@
 #include "../../Common/include/Publisher.hpp"
 #include "../../Common/include/StaticList.hpp"
 #include "../../Common/include/Capabilities.hpp"
+#include "../../Common/include/Router.hpp"
 
 namespace genauto {
     namespace CapabilitiesList {
@@ -13,6 +14,7 @@ namespace genauto {
         extern StaticList<Publisher*> publisherList;
         extern StaticList<Subscriber*> subscriberList;
         extern CapabilitiesMessage* capabilitiesList;
+        extern Router router;
         void init();
     }
 }

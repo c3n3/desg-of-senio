@@ -90,6 +90,10 @@ target_sources(${PROJECT_NAME}
                ${PLUGIN_SRC}
                ${MODEL_SRC}
                database/Database.cpp
+               files/DeviceSubscribeManager.cpp
+               files/DeviceSubscriber.cpp
+               files/Thread.cpp
+               files/DeviceList.cpp
                files/Common.cpp)
 # ##############################################################################
 # uncomment the following line for dynamically loading views 

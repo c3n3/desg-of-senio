@@ -22,6 +22,12 @@ namespace genauto {
             KeyNotFound,
             Failure
         };
+
+        const Result SUCCESS = Success;
+        const Result NO_SPACE = NoSpace;
+        const Result KEY_NOT_FOUND = KeyNotFound;
+        const Result FAILURE = Failure;
+
     private:
         size_t size_;
         struct Node
@@ -205,7 +211,7 @@ namespace genauto {
             return *value;
         }
 
-        Result remove(KT&& key)
+        Result remove(KT key)
         {
             Result res = removeRecursive(key, &tree_);
             if (res == Success)

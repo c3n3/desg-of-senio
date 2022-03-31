@@ -18,7 +18,7 @@ void Router::subscribe(Subscriber *sub, MessageId iD)
 {
     if (inMap(iD) == true)
     {
-        idMap[iD].push_back(sub);
+        idMap[iD].insert(sub);
     }
     else
         add(sub, iD);
@@ -26,37 +26,44 @@ void Router::subscribe(Subscriber *sub, MessageId iD)
 
 void Router::add(Subscriber *sub, MessageId iD)
 {
-    idMap.insert(Pair<MessageId, std::vector<Subscriber *>>(iD, std::vector<Subscriber *>({})));
-    idMap[iD].push_back(sub);
+    idMap.insert(Pair<MessageId, std::set<Subscriber *>>(iD, std::set<Subscriber *>({})));
+    idMap[iD].insert(sub);
 }
 
 void Router::addPublisher(Publisher *pub)
 {
-    pubs.push_back(pub);
+    pubs.insert(pub);
+}
+
+void Router::removePublisher(Publisher *pub)
+{
+    auto res = pubs.find(pub);
+    if (res != pubs.end()) {
+        pubs.erase(res);
+    }
 }
 
 void Router::subscribeToMajor(Subscriber *sub, major_t majorId)
 {
     if (majorIdMap.contains(majorId) == false)
     {
-        majorIdMap.insert(Pair<major_t, std::vector<Subscriber *>>(majorId, std::vector<Subscriber *>({})));
+        majorIdMap.insert(Pair<major_t, std::set<Subscriber *>>(majorId, std::set<Subscriber *>({})));
     }
 
-    majorIdMap[majorId].push_back(sub);
+    majorIdMap[majorId].insert(sub);
 }
 
 void Router::removeSubscribeToMajor(Subscriber *sub, major_t majorId)
 {
     if (majorIdMap.contains(majorId) == true)
     {
-        for (int i = 0; i < majorIdMap[majorId].size(); i++)
+        auto& set = majorIdMap[majorId];
+        auto find = set.find(sub);
+        if (find != set.end())
         {
-            if (sub == majorIdMap[majorId][i])
-            {
-                majorIdMap[majorId].erase(majorIdMap[majorId].begin() + i);
-                std::cout << "Subscriber at: " << majorIdMap[majorId][i] << " Unsubscribed from: "
-                          << " Major: " << majorId << "\n";
-            }
+            std::cout << "Subscriber at: " << *find << " Unsubscribed from: "
+                        << " Major: " << majorId << "\n";
+            set.erase(find);
         }
     }
 }
@@ -65,14 +72,13 @@ void Router::removeSubscribe(Subscriber *sub, MessageId iD)
 {
     if (idMap.contains(iD) == true)
     {
-        for (int i = 0; i < idMap[iD].size(); i++)
+        auto& set = idMap[iD];
+        auto find = set.find(sub);
+        if (find != set.end())
         {
-            if (sub = idMap[iD][i])
-            {
-                idMap[iD].erase(idMap[iD].begin() + i);
-                std::cout << "Subscriber at: " << idMap[iD][i] << " Unsubscribed from: "
-                          << " Major: " << iD.getMajor() << " Minor: " << iD.getMinor() << "\n";
-            }
+            std::cout << "Subscriber at: " << *find << " Unsubscribed from: "
+                        << " MessageId: " << iD.major << ":" << iD.minor << "\n";
+            set.erase(find);
         }
     }
 }

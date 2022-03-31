@@ -3,14 +3,24 @@
 
 #include "../../Common/include/Device.hpp"
 #include "../../Common/include/Router.hpp"
+#include "../../Common/include/SubscribeMessage.hpp"
 
 namespace genauto {
     class SubscribeManager : public Device, public Subscriber {
-        Router* devRouter_;
-    public:
-        void execute();
+        SubscribeManager();
 
-        SubscribeManager(minor_t minor, Router* devRouter);
+        void addSub(SubscribeMessage* msg);
+        void removeSub(SubscribeMessage* msg);
+
+        void addPub(SubscribeMessage* msg);
+        void removePub(SubscribeMessage* msg);
+
+    public:
+
+        static Router router;
+        static SubscribeManager manager;
+
+        void execute();
     };
 }
 

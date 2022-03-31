@@ -247,3 +247,9 @@ void genauto::StepperDevice::execute()
         else myStepper.run();
     }
 }
+
+Subscriber* genauto::StepperDevice::sub()
+{
+    return static_cast<Subscriber*>(this);
+}
+

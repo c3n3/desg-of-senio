@@ -79,3 +79,8 @@ Message *genauto::AnalogDevice::tryGet()
     }
     return nullptr;
 }
+
+Publisher* genauto::AnalogDevice::pub()
+{
+    return static_cast<Publisher*>(this);
+}

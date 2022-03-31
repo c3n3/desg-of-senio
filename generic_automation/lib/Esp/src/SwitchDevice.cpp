@@ -53,3 +53,10 @@ void genauto::SwitchDevice::execute()
     }
     else digitalWrite(pinNumber, LOW);
 }
+
+
+Subscriber* genauto::SwitchDevice::sub()
+{
+    return static_cast<Subscriber*>(this);
+}
+

@@ -14,6 +14,7 @@
 #include "src/Esp/include/PwmDevice.hpp"
 #include "src/Common/include/SubscribeMessage.hpp"
 #include "src/Common/include/Log.hpp"
+#include "src/Common/include/DebugDevice.hpp"
 //#include "src/Common/include/StringBuilder.hpp"
 #include "src/Common/include/Timer.hpp"
 #include "src/Esp/include/CapabilitiesList.hpp"
@@ -34,6 +35,21 @@ Message msg;
 
 HexStringSerializer ser(1000);
 
+class DummyPub : public Publisher {
+    Message m;
+public:
+    DummyPub(MessageId id)
+    {
+        m.id() = id;
+    }
+    Message* tryGet()
+    {
+        return &m;
+    }
+};
+
+WifiSender sender = WifiSender(SERVER_IP);
+
 void setup()
 {
     rtc_wdt_protect_off();
@@ -42,33 +58,19 @@ void setup()
     disableLoopWDT();
     Serial.begin(115200);
     delay(100);
-
     WifiReceiver::getReceiver();
     CapabilitiesList::init();
     dlog("Ip = %d\n", CapabilitiesList::capabilitiesList->ip());
-    WifiSender sender(SERVER_IP);
     dlog("Sending:\n");
     CapabilitiesList::capabilitiesList->log();
-
-    ser.serialize(CapabilitiesList::capabilitiesList);
-    uint8_t buffer[1000];
-    Message msg(buffer, sizeof(buffer));
-
-    ser.deserialize(&msg);
-
-    CapabilitiesMessage real(msg.getBuffer(), msg.getBufferSize());
-    real.log();
-
     String result = sender.syncSend(CapabilitiesList::capabilitiesList);
+
     if (result == "") {
         elog("Error, did not acquire device id. Maybe server ip is incorrect?\n");
     } else {
         genauto::deviceId = result.toInt();
         dlog("Acquired device id %x\n", genauto::deviceId);
     }
-    msg.id() = MessageId(90, 20);
-    msg.type() = 0x0001;
-    // runSteelPlateLoop();
 }
 
 void loop()

@@ -52,3 +52,8 @@ Message *genauto::ButtonDevice::tryGet()
     }
     return nullptr;
 }
+
+Publisher* genauto::ButtonDevice::pub()
+{
+    return static_cast<Publisher*>(this);
+}

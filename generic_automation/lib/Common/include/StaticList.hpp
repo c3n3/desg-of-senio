@@ -19,6 +19,11 @@ namespace genauto {
         {
             return size;
         }
+
+        const T& operator[](uint16_t i)
+        {
+            return list[i];
+        }
     };
 }
 

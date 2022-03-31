@@ -38,7 +38,10 @@ namespace genauto {
         {
             if (node->next == nullptr) {
                 Node* temp = buf_.alloc();
-                if (temp == nullptr) return false;
+                if (temp == nullptr) {
+                    elog("Error out of space\n");
+                    return false;   
+                }
                 temp->set(item, size);
                 temp->dequeued = false;
                 node->next = temp;
@@ -113,7 +116,6 @@ namespace genauto {
             int count = 0;
             while (node != nullptr) {
                 node = node->next;
-                dlog("count\n");
                 count++;
             }
         }
