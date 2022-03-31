@@ -1,4 +1,4 @@
-19110533898526939
+19115480118867609
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -83062,6 +83062,13 @@ LTC3895IFE
 32
 32
 bigboard
+MODULE_A4988_STEPPER_MOTOR_DRIVER_CARRIER
+
+
+0
+16
+16
+bigboard
 MPXV1D1740L330
 
 
@@ -83089,6 +83096,20 @@ SMAJ140CA
 0
 2
 2
+bigboard
+SN74LVC2G06DCKR
+
+
+0
+6
+6
+bigboard
+SOT65P210X110-6N
+
+
+0
+6
+6
 bigboard
 SRD-S-112DM(F-11) Relay
 
