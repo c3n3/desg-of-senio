@@ -9,7 +9,7 @@ void WifiSender::send_(void* data)
 }
 
 WifiSender::WifiSender(const char* url)
-    : url_(url), serializer_(100)
+    : url_(url), serializer_(200)
 {}
 
 String WifiSender::syncSend(Message* msg)

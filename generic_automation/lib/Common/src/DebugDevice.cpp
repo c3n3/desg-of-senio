@@ -12,6 +12,9 @@ void DebugDevice::execute()
 {
     Message* msg = nextMessage();
 
+    if (msgs_.count() == msgs_.size()) {
+        dlog("Out of message space\n");
+    }
     if (msg != nullptr) {
         dlog("Debug device %d got message: \n", minorId);
         msg->log();

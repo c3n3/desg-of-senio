@@ -20,6 +20,8 @@ using namespace genauto;
 
 constexpr uint8_t TEST_DEVICE_V1_SIZE = 2;
 
+Router genauto::CapabilitiesList::router;
+
 Capability testDeviceV1Caps[] = {
     Capability(Button, ConstantIds::Esp::NEW_IDS_START),
     Capability(Button, ConstantIds::Esp::NEW_IDS_START + 1),
@@ -65,6 +67,13 @@ TimedPublisher timed(1000, MessageId(0, ConstantIds::Esp::NEW_IDS_START + 14));
 DebugDevice deb(99);
 
 Device* devices[] = {
+    (Device*)&stepper1,
+    (Device*)&stepper2,
+    (Device*)&stepper3,
+    (Device*)&pwm1,
+    (Device*)&pwm2,
+    (Device*)&switch1,
+    (Device*)&switch2,
     (Device*)&deb
 };
 
@@ -105,4 +114,15 @@ void CapabilitiesList::init()
     // All devices will subscribe to messages to themselves
     capabilitiesList = new CapabilitiesMessage(testDeviceV1Caps, ARRSIZE(testDeviceV1Caps));
     capabilitiesList->ip() = WiFi.localIP();
+    const auto& subs = subscriberList.getList();
+    const auto& devs = deviceList.getList();
+    const auto& pubs = publisherList.getList();
+
+    for (int i = 0; i < deviceList.getSize(); i++) {
+        Subscriber* sub = reinterpret_cast<Subscriber*>(devs[i]);
+        if (sub) {
+            auto id = MessageId(deviceId, devs[i]->minorId);
+            router.subscribe(sub, id.to());
+        }
+    }
 }

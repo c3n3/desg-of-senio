@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include "MessageId.hpp"
+#include "Subscriber.hpp"
 
 namespace genauto {
 

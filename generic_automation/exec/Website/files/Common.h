@@ -2,6 +2,7 @@
 #define __GENAUTO_COMMON_H__
 
 #include <string>
+#include <future>
 
 namespace genauto {
     /**
@@ -17,6 +18,15 @@ namespace genauto {
      * @param data
      */
     void removeNewLines(std::string& data);
+
+    template <class F>
+    void callAsync(F&& fun) {
+        auto futptr = std::make_shared<std::future<void>>();
+        *futptr = std::async(std::launch::async, [futptr, fun]() {
+            fun();
+        });
+}
+
 }
 
 #endif

@@ -1,25 +1,31 @@
 #include "Database.hpp"
-#include "../common/Common.h"
+#include "../files/Common.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <trantor/utils/Logger.h>
 
 using namespace genauto;
+
 DevicesDatabase::DevicesDatabase(const char* fileName) : data(fileName)
 {
     data.load();
 }
 
-static void removeSub(std::string& keystring, std::string& device)
+static void removeSub(MessageId& sub, MessageId& subTo)
 {
     
 }
 
-static void updateLinks(const json& oldLinks, const json& newLinks, std::string& device)
+static void addSub(MessageId& sub, MessageId& subTo)
+{
+    
+}
+
+
+static void updateLinks(const json& oldLinks, const json& newLinks, MessageId id)
 {
     // Terribly ineffecient algo, but not important here
-
     // If not found, we must remove the sub
     for (const auto& el : oldLinks.items()) {
         bool found = false;
@@ -28,6 +34,28 @@ static void updateLinks(const json& oldLinks, const json& newLinks, std::string&
                 found = true;
             }
         }
+        if (!found) {
+            MessageId subId(std::string(el.value()).c_str());
+            std::string major = std::to_string(subId.major);
+            std::string minor = std::to_string(subId.minor);
+            std::cout << "Removing  sub " << major + ":" + minor << " From " << id.major << "\n";
+        }
+    }
+
+    // If not found, we must add the sub
+    for (const auto& el : newLinks.items()) {
+        bool found = false;
+        for (const auto& nel : oldLinks.items()) {
+            if (nel.value() == el.value()) {
+                found = true;
+            }
+        }
+        if (!found) {
+            MessageId subId(std::string(el.value()).c_str());
+            std::string major = std::to_string(subId.major);
+            std::string minor = std::to_string(subId.minor);
+            std::cout << "Adding  sub " << major + ":" + minor << " For " << id.major << "\n";
+        }
     }
 }
 
@@ -35,14 +63,13 @@ void DevicesDatabase::update(
     const std::string& keystring, const std::string& type, const json& input)
 {
     LOG_DEBUG << "Updating: " << keystring;
-    std::stringstream str(keystring);
-    std::string device;
-    std::string subDevice;
-    getline(str, device, ':');
-    getline(str, subDevice, ':');
-    auto& persistent = data.j[device][type][subDevice]["persistent"];
+    MessageId dev(keystring.c_str());
+    std::cout << "Major = " << dev.major << " Minor = " << (int)dev.minor << "\n";
+    std::string major = std::to_string(dev.major);
+    std::string minor = std::to_string(dev.minor);
+    auto& persistent = data.j[major][type][minor]["persistent"];
     if (type == "outputs") {
-        updateLinks(persistent["linked"], input["linked"], device);
+        updateLinks(persistent["linked"], input["linked"], dev);
     }
     for (auto& el : input.items()) {
         persistent[el.key()] = el.value();

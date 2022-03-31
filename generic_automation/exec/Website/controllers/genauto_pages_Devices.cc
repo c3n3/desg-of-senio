@@ -45,16 +45,6 @@ void Devices::update(const HttpRequestPtr &req,
 
 static HexStringSerializer serializer(1000);
 
-template <class F>
-void call_async(F&& fun) {
-    auto futptr = std::make_shared<std::future<void>>();
-    *futptr = std::async(std::launch::async, [futptr, fun]() {
-        fun();
-    });
-}
-
-
-
 static void send(Message* message)
 {
     std::string id = std::to_string(message->id().getMajor());

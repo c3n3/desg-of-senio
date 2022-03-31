@@ -129,6 +129,8 @@ namespace genauto {
          * @brief Default ctor
          */
         MessageId();
+
+        MessageId(const char* keystring);
     
     private:
         static const uint8_t DIRECTION_BIT = sizeof(MessageId::major) * 8 - 1;
