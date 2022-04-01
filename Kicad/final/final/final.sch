@@ -363,17 +363,6 @@ F 3 "~" H 8850 4900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x03_Female J?
-U 1 1 624FB7EC
-P 8600 5650
-F 0 "J?" H 8628 5676 50  0000 L CNN
-F 1 "Conn_01x03_Female" H 8628 5585 50  0000 L CNN
-F 2 "" H 8600 5650 50  0001 C CNN
-F 3 "~" H 8600 5650 50  0001 C CNN
-	1    8600 5650
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R R?
 U 1 1 624FC7D2
 P 8400 4800
@@ -456,4 +445,118 @@ Text GLabel 10300 4800 1    50   Input ~ 0
 G13
 Text GLabel 10300 5000 3    50   Input ~ 0
 G39
+$Comp
+L Connector:Conn_01x02_Female B2
+U 1 1 6250DA3A
+P 8850 5850
+F 0 "B2" H 8878 5826 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 8878 5735 50  0000 L CNN
+F 2 "" H 8850 5850 50  0001 C CNN
+F 3 "~" H 8850 5850 50  0001 C CNN
+	1    8850 5850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6250E6BF
+P 8400 5950
+F 0 "R?" V 8600 5950 50  0000 C CNN
+F 1 "10K" V 8500 5950 50  0000 C CNN
+F 2 "" V 8330 5950 50  0001 C CNN
+F 3 "~" H 8400 5950 50  0001 C CNN
+	1    8400 5950
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8550 5950 8650 5950
+Text GLabel 8250 5950 0    50   Input ~ 0
+3.3V
+Text GLabel 8650 5850 0    50   Input ~ 0
+GND
+Text GLabel 8600 5950 3    50   Input ~ 0
+G34
+$Comp
+L Connector:Conn_01x02_Female B3
+U 1 1 62511485
+P 8850 5350
+F 0 "B3" H 8878 5326 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 8878 5235 50  0000 L CNN
+F 2 "" H 8850 5350 50  0001 C CNN
+F 3 "~" H 8850 5350 50  0001 C CNN
+	1    8850 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6251148B
+P 8400 5450
+F 0 "R?" V 8600 5450 50  0000 C CNN
+F 1 "10K" V 8500 5450 50  0000 C CNN
+F 2 "" V 8330 5450 50  0001 C CNN
+F 3 "~" H 8400 5450 50  0001 C CNN
+	1    8400 5450
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8550 5450 8650 5450
+Text GLabel 8250 5450 0    50   Input ~ 0
+3.3V
+Text GLabel 8650 5350 0    50   Input ~ 0
+GND
+Text GLabel 8600 5450 3    50   Input ~ 0
+G35
+$Comp
+L Connector:Conn_01x02_Female B4
+U 1 1 62511D41
+P 8900 6300
+F 0 "B4" H 8928 6276 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 8928 6185 50  0000 L CNN
+F 2 "" H 8900 6300 50  0001 C CNN
+F 3 "~" H 8900 6300 50  0001 C CNN
+	1    8900 6300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 62511D47
+P 8450 6400
+F 0 "R?" V 8650 6400 50  0000 C CNN
+F 1 "10K" V 8550 6400 50  0000 C CNN
+F 2 "" V 8380 6400 50  0001 C CNN
+F 3 "~" H 8450 6400 50  0001 C CNN
+	1    8450 6400
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8600 6400 8700 6400
+Text GLabel 8300 6400 0    50   Input ~ 0
+3.3V
+Text GLabel 8700 6300 0    50   Input ~ 0
+GND
+Text GLabel 8650 6400 3    50   Input ~ 0
+G36
+Text GLabel 5100 5650 2    50   Input ~ 0
+GND
+Text GLabel 5100 6050 2    50   Input ~ 0
+GND
+Text GLabel 5100 6450 2    50   Input ~ 0
+GND
+Text GLabel 5100 7150 2    50   Input ~ 0
+GND
+Text GLabel 5100 6150 2    50   Input ~ 0
+3.3V
+Text GLabel 3100 6750 0    50   Input ~ 0
+12V
+Text GLabel 3100 6850 0    50   Input ~ 0
+12V
+Text GLabel 1900 6050 0    50   Input ~ 0
+G22
+Text GLabel 2600 6250 2    50   Input ~ 0
+~G22
+Text GLabel 1900 6250 0    50   Input ~ 0
+G19
+Text GLabel 2600 6050 2    50   Input ~ 0
+~G19
+Text GLabel 5100 5850 2    50   Input ~ 0
+G22
 $EndSCHEMATC

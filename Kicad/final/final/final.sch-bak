@@ -351,4 +351,109 @@ Text GLabel 5700 4900 0    50   Input ~ 0
 G23
 Text GLabel 5700 5000 0    50   Input ~ 0
 G25
+$Comp
+L Connector:Conn_01x03_Female E10
+U 1 1 624FA7B5
+P 8850 4900
+F 0 "E10" H 8878 4926 50  0000 L CNN
+F 1 "Conn_01x03_Female" H 8878 4835 50  0000 L CNN
+F 2 "" H 8850 4900 50  0001 C CNN
+F 3 "~" H 8850 4900 50  0001 C CNN
+	1    8850 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J?
+U 1 1 624FB7EC
+P 8600 5650
+F 0 "J?" H 8628 5676 50  0000 L CNN
+F 1 "Conn_01x03_Female" H 8628 5585 50  0000 L CNN
+F 2 "" H 8600 5650 50  0001 C CNN
+F 3 "~" H 8600 5650 50  0001 C CNN
+	1    8600 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 624FC7D2
+P 8400 4800
+F 0 "R?" V 8193 4800 50  0000 C CNN
+F 1 "10K" V 8284 4800 50  0000 C CNN
+F 2 "" V 8330 4800 50  0001 C CNN
+F 3 "~" H 8400 4800 50  0001 C CNN
+	1    8400 4800
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 624FD2E6
+P 8400 5000
+F 0 "R?" V 8600 5000 50  0000 C CNN
+F 1 "10K" V 8500 5000 50  0000 C CNN
+F 2 "" V 8330 5000 50  0001 C CNN
+F 3 "~" H 8400 5000 50  0001 C CNN
+	1    8400 5000
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8550 4800 8650 4800
+Wire Wire Line
+	8550 5000 8650 5000
+Text GLabel 8650 4900 0    50   Input ~ 0
+GND
+Text GLabel 8250 4800 0    50   Input ~ 0
+3.3V
+Text GLabel 8250 5000 0    50   Input ~ 0
+3.3V
+Text GLabel 8600 4800 1    50   Input ~ 0
+G4
+Text GLabel 8600 5000 3    50   Input ~ 0
+G5
+$Comp
+L Connector:Conn_01x03_Female E11
+U 1 1 6250B299
+P 10550 4900
+F 0 "E11" H 10578 4926 50  0000 L CNN
+F 1 "Conn_01x03_Female" H 10578 4835 50  0000 L CNN
+F 2 "" H 10550 4900 50  0001 C CNN
+F 3 "~" H 10550 4900 50  0001 C CNN
+	1    10550 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6250B29F
+P 10100 4800
+F 0 "R?" V 9893 4800 50  0000 C CNN
+F 1 "10K" V 9984 4800 50  0000 C CNN
+F 2 "" V 10030 4800 50  0001 C CNN
+F 3 "~" H 10100 4800 50  0001 C CNN
+	1    10100 4800
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6250B2A5
+P 10100 5000
+F 0 "R?" V 10300 5000 50  0000 C CNN
+F 1 "10K" V 10200 5000 50  0000 C CNN
+F 2 "" V 10030 5000 50  0001 C CNN
+F 3 "~" H 10100 5000 50  0001 C CNN
+	1    10100 5000
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	10250 4800 10350 4800
+Wire Wire Line
+	10250 5000 10350 5000
+Text GLabel 10350 4900 0    50   Input ~ 0
+GND
+Text GLabel 9950 4800 0    50   Input ~ 0
+3.3V
+Text GLabel 9950 5000 0    50   Input ~ 0
+3.3V
+Text GLabel 10300 4800 1    50   Input ~ 0
+G13
+Text GLabel 10300 5000 3    50   Input ~ 0
+G39
 $EndSCHEMATC
