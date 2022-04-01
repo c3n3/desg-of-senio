@@ -1,0 +1,265 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Text GLabel 8250 2600 0    50   Input ~ 0
+G36
+Text GLabel 8250 2700 0    50   Input ~ 0
+G39
+Text GLabel 8250 2800 0    50   Input ~ 0
+G34
+Text GLabel 8250 2900 0    50   Input ~ 0
+G35
+Text GLabel 8250 3000 0    50   Input ~ 0
+G32
+Text GLabel 8250 3100 0    50   Input ~ 0
+G33
+Text GLabel 8250 3200 0    50   Input ~ 0
+G25
+Text GLabel 8250 3300 0    50   Input ~ 0
+G26
+Text GLabel 8250 3400 0    50   Input ~ 0
+G27
+Text GLabel 8250 3500 0    50   Input ~ 0
+G14
+Text GLabel 8250 3600 0    50   Input ~ 0
+G12
+Text GLabel 8250 3700 0    50   Input ~ 0
+GND
+Text GLabel 8250 3800 0    50   Input ~ 0
+G13
+Text GLabel 8250 3900 0    50   Input ~ 0
+G9
+Text GLabel 8250 4000 0    50   Input ~ 0
+G10
+Text GLabel 8250 4100 0    50   Input ~ 0
+G11
+Text GLabel 8250 4200 0    50   Input ~ 0
+ESP_VIN
+Text GLabel 9650 4200 2    50   Input ~ 0
+G6
+Text GLabel 9650 4100 2    50   Input ~ 0
+G7
+Text GLabel 9650 4000 2    50   Input ~ 0
+G8
+Text GLabel 9650 3900 2    50   Input ~ 0
+G15
+Text GLabel 9650 3800 2    50   Input ~ 0
+G2
+Text GLabel 9650 3700 2    50   Input ~ 0
+G0
+Text GLabel 9650 3600 2    50   Input ~ 0
+G4
+Text GLabel 9650 3500 2    50   Input ~ 0
+G16
+Text GLabel 9650 3400 2    50   Input ~ 0
+G17
+Text GLabel 9650 3300 2    50   Input ~ 0
+G5
+Text GLabel 9650 3200 2    50   Input ~ 0
+G18
+Text GLabel 9650 3100 2    50   Input ~ 0
+G19
+Text GLabel 9650 3000 2    50   Input ~ 0
+GND
+Text GLabel 9650 2900 2    50   Input ~ 0
+G21
+Text GLabel 9650 2800 2    50   Input ~ 0
+G3
+Text GLabel 9650 2700 2    50   Input ~ 0
+G1
+Text GLabel 9650 2600 2    50   Input ~ 0
+G22
+Text GLabel 9650 2500 2    50   Input ~ 0
+G23
+Text GLabel 9650 2400 2    50   Input ~ 0
+GND
+Text GLabel 8250 2400 0    50   Input ~ 0
+ESP_3.3V
+Text GLabel 8250 2500 0    50   Input ~ 0
+EN
+Text GLabel 4550 3300 3    50   Input ~ 0
+GND
+Connection ~ 4400 3200
+Wire Wire Line
+	4400 3300 4900 3300
+Wire Wire Line
+	4400 3200 4400 3300
+Connection ~ 3950 3200
+Wire Wire Line
+	3950 3200 4400 3200
+Wire Wire Line
+	3650 3200 3950 3200
+Wire Wire Line
+	3650 3100 3650 3200
+Connection ~ 4400 2900
+Wire Wire Line
+	4400 2900 4900 2900
+Connection ~ 3950 2900
+Wire Wire Line
+	3950 2900 4400 2900
+Wire Wire Line
+	3650 2900 3950 2900
+Text GLabel 2800 3100 0    50   Input ~ 0
+AC_GND
+Text GLabel 1800 3200 3    50   Input ~ 0
+AC_GND
+Wire Wire Line
+	2500 2900 2800 2900
+Wire Wire Line
+	1800 2900 2200 2900
+$Comp
+L Device:Varistor RV?
+U 1 1 624779DE
+P 1800 3050
+F 0 "RV?" H 1903 3096 50  0000 L CNN
+F 1 "B72214S0351K101" H 1903 3005 50  0000 L CNN
+F 2 "" V 1730 3050 50  0001 C CNN
+F 3 "~" H 1800 3050 50  0001 C CNN
+	1    1800 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 624771D3
+P 2350 2900
+F 0 "R?" V 2143 2900 50  0000 C CNN
+F 1 "43F3R0E" V 2234 2900 50  0000 C CNN
+F 2 "" V 2280 2900 50  0001 C CNN
+F 3 "~" H 2350 2900 50  0001 C CNN
+	1    2350 2900
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:CP C?
+U 1 1 62473C35
+P 4400 3050
+F 0 "C?" H 4518 3096 50  0000 L CNN
+F 1 "860010472002" H 4150 3300 50  0000 L CNN
+F 2 "" H 4438 2900 50  0001 C CNN
+F 3 "~" H 4400 3050 50  0001 C CNN
+	1    4400 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 624736AA
+P 3950 3050
+F 0 "C?" H 4065 3096 50  0000 L CNN
+F 1 "CL21B105KBFNNNE" H 3600 2750 50  0000 L CNN
+F 2 "" H 3988 2900 50  0001 C CNN
+F 3 "~" H 3950 3050 50  0001 C CNN
+	1    3950 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L pspice:DIODE D?
+U 1 1 62472A59
+P 4900 3100
+F 0 "D?" V 4946 2972 50  0000 R CNN
+F 1 "SMBJ20A" V 4855 2972 50  0000 R CNN
+F 2 "" H 4900 3100 50  0001 C CNN
+F 3 "~" H 4900 3100 50  0001 C CNN
+	1    4900 3100
+	0    -1   -1   0   
+$EndComp
+$Comp
+L final:esp32_dev U?
+U 1 1 624B406E
+P 8950 3200
+F 0 "U?" H 8950 4315 50  0000 C CNN
+F 1 "esp32_dev" H 8950 4224 50  0000 C CNN
+F 2 "" H 9150 3200 50  0001 C CNN
+F 3 "" H 9150 3200 50  0001 C CNN
+	1    8950 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L final:PSK-20D-12 U?
+U 1 1 624B536E
+P 3250 3850
+F 0 "U?" H 3225 5065 50  0000 C CNN
+F 1 "PSK-20D-12" H 3225 4974 50  0000 C CNN
+F 2 "" H 3250 4700 50  0001 C CNN
+F 3 "" H 3250 4700 50  0001 C CNN
+	1    3250 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L final:A4988 SD?
+U 1 1 624B589C
+P 3550 5300
+F 0 "SD?" H 2700 6665 50  0000 C CNN
+F 1 "A4988" H 2700 6574 50  0000 C CNN
+F 2 "" H 2700 6700 50  0001 C CNN
+F 3 "" H 2700 6700 50  0001 C CNN
+	1    3550 5300
+	1    0    0    -1  
+$EndComp
+$Comp
+L final:A4988 SD?
+U 1 1 624B6C5E
+P 5000 5300
+F 0 "SD?" H 4150 6665 50  0000 C CNN
+F 1 "A4988" H 4150 6574 50  0000 C CNN
+F 2 "" H 4150 6700 50  0001 C CNN
+F 3 "" H 4150 6700 50  0001 C CNN
+	1    5000 5300
+	1    0    0    -1  
+$EndComp
+$Comp
+L final:A4988 SD?
+U 1 1 624B72EE
+P 6500 5300
+F 0 "SD?" H 5650 6665 50  0000 C CNN
+F 1 "A4988" H 5650 6574 50  0000 C CNN
+F 2 "" H 5650 6700 50  0001 C CNN
+F 3 "" H 5650 6700 50  0001 C CNN
+	1    6500 5300
+	1    0    0    -1  
+$EndComp
+$Comp
+L final:L2293QTR U?
+U 1 1 624BEB08
+P 3100 5650
+F 0 "U?" H 4100 6037 60  0000 C CNN
+F 1 "L2293QTR" H 4100 5931 60  0000 C CNN
+F 2 "VFQFPN32L_5X5X1_STM" H 4100 5890 60  0001 C CNN
+F 3 "" H 3100 5650 60  0000 C CNN
+	1    3100 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L final:ZLDO1117G50TA VREG?
+U 1 1 624C06B6
+P 6100 1900
+F 0 "VREG?" H 6033 1925 50  0000 C CNN
+F 1 "ZLDO1117G50TA" H 6033 1834 50  0000 C CNN
+F 2 "" H 5950 1800 50  0001 C CNN
+F 3 "" H 5950 1800 50  0001 C CNN
+	1    6100 1900
+	1    0    0    -1  
+$EndComp
+$Comp
+L final:SN74LVC2G06DCKR U?
+U 1 1 624C0EE2
+P 2200 6150
+F 0 "U?" H 2250 6475 50  0000 C CNN
+F 1 "SN74LVC2G06DCKR" H 2250 6384 50  0000 C CNN
+F 2 "" H 2250 6250 50  0001 C CNN
+F 3 "" H 2250 6250 50  0001 C CNN
+	1    2200 6150
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC

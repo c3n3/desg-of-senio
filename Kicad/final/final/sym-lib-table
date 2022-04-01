@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name final)(type Legacy)(uri ${KIPRJMOD}/final.lib)(options "")(descr ""))
+  (lib (name l2293qtr-custom-final-project-circ-1-rescue)(type Legacy)(uri ${KIPRJMOD}/l2293qtr-custom-final-project-circ-1-rescue.lib)(options "")(descr ""))
+)

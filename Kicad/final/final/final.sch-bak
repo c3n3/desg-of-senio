@@ -1,0 +1,232 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L pspice:DIODE D?
+U 1 1 62472A59
+P 5350 3650
+F 0 "D?" V 5396 3522 50  0000 R CNN
+F 1 "SMBJ20A" V 5305 3522 50  0000 R CNN
+F 2 "" H 5350 3650 50  0001 C CNN
+F 3 "~" H 5350 3650 50  0001 C CNN
+	1    5350 3650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 624736AA
+P 4400 3600
+F 0 "C?" H 4515 3646 50  0000 L CNN
+F 1 "CL21B105KBFNNNE" H 4050 3300 50  0000 L CNN
+F 2 "" H 4438 3450 50  0001 C CNN
+F 3 "~" H 4400 3600 50  0001 C CNN
+	1    4400 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C?
+U 1 1 62473C35
+P 4850 3600
+F 0 "C?" H 4968 3646 50  0000 L CNN
+F 1 "860010472002" H 4600 3850 50  0000 L CNN
+F 2 "" H 4888 3450 50  0001 C CNN
+F 3 "~" H 4850 3600 50  0001 C CNN
+	1    4850 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 624771D3
+P 2800 3450
+F 0 "R?" V 2593 3450 50  0000 C CNN
+F 1 "43F3R0E" V 2684 3450 50  0000 C CNN
+F 2 "" V 2730 3450 50  0001 C CNN
+F 3 "~" H 2800 3450 50  0001 C CNN
+	1    2800 3450
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:Varistor RV?
+U 1 1 624779DE
+P 2250 3600
+F 0 "RV?" H 2353 3646 50  0000 L CNN
+F 1 "B72214S0351K101" H 2353 3555 50  0000 L CNN
+F 2 "" V 2180 3600 50  0001 C CNN
+F 3 "~" H 2250 3600 50  0001 C CNN
+	1    2250 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L final:PSK-20D-12 U?
+U 1 1 624723FF
+P 3700 4400
+F 0 "U?" H 3725 5615 50  0000 C CNN
+F 1 "PSK-20D-12" H 3725 5524 50  0000 C CNN
+F 2 "" H 3700 5250 50  0001 C CNN
+F 3 "" H 3700 5250 50  0001 C CNN
+	1    3700 4400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2250 3450 2650 3450
+Wire Wire Line
+	2950 3450 3250 3450
+Text GLabel 2250 3750 3    50   Input ~ 0
+AC_GND
+Text GLabel 3250 3650 0    50   Input ~ 0
+AC_GND
+Wire Wire Line
+	4100 3450 4400 3450
+Wire Wire Line
+	4400 3450 4850 3450
+Connection ~ 4400 3450
+Wire Wire Line
+	4850 3450 5350 3450
+Connection ~ 4850 3450
+Wire Wire Line
+	4100 3650 4100 3750
+Wire Wire Line
+	4100 3750 4400 3750
+Wire Wire Line
+	4400 3750 4850 3750
+Connection ~ 4400 3750
+Wire Wire Line
+	4850 3750 4850 3850
+Wire Wire Line
+	4850 3850 5350 3850
+Connection ~ 4850 3750
+Text GLabel 5000 3850 3    50   Input ~ 0
+GND
+$Comp
+L final:esp32_dev U?
+U 1 1 624807A5
+P 8950 3200
+F 0 "U?" H 8950 4315 50  0000 C CNN
+F 1 "esp32_dev" H 8950 4224 50  0000 C CNN
+F 2 "" H 9150 3200 50  0001 C CNN
+F 3 "" H 9150 3200 50  0001 C CNN
+	1    8950 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L final:A4988 SD?
+U 1 1 62481317
+P 8050 6150
+F 0 "SD?" H 7200 7515 50  0000 C CNN
+F 1 "A4988" H 7200 7424 50  0000 C CNN
+F 2 "" H 7200 7550 50  0001 C CNN
+F 3 "" H 7200 7550 50  0001 C CNN
+	1    8050 6150
+	1    0    0    -1  
+$EndComp
+$Comp
+L final:A4988 SD?
+U 1 1 624830DB
+P 9400 6150
+F 0 "SD?" H 8550 7515 50  0000 C CNN
+F 1 "A4988" H 8550 7424 50  0000 C CNN
+F 2 "" H 8550 7550 50  0001 C CNN
+F 3 "" H 8550 7550 50  0001 C CNN
+	1    9400 6150
+	1    0    0    -1  
+$EndComp
+$Comp
+L final:A4988 SD?
+U 1 1 62483670
+P 10650 6150
+F 0 "SD?" H 9800 7515 50  0000 C CNN
+F 1 "A4988" H 9800 7424 50  0000 C CNN
+F 2 "" H 9800 7550 50  0001 C CNN
+F 3 "" H 9800 7550 50  0001 C CNN
+	1    10650 6150
+	1    0    0    -1  
+$EndComp
+Text GLabel 8250 2600 0    50   Input ~ 0
+G36
+Text GLabel 8250 2700 0    50   Input ~ 0
+G39
+Text GLabel 8250 2800 0    50   Input ~ 0
+G34
+Text GLabel 8250 2900 0    50   Input ~ 0
+G35
+Text GLabel 8250 3000 0    50   Input ~ 0
+G32
+Text GLabel 8250 3100 0    50   Input ~ 0
+G33
+Text GLabel 8250 3200 0    50   Input ~ 0
+G25
+Text GLabel 8250 3300 0    50   Input ~ 0
+G26
+Text GLabel 8250 3400 0    50   Input ~ 0
+G27
+Text GLabel 8250 3500 0    50   Input ~ 0
+G14
+Text GLabel 8250 3600 0    50   Input ~ 0
+G12
+Text GLabel 8250 3700 0    50   Input ~ 0
+GND
+Text GLabel 8250 3800 0    50   Input ~ 0
+G13
+Text GLabel 8250 3900 0    50   Input ~ 0
+G9
+Text GLabel 8250 4000 0    50   Input ~ 0
+G10
+Text GLabel 8250 4100 0    50   Input ~ 0
+G11
+Text GLabel 8250 4200 0    50   Input ~ 0
+ESP_VIN
+Text GLabel 9650 4200 2    50   Input ~ 0
+G6
+Text GLabel 9650 4100 2    50   Input ~ 0
+G7
+Text GLabel 9650 4000 2    50   Input ~ 0
+G8
+Text GLabel 9650 3900 2    50   Input ~ 0
+G15
+Text GLabel 9650 3800 2    50   Input ~ 0
+G2
+Text GLabel 9650 3700 2    50   Input ~ 0
+G0
+Text GLabel 9650 3600 2    50   Input ~ 0
+G4
+Text GLabel 9650 3500 2    50   Input ~ 0
+G16
+Text GLabel 9650 3400 2    50   Input ~ 0
+G17
+Text GLabel 9650 3300 2    50   Input ~ 0
+G5
+Text GLabel 9650 3200 2    50   Input ~ 0
+G18
+Text GLabel 9650 3100 2    50   Input ~ 0
+G19
+Text GLabel 9650 3000 2    50   Input ~ 0
+GND
+Text GLabel 9650 2900 2    50   Input ~ 0
+G21
+Text GLabel 9650 2800 2    50   Input ~ 0
+G3
+Text GLabel 9650 2700 2    50   Input ~ 0
+G1
+Text GLabel 9650 2600 2    50   Input ~ 0
+G22
+Text GLabel 9650 2500 2    50   Input ~ 0
+G23
+Text GLabel 9650 2400 2    50   Input ~ 0
+GND
+Text GLabel 8250 2400 0    50   Input ~ 0
+ESP_3.3V
+Text GLabel 8250 2500 0    50   Input ~ 0
+EN
+$EndSCHEMATC
