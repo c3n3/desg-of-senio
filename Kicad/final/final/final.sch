@@ -742,4 +742,33 @@ Text GLabel 4600 900  1    50   Input ~ 0
 5V
 Text GLabel 4600 2200 3    50   Input ~ 0
 GND
+$Comp
+L Device:Q_NMOS_DGS Q?
+U 1 1 62732E46
+P 6550 1000
+F 0 "Q?" H 6754 1046 50  0000 L CNN
+F 1 "PJE8408_R1_00001" H 6754 955 50  0000 L CNN
+F 2 "" H 6750 1100 50  0001 C CNN
+F 3 "~" H 6550 1000 50  0001 C CNN
+	1    6550 1000
+	1    0    0    -1  
+$EndComp
+Text GLabel 6350 1000 0    50   Input ~ 0
+QA
+Text GLabel 5000 1100 2    50   Input ~ 0
+QA
+Text GLabel 5000 1200 2    50   Input ~ 0
+QB
+Text GLabel 5000 1300 2    50   Input ~ 0
+QC
+Text GLabel 5000 1400 2    50   Input ~ 0
+QD
+Text GLabel 5000 1500 2    50   Input ~ 0
+QE
+Text GLabel 5000 1600 2    50   Input ~ 0
+QF
+Text GLabel 5000 1700 2    50   Input ~ 0
+QG
+Text GLabel 5000 1800 2    50   Input ~ 0
+QH
 $EndSCHEMATC
