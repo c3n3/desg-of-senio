@@ -112,9 +112,9 @@ Wire Wire Line
 Wire Wire Line
 	3650 2900 3950 2900
 Text GLabel 2800 3100 0    50   Input ~ 0
-AC_GND
+AC_N
 Text GLabel 1800 3200 3    50   Input ~ 0
-AC_GND
+AC_N
 Wire Wire Line
 	2500 2900 2800 2900
 Wire Wire Line
@@ -146,7 +146,7 @@ L Device:CP C?
 U 1 1 62473C35
 P 4400 3050
 F 0 "C?" H 4518 3096 50  0000 L CNN
-F 1 "860010472002" H 4150 3300 50  0000 L CNN
+F 1 "10uF" H 4300 3300 50  0000 L CNN
 F 2 "" H 4438 2900 50  0001 C CNN
 F 3 "~" H 4400 3050 50  0001 C CNN
 	1    4400 3050
@@ -157,7 +157,7 @@ L Device:C C?
 U 1 1 624736AA
 P 3950 3050
 F 0 "C?" H 4065 3096 50  0000 L CNN
-F 1 "CL21B105KBFNNNE" H 3600 2750 50  0000 L CNN
+F 1 "1uF" H 3900 2800 50  0000 L CNN
 F 2 "" H 3988 2900 50  0001 C CNN
 F 3 "~" H 3950 3050 50  0001 C CNN
 	1    3950 3050
@@ -363,17 +363,6 @@ F 3 "~" H 8850 4900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x03_Female J?
-U 1 1 624FB7EC
-P 8600 5650
-F 0 "J?" H 8628 5676 50  0000 L CNN
-F 1 "Conn_01x03_Female" H 8628 5585 50  0000 L CNN
-F 2 "" H 8600 5650 50  0001 C CNN
-F 3 "~" H 8600 5650 50  0001 C CNN
-	1    8600 5650
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R R?
 U 1 1 624FC7D2
 P 8400 4800
@@ -452,8 +441,305 @@ Text GLabel 9950 4800 0    50   Input ~ 0
 3.3V
 Text GLabel 9950 5000 0    50   Input ~ 0
 3.3V
-Text GLabel 10300 4800 1    50   Input ~ 0
+Text GLabel 4200 1100 0    50   Input ~ 0
 G13
 Text GLabel 10300 5000 3    50   Input ~ 0
 G39
+$Comp
+L Connector:Conn_01x02_Female B2
+U 1 1 6250DA3A
+P 8850 5850
+F 0 "B2" H 8878 5826 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 8878 5735 50  0000 L CNN
+F 2 "" H 8850 5850 50  0001 C CNN
+F 3 "~" H 8850 5850 50  0001 C CNN
+	1    8850 5850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6250E6BF
+P 8400 5950
+F 0 "R?" V 8600 5950 50  0000 C CNN
+F 1 "10K" V 8500 5950 50  0000 C CNN
+F 2 "" V 8330 5950 50  0001 C CNN
+F 3 "~" H 8400 5950 50  0001 C CNN
+	1    8400 5950
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8550 5950 8650 5950
+Text GLabel 8250 5950 0    50   Input ~ 0
+3.3V
+Text GLabel 8650 5850 0    50   Input ~ 0
+GND
+Text GLabel 8600 5950 3    50   Input ~ 0
+G34
+$Comp
+L Connector:Conn_01x02_Female B3
+U 1 1 62511485
+P 8850 5350
+F 0 "B3" H 8878 5326 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 8878 5235 50  0000 L CNN
+F 2 "" H 8850 5350 50  0001 C CNN
+F 3 "~" H 8850 5350 50  0001 C CNN
+	1    8850 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6251148B
+P 8400 5450
+F 0 "R?" V 8600 5450 50  0000 C CNN
+F 1 "10K" V 8500 5450 50  0000 C CNN
+F 2 "" V 8330 5450 50  0001 C CNN
+F 3 "~" H 8400 5450 50  0001 C CNN
+	1    8400 5450
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8550 5450 8650 5450
+Text GLabel 8250 5450 0    50   Input ~ 0
+3.3V
+Text GLabel 8650 5350 0    50   Input ~ 0
+GND
+Text GLabel 8600 5450 3    50   Input ~ 0
+G35
+Text GLabel 10300 4800 1    50   Input ~ 0
+G36
+Text GLabel 5100 5650 2    50   Input ~ 0
+GND
+Text GLabel 5100 6050 2    50   Input ~ 0
+GND
+Text GLabel 5100 6450 2    50   Input ~ 0
+GND
+Text GLabel 5100 7150 2    50   Input ~ 0
+GND
+Text GLabel 5100 6150 2    50   Input ~ 0
+3.3V
+Text GLabel 3100 6750 0    50   Input ~ 0
+12V
+Text GLabel 3100 6850 0    50   Input ~ 0
+12V
+Text GLabel 1900 6050 0    50   Input ~ 0
+G22
+Text GLabel 2600 6250 2    50   Input ~ 0
+~G22
+Text GLabel 1900 6250 0    50   Input ~ 0
+G19
+Text GLabel 2600 6050 2    50   Input ~ 0
+~G19
+Text GLabel 5100 5850 2    50   Input ~ 0
+G22
+Text GLabel 3100 6650 0    50   Input ~ 0
+~G22
+Text GLabel 3100 7050 0    50   Input ~ 0
+G19
+Text GLabel 5100 6250 2    50   Input ~ 0
+~G19
+$Comp
+L Connector:Conn_01x02_Female PWM5
+U 1 1 6252DCF2
+P 6250 5950
+F 0 "PWM5" H 6278 5926 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 6278 5835 50  0000 L CNN
+F 2 "" H 6250 5950 50  0001 C CNN
+F 3 "~" H 6250 5950 50  0001 C CNN
+	1    6250 5950
+	1    0    0    -1  
+$EndComp
+Text GLabel 5100 5750 2    50   Input ~ 0
+PWM1_2
+Text GLabel 3100 6550 0    50   Input ~ 0
+PWM1_2
+Text GLabel 6050 5950 0    50   Input ~ 0
+PWM1_1
+Text GLabel 6050 6050 0    50   Input ~ 0
+PWM1_2
+Text GLabel 3100 7150 0    50   Input ~ 0
+PWM2_1
+Text GLabel 5100 6350 2    50   Input ~ 0
+PWM2_2
+$Comp
+L Connector:Conn_01x02_Female PWM6
+U 1 1 62531B03
+P 6250 6350
+F 0 "PWM6" H 6278 6326 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 6278 6235 50  0000 L CNN
+F 2 "" H 6250 6350 50  0001 C CNN
+F 3 "~" H 6250 6350 50  0001 C CNN
+	1    6250 6350
+	1    0    0    -1  
+$EndComp
+Text GLabel 6050 6350 0    50   Input ~ 0
+PWM2_1
+Text GLabel 6050 6450 0    50   Input ~ 0
+PWM2_2
+$Comp
+L Relay:SANYOU_SRD_Form_A K?
+U 1 1 625529C5
+P 2500 1400
+F 0 "K?" H 2830 1446 50  0000 L CNN
+F 1 "SRD-S-112DM(F-11)" H 2830 1355 50  0000 L CNN
+F 2 "Relay_THT:Relay_SPST_SANYOU_SRD_Series_Form_A" H 2850 1350 50  0001 L CNN
+F 3 "http://www.sanyourelay.ca/public/products/pdf/SRD.pdf" H 2500 1400 50  0001 C CNN
+	1    2500 1400
+	1    0    0    -1  
+$EndComp
+Text GLabel 2700 1100 1    50   Input ~ 0
+AC_L
+Text GLabel 2700 1700 3    50   Input ~ 0
+AC_L_OUT
+Text GLabel 1450 2900 0    50   Input ~ 0
+AC_L
+Wire Wire Line
+	1450 2900 1800 2900
+Connection ~ 1800 2900
+$Comp
+L pspice:DIODE D?
+U 1 1 62569D3B
+P 1450 1400
+F 0 "D?" V 1496 1272 50  0000 R CNN
+F 1 "DIODE" V 1405 1272 50  0000 R CNN
+F 2 "" H 1450 1400 50  0001 C CNN
+F 3 "~" H 1450 1400 50  0001 C CNN
+	1    1450 1400
+	0    -1   -1   0   
+$EndComp
+Text GLabel 5100 5950 2    50   Input ~ 0
+G21
+Text GLabel 3100 6950 0    50   Input ~ 0
+G18
+Wire Wire Line
+	2300 1100 1450 1100
+Wire Wire Line
+	1450 1100 1450 1200
+Wire Wire Line
+	2300 1700 1450 1700
+Wire Wire Line
+	1450 1700 1450 1600
+Text GLabel 2300 1100 1    50   Input ~ 0
+12V
+$Comp
+L Device:Q_NMOS_DGS Q?
+U 1 1 6259E2F7
+P 2200 2100
+F 0 "Q?" H 2404 2146 50  0000 L CNN
+F 1 "PJE8408_R1_00001" H 2404 2055 50  0000 L CNN
+F 2 "" H 2400 2200 50  0001 C CNN
+F 3 "~" H 2200 2100 50  0001 C CNN
+	1    2200 2100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2300 1700 2300 1900
+Connection ~ 2300 1700
+Text GLabel 2300 2300 3    50   Input ~ 0
+GND
+Text GLabel 4200 1600 0    50   Input ~ 0
+G16
+$Comp
+L Device:R R?
+U 1 1 625C96FC
+P 1900 2250
+F 0 "R?" H 1970 2296 50  0000 L CNN
+F 1 "10k" H 1970 2205 50  0000 L CNN
+F 2 "" V 1830 2250 50  0001 C CNN
+F 3 "~" H 1900 2250 50  0001 C CNN
+	1    1900 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 625CBBD8
+P 1600 2100
+F 0 "R?" V 1807 2100 50  0000 C CNN
+F 1 "1k" V 1716 2100 50  0000 C CNN
+F 2 "" V 1530 2100 50  0001 C CNN
+F 3 "~" H 1600 2100 50  0001 C CNN
+	1    1600 2100
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	1750 2100 1900 2100
+Connection ~ 1900 2100
+Wire Wire Line
+	1900 2100 2000 2100
+Wire Wire Line
+	1450 2100 1350 2100
+Text GLabel 1900 2400 3    50   Input ~ 0
+GND
+$Comp
+L Device:LED D?
+U 1 1 62608137
+P 5900 3100
+F 0 "D?" V 5939 2983 50  0000 R CNN
+F 1 "CLM3C-MKW-CWAXB133" H 6350 3250 50  0000 R CNN
+F 2 "" H 5900 3100 50  0001 C CNN
+F 3 "~" H 5900 3100 50  0001 C CNN
+	1    5900 3100
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:LED D?
+U 1 1 62608DAF
+P 6550 3500
+F 0 "D?" V 6589 3383 50  0000 R CNN
+F 1 "B1931UD--05D000314U1930" H 7150 3650 50  0000 R CNN
+F 2 "" H 6550 3500 50  0001 C CNN
+F 3 "~" H 6550 3500 50  0001 C CNN
+	1    6550 3500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 62610201
+P 5900 2800
+F 0 "R?" H 5970 2846 50  0000 L CNN
+F 1 "440" H 5970 2755 50  0000 L CNN
+F 2 "" V 5830 2800 50  0001 C CNN
+F 3 "~" H 5900 2800 50  0001 C CNN
+	1    5900 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6261A511
+P 6550 3200
+F 0 "R?" H 6620 3246 50  0000 L CNN
+F 1 "600" H 6620 3155 50  0000 L CNN
+F 2 "" V 6480 3200 50  0001 C CNN
+F 3 "~" H 6550 3200 50  0001 C CNN
+	1    6550 3200
+	1    0    0    -1  
+$EndComp
+Text GLabel 5900 3250 3    50   Input ~ 0
+GND
+Text GLabel 6550 3650 3    50   Input ~ 0
+GND
+Text GLabel 6550 3050 1    50   Input ~ 0
+5V
+Text GLabel 5900 2650 1    50   Input ~ 0
+12V
+$Comp
+L 74xx:74HC595 U?
+U 1 1 62676F85
+P 4600 1500
+F 0 "U?" H 4600 2281 50  0000 C CNN
+F 1 "SN74AHCT595N" H 4600 2190 50  0000 C CNN
+F 2 "" H 4600 1500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74hc595.pdf" H 4600 1500 50  0001 C CNN
+	1    4600 1500
+	1    0    0    -1  
+$EndComp
+Text GLabel 4200 1300 0    50   Input ~ 0
+G17
+Text GLabel 4200 1700 0    50   Input ~ 0
+GND
+Text GLabel 4200 1400 0    50   Input ~ 0
+5V
+Text GLabel 4600 900  1    50   Input ~ 0
+5V
+Text GLabel 4600 2200 3    50   Input ~ 0
+GND
 $EndSCHEMATC
