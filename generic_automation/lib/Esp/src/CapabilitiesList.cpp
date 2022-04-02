@@ -50,7 +50,6 @@ CapabilitiesList::capabilitiesList = nullptr;
 
 ButtonDeviceInst<34> button1(ConstantIds::Esp::NEW_IDS_START);
 ButtonDeviceInst<35> button2(ConstantIds::Esp::NEW_IDS_START + 1);
-ButtonDeviceInst<36> button3(ConstantIds::Esp::NEW_IDS_START + 2);
 
 PwmDevice pwm1(21, 0, ConstantIds::Esp::NEW_IDS_START + 3);
 PwmDevice pwm2(18, 0, ConstantIds::Esp::NEW_IDS_START + 4);
@@ -60,7 +59,7 @@ StepperDevice stepper2(26, 27,  ConstantIds::Esp::NEW_IDS_START + 6);
 StepperDevice stepper3(23, 25,  ConstantIds::Esp::NEW_IDS_START + 7);
 
 EncoderDevice encoder1(4, 5, ConstantIds::Esp::NEW_IDS_START + 8);
-EncoderDevice encoder2(13, 39, ConstantIds::Esp::NEW_IDS_START + 9);
+EncoderDevice encoder2(36, 39, ConstantIds::Esp::NEW_IDS_START + 9);
 
 AnalogDevice analog1(14, ConstantIds::Esp::NEW_IDS_START + 10);
 AnalogDevice analog2(15, ConstantIds::Esp::NEW_IDS_START + 11);
