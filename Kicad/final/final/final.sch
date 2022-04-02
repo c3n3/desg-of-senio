@@ -547,7 +547,7 @@ F 3 "~" H 6250 5950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text GLabel 5100 5750 2    50   Input ~ 0
-PWM1_2
+PWM1_1
 Text GLabel 3100 6550 0    50   Input ~ 0
 PWM1_2
 Text GLabel 6050 5950 0    50   Input ~ 0
