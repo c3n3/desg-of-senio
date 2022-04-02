@@ -593,17 +593,6 @@ AC_L
 Wire Wire Line
 	1450 2900 1800 2900
 Connection ~ 1800 2900
-$Comp
-L pspice:DIODE D1
-U 1 1 62569D3B
-P 1450 1400
-F 0 "D1" V 1496 1272 50  0000 R CNN
-F 1 "DIODE" V 1405 1272 50  0000 R CNN
-F 2 "Diode_THT:D_A-405_P7.62mm_Horizontal" H 1450 1400 50  0001 C CNN
-F 3 "~" H 1450 1400 50  0001 C CNN
-	1    1450 1400
-	0    -1   -1   0   
-$EndComp
 Text GLabel 5100 5950 2    50   Input ~ 0
 G21
 Text GLabel 3100 6950 0    50   Input ~ 0
@@ -614,8 +603,6 @@ Wire Wire Line
 	1450 1100 1450 1200
 Wire Wire Line
 	2300 1700 1450 1700
-Wire Wire Line
-	1450 1700 1450 1600
 Text GLabel 2300 1100 1    50   Input ~ 0
 12V
 $Comp
@@ -879,21 +866,8 @@ Wire Wire Line
 	11550 2250 11550 2350
 Wire Wire Line
 	11850 2150 11850 2100
-$Comp
-L pspice:DIODE D5
-U 1 1 62ADFB85
-P 11450 1650
-F 0 "D5" V 11496 1522 50  0000 R CNN
-F 1 "DIODE" V 11405 1522 50  0000 R CNN
-F 2 "Diode_THT:D_A-405_P7.62mm_Horizontal" H 11450 1650 50  0001 C CNN
-F 3 "~" H 11450 1650 50  0001 C CNN
-	1    11450 1650
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	11850 2100 11450 2100
-Wire Wire Line
-	11450 2100 11450 1850
 Connection ~ 11850 2100
 Wire Wire Line
 	11850 2100 11850 2050
@@ -908,10 +882,10 @@ Wire Wire Line
 Text GLabel 12400 800  1    50   Input ~ 0
 3.3V
 $Comp
-L Device:Jumper_NO_Small JP3
+L Device:Jumper_NO_Small SW_V14_3.3
 U 1 1 62794DE9
 P 12400 900
-F 0 "JP3" V 12354 948 50  0000 L CNN
+F 0 "SW_V14_3.3" V 12354 948 50  0000 L CNN
 F 1 "3.3V" V 12445 948 50  0000 L CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 12400 900 50  0001 C CNN
 F 3 "~" H 12400 900 50  0001 C CNN
@@ -926,10 +900,10 @@ Wire Wire Line
 	11900 1000 12000 1000
 Connection ~ 12150 1000
 $Comp
-L Device:Jumper_NO_Small JP2
+L Device:Jumper_NO_Small SW_V14_12
 U 1 1 62794DDB
 P 12150 900
-F 0 "JP2" V 12104 948 50  0000 L CNN
+F 0 "SW_V14_12" V 12104 948 50  0000 L CNN
 F 1 "12V" V 12195 948 50  0000 L CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 12150 900 50  0001 C CNN
 F 3 "~" H 12150 900 50  0001 C CNN
@@ -937,10 +911,10 @@ F 3 "~" H 12150 900 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:Jumper_NO_Small JP1
+L Device:Jumper_NO_Small SW_V14_5
 U 1 1 62794DD5
 P 11900 900
-F 0 "JP1" V 11854 948 50  0000 L CNN
+F 0 "SW_V14_5" V 11854 948 50  0000 L CNN
 F 1 "5V" V 11945 948 50  0000 L CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 11900 900 50  0001 C CNN
 F 3 "~" H 11900 900 50  0001 C CNN
@@ -1024,21 +998,8 @@ Wire Wire Line
 	13800 2250 13800 2350
 Wire Wire Line
 	14100 2150 14100 2100
-$Comp
-L pspice:DIODE D6
-U 1 1 62B08141
-P 13700 1650
-F 0 "D6" V 13746 1522 50  0000 R CNN
-F 1 "DIODE" V 13655 1522 50  0000 R CNN
-F 2 "Diode_THT:D_A-405_P7.62mm_Horizontal" H 13700 1650 50  0001 C CNN
-F 3 "~" H 13700 1650 50  0001 C CNN
-	1    13700 1650
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	14100 2100 13700 2100
-Wire Wire Line
-	13700 2100 13700 1850
 Connection ~ 14100 2100
 Wire Wire Line
 	14100 2100 14100 2050
@@ -1053,10 +1014,10 @@ Wire Wire Line
 Text GLabel 14650 800  1    50   Input ~ 0
 3.3V
 $Comp
-L Device:Jumper_NO_Small JP6
+L Device:Jumper_NO_Small SW_V15_3.3
 U 1 1 62B08150
 P 14650 900
-F 0 "JP6" V 14604 948 50  0000 L CNN
+F 0 "SW_V15_3.3" V 14604 948 50  0000 L CNN
 F 1 "3.3V" V 14695 948 50  0000 L CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 14650 900 50  0001 C CNN
 F 3 "~" H 14650 900 50  0001 C CNN
@@ -1071,10 +1032,10 @@ Wire Wire Line
 	14150 1000 14250 1000
 Connection ~ 14400 1000
 $Comp
-L Device:Jumper_NO_Small JP5
+L Device:Jumper_NO_Small SW_V15_12
 U 1 1 62B0815A
 P 14400 900
-F 0 "JP5" V 14354 948 50  0000 L CNN
+F 0 "SW_V15_12" V 14354 948 50  0000 L CNN
 F 1 "12V" V 14445 948 50  0000 L CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 14400 900 50  0001 C CNN
 F 3 "~" H 14400 900 50  0001 C CNN
@@ -1082,10 +1043,10 @@ F 3 "~" H 14400 900 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:Jumper_NO_Small JP4
+L Device:Jumper_NO_Small SW_V15_5
 U 1 1 62B08160
 P 14150 900
-F 0 "JP4" V 14104 948 50  0000 L CNN
+F 0 "SW_V15_5" V 14104 948 50  0000 L CNN
 F 1 "5V" V 14195 948 50  0000 L CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 14150 900 50  0001 C CNN
 F 3 "~" H 14150 900 50  0001 C CNN
@@ -1271,4 +1232,43 @@ Connection ~ 12000 1300
 Wire Wire Line
 	14400 1300 14250 1300
 Connection ~ 14250 1300
+$Comp
+L Device:D D1
+U 1 1 6260A03D
+P 1450 1350
+F 0 "D1" V 1404 1429 50  0000 L CNN
+F 1 "D" V 1495 1429 50  0000 L CNN
+F 2 "Diode_THT:D_A-405_P7.62mm_Horizontal" H 1450 1350 50  0001 C CNN
+F 3 "~" H 1450 1350 50  0001 C CNN
+	1    1450 1350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1450 1500 1450 1700
+$Comp
+L Device:D D5
+U 1 1 62613349
+P 11450 1600
+F 0 "D5" V 11404 1679 50  0000 L CNN
+F 1 "D" V 11495 1679 50  0000 L CNN
+F 2 "Diode_THT:D_A-405_P7.62mm_Horizontal" H 11450 1600 50  0001 C CNN
+F 3 "~" H 11450 1600 50  0001 C CNN
+	1    11450 1600
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:D D6
+U 1 1 62615708
+P 13700 1600
+F 0 "D6" V 13654 1679 50  0000 L CNN
+F 1 "D" V 13745 1679 50  0000 L CNN
+F 2 "Diode_THT:D_A-405_P7.62mm_Horizontal" H 13700 1600 50  0001 C CNN
+F 3 "~" H 13700 1600 50  0001 C CNN
+	1    13700 1600
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	13700 1750 13700 2100
+Wire Wire Line
+	11450 1750 11450 2100
 $EndSCHEMATC
