@@ -189,7 +189,7 @@ U 1 1 624B536E
 P 3250 3850
 F 0 "U3" H 3225 5065 50  0000 C CNN
 F 1 "PSK-20D-12" H 3225 4974 50  0000 C CNN
-F 2 "" H 3250 4700 50  0001 C CNN
+F 2 "final:PSK-20D" H 3250 4700 50  0001 C CNN
 F 3 "" H 3250 4700 50  0001 C CNN
 	1    3250 3850
 	1    0    0    -1  
@@ -588,7 +588,7 @@ Text GLabel 2700 1100 1    50   Input ~ 0
 AC_L
 Text GLabel 2700 1700 3    50   Input ~ 0
 AC_L_OUT
-Text GLabel 1450 2900 0    50   Input ~ 0
+Text GLabel 1150 2900 0    50   Input ~ 0
 AC_L
 Wire Wire Line
 	1450 2900 1800 2900
@@ -788,7 +788,7 @@ U 1 1 62857183
 P 6700 850
 F 0 "J3" V 6638 662 50  0000 R CNN
 F 1 "AC_IN" V 6547 662 50  0000 R CNN
-F 2 "" H 6700 850 50  0001 C CNN
+F 2 "final:AC" H 6700 850 50  0001 C CNN
 F 3 "~" H 6700 850 50  0001 C CNN
 	1    6700 850 
 	0    -1   -1   0   
@@ -805,7 +805,7 @@ U 1 1 628613EF
 P 7500 850
 F 0 "J4" V 7438 662 50  0000 R CNN
 F 1 "AC_OUT" V 7347 662 50  0000 R CNN
-F 2 "" H 7500 850 50  0001 C CNN
+F 2 "final:AC" H 7500 850 50  0001 C CNN
 F 3 "~" H 7500 850 50  0001 C CNN
 	1    7500 850 
 	0    -1   -1   0   
@@ -831,8 +831,6 @@ Text GLabel 1900 7050 2    50   Input ~ 0
 12V
 Text GLabel 1900 7250 2    50   Input ~ 0
 GND
-Text GLabel 1350 2100 0    50   Input ~ 0
-QA
 Text GLabel 11100 2250 0    50   Input ~ 0
 QB
 $Comp
@@ -859,17 +857,6 @@ F 3 "~" H 11750 2350 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	11100 2250 11200 2250
-$Comp
-L final:EE2-NU U6
-U 1 1 62A943E0
-P 12200 1650
-F 0 "U6" H 12225 2015 50  0000 C CNN
-F 1 "EE2-NU" H 12225 1924 50  0000 C CNN
-F 2 "" H 12250 1250 50  0001 C CNN
-F 3 "" H 12250 1250 50  0001 C CNN
-	1    12200 1650
-	0    1    1    0   
-$EndComp
 $Comp
 L Device:R R12
 U 1 1 62AD4CFE
@@ -975,7 +962,6 @@ Wire Wire Line
 	12450 1250 12850 1250
 Text GLabel 12850 1350 0    50   Input ~ 0
 GND
-NoConn ~ 12150 1300
 NoConn ~ 12000 2050
 NoConn ~ 12150 2050
 NoConn ~ 12300 2050
@@ -1010,7 +996,7 @@ L final:EE2-NU U7
 U 1 1 62B0812F
 P 14450 1650
 F 0 "U7" H 14475 2015 50  0000 C CNN
-F 1 "EE2-NU" H 14475 1924 50  0000 C CNN
+F 1 "EE2-5NU" H 14475 1924 50  0000 C CNN
 F 2 "" H 14500 1250 50  0001 C CNN
 F 3 "" H 14500 1250 50  0001 C CNN
 	1    14450 1650
@@ -1121,7 +1107,6 @@ Wire Wire Line
 	14700 1250 15100 1250
 Text GLabel 15100 1350 0    50   Input ~ 0
 GND
-NoConn ~ 14400 1300
 NoConn ~ 14250 2050
 NoConn ~ 14400 2050
 NoConn ~ 14550 2050
@@ -1205,7 +1190,7 @@ U 1 1 62B6C4D3
 P 3550 7750
 F 0 "J2" H 3578 7726 50  0000 L CNN
 F 1 "Backup_If_Motor_driver_dont_work" H 3578 7635 50  0000 L CNN
-F 2 "" H 3550 7750 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 3550 7750 50  0001 C CNN
 F 3 "~" H 3550 7750 50  0001 C CNN
 	1    3550 7750
 	1    0    0    -1  
@@ -1222,4 +1207,68 @@ Text GLabel 3350 7950 0    50   Input ~ 0
 ~G19
 Text GLabel 3350 8050 0    50   Input ~ 0
 G18
+$Comp
+L Device:Fuse F1
+U 1 1 624AE257
+P 1300 2900
+F 0 "F1" V 1103 2900 50  0000 C CNN
+F 1 "Fuse" V 1194 2900 50  0000 C CNN
+F 2 "final:fuse" V 1230 2900 50  0001 C CNN
+F 3 "~" H 1300 2900 50  0001 C CNN
+	1    1300 2900
+	0    1    1    0   
+$EndComp
+Text GLabel 1350 2100 0    50   Input ~ 0
+QA
+$Comp
+L Connector:Conn_01x03_Female A12
+U 1 1 62541503
+P 12550 4850
+F 0 "A12" H 12578 4876 50  0000 L CNN
+F 1 "Conn_01x03_Female" H 12578 4785 50  0000 L CNN
+F 2 "" H 12550 4850 50  0001 C CNN
+F 3 "~" H 12550 4850 50  0001 C CNN
+	1    12550 4850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female A13
+U 1 1 625464D9
+P 12550 5300
+F 0 "A13" H 12578 5326 50  0000 L CNN
+F 1 "Conn_01x03_Female" H 12578 5235 50  0000 L CNN
+F 2 "" H 12550 5300 50  0001 C CNN
+F 3 "~" H 12550 5300 50  0001 C CNN
+	1    12550 5300
+	1    0    0    -1  
+$EndComp
+Text GLabel 12350 4850 0    50   Input ~ 0
+G14
+Text GLabel 12350 5300 0    50   Input ~ 0
+G15
+Text GLabel 12350 5200 0    50   Input ~ 0
+3.3V
+Text GLabel 12350 5400 0    50   Input ~ 0
+GND
+Text GLabel 12350 4750 0    50   Input ~ 0
+3.3V
+Text GLabel 12350 4950 0    50   Input ~ 0
+GND
+$Comp
+L final:EE2-NU U6
+U 1 1 62A943E0
+P 12200 1650
+F 0 "U6" H 12225 2015 50  0000 C CNN
+F 1 "EE2-5NU" H 12225 1924 50  0000 C CNN
+F 2 "" H 12250 1250 50  0001 C CNN
+F 3 "" H 12250 1250 50  0001 C CNN
+	1    12200 1650
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	12150 1300 12000 1300
+Connection ~ 12000 1300
+Wire Wire Line
+	14400 1300 14250 1300
+Connection ~ 14250 1300
 $EndSCHEMATC
