@@ -84,7 +84,7 @@ G23
 Text GLabel 9650 2400 2    50   Input ~ 0
 GND
 Text GLabel 8250 2400 0    50   Input ~ 0
-ESP_3.3V
+3.3V
 Text GLabel 8250 2500 0    50   Input ~ 0
 EN
 Text GLabel 4550 3300 3    50   Input ~ 0
