@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 4)
+    (drawings 7)
     (tracks 1370)
     (zones 0)
     (modules 67)
@@ -34,7 +34,7 @@
   )
 
   (setup
-    (last_trace_width 0.33)
+    (last_trace_width 0.25)
     (user_trace_width 0.2)
     (user_trace_width 0.33)
     (user_trace_width 0.5)
@@ -3041,6 +3041,15 @@
       (net 104 G6))
   )
 
+  (gr_text "We love don\n" (at 127 -7.62) (layer B.SilkS)
+    (effects (font (size 0.1 0.1) (thickness 0.025)) (justify mirror))
+  )
+  (gr_text "Please do not touch this board\nthere are high voltage lines run\nby the most professional people\nof all time\n\nThanks Grue" (at 74.93 -2.54) (layer B.SilkS)
+    (effects (font (size 0.6 0.6) (thickness 0.15)) (justify mirror))
+  )
+  (gr_text "Desg of Senio" (at 102.87 2.54 90) (layer B.SilkS)
+    (effects (font (size 3 3) (thickness 0.75)) (justify mirror))
+  )
   (gr_line (start 63.5 -13.97) (end 63.5 55.88) (layer Edge.Cuts) (width 0.05) (tstamp 62483798))
   (gr_line (start 162.56 -13.97) (end 63.5 -13.97) (layer Edge.Cuts) (width 0.05))
   (gr_line (start 162.56 55.88) (end 162.56 -13.97) (layer Edge.Cuts) (width 0.05))
