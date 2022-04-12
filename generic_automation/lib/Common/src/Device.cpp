@@ -11,3 +11,13 @@ genauto::Device::Device(minor_t minorId)
 {
 
 }
+
+Subscriber* genauto::Device::sub()
+{
+    return nullptr;
+}
+
+Publisher* genauto::Device::pub()
+{
+    return nullptr;
+}

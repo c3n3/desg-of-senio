@@ -14,6 +14,9 @@ add_library(Common SHARED
     src/PwmMessage.cpp
     src/StepperMotorMessage.cpp
     src/Subscriber.cpp
+    src/Device.cpp
+    src/Router.cpp
+    src/SubscribeMessage.cpp
     src/Timer.cpp
 )
 

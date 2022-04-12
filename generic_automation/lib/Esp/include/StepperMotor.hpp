@@ -24,7 +24,7 @@ namespace genauto
         uint16_t msIntervalPos_;
         Direction direction_;
         unsigned long time_;
-        uint16_t stepsLeft;
+        int16_t stepsLeft;
 
         // Simple calculation function
         uint16_t rpmToStepsPerSecond(float rpm)
@@ -58,10 +58,12 @@ namespace genauto
                 return;
             }
             //dlog("what\n");
-            direction_ = (Direction)(degrees < 0 ? LOW : HIGH);
-            float val = degrees / 360.0 * (float)stepsPerRev_;
-            if(val < 0) val = 0 - val;
-            stepsLeft += (int)val;
+            float val = (float)degrees / 360.0 * (float)stepsPerRev_;
+            dlog("enc val: %d\n", (int)val);
+            if(stepsLeft == 0) direction_ = (Direction)(degrees < 0 ? LOW : HIGH);
+            if(direction_ == LOW) stepsLeft -= (int)val;
+            else stepsLeft += (int)val;
+            if (stepsLeft < 0) stepsLeft = 0;
             dlog("steps left: %d\n", stepsLeft);
             //dlog("stepsPerRev: %d\n", (int)stepsPerRev_);
             // if (dps > -500 && dps < 500)
@@ -79,7 +81,7 @@ namespace genauto
                 step();
                 time_ += msInterval_;
                 stepsLeft--;
-                dlog("runSteps, stepsLeft: %d\n", (int)stepsLeft);
+                //dlog("runSteps, stepsLeft: %d\n", (int)stepsLeft);
             }
         }
 

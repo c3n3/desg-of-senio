@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name final-project-circ-1-rescue)(type Legacy)(uri "C:/Users/cooki/Desktop/Classes/Senior design/Github/desg-of-senio/Kicad/3.28.2022/Kicad/Circuit V2/circuit/final project circ 1/final project circ 1-rescue.lib")(options "")(descr ""))
+  (lib (name FinalCircuit-rescue)(type Legacy)(uri ${KIPRJMOD}/FinalCircuit-rescue.lib)(options "")(descr ""))
+  (lib (name l2293qtr-custom-final-project-circ-1-rescue)(type Legacy)(uri /git/desg-of-senio/Kicad/final/final/l2293qtr-custom-final-project-circ-1-rescue.lib)(options "")(descr ""))
+)

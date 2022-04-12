@@ -7,9 +7,12 @@ MESSAGE_ID_UNIQUE(SubscribeMessage);
 
 SubscribeMessage::SubscribeMessage(uint8_t* buffer, uint16_t bufferSize)
     : Message(buffer, bufferSize)
+{}
+
+SubscribeMessage::SubscribeMessage()
+    : Message(msgSize)
 {
-    // Set type in case this is a new buffer
-    Message::type() = classMsgType;
+    type() = classMsgType;
 }
 
 MessageId& SubscribeMessage::idFrom()
@@ -21,3 +24,9 @@ MessageId& SubscribeMessage::idTo()
 {
     return get<MessageId>(idTo_loc);
 }
+
+SubscribeMessage::Type& SubscribeMessage::subType()
+{
+    return get<Type>(subType_loc);
+}
+

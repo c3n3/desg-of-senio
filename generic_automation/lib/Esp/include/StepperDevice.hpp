@@ -99,6 +99,7 @@ namespace genauto {
          */
         void execute();
 
+        Subscriber* sub();
     };
 }
 

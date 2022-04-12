@@ -98,3 +98,10 @@ void genauto::PwmDevice::execute()
     }
     ledcWrite(channel, dutyCycle_);
 }
+
+
+Subscriber* genauto::PwmDevice::sub()
+{
+    return static_cast<Subscriber*>(this);
+}
+

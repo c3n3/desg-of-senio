@@ -39,6 +39,8 @@ namespace genauto
          * @return Message* 
          */
         Message *tryGet();
+
+        Publisher* pub();
     };
 
     template <int PIN>
