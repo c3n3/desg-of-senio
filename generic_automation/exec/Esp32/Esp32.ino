@@ -75,5 +75,8 @@ void setup()
 
 void loop()
 {
-    steelPlateLoop(nullptr);
+    runSteelPlateLoop();
+    while (true) {
+        fireAK();
+    }
 }

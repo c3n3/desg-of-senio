@@ -1,5 +1,6 @@
 #include "../include/SwitchDevice.hpp"
 #include "../../Common/include/ButtonMessage.hpp"
+#include "../include/ShiftRegister.hpp"
 
 #include <stdint.h>
 
@@ -15,7 +16,6 @@ genauto::SwitchDevice::SwitchDevice(uint8_t pinNumber, minor_t minorId)
     Subscriber(),
     Device(minorId)
 {
-    pinMode(pinNumber, OUTPUT);
 }
 
 /**
@@ -48,10 +48,10 @@ void genauto::SwitchDevice::execute()
     }
     if (state)
     {
-         digitalWrite(pinNumber, HIGH);
+         shitfReg(pinNumber, HIGH);
          dlog("output the signal\n");
     }
-    else digitalWrite(pinNumber, LOW);
+    else shitfReg(pinNumber, LOW);
 }
 
 
