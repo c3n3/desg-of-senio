@@ -36,8 +36,8 @@ void genauto::removeNewLines(std::string& data)
 void genauto::sendTo(Message* message)
 {
     static HexStringSerializer serializer(2000);
-
-    std::string id = std::to_string(message->id().getMajor());
+    std::cout << "Here is the id: " << message->id().major << "\n";
+    std::string id = std::to_string(message->id().major);
     if (!JsonFile::deviceIds.j.contains(id)) {
         elog("Invalid id %s\n", id.c_str());
         return;

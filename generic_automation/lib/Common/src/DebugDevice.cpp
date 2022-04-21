@@ -24,9 +24,9 @@ void DebugDevice::execute()
 Message* DebugDevice::tryGet()
 {
     // So we do not spam messages
-    if (t.msTime() - prev > 1000) {
+    if (t.msTime() - prev > 5000) {
         prev = t.msTime();
-        return &msg;
+        // return &msg;
     }
     return nullptr;
 }

@@ -13,16 +13,6 @@ DevicesDatabase::DevicesDatabase(const char* fileName) : data(fileName)
     data.load();
 }
 
-static void removeSub(MessageId& sub, MessageId& subTo)
-{
-    
-}
-
-static void addSub(MessageId& sub, MessageId& subTo)
-{
-    
-}
-
 
 static void updateLinks(const json& oldLinks, const json& newLinks, MessageId id)
 {
@@ -40,8 +30,8 @@ static void updateLinks(const json& oldLinks, const json& newLinks, MessageId id
             std::string major = std::to_string(subId.major);
             std::string minor = std::to_string(subId.minor);
 
-            std::cout << "Removing  sub " << major + ":" + minor << " From " << id.major << "\n";
             DeviceSubscribeManager::removeSub(id, subId);
+            found = false;
         }
     }
 
@@ -60,6 +50,7 @@ static void updateLinks(const json& oldLinks, const json& newLinks, MessageId id
 
             std::cout << "Adding  sub " << major + ":" + minor << " For " << id.major << "\n";
             DeviceSubscribeManager::addSub(id, subId);
+            found = false;
         }
     }
 }
@@ -67,9 +58,7 @@ static void updateLinks(const json& oldLinks, const json& newLinks, MessageId id
 void DevicesDatabase::update(
     const std::string& keystring, const std::string& type, const json& input)
 {
-    LOG_DEBUG << "Updating: " << keystring;
     MessageId dev(keystring.c_str());
-    std::cout << "Major = " << dev.major << " Minor = " << (int)dev.minor << "\n";
     std::string major = std::to_string(dev.major);
     std::string minor = std::to_string(dev.minor);
     auto& persistent = data.j[major][type][minor]["persistent"];
@@ -177,7 +166,7 @@ static void constructDevice(Capability device, json& output)
             break;
         case Switch:
             output["persistent"] = json::object({{"linked", json::array()},{"name", ("Switch " + std::to_string(device.id))}});
-            output["type"] = deviceTypeToString(Switch);
+            output["type"] = deviceTypeToString(Button);
             break;
         default:
             break;

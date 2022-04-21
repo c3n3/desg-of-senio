@@ -13,9 +13,9 @@ namespace genauto {
      */
     class StepperDevice : public Subscriber, public Device {
     private:
-    float speed_ = 3;
+    float speed_ = 90;
     float angle_;
-    float encoderStepScale_ = 5;
+    float encoderStepScale_ = 1;
     //float encoderAngleIncrement_;
     uint8_t direction_;
     uint8_t stepPin;

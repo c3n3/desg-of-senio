@@ -35,8 +35,8 @@ static const uint8_t PWM5_DIR = 22;
 static const uint8_t PWM5_PWM = 21;
 
 
-static PwmDevice pwm1(21, 0, ConstantIds::Esp::NEW_IDS_START + 3);
-static PwmDevice pwm2(18, 0, ConstantIds::Esp::NEW_IDS_START + 4);
+// static PwmDevice pwm1(21, 0, ConstantIds::Esp::NEW_IDS_START + 3);
+// static PwmDevice pwm2(18, 0, ConstantIds::Esp::NEW_IDS_START + 4);
 
 void setup()
 {
@@ -48,8 +48,8 @@ void setup()
     delay(100);
     // WifiReceiver::getReceiver();
     shiftInit();
-    pwm1.setDutyCycle(100);
-    pwm2.setDutyCycle(50);
+    // pwm1.setDutyCycle(100);
+    // pwm2.setDutyCycle(50);
 }
 
 bool on = false;
@@ -58,11 +58,11 @@ void loop()
 {
     // pwm1.execute();   
     // pwm2.execute();   
-    // shitfReg(MAINS_SW, on);
-    // shitfReg(PW_SW14, on);
-    // shitfReg(PW_SW15, on);
-    // shitfReg(LED_SW, on);
-    // shitfReg(SW16, on);
+    shitfReg(MAINS_SW, on);
+    shitfReg(PW_SW14, on);
+    shitfReg(PW_SW15, on);
+    shitfReg(LED_SW, on);
+    shitfReg(SW16, on);
     on = !on;
     delay(1000);
     // delay(100);

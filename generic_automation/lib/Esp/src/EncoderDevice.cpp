@@ -34,6 +34,7 @@ void genauto::EncoderDevice::execute()
         Serial.println("Encoder Start = " + String((int32_t)encoder.getCount()));
 	    lastTime = millis();
         inited = true;
+        eMsg.id() = MessageId(deviceId, minorId);
         //Serial.println("enc val: " + String((int32_t)encoder.getCount()) + "\n");
     }
     if ((millis() - lastTime) >= 250)

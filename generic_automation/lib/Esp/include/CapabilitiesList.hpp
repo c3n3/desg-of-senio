@@ -16,6 +16,7 @@ namespace genauto {
         extern CapabilitiesMessage* capabilitiesList;
         extern Router router;
         void init();
+        void autoSubscribe();
     }
 }
 

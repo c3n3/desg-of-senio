@@ -25,6 +25,7 @@ genauto::SwitchDevice::SwitchDevice(uint8_t pinNumber, minor_t minorId)
 void genauto::SwitchDevice::changeState()
 {
     state = !state;
+    shitfReg(pinNumber, state);
     dlog("state\n");
 }
 
@@ -44,14 +45,10 @@ void genauto::SwitchDevice::execute()
             ButtonMessage *bMsg = (ButtonMessage *)Msg;
             if (bMsg->pressed() == true)
                 changeState();  
+        } else {
+            dlog("Unhandled message type 0x%x\n", Msg->type());
         }
     }
-    if (state)
-    {
-         shitfReg(pinNumber, HIGH);
-         dlog("output the signal\n");
-    }
-    else shitfReg(pinNumber, LOW);
 }
 
 

@@ -15,15 +15,9 @@ static void espSubUpdate(MessageId& to, MessageId& from, bool isAdd)
     SubscribeMessage msg;
     msg.id().major = to.major;
     msg.id().minor = ConstantIds::Esp::SUB_MANAGER;
-    std::cout << "Connecting " << to.major << " to " << from.major << "\n";
     msg.subType() = isAdd ? SubscribeMessage::Sub : SubscribeMessage::RemoveSub;
-    std::cout << "Connecting " << to.major << " to " << from.major << "\n";
     msg.idTo() = to;
-    std::cout << "Connecting " << to.major << " to " << from.major << "\n";
     msg.idFrom() = from;
-    std::cout << "Connecting " << to.major << " to " << from.major << "\n";
-    msg.log();
-    std::cout << "Connecting " << to.major << " to " << from.major << "\n";
     sendTo(&msg);
 
     msg.id() = MessageId(from.major, genauto::ConstantIds::Esp::SUB_MANAGER);
@@ -33,6 +27,8 @@ static void espSubUpdate(MessageId& to, MessageId& from, bool isAdd)
 
 void DeviceSubscribeManager::removeSub(MessageId& to, MessageId from)
 {
+    dlog("Disconnecting {0x%x,%d} from {0x%x,%d}\n", to.major, to.minor, from.major, from.minor);
+
     if (map.contains(to.major)) {
         DeviceSubscriber* dev = &map[to.major+0];
         Subscriber* sub = dynamic_cast<Subscriber*>(dev);
@@ -54,7 +50,8 @@ void DeviceSubscribeManager::removeSub(MessageId& to, MessageId from)
 
 void DeviceSubscribeManager::addSub(MessageId& to, MessageId from)
 {
-    std::cout << "Connecting " << to.major << " to " << from.major << "\n";
+    dlog("Connecting {0x%x,%d} to {0x%x,%d}\n", to.major, to.minor, from.major, from.minor);
+
     if (!map.contains(to.major)) {
         if (map.insert(Pair<major_t, DeviceSubscriber>(to.major, DeviceSubscriber(to.major))) == map.SUCCESS) {
             loop.addDevice(&map[to.major+0]);

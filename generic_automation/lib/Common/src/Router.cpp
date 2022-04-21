@@ -16,6 +16,8 @@ bool Router::inMap(MessageId iD)
 
 void Router::subscribe(Subscriber *sub, MessageId iD)
 {
+    dlog("adding sub to {0x%x,%d}\n", iD.major, iD.minor);
+    
     if (inMap(iD) == true)
     {
         idMap[iD].insert(sub);
@@ -32,6 +34,7 @@ void Router::add(Subscriber *sub, MessageId iD)
 
 void Router::addPublisher(Publisher *pub)
 {
+    pubCount[pub]++;
     pubs.insert(pub);
 }
 
@@ -39,7 +42,10 @@ void Router::removePublisher(Publisher *pub)
 {
     auto res = pubs.find(pub);
     if (res != pubs.end()) {
-        pubs.erase(res);
+        uint16_t value = pubCount[pub];
+        pubCount[pub] =  value != 0 ? value - 1 : 0;
+        if (pubCount[pub] == 0)
+            pubs.erase(res);
     }
 }
 
@@ -89,14 +95,17 @@ void Router::execute()
     for (auto &pub : pubs)
     {
         Message *msg = pub->tryGet();
-        MessageId id = msg->id();
-        major_t majorId = id.getMajor();
         if (msg != NULL)
         {
+            MessageId id = msg->id();
+            major_t majorId = id.getMajor();
+            dlog("Got message: {0x%x,%d}\n", msg->id().major, msg->id().minor);
+            dlog("Does contain %d\n", idMap.contains(msg->id()));
             for (auto &sub : idMap[id])
             {
                 if (sub != NULL)
                 {
+                    dlog("Is receiving\n");
                     sub->receive(msg);
                 }
             }
@@ -108,6 +117,15 @@ void Router::execute()
                     sub->receive(msg);
                 }
             }
+        }
+    }
+}
+
+void Router::print()
+{
+    for (auto& kv : idMap) {
+        for (auto& sub : idMap[kv.one]) {
+            dlog("ID: {0x%x,%d}, Sub: %p\n", kv.one.major,kv.one.minor, sub);
         }
     }
 }

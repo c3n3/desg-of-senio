@@ -18,6 +18,7 @@ namespace genauto
         bool pressed_ = false;
         unsigned long lastTime = 0;
         bool send = false;
+        bool inited = false;
         ButtonMessage bMsg;
     public:
         /**

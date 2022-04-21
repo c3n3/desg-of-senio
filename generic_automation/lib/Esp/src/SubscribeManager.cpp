@@ -1,6 +1,7 @@
 #include "../include/SubscribeManager.hpp"
 #include "../include/CapabilitiesList.hpp"
 #include "../../Common/include/SubscribeMessage.hpp"
+#include "../include/WifiSender.hpp"
 
 using namespace genauto;
 
@@ -8,13 +9,16 @@ static Subscriber* getSub(minor_t minor)
 {
     // Get the correct sub
     auto& list = CapabilitiesList::deviceList;
+    dlog("Finding sub %d\n", minor);
     for (int i = 0; i < list.getSize(); i++) {
         if (minor == list[i]->minorId) {
             // Add to the router
             auto dev = list[i];
+            dlog("Found %p\n", dev->sub());
             return dev->sub();
         }
     }
+    return nullptr;
 }
 
 static Publisher* getPub(minor_t minor)
@@ -55,6 +59,10 @@ void SubscribeManager::addPub(SubscribeMessage* msg)
     // if we are adding a pub, that means the message comes from us
     Publisher* pub = getPub(msg->idFrom().minor);
     if (pub != nullptr) {
+        // If this device is not the receiver, then we send out
+        if (msg->idTo().major != deviceId) {
+            router.subscribe(&WifiSender::sender, msg->idFrom());
+        }
         router.addPublisher(pub);
     } else {
         elog("Sub was nullptr\n");
@@ -66,6 +74,9 @@ void SubscribeManager::removePub(SubscribeMessage* msg)
     // if we are removing a pub, that means the message came from us
     Publisher* pub = getPub(msg->idFrom().minor);
     if (pub != nullptr) {
+        if (msg->idTo().major != deviceId) {
+            router.removeSubscribe(&WifiSender::sender, msg->idFrom());
+        }
         router.removePublisher(pub);
     } else {
         elog("Sub was nullptr\n");
@@ -92,12 +103,17 @@ void SubscribeManager::execute()
 
 SubscribeManager::SubscribeManager()
     : Device(genauto::ConstantIds::Esp::SUB_MANAGER)
-{
-    MessageId id(deviceId, minorId);
-    id.to();
-    router.subscribe(this, id);
-}
+{}
 
 
 Router SubscribeManager::router;
-SubscribeManager SubscribeManager::manager;
+SubscribeManager* SubscribeManager::manager = nullptr;
+
+void SubscribeManager::init()
+{
+    manager = new SubscribeManager();
+    MessageId id(deviceId, manager->minorId);
+    id.to();
+    router.subscribe(manager, id);
+}
+

@@ -115,6 +115,7 @@ export default {
             handler(val){
                 clearTimeout(this.delayId);
                 this.delayId = window.setTimeout(() => {
+                    console.log("This has been updated");
                     var postStr = '/genauto/pages/devices/update'
                         + "?data=" + JSON.stringify(this.persistent)
                         + "&keystring=" + this.keystring

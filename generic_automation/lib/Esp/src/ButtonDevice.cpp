@@ -26,15 +26,15 @@ genauto::ButtonDevice::ButtonDevice(uint8_t pinNumber, minor_t minorId)
  */
 void genauto::ButtonDevice::execute()
 {
-    if ((millis() - lastTime) >= 250)
+    if (!inited) {
+        bMsg.id() = MessageId(deviceId, minorId);
+        inited = true;
+    }
+    if(pressed_)
     {
-        if(pressed_)
-        {
-            bMsg.pressed() = true;
-            lastTime = millis();
-            pressed_ = false;
-            send = true;
-        }
+        bMsg.pressed() = true;
+        pressed_ = false;
+        send = true;
     }
 }
 
