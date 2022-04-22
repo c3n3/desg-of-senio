@@ -1,6 +1,7 @@
 #include "../include/PwmDevice.hpp"
 #include "../../Common/include/EncoderMessage.hpp"
 #include "../../Common/include/ButtonMessage.hpp"
+#include "../../Common/include/SwitchMessage.hpp"
 #include "../../Common/include/PwmMessage.hpp"
 #include <stdint.h>
 
@@ -77,14 +78,14 @@ void genauto::PwmDevice::execute()
             else dutyCycle_ = val;
             if(pwmOn_) ledcWrite(channel, dutyCycle_); // only if the pwm device is set to on, write to the pin.
         }
-        if(Msg->type() == ButtonMessage::classMsgType)
+        else if(Msg->type() == ButtonMessage::classMsgType)
         {
             ButtonMessage* bMsg = (ButtonMessage*)Msg;
             if(bMsg->pressed() == true) pwmOn_ = !pwmOn_;
             if(pwmOn_) ledcWrite(channel, dutyCycle_);
             else ledcWrite(channel, 0); // turn off the pwm device.
         }
-        if(Msg->type() == PwmMessage::classMsgType)
+        else if(Msg->type() == PwmMessage::classMsgType)
         {
             PwmMessage* pMsg = (PwmMessage*)Msg;
             pwmOn_ = pMsg->onOff();
@@ -95,8 +96,16 @@ void genauto::PwmDevice::execute()
             if(pwmOn_) ledcWrite(channel, dutyCycle_);
             else ledcWrite(channel, 0);
         }
+        else if (Msg->type() == SwitchMessage::classMsgType) {
+            SwitchMessage sMsg = SwitchMessage(Msg->getBuffer(), Msg->size());
+            pwmOn_ = sMsg.on();
+        }
     }
-    ledcWrite(channel, dutyCycle_);
+    if (pwmOn_) {
+        ledcWrite(channel, dutyCycle_);
+    } else {
+        ledcWrite(channel, 0);
+    }
 }
 
 
