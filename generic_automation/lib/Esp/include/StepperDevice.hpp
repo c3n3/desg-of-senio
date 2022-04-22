@@ -13,7 +13,7 @@ namespace genauto {
      */
     class StepperDevice : public Subscriber, public Device {
     private:
-    float speed_ = 90;
+    float speed_ = 180;
     float angle_;
     float encoderStepScale_ = 1;
     //float encoderAngleIncrement_;

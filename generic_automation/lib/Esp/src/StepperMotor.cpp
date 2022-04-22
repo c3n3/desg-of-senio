@@ -33,6 +33,7 @@ void StepperMotor::setSpeedDps(float dps)
     direction_ = dps < 0 ? Backward : Forward;
     // 1000ms / 1s *  (second / step)
     msInterval_ = 1000.0 / dpsToStepsPerSecond(dps);
+    dlog("Interval = %d\n", msInterval_);
     time_ = millis();
     prevDps_ = dps;
 }
@@ -72,6 +73,7 @@ void StepperMotor::move(float dps, float degrees)
 // Step the motor
 void StepperMotor::step()
 {
+    dlog("Step\n");
     digitalWrite(dirPin_, direction_);
     digitalWrite(stepPin_,HIGH); 
     delayMicroseconds(100); 
@@ -98,7 +100,8 @@ void StepperMotor::tick()
     if (msInterval_ == 0) return;
     if (millis() - time_ > msInterval_) {
         step();
-        if (toStep_-- == 0) {
+        if (coutingSteps_ && toStep_-- == 0) {
+            dlog("STOP\n");
             stop();
         }
         time_ += msInterval_;

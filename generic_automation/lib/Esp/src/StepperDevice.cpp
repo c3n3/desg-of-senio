@@ -103,12 +103,12 @@ genauto::StepperDevice::StepperDevice(uint8_t stepPin, uint8_t dirPin, minor_t m
       motorOn(true),
       mode(Degrees)
 {
-    // pinMode(stepPin, OUTPUT);
-    // pinMode(dirPin, OUTPUT);
+    pinMode(stepPin, OUTPUT);
+    pinMode(dirPin, OUTPUT);
     // myStepper.setMaxSpeed(900);
     // myStepper.setSpeed(400);
     // speed_ = 400;
-    myStepper.setSpeedDps(speed_);
+    // myStepper.setSpeedDps(speed_);
 }
 
 /**

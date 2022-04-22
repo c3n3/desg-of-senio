@@ -26,9 +26,11 @@ using namespace genauto;
 // ButtonDeviceInst bDev<14>(1);
 
 
-// StepperDevice stepper1(32, 33,  ConstantIds::Esp::NEW_IDS_START + 5);
-// StepperDevice stepper2(26, 27,  ConstantIds::Esp::NEW_IDS_START + 6);
-// StepperDevice stepper3(23, 25,  ConstantIds::Esp::NEW_IDS_START + 7);
+static StepperDevice stepper1(32, 33,  ConstantIds::Esp::NEW_IDS_START + 5);
+static StepperDevice stepper2(26, 27,  ConstantIds::Esp::NEW_IDS_START + 6);
+static StepperDevice stepper3(23, 25,  ConstantIds::Esp::NEW_IDS_START + 7);
+
+StepperMotor motor(33, 32);
 
 
 static const uint8_t PWM5_DIR = 22;
@@ -48,23 +50,33 @@ void setup()
     delay(100);
     // WifiReceiver::getReceiver();
     shiftInit();
+    stepper1.setSpeed(90);
     // pwm1.setDutyCycle(100);
     // pwm2.setDutyCycle(50);
+    // motor.setSpeedDps(90);
 }
 
 bool on = false;
 
+uint32_t timer;
+
 void loop()
 {
+    StepperMotorMessage msg;
+    if (millis() - timer > 2000) {
+        stepper1.move(90, 90);
+        timer += 2000;
+    }
+    // motor.tick();
+    stepper1.execute();
     // pwm1.execute();   
     // pwm2.execute();   
-    shitfReg(MAINS_SW, on);
-    shitfReg(PW_SW14, on);
-    shitfReg(PW_SW15, on);
-    shitfReg(LED_SW, on);
-    shitfReg(SW16, on);
-    on = !on;
-    delay(1000);
+    // shitfReg(MAINS_SW, on);
+    // shitfReg(PW_SW14, on);
+    // shitfReg(PW_SW15, on);
+    // shitfReg(LED_SW, on);
+    // shitfReg(SW16, on);
+    // on = !on;
     // delay(100);
     // bDev->execute();
     // ButtonMessage* bMsg = bDev->tryGet();
