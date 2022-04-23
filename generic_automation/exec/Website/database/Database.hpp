@@ -14,8 +14,8 @@ namespace genauto {
         json j;
         void save();
         void load();
-
         static JsonFile deviceIds;
+        static JsonFile tasks;
     };
     class DevicesDatabase {
     public:
@@ -25,9 +25,10 @@ namespace genauto {
         void update(
             const std::string& keystring, const std::string& type, const json& input);
 
-        void htmlOutput(std::string& data);
         
         JsonFile data;
+
+        void htmlOutput(std::string& data);
 
         static DevicesDatabase deviceBase;
 

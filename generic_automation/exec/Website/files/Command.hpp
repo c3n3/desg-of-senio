@@ -25,19 +25,19 @@ namespace genauto {
 
         MessageId id;
 
-        typedef void(*CommandExec)(Command*, MessageId&);
+        typedef void(*CommandExec)(Command*);
 
-        CommandExec execs[6];
+        static CommandExec execs[6];
 
         /**
          * @brief Functions for each command type
          */
-        static void StepperRotate(Command*, MessageId);
-        static void StepperSpeed(Command*, MessageId);
-        static void On(Command*, MessageId);
-        static void Off(Command*, MessageId);
-        static void Delay(Command*, MessageId);
-        static void PwmSet(Command*, MessageId);
+        static void runDelay(Command*);
+        static void runOn(Command*);
+        static void runOff(Command*);
+        static void runStepperRotate(Command*);
+        static void runStepperSpeed(Command*);
+        static void runPwmSet(Command*);
     
     public:
         void execute();

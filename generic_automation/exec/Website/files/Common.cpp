@@ -33,6 +33,16 @@ void genauto::removeNewLines(std::string& data)
     }
 }
 
+
+void genauto::htmlOutput(json& j, std::string& str)
+{
+    std::stringstream read;
+    read << j;
+    str = read.str();
+    genauto::removeNewLines(str);
+}
+
+
 void genauto::sendTo(Message* message)
 {
     static HexStringSerializer serializer(2000);

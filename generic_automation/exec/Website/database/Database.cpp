@@ -13,7 +13,6 @@ DevicesDatabase::DevicesDatabase(const char* fileName) : data(fileName)
     data.load();
 }
 
-
 static void updateLinks(const json& oldLinks, const json& newLinks, MessageId id)
 {
     // Terribly ineffecient algo, but not important here
@@ -74,15 +73,10 @@ void DevicesDatabase::update(
 
 void DevicesDatabase::htmlOutput(std::string& str)
 {
-    std::stringstream read;
-    read << data.j;
-    str = read.str();
-    genauto::removeNewLines(str);
+    genauto::htmlOutput(data.j, str);
 }
 
-
 DevicesDatabase DevicesDatabase::deviceBase("../database/devices.json");
-
 
 JsonFile::JsonFile(const char* fileName) : filename(fileName)
 {
@@ -107,6 +101,7 @@ void JsonFile::save()
 }
 
 JsonFile JsonFile::deviceIds("../database/deviceIds.json");
+JsonFile JsonFile::tasks("../database/tasks.json");
 
 void DevicesDatabase::generate(CapabilitiesMessage* msg, std::string deviceId)
 {
@@ -194,9 +189,6 @@ void DevicesDatabase::update(CapabilitiesMessage* msg, std::string deviceId)
             dlog("Skipping %s-%d\n", deviceTypeToString(cap.type), cap.id);
             continue;
         } else {
-            std::cout << device["outputs"].contains(id) << "\n";
-            std::cout << deviceBase.data.j[deviceId]["outputs"][id]["type"] << "\n";
-            dlog("Device did not contain %s - %d creating\n", deviceTypeToString(cap.type), cap.id);
             dlog("Device did not contain %s - %s creating\n", deviceTypeToString(cap.type), id.c_str());
         }
         json dev;

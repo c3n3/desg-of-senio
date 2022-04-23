@@ -30,6 +30,7 @@
 <script>
 <%c++
     $$ << "window.jsonInput = '" << database << "';\n";
+    $$ << "window.renderType = 'devices';\n";
     std::ifstream t("../content/built.js");
     $$ << t.rdbuf();
 %>
