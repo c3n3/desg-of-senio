@@ -73,7 +73,6 @@ void StepperMotor::move(float dps, float degrees)
 // Step the motor
 void StepperMotor::step()
 {
-    dlog("Step\n");
     digitalWrite(dirPin_, direction_);
     digitalWrite(stepPin_,HIGH); 
     delayMicroseconds(100); 

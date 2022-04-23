@@ -4,7 +4,7 @@
 
 using namespace genauto;
 
-static MessageTypeRegistry<SwitchMessage::classMsgType> r;
+MESSAGE_ID_UNIQUE(SwitchMessage);
 
 /**
          * @brief Create a stepper motor message

@@ -40,6 +40,8 @@ namespace genauto {
         static void runPwmSet(Command*);
     
     public:
+        static std::string commandToString(Command::CommandType t);
+
         void execute();
 
         Command(MessageId& id, double value);

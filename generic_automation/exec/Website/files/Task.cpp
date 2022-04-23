@@ -13,11 +13,13 @@ Task::Task(json& j)
     }
 }
 
-void Task::execute()
+bool Task::exec()
 {
     for (auto& command : commands) {
         command.execute();
     }
+    delete this;
+    return false;
 }
 
 json Task::toJson()

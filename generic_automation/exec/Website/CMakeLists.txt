@@ -93,6 +93,8 @@ target_sources(${PROJECT_NAME}
                files/DeviceSubscribeManager.cpp
                files/DeviceSubscriber.cpp
                files/Thread.cpp
+               files/Task.cpp
+               files/Command.cpp
                files/DeviceList.cpp
                files/Common.cpp)
 # ##############################################################################

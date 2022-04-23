@@ -2,6 +2,7 @@
 #include "../../Common/include/EncoderMessage.hpp"
 #include "../../Common/include/ButtonMessage.hpp"
 #include "../../Common/include/StepperMotorMessage.hpp"
+#include "../../Common/include/SwitchMessage.hpp"
 #include "../../Common/include/Timer.hpp"
 //#include "../include/Device.hpp"
 #include <stdint.h>
@@ -202,7 +203,7 @@ void genauto::StepperDevice::execute()
     Message *Msg = nextMessage();
     if (Msg != NULL)
     {
-        dlog("Stepper motor message received!!!\n");
+        dlog("Stepper motor message received %d!!!\n", Msg->type());
         if (Msg->type() == EncoderMessage::classMsgType)
         {
             dlog("Got an encoder message!!!\n");
@@ -213,18 +214,20 @@ void genauto::StepperDevice::execute()
             if(mode == DegreesSecond) setSpeed(speed_ + val);
             else myStepper.move(speed_, val);
             dlog("speed: %d\n", (int)speed_);
+            motorOn = true;
         }
-        if (Msg->type() == ButtonMessage::classMsgType)
+        else if (Msg->type() == ButtonMessage::classMsgType)
         {
             ButtonMessage *bMsg = (ButtonMessage *)Msg;
             if (bMsg->pressed() == true)
                 motorOn == !motorOn;
         }
-        if (Msg->type() == StepperMotorMessage::classMsgType)
+        else if (Msg->type() == StepperMotorMessage::classMsgType)
         {
+            dlog("got this message\n");
             StepperMotorMessage *sMsg = (StepperMotorMessage *)Msg;
             float val = sMsg->value();
-            encoderStepScale_ = sMsg->stepScale();
+            encoderStepScale_ = encoderStepScale_ > 0 ? sMsg->stepScale() : encoderStepScale_;
             
             if (sMsg->modeType() == StepperMotorMessage::DegreesSecond)
             {
@@ -238,6 +241,12 @@ void genauto::StepperDevice::execute()
                 // dlog("speed: %d\n", (int)speed_);
                 myStepper.move(speed_, val);
             }
+            motorOn = true;
+        }
+        else if (Msg->type() == SwitchMessage::classMsgType)
+        {
+            SwitchMessage *sMsg = (SwitchMessage *)Msg;
+            motorOn = sMsg->on();
         }
     }
     //t.log();

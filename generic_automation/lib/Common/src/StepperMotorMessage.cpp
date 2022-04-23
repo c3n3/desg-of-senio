@@ -4,7 +4,7 @@
 
 using namespace genauto;
 
-static MessageTypeRegistry<StepperMotorMessage::classMsgType> r;
+MESSAGE_ID_UNIQUE(StepperMotorMessage);
 
 StepperMotorMessage::StepperMotorMessage(uint8_t* buffer, uint16_t bufferSize)
     : Message(buffer, bufferSize)
@@ -14,7 +14,7 @@ StepperMotorMessage::StepperMotorMessage()
     : Message(msgSize)
 {
     // Set type in case this is a new buffer
-    Message::type() = classMsgType;
+    type() = classMsgType;
 }
 
 float& StepperMotorMessage::value()
@@ -26,7 +26,6 @@ float& StepperMotorMessage::stepScale()
 {
     return get<float>(stepScale_loc);
 }
-
 
 StepperMotorMessage::Mode& StepperMotorMessage::modeType()
 {

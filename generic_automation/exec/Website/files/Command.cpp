@@ -6,15 +6,33 @@
 #include "../lib/Common/include/SwitchMessage.hpp"
 #include <chrono>
 #include <thread>
+#include <iostream>
+#include <string>
 
 using namespace genauto;
+
+std::string Command::commandToString(Command::CommandType t)
+{
+    #define CASE(x) case x: return #x
+    switch (t) {
+        CASE(Delay);
+        CASE(StepperRotate);
+        CASE(StepperSpeed);
+        CASE(On);
+        CASE(Off);
+        CASE(PwmSet);
+        default: return "Unknown";
+    }
+    #undef CASE
+}
 
 void Command::runStepperRotate(Command* command)
 {
     StepperMotorMessage msg;
     msg.id() = command->id;
-    msg.type() = StepperMotorMessage::Degrees;
+    msg.modeType() = StepperMotorMessage::Degrees;
     msg.value() = command->value;
+    msg.stepScale() = -1;
     sendTo(&msg);
 }
 
@@ -22,8 +40,9 @@ void Command::runStepperSpeed(Command* command)
 {
     StepperMotorMessage msg;
     msg.id() = command->id;
-    msg.type() = StepperMotorMessage::Degrees;
+    msg.modeType() = StepperMotorMessage::DegreesSecond;
     msg.value() = command->value;
+    msg.stepScale() = -1;
     sendTo(&msg);
 }
 
@@ -60,6 +79,7 @@ void Command::runPwmSet(Command* command)
     
 void Command::execute()
 {
+    std::cout << "Running " << commandToString(type) << " Value: " << value << "\n";
     execs[type](this);
 }
 
@@ -78,14 +98,23 @@ Command::Command(json j)
         else TYPE(t, StepperRotate);
         else TYPE(t, StepperSpeed);
         else TYPE(t, PwmSet);
-        else elog("Invalid type\n");
     } else {
         elog("Did not find type\n");
     }
     if (j.contains("value")) {
-        value = j["value"];
+        value = j["value"].get<double>();
     } else {
         elog("Did not find value\n");
+    }
+    if (j.contains("major")) {
+        id.major = j["major"].get<major_t>();
+    } else {
+        elog("Did not find major\n");
+    }
+    if (j.contains("minor")) {
+        id.minor = j["minor"].get<minor_t>();
+    } else {
+        elog("Did not find minor\n");
     }
     #undef TYPE
 }
@@ -94,7 +123,9 @@ json Command::toJson()
 {
     json j;
     j["value"] = value;
-    j["type"] = value;
+    j["type"] = commandToString(type);
+    j["major"] = id.major+0;
+    j["minor"] = id.minor+0;
     return j;
 }
 
