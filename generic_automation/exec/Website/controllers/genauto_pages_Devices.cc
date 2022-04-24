@@ -39,6 +39,7 @@ void Devices::update(const HttpRequestPtr &req,
     LOG_INFO << "------------------ CALLED --------------------\n";
     json parsed = json::parse(data);
     DevicesDatabase::deviceBase.update(keystring, type, parsed);
+    callback(HttpResponse::newHttpResponse());
 }
 
 

@@ -15,6 +15,7 @@ DevicesDatabase::DevicesDatabase(const char* fileName) : data(fileName)
 
 static void updateLinks(const json& oldLinks, const json& newLinks, MessageId id)
 {
+    dlog("start of the update links function\n");
     // Terribly ineffecient algo, but not important here
     // If not found, we must remove the sub
     for (const auto& el : oldLinks.items()) {
@@ -62,6 +63,7 @@ void DevicesDatabase::update(
     std::string minor = std::to_string(dev.minor);
     auto& persistent = data.j[major][type][minor]["persistent"];
     if (type == "outputs") {
+        dlog("Called in the update function\n");
         updateLinks(persistent["linked"], input["linked"], dev);
     }
     for (auto& el : input.items()) {

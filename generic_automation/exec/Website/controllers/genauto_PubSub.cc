@@ -1,8 +1,11 @@
 #include "genauto_PubSub.h"
 #include "Log.hpp"
 #include "HexStringSerializer.hpp"
+#include "../files/Common.h"
 #include "Capabilities.hpp"
 #include "../database/Database.hpp"
+#include "../files/DeviceSubscribeManager.hpp"
+#include "../lib/Common/include/Timer.hpp"
 
 #include <arpa/inet.h>
 
@@ -72,6 +75,23 @@ void PubSub::handle(const HttpRequestPtr &req,
             dlog("Generating dev %s\n", devId.c_str());
             DevicesDatabase::generate(&real, devId);
         }
+
+
+        callAsync(
+            [devId](void) {
+                Timer::delay(3000);
+                for (auto& output : DevicesDatabase::deviceBase.data.j[devId]["outputs"].items()) {
+                    for(auto& linked : output.value()["persistent"]["linked"].items()) {
+                        major_t maj = std::stoi(devId);
+                        minor_t min = std::stoi(output.key());
+                        MessageId id(maj,min);
+                        MessageId other(linked.value().get<std::string>().c_str());
+                        DeviceSubscribeManager::addSub(id, other);
+                    }
+                }
+            }
+        );
+        return;
     }
     callback(HttpResponse::newHttpResponse());
 }

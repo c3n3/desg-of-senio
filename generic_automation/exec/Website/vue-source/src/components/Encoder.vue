@@ -97,7 +97,7 @@ export default {
             axios.post(postStr
                 ,{ params: {}})
                 .then(response => {})
-                .catch(error => {});
+                .catch(error => {console.log("BEWARE unhandled error")});
             this.previousValue = this.value;
         },
         normalize: function(newVal) {

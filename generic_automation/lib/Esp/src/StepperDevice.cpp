@@ -218,9 +218,7 @@ void genauto::StepperDevice::execute()
         }
         else if (Msg->type() == ButtonMessage::classMsgType)
         {
-            ButtonMessage *bMsg = (ButtonMessage *)Msg;
-            if (bMsg->pressed() == true)
-                motorOn == !motorOn;
+            motorOn = false;
         }
         else if (Msg->type() == StepperMotorMessage::classMsgType)
         {
