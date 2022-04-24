@@ -16,6 +16,7 @@ namespace genauto {
         void load();
         static JsonFile deviceIds;
         static JsonFile tasks;
+        static JsonFile timedEvents;
     };
     class DevicesDatabase {
     public:

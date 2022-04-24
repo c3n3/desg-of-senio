@@ -206,14 +206,11 @@ void genauto::StepperDevice::execute()
         dlog("Stepper motor message received %d!!!\n", Msg->type());
         if (Msg->type() == EncoderMessage::classMsgType)
         {
-            dlog("Got an encoder message!!!\n");
             // dlog("in encoder if\n");
             EncoderMessage *eMsg = (EncoderMessage *)Msg;
             int16_t val = (int16_t)eMsg->value() * encoderStepScale_; // can be negative, lets it know to move CCW or CW which should be moving the encoder the same.
-            dlog("val: %d\n", val);
             if(mode == DegreesSecond) setSpeed(speed_ + val);
             else myStepper.move(speed_, val);
-            dlog("speed: %d\n", (int)speed_);
             motorOn = true;
         }
         else if (Msg->type() == ButtonMessage::classMsgType)
@@ -222,7 +219,6 @@ void genauto::StepperDevice::execute()
         }
         else if (Msg->type() == StepperMotorMessage::classMsgType)
         {
-            dlog("got this message\n");
             StepperMotorMessage *sMsg = (StepperMotorMessage *)Msg;
             float val = sMsg->value();
             encoderStepScale_ = encoderStepScale_ > 0 ? sMsg->stepScale() : encoderStepScale_;

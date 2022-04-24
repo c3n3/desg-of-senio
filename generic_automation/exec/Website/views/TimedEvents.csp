@@ -1,49 +1,38 @@
 <!DOCTYPE html>
 <html>
+<%inc
+    #include "../controllers/genauto_pages_TimedEvents.h"
+    #include <string>
+    #include <fstream>
+%>
+<%c++
+    auto database=@@.get<std::string>("json");
+%>
 <head>
     <meta charset="UTF-8">
     <title>Tasks</title>
 </head>
-<body class="color-1 color-word">
+<body class="color-1" >
     <%view TopBar.csp %>
-    <div style="display: flex;">
-        <div class="main">
-            <div style="min-width: 500px;">
-                <h1>Tasks</h1>
-                <div class="item-list">
-                    <div>
-                        <div class="events-list">
-                            <div class="item event">
-                                <h4 class="item-title">Water plants</h4>
-                                <ul>Type: </label> <input class="event-value" type="text" value="Periodic"/></ul>
-                                <ul>Value: </label> <input class="event-value" type="text" value="1h"/></ul>
-                                <ul>Task: </label> <input class="event-value" type="text" value="WaterPlants"/></ul>
-                            </div>
-                            <div class="item event">
-                                <h4 class="item-title">Make coffee</h4>
-                                <ul>Type: <input class="event-value" type="text" value="Daily"/></ul>
-                                <ul>Value: <input class="event-value" type="text" value="6am"/></ul>
-                                <ul>Task: <input class="event-value" type="text" value="MakeCoffee"/></ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id=app></div>
 </body>
 </html>
 
 <style lang="css">
-    .event-value {
-        float: right;
-    }
-    .event {
-        display: flex;
-        flex-direction: column;    
-    }
     .input {
         min-width: 0;
     }
+    .task-list {
+        padding-right: 10px;
+    }
     <%view Styles.csp %>
 </style>
+
+<script>
+    <%c++
+        $$ << "window.jsonInput = '" << database << "';\n";
+        $$ << "window.renderType = 'timed events';\n";
+        std::ifstream t("../content/built.js");
+        $$ << t.rdbuf();
+    %>
+</script>

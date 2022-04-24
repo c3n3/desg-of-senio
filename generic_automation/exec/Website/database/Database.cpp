@@ -104,6 +104,7 @@ void JsonFile::save()
 
 JsonFile JsonFile::deviceIds("../database/deviceIds.json");
 JsonFile JsonFile::tasks("../database/tasks.json");
+JsonFile JsonFile::timedEvents("../database/timedEvents.json");
 
 void DevicesDatabase::generate(CapabilitiesMessage* msg, std::string deviceId)
 {

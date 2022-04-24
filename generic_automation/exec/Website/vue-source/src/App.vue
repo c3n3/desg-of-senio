@@ -6,6 +6,9 @@
     <div v-if="type=='tasks'">
         <Tasks :propdata="json"/>
     </div>
+    <div v-if="type=='timed events'">
+        <TimedEvents :propdata="json"/>
+    </div>
 </div>
 </template>
 
@@ -13,12 +16,14 @@
 // eslint-disable-next-line no-unused-vars
 import Devices from './components/Devices.vue'
 import Tasks from './components/Tasks.vue'
+import TimedEvents from './components/TimedEvents.vue'
 
 export default {
   name: 'App',
   components: {
     Devices,
-    Tasks
+    Tasks,
+    TimedEvents
   },
   data: function () {
     return {
