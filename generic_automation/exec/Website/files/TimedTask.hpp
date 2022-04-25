@@ -4,24 +4,29 @@
 #include "../json/json.hpp"
 #include "../files/Thread.hpp"
 #include <unordered_map>
+#include <chrono>
+
 using namespace nlohmann;
 
 namespace genauto {
+
+    class TimedTask;
 
     class TimedLoop : public Thread {
         TimedLoop();
         static std::unordered_map<std::string, TimedTask*> tasks;
     public:
-        void addTask(TimedTask* newTask);
-        void updateTask(json j);
+        static void init();
+        void addTask(std::string name, TimedTask* newTask);
+        void removeTask(std::string name);
+        bool contains(std::string name);
+        void updateTask(json& j);
         bool exec();
-        static TimedLoop loop;
+        static TimedLoop* loop;
     };
 
     class TimedTask {
         friend class TimedLoop;
-
-
         bool enabled_;
         uint64_t startTime_;
         uint64_t currentTimeMs();
@@ -37,7 +42,9 @@ namespace genauto {
 
         static TimedType strToType(std::string str);
 
-        TimedTask (json j);
+        TimedTask(json& j);
+
+        void updateJson(json& j);
 
         bool shouldExecute();
 
@@ -49,9 +56,11 @@ namespace genauto {
 
         TimedType type;
 
-        uint64_t value;
+        uint32_t minutes;
 
-        uint32_t secondaryValue;
+        uint32_t hours;
+
+        uint32_t days;
     };
 }
 

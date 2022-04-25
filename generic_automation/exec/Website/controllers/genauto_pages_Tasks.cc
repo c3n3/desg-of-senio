@@ -20,7 +20,7 @@ void Tasks::mainFun(
     output["tasks"] = JsonFile::tasks.j;
     genauto::htmlOutput(output, database);
     data.insert("json", database);
-    auto resp=HttpResponse::newHttpViewResponse("Tasks.csp",data);
+    auto resp=HttpResponse::newHttpViewResponse("Tasks.csp", data);
     callback(resp);
 }
 
@@ -35,7 +35,7 @@ void Tasks::save(
     std::cout << data << "\n";
     JsonFile::tasks.j = j;
     JsonFile::tasks.save();
-    dlog("Saving new info");
+    dlog("Saving new info\n");
     callback(HttpResponse::newHttpResponse());
 }
 

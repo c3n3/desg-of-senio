@@ -32,7 +32,7 @@
                                 <div v-if="event['type'] == 'Weekly'">
                                     <div class="input-line"><input class="input-text" v-model="event['minutes']" @input="event['minutes'] = limit(event['minutes'], 0, 59)"> Minute of the hour</div>
                                     <div class="input-line"><input class="input-text" v-model="event['hours']" @input="event['hours'] = limit(event['hours'], 0, 23)"> Hour of the day</div>
-                                    <div class="input-line"><input class="input-text" v-model="event['hours']" @input="event['day'] = limit(event['day'], 0, 6)"> Day of the week</div>
+                                    <div class="input-line"><input class="input-text" v-model="event['hours']" @input="event['days'] = limit(event['days'], 0, 6)"> Day of the week</div>
                                 </div>
                             </div>
                             <div class="task-selection">
@@ -44,7 +44,7 @@
                             <div v-if="event['enabled']" class="custom-button" @click="event['enabled'] = !event['enabled']; save()">Disable</div>
                         </div>
                     </div>
-                    <div class="custom-button" @click="events.push({'name': 'New Task', 'type': 'Periodic', 'enabled': false, 'task': '', 'hours': 0, 'minutes': 0, 'day': 0})">Add Event</div>
+                    <div class="custom-button" @click="events.push({'name': 'New Task', 'type': 'Periodic', 'enabled': false, 'task': '', 'hours': 0, 'minutes': 0, 'days': 0})">Add Event</div>
                     <div class="custom-button" @click="save">Save</div>
                 </div>
             </div>

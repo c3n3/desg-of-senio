@@ -94,6 +94,7 @@ target_sources(${PROJECT_NAME}
                files/DeviceSubscriber.cpp
                files/Thread.cpp
                files/Task.cpp
+               files/TimedTask.cpp
                files/Command.cpp
                files/DeviceList.cpp
                files/Common.cpp)

@@ -4,6 +4,7 @@
 #include "../files/Common.h"
 #include "../json/json.hpp"
 #include "../files/Task.hpp"
+#include "../files/TimedTask.hpp"
 
 using namespace genauto::pages;
 //add definition of your processing function here
@@ -39,4 +40,5 @@ void TimedEvents::save(
     JsonFile::timedEvents.save();
     dlog("Saving new info");
     callback(HttpResponse::newHttpResponse());
+    // Update the loop
 }

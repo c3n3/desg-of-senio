@@ -22,7 +22,7 @@ namespace genauto {
      * @param message 
      */
     void sendTo(Message* message);
-    
+
     /**
      * @brief Sends a message to a device
      *
@@ -30,6 +30,14 @@ namespace genauto {
      * @param dev device id
      */
     void send(Message* message, major_t dev);
+
+    /**
+     * @brief Sends a message to a device
+     *
+     * @param message message
+     * @param dev device id
+     */
+    json find(std::string name, json& j);
 
     /**
      * @brief remove all 

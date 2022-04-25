@@ -83,3 +83,16 @@ void genauto::send(Message* message, major_t device)
     handle.setOpt(curlpp::options::Url(willSend));
     handle.perform();
 }
+
+json genauto::find(std::string name, json& j)
+{
+    if (!j.is_array()) {
+        return json();
+    }
+    for (auto& el : j.items()) {
+        if (el.value()["name"] == name) {
+            return el.value();
+        }
+    }
+    return json();
+}
