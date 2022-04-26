@@ -53,7 +53,7 @@ bool TimedLoop::exec()
     for (auto& kv : tasks) {
         if (kv.second->shouldExecute()) {
             json task = find(kv.second->task, JsonFile::tasks.j);
-            dlog("Running task\n");
+            dlog("Running task '%s'\n", kv.second->task.c_str());
             if (task.is_null()) {
                 elog("Invalid timed event\n");
                 continue;
@@ -97,7 +97,6 @@ static T cast(json& j)
 
 void TimedTask::updateJson(json& j)
 {
-    dlog("\n");
     if (j.contains("name")) {
         name = j["name"];
     } else {
@@ -117,11 +116,16 @@ void TimedTask::updateJson(json& j)
     } if (j.contains("days")) {
         days = cast<uint32_t>(j["days"]);
     } else {
-        elog("No hours");
+        elog("No days");
     } if (j.contains("enabled")) {
         enabled_ = j["enabled"];
     } else {
         elog("No hours");
+    } if (j.contains("task")) {
+        task = j["task"];
+        dlog("'%s'\n", task.c_str());
+    } else {
+        elog("No task");
     }
     dlog("\n");
 }
