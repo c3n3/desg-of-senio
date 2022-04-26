@@ -16,9 +16,8 @@ void TimedLoop::init()
 
 void TimedLoop::addTask(std::string name, TimedTask* newTask)
 {
-    dlog("Here\n");
+    dlog("Adding new task\n");
     auto t = std::make_pair(name, newTask);
-    dlog("Here\n");
     tasks.insert(t);
 }
 
@@ -54,6 +53,7 @@ bool TimedLoop::exec()
     for (auto& kv : tasks) {
         if (kv.second->shouldExecute()) {
             json task = find(kv.second->task, JsonFile::tasks.j);
+            dlog("Running task\n");
             if (task.is_null()) {
                 elog("Invalid timed event\n");
                 continue;
@@ -86,14 +86,24 @@ TimedTask::TimedType TimedTask::strToType(std::string str)
     #undef CHECK
 }
 
+template<typename T>
+static T cast(json& j)
+{
+    if (j.is_string()) {
+        return std::stod(j.get<std::string>());
+    }
+    return j.get<T>();
+}
+
 void TimedTask::updateJson(json& j)
 {
+    dlog("\n");
     if (j.contains("name")) {
         name = j["name"];
     } else {
         elog("No name\n");
     } if (j.contains("minutes")) {
-        minutes = j["minutes"];
+        minutes = cast<uint32_t>(j["minutes"]);
     } else {
         elog("No time value\n");
     } if (j.contains("type")) {
@@ -101,11 +111,11 @@ void TimedTask::updateJson(json& j)
     } else {
         elog("No type");
     } if (j.contains("hours")) {
-        hours = j["hours"];
+        hours = cast<uint32_t>(j["hours"]);
     } else {
         elog("No hours");
     } if (j.contains("days")) {
-        days = j["days"];
+        days = cast<uint32_t>(j["days"]);
     } else {
         elog("No hours");
     } if (j.contains("enabled")) {
@@ -113,6 +123,7 @@ void TimedTask::updateJson(json& j)
     } else {
         elog("No hours");
     }
+    dlog("\n");
 }
 
 TimedTask::TimedTask(json& j)
@@ -128,7 +139,9 @@ bool TimedTask::shouldExecute()
     }
     switch (type) {
         case Periodic: {
-            if (currentTimeMs() - startTime_ > (minutes*60*1000 + hours*60*60*1000)) {
+            uint64_t value = (minutes*60*1000 + hours*60*60*1000);
+            dlog("Time value %u\n", currentTimeMs() - startTime_);
+            if (value != 0 && currentTimeMs() - startTime_ > value) {
                 startTime_ = currentTimeMs();
                 return true;
             }
@@ -141,7 +154,7 @@ bool TimedTask::shouldExecute()
             int hour=aTime->tm_hour;
             int min=aTime->tm_min;
             uint64_t currentMinute = min + hour*60;
-            if (currentMinute > (hours*60*60 + minutes) && startTime_ != day) {
+            if (currentMinute > (hours*60*60 + minutes) && currentMinute < (hours*60*60 + minutes) + 5 && startTime_ != day) {
                 startTime_ = day;
                 return true;
             }
@@ -155,7 +168,8 @@ bool TimedTask::shouldExecute()
             int min=aTime->tm_min;
             int weekDay = aTime->tm_wday;
             uint64_t currentMinute = min + hour*60 + day*24*60;
-            if (currentMinute > (hours*60*60 + minutes + days*24*60) && startTime_ != weekDay) {
+            uint64_t timeToRun = (hours*60*60 + minutes + days*24*60);
+            if (currentMinute > timeToRun && currentMinute < timeToRun + 5 && startTime_ != weekDay) {
                 startTime_ = weekDay;
                 return true;
             }
@@ -176,7 +190,7 @@ uint64_t TimedTask::currentTimeMs()
 {
     auto now = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(now - start_);
-    return duration.count() / 2000;
+    return duration.count() / 1000;
 }
 
 TimedLoop* TimedLoop::loop;

@@ -25,7 +25,7 @@ Timer::Timer(const char * name)
 
 void Timer::delay(uint64_t ms)
 {
-    delay(ms)
+    delay(ms);
 }
 
 Timer::Timer(const char* name)

@@ -92,6 +92,9 @@ export default {
   },
   mounted() {
       console.log("Wat is up\n");
+      if (this.events == null) {
+          this.events = []
+      }
   }
 }
 </script>

@@ -38,6 +38,15 @@ void TimedEvents::save(
     std::cout << data << "\n";
     JsonFile::timedEvents.j = j;
     JsonFile::timedEvents.save();
+    for (auto& el : JsonFile::timedEvents.j.items()) {
+        if (el.value().contains("name")) {
+            if (TimedLoop::loop->contains(el.value()["name"])) {
+                TimedLoop::loop->updateTask(el.value());
+            } else {
+                TimedLoop::loop->addTask(el.value()["name"], new TimedTask(el.value()));
+            }
+        }
+    }
     dlog("Saving new info");
     callback(HttpResponse::newHttpResponse());
     // Update the loop
