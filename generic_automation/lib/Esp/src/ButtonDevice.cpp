@@ -30,8 +30,10 @@ void genauto::ButtonDevice::execute()
         bMsg.id() = MessageId(deviceId, minorId);
         inited = true;
     }
-    if(pressed_)
+    if(millis() - timeRise_ > 100 && millis() - lastTime > 500)
     {
+        timeRise_ = 0;
+        lastTime = millis();
         bMsg.pressed() = true;
         pressed_ = false;
         send = true;
