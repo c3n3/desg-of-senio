@@ -40,6 +40,9 @@ static const uint8_t PWM5_PWM = 21;
 // static PwmDevice pwm1(21, 0, ConstantIds::Esp::NEW_IDS_START + 3);
 // static PwmDevice pwm2(18, 0, ConstantIds::Esp::NEW_IDS_START + 4);
 
+static ButtonDeviceInst<34> button1(ConstantIds::Esp::NEW_IDS_START);
+static ButtonDeviceInst<35> button2(ConstantIds::Esp::NEW_IDS_START + 1);
+
 void setup()
 {
     rtc_wdt_protect_off();
@@ -62,25 +65,8 @@ uint32_t timer;
 
 void loop()
 {
-    StepperMotorMessage msg;
-    if (millis() - timer > 2000) {
-        stepper1.move(90, 90);
-        timer += 2000;
+    if (button1.tryGet()) {
+        dlog("Got\n");
     }
-    // motor.tick();
-    stepper1.execute();
-    // pwm1.execute();   
-    // pwm2.execute();   
-    // shitfReg(MAINS_SW, on);
-    // shitfReg(PW_SW14, on);
-    // shitfReg(PW_SW15, on);
-    // shitfReg(LED_SW, on);
-    // shitfReg(SW16, on);
-    // on = !on;
-    // delay(100);
-    // bDev->execute();
-    // ButtonMessage* bMsg = bDev->tryGet();
-    // if(bMsg == nullptr) Serial.println("No Press");
-    // else Serial.println("Button Pressed");
-
+    button1.execute();
 }

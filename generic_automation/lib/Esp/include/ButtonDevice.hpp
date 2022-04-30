@@ -17,7 +17,7 @@ namespace genauto
         uint8_t pinNumber;
         bool pressed_ = false;
         unsigned long lastTime = 0;
-        unsigned long timeRise_ = 0;
+        unsigned long timeRise_;
         bool send = false;
         bool inited = false;
         ButtonMessage bMsg;
@@ -62,17 +62,17 @@ namespace genauto
 
         static void isr()
         {
-            if (digitalRead(PIN)) {
-                ButtonDeviceInst<PIN>::timeRise_ = millis();
+            if (digitalRead(PIN) == LOW) {
+                ButtonDeviceInst<PIN>::self->timeRise_ = millis();
             } else {
-                ButtonDeviceInst<PIN>::timeRise_ = 0;
+                ButtonDeviceInst<PIN>::self->timeRise_ = 0;
             }
         }
     };
     template<int PIN> 
         ButtonDeviceInst<PIN> *ButtonDeviceInst<PIN>::self = nullptr;
-    template<int PIN> 
-        unsigned long ButtonDeviceInst<PIN>::time = 0;
+    // template<int PIN> 
+        // unsigned long ButtonDeviceInst<PIN>::time = 0;
 }
 
 #endif
