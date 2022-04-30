@@ -1,7 +1,7 @@
 #include "../include/PwmDevice.hpp"
 #include "../../Common/include/EncoderMessage.hpp"
 #include "../../Common/include/ButtonMessage.hpp"
-#include "../../Common/include/SwitchMessage.hpp"
+#include "../../Common/include/SimpleMessages.hpp"
 #include "../../Common/include/PwmMessage.hpp"
 #include <stdint.h>
 
@@ -15,15 +15,15 @@ using namespace genauto;
  * 
  * @param pinNumber 
  */
-genauto::PwmDevice::PwmDevice(uint8_t pinNumber, uint8_t channel, minor_t minorId)  
+genauto::PwmDevice::PwmDevice(Pwmdir dir, uint8_t pinNumber, uint8_t channel, minor_t minorId)
     : pinNumber(pinNumber),
     channel(channel),
     Subscriber(),
     Device(minorId),
-    inited(false)
+    inited(false),
+    dir_(dir)
 {
 }
-
 
 int16_t PwmDevice::getDutyCycle()
 {
@@ -48,19 +48,20 @@ void PwmDevice::setOnStatus(bool b)
     pwmOn_ = b;
 }
 
-/*
-Need if statements to check and see what message type is in the queue.
-Then have functions to handle each different type of message. 
-This will make it easier for when we are doing local linking.
-*/
+static void limit(int16_t& val, int16_t low, int16_t up)
+{
+    if (val > up) {
+        val = up;
+    } else if (val < low) {
+        val = low;
+    }
+}
 
-/**
- * @brief 
- * 
- */
 void genauto::PwmDevice::execute()
 {
     if (!inited) {
+        pinMode(dir_.p1, OUTPUT);
+        pinMode(dir_.p2, OUTPUT);
         ledcSetup(channel, PWM_FREQUENCY, PWM_RESOUTION); // setup PWM 
         ledcAttachPin(pinNumber, channel);
         ledcWrite(channel, 0);
@@ -69,43 +70,37 @@ void genauto::PwmDevice::execute()
     Message* Msg = nextMessage();
     if(Msg != NULL)
     {
-        if(Msg->type() == EncoderMessage::classMsgType) /// going to need to modify this for directions.
+        if(Msg->type() == EncoderMessage::classMsgType)
         {
             EncoderMessage* eMsg = (EncoderMessage*)Msg;
             int16_t val = dutyCycle_ + eMsg->value() * increment;
-            if(val > 255) dutyCycle_ = 255;
-            else if(val <= 0) dutyCycle_ = 0; // change for testing to 0 so no overflow negative.
-            else dutyCycle_ = val;
-            if(pwmOn_) ledcWrite(channel, dutyCycle_); // only if the pwm device is set to on, write to the pin.
+
+            // Limit
+            limit(val, -255, 255);
+            dutyCycle_ += val;
+            limit(dutyCycle_, -255, 255);
         }
         else if(Msg->type() == ButtonMessage::classMsgType)
         {
-            ButtonMessage* bMsg = (ButtonMessage*)Msg;
-            if(bMsg->pressed() == true) pwmOn_ = !pwmOn_;
-            if(pwmOn_) ledcWrite(channel, dutyCycle_);
-            else ledcWrite(channel, 0); // turn off the pwm device.
+            pwmOn_ = !pwmOn_;
         }
         else if(Msg->type() == PwmMessage::classMsgType)
         {
             PwmMessage* pMsg = (PwmMessage*)Msg;
             pwmOn_ = pMsg->onOff();
-            int16_t tempDuty = pMsg->dutyCycle();
-            if(tempDuty >= -255 && tempDuty <= 255) dutyCycle_ = tempDuty;
-            else if(tempDuty > 255) dutyCycle_ = 255;
-            else dutyCycle_ = -255;
-            if(pwmOn_) ledcWrite(channel, dutyCycle_);
-            else ledcWrite(channel, 0);
+            dutyCycle_ = pMsg->dutyCycle();
+            limit(dutyCycle_, -255, 255);
         }
-        else if (Msg->type() == SwitchMessage::classMsgType) {
-            SwitchMessage sMsg = SwitchMessage(Msg->getBuffer(), Msg->size());
+        else if (Msg->type() == FlipMessage::classMsgType) {
+            FlipMessage sMsg = FlipMessage(Msg->getBuffer(), Msg->size());
             pwmOn_ = sMsg.on();
         }
+        else if (Msg->type() == IncrementMessage::classMsgType) {
+            IncrementMessage sMsg = IncrementMessage(Msg->getBuffer(), Msg->size());
+            increment = sMsg.increment();
+        }
     }
-    if (pwmOn_) {
-        ledcWrite(channel, dutyCycle_);
-    } else {
-        ledcWrite(channel, 0);
-    }
+    output();
 }
 
 
@@ -114,3 +109,15 @@ Subscriber* genauto::PwmDevice::sub()
     return static_cast<Subscriber*>(this);
 }
 
+
+void genauto::PwmDevice::dir(bool dir)
+{
+    digitalWrite(dir_.p1, dir);
+    digitalWrite(dir_.p2, !dir);
+}
+
+void genauto::PwmDevice::output()
+{
+    dir(dutyCycle_ < 0);
+    ledcWrite(channel, abs(dutyCycle_) * pwmOn_);
+}

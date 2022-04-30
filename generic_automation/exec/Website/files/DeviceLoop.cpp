@@ -33,3 +33,5 @@ void DeviceLoop::removeDevice(Device* dev)
     }
     devsMutex.unlock();
 }
+
+DeviceLoop DeviceLoop::loop;

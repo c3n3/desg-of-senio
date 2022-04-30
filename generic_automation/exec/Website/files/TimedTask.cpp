@@ -1,12 +1,71 @@
 #include "TimedTask.hpp"
+#include "DeviceSubscribeManager.hpp"
 #include "../lib/Common/include/Log.hpp"
 #include "../lib/Common/include/Timer.hpp"
+#include "../lib/Common/include/ButtonMessage.hpp"
 #include "../database/Database.hpp"
 #include "Task.hpp"
 #include "Common.h"
 #include <chrono>
 
 using namespace genauto;
+
+std::unordered_map<std::string, EventTask> EventTask::events;
+
+
+EventTask::EventTask(std::string task)
+    : name(task),
+    Device(0), // We don't care about this id
+    Subscriber()
+{}
+
+EventTask::EventTask()
+    : name(""),
+    Device(0), // We don't care about this id
+    Subscriber()
+{}
+
+void EventTask::execute()
+{
+    Message* msg = nextMessage();
+    if (msg->type() == ButtonMessage::classMsgType) {
+        json task = find(name, JsonFile::tasks.j);
+        dlog("Running task '%s'\n", name.c_str());
+        if (task.is_null()) {
+            elog("Invalid timed event\n");
+            return;
+        }
+        Task* t = new Task(task["value"], task["name"]);
+        t->run();
+    }
+}
+
+void EventTask::add(std::string name, MessageId from)
+{
+    if (!events.count(name)) {
+        events.insert(std::make_pair(name, EventTask(name)));
+        DeviceLoop::loop.addDevice(&events[name]);
+    }
+    if (!events[name].froms.count(from)) {
+        events[name].froms.insert(from);
+        DeviceSubscribeManager::r.add(&events[name], from);
+    }
+}
+
+void EventTask::remove(std::string name, MessageId from)
+{
+    if (events.count(name)) {
+        if (events[name].froms.count(from)) {
+            DeviceSubscribeManager::r.removeSubscribe(&events[name], from);
+            events[name].froms.erase(events[name].froms.find(from));
+        }
+        if (events[name].froms.size() == 0) {
+            DeviceLoop::loop.removeDevice(&events[name]);
+            events.erase(events.find(name));
+        }
+    }
+}
+
 
 void TimedLoop::init()
 {
@@ -58,11 +117,11 @@ bool TimedLoop::exec()
                 elog("Invalid timed event\n");
                 continue;
             }
-            Task* t = new Task(task["value"]);
+            Task* t = new Task(task["value"], task["name"]);
             t->run();
         }
     }
-    Timer::delay(5000);
+    Timer::delay(1000);
     return true;
 }
 
@@ -73,7 +132,6 @@ TimedLoop::TimedLoop()
         dlog("Adding event %s\n", el.value()["name"].get<std::string>().c_str());
         addTask(el.value()["name"], new TimedTask(el.value()));
     }
-    run();
 }
 
 TimedTask::TimedType TimedTask::strToType(std::string str)
@@ -103,6 +161,10 @@ void TimedTask::updateJson(json& j)
         elog("No name\n");
     } if (j.contains("minutes")) {
         minutes = cast<uint32_t>(j["minutes"]);
+    } else {
+        elog("No time value\n");
+    } if (j.contains("seconds")) {
+        seconds = cast<uint32_t>(j["seconds"]);
     } else {
         elog("No time value\n");
     } if (j.contains("type")) {
@@ -143,8 +205,8 @@ bool TimedTask::shouldExecute()
     }
     switch (type) {
         case Periodic: {
-            uint64_t value = (minutes*60*1000 + hours*60*60*1000);
-            dlog("Time value %u\n", currentTimeMs() - startTime_);
+            uint64_t value = (minutes*60*1000 + hours*60*60*1000 + seconds*1000);
+            dlog("Time value %u > %u\n", currentTimeMs() - startTime_, value);
             if (value != 0 && currentTimeMs() - startTime_ > value) {
                 startTime_ = currentTimeMs();
                 return true;

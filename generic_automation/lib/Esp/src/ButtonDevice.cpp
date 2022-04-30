@@ -31,7 +31,7 @@ void genauto::ButtonDevice::execute()
         inited = true;
     }
     uint32_t res = millis() - timeRise_;
-    if(timeRise_ != 0 && res > 500 && millis() - lastTime > 500)
+    if(timeRise_ != 0 && res > 100 && millis() - lastTime > 500)
     {
         dlog("Time rise = %u, last time = %u\n", res, lastTime);
         timeRise_ = 0;

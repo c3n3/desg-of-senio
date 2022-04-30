@@ -96,7 +96,7 @@ target_sources(${PROJECT_NAME}
                files/Task.cpp
                files/TimedTask.cpp
                files/Command.cpp
-               files/DeviceList.cpp
+               files/DeviceLoop.cpp
                files/Common.cpp)
 # ##############################################################################
 # uncomment the following line for dynamically loading views 

@@ -39,7 +39,7 @@ void DeviceSubscribeManager::removeSub(MessageId& to, MessageId from)
             elog("Sub was nullptr\n");
         }
         if (dev->subCount() == 0) {
-            loop.removeDevice(dev);
+            DeviceLoop::loop.removeDevice(dev);
             map.remove(to.major);
         }
     }
@@ -54,7 +54,7 @@ void DeviceSubscribeManager::addSub(MessageId& to, MessageId from)
 
     if (!map.contains(to.major)) {
         if (map.insert(Pair<major_t, DeviceSubscriber>(to.major, DeviceSubscriber(to.major))) == map.SUCCESS) {
-            loop.addDevice(&map[to.major+0]);
+            DeviceLoop::loop.addDevice(&map[to.major+0]);
         } else {
             return;
         }
@@ -73,4 +73,31 @@ void DeviceSubscribeManager::addSub(MessageId& to, MessageId from)
     espSubUpdate(to, from, true);
 }
 
-DeviceLoop DeviceSubscribeManager::loop;
+DeviceSubscribeManager::Pub DeviceSubscribeManager::pub;
+
+DeviceSubscribeManager::Pub::Pub()
+: m(400)
+{}
+
+Message* DeviceSubscribeManager::Pub::tryGet()
+{
+    if (msgs.count()) {
+        Buffer b;
+        if (msgs.front(b)) {
+            m.setBuffer(b.buffer);
+            return &m;
+        }
+    }
+    return nullptr;
+}
+
+void DeviceSubscribeManager::init()
+{
+    r.addPublisher(&pub);
+}
+
+void DeviceSubscribeManager::publish(Message* publish)
+{
+    pub.msgs.enqueue(publish->getBuffer(), publish->getSizeSafe());
+}
+

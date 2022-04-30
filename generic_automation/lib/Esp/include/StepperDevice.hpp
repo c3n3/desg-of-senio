@@ -19,6 +19,7 @@ namespace genauto {
     //float encoderAngleIncrement_;
     uint8_t direction_;
     uint8_t stepPin;
+    bool force_;
     uint8_t dirPin;
     bool motorOn;
     StepperMotor myStepper;
@@ -99,6 +100,9 @@ namespace genauto {
          */
         void execute();
 
+        /**
+         * @brief Sub
+         */
         Subscriber* sub();
     };
 }

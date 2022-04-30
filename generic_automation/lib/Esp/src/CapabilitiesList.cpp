@@ -35,8 +35,8 @@ CapabilitiesList::capabilitiesList = nullptr;
 
 static ButtonDeviceInst<34> button1(ConstantIds::Esp::NEW_IDS_START);
 static ButtonDeviceInst<35> button2(ConstantIds::Esp::NEW_IDS_START + 1);
-static PwmDevice pwm1(21, 0, ConstantIds::Esp::NEW_IDS_START + 3);
-static PwmDevice pwm2(18, 0, ConstantIds::Esp::NEW_IDS_START + 4);
+static PwmDevice pwm1({.p1=22,.p2=2}, 21, 0, ConstantIds::Esp::NEW_IDS_START + 3);
+static PwmDevice pwm2({.p1=19,.p2=0}, 18, 0, ConstantIds::Esp::NEW_IDS_START + 4);
 static StepperDevice stepper1(32, 33,  ConstantIds::Esp::NEW_IDS_START + 5);
 static StepperDevice stepper2(26, 27,  ConstantIds::Esp::NEW_IDS_START + 6);
 static StepperDevice stepper3(23, 25,  ConstantIds::Esp::NEW_IDS_START + 7);
@@ -44,14 +44,15 @@ static EncoderDevice encoder1(4, 5, ConstantIds::Esp::NEW_IDS_START + 8);
 static EncoderDevice encoder2(36, 39, ConstantIds::Esp::NEW_IDS_START + 9);
 static AnalogDevice analog1(14, ConstantIds::Esp::NEW_IDS_START + 10);
 static AnalogDevice analog2(15, ConstantIds::Esp::NEW_IDS_START + 11);
-static SwitchDevice switch1(MAINS_SW, ConstantIds::Esp::NEW_IDS_START + 12);
-static SwitchDevice switch2(PW_SW14, ConstantIds::Esp::NEW_IDS_START + 13);
-static SwitchDevice switch3(PW_SW15, ConstantIds::Esp::NEW_IDS_START + 14);
-static SwitchDevice switch4(SW16, ConstantIds::Esp::NEW_IDS_START + 15);
-static SwitchDevice switch5(SW17, ConstantIds::Esp::NEW_IDS_START + 16);
-static SwitchDevice switch6(SW18, ConstantIds::Esp::NEW_IDS_START + 17);
-static SwitchDevice switch7(SW19, ConstantIds::Esp::NEW_IDS_START + 18);
-static SwitchDevice switch8(LED_SW, ConstantIds::Esp::NEW_IDS_START + 19);
+
+static SwitchDevice switch2(PW_SW14, ConstantIds::Esp::NEW_IDS_START + 12);
+static SwitchDevice switch3(PW_SW15, ConstantIds::Esp::NEW_IDS_START + 13);
+static SwitchDevice switch4(SW16, ConstantIds::Esp::NEW_IDS_START + 14);
+static SwitchDevice switch5(SW17, ConstantIds::Esp::NEW_IDS_START + 15);
+static SwitchDevice switch6(SW18, ConstantIds::Esp::NEW_IDS_START + 16);
+static SwitchDevice switch7(SW19, ConstantIds::Esp::NEW_IDS_START + 17);
+static SwitchDevice switch8(LED_SW, ConstantIds::Esp::NEW_IDS_START + 18);
+static SwitchDevice switch1(MAINS_SW, ConstantIds::Esp::NEW_IDS_START + 20);
 
 Capability testDeviceV1Caps[] = {
     Capability(Button, ConstantIds::Esp::NEW_IDS_START),

@@ -4,6 +4,8 @@
 #include "../lib/Common/include/MessageId.hpp"
 #include "../json/json.hpp"
 
+#include <vector>
+
 using namespace nlohmann;
 
 namespace genauto {
@@ -21,7 +23,7 @@ namespace genauto {
 
         CommandType type;
 
-        double value;
+        std::vector<double> values;
 
         MessageId id;
 
@@ -43,8 +45,6 @@ namespace genauto {
         static std::string commandToString(Command::CommandType t);
 
         void execute();
-
-        Command(MessageId& id, double value);
 
         Command(json j);
 

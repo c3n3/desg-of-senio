@@ -27,6 +27,11 @@ float& StepperMotorMessage::stepScale()
     return get<float>(stepScale_loc);
 }
 
+bool& StepperMotorMessage::force()
+{
+    return get<bool>(force_loc);
+}
+
 StepperMotorMessage::Mode& StepperMotorMessage::modeType()
 {
     return get<Mode>(valueType_loc);

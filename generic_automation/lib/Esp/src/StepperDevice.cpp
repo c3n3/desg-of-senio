@@ -2,7 +2,7 @@
 #include "../../Common/include/EncoderMessage.hpp"
 #include "../../Common/include/ButtonMessage.hpp"
 #include "../../Common/include/StepperMotorMessage.hpp"
-#include "../../Common/include/SwitchMessage.hpp"
+#include "../../Common/include/SimpleMessages.hpp"
 #include "../../Common/include/Timer.hpp"
 //#include "../include/Device.hpp"
 #include <stdint.h>
@@ -102,7 +102,8 @@ genauto::StepperDevice::StepperDevice(uint8_t stepPin, uint8_t dirPin, minor_t m
       myStepper(dirPin, stepPin),
       Device(minorId),
       motorOn(true),
-      mode(Degrees)
+      mode(Degrees),
+      force_(false)
 {
     pinMode(stepPin, OUTPUT);
     pinMode(dirPin, OUTPUT);
@@ -204,16 +205,15 @@ void genauto::StepperDevice::execute()
     if (Msg != NULL)
     {
         dlog("Stepper motor message received %d!!!\n", Msg->type());
-        if (Msg->type() == EncoderMessage::classMsgType)
+        if (Msg->type() == EncoderMessage::classMsgType && !force_)
         {
             // dlog("in encoder if\n");
             EncoderMessage *eMsg = (EncoderMessage *)Msg;
-            int16_t val = (int16_t)eMsg->value() * encoderStepScale_; // can be negative, lets it know to move CCW or CW which should be moving the encoder the same.
-            if(mode == DegreesSecond) setSpeed(speed_ + val);
-            else myStepper.move(speed_, val);
-            motorOn = true;
+            int16_t val = (int16_t)eMsg->value() * encoderStepScale_;
+            mode = Degrees;
+            myStepper.move(speed_, val);
         }
-        else if (Msg->type() == ButtonMessage::classMsgType)
+        else if (Msg->type() == ButtonMessage::classMsgType && !force_)
         {
             motorOn = false;
         }
@@ -226,28 +226,35 @@ void genauto::StepperDevice::execute()
             if (sMsg->modeType() == StepperMotorMessage::DegreesSecond)
             {
                 mode = DegreesSecond;
+                force_ = false;
                 setSpeed(val);
             }
-            if (sMsg->modeType() == StepperMotorMessage::Degrees)
+            else if (sMsg->modeType() == StepperMotorMessage::Degrees)
             {
                 mode = Degrees;
                 // dlog("val: %d\n", (int)val);
                 // dlog("speed: %d\n", (int)speed_);
+                force_ = sMsg->force();
                 myStepper.move(speed_, val);
             }
             motorOn = true;
         }
-        else if (Msg->type() == SwitchMessage::classMsgType)
+        else if (Msg->type() == FlipMessage::classMsgType)
         {
-            SwitchMessage *sMsg = (SwitchMessage *)Msg;
+            FlipMessage *sMsg = (FlipMessage *)Msg;
             motorOn = sMsg->on();
         }
+        else if (Msg->type() == IncrementMessage::classMsgType) {
+            IncrementMessage sMsg = IncrementMessage(Msg->getBuffer(), Msg->size());
+            encoderStepScale_ = sMsg.increment();
+        }
     }
-    //t.log();
     if (motorOn)
     {
-        //dlog("motor on\n");
         myStepper.tick();
+    }
+    if (force_ && !myStepper.isMoving()) {
+        force_ = false;
     }
 }
 
@@ -255,4 +262,3 @@ Subscriber* genauto::StepperDevice::sub()
 {
     return static_cast<Subscriber*>(this);
 }
-

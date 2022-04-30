@@ -47,8 +47,17 @@ void Tasks::run(
 {
     json j;
     j = j.parse(data);
-    dlog("Running task\n");
-    auto t = new Task(j);
     callback(HttpResponse::newHttpResponse());
-    t->run();
+    if (!j.contains("value") || !j.contains("name")) {
+        elog("Invalid task\n");
+        return;
+    }
+    if (!Task::running(j["name"])) {
+
+        dlog("Running task\n");
+        auto t = new Task(j["value"], j["name"]);
+        t->run();
+    } else {
+        dlog("Task already running\n");
+    }
 }

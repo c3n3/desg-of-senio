@@ -3,7 +3,10 @@
 
 #include "../json/json.hpp"
 #include "../files/Thread.hpp"
+#include "../lib/Common/include/Device.hpp"
+#include "../lib/Common/include/Subscriber.hpp"
 #include <unordered_map>
+#include <set>
 #include <chrono>
 
 using namespace nlohmann;
@@ -11,6 +14,18 @@ using namespace nlohmann;
 namespace genauto {
 
     class TimedTask;
+
+    class EventTask : public Device, public Subscriber {
+        static std::unordered_map<std::string, EventTask> events;
+        const std::string name;
+        std::set<MessageId> froms;
+        EventTask(std::string name);
+        void execute();
+    public:
+        EventTask();
+        void add(std::string name, MessageId from);
+        void remove(std::string name, MessageId from);
+    };
 
     class TimedLoop : public Thread {
         TimedLoop();
@@ -55,6 +70,8 @@ namespace genauto {
         std::string name;
 
         TimedType type;
+
+        uint32_t seconds;
 
         uint32_t minutes;
 

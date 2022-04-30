@@ -1,6 +1,6 @@
 #include "../include/SwitchDevice.hpp"
 #include "../../Common/include/ButtonMessage.hpp"
-#include "../../Common/include/SwitchMessage.hpp"
+#include "../../Common/include/SimpleMessages.hpp"
 #include "../include/ShiftRegister.hpp"
 
 #include <stdint.h>
@@ -47,10 +47,10 @@ void genauto::SwitchDevice::execute()
             if (bMsg->pressed() == true)
                 changeState();  
         }
-        else if (Msg->type() == SwitchMessage::classMsgType)
+        else if (Msg->type() == FlipMessage::classMsgType)
         {
             dlog("buttonMessage\n");
-            SwitchMessage *bMsg = (SwitchMessage *)Msg;
+            FlipMessage *bMsg = (FlipMessage *)Msg;
             state = bMsg->on();
             shitfReg(pinNumber, state);
         } else {

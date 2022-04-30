@@ -94,4 +94,5 @@ void PubSub::handle(const HttpRequestPtr &req,
         return;
     }
     callback(HttpResponse::newHttpResponse());
+    DeviceSubscribeManager::publish(&msg);
 }

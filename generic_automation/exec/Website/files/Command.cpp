@@ -3,7 +3,7 @@
 #include "../lib/Common/include/StepperMotorMessage.hpp"
 #include "../lib/Common/include/PwmMessage.hpp"
 #include "../lib/Common/include/ButtonMessage.hpp"
-#include "../lib/Common/include/SwitchMessage.hpp"
+#include "../lib/Common/include/SimpleMessages.hpp"
 #include <chrono>
 #include <thread>
 #include <iostream>
@@ -31,7 +31,7 @@ void Command::runStepperRotate(Command* command)
     StepperMotorMessage msg;
     msg.id() = command->id;
     msg.modeType() = StepperMotorMessage::Degrees;
-    msg.value() = command->value;
+    msg.value() = command->values[0];
     msg.stepScale() = -1;
     sendTo(&msg);
 }
@@ -41,14 +41,15 @@ void Command::runStepperSpeed(Command* command)
     StepperMotorMessage msg;
     msg.id() = command->id;
     msg.modeType() = StepperMotorMessage::DegreesSecond;
-    msg.value() = command->value;
+    msg.value() = command->values[0];
+    msg.force() = command->values[1] != 0;
     msg.stepScale() = -1;
     sendTo(&msg);
 }
 
 void Command::runOn(Command* command)
 {
-    SwitchMessage msg;
+    FlipMessage msg;
     msg.id() = command->id;
     msg.on() = true;
     sendTo(&msg);
@@ -56,7 +57,7 @@ void Command::runOn(Command* command)
 
 void Command::runOff(Command* command)
 {
-    SwitchMessage msg;
+    FlipMessage msg;
     msg.id() = command->id;
     msg.on() = false;
     sendTo(&msg);
@@ -64,14 +65,14 @@ void Command::runOff(Command* command)
 
 void Command::runDelay(Command* command)
 {
-    std::this_thread::sleep_for(std::chrono::milliseconds(uint64_t(1000*command->value)));
+    std::this_thread::sleep_for(std::chrono::milliseconds(uint64_t(1000*command->values[0])));
 }
 
 void Command::runPwmSet(Command* command)
 {
     PwmMessage msg;
     msg.id() = command->id;
-    msg.dutyCycle() = command->value;
+    msg.dutyCycle() = command->values[0];
     msg.onOff() = true;
     sendTo(&msg);
 }
@@ -79,13 +80,9 @@ void Command::runPwmSet(Command* command)
     
 void Command::execute()
 {
-    std::cout << "Running " << commandToString(type) << " Value: " << value << "\n";
+    std::cout << "Running " << commandToString(type) << " Value: " << values[0] << "\n";
     execs[type](this);
 }
-
-Command::Command(MessageId& id, double value)
-    : id(id), value(value)
-{}
 
 Command::Command(json j)
 {
@@ -101,8 +98,10 @@ Command::Command(json j)
     } else {
         elog("Did not find type\n");
     }
-    if (j.contains("value")) {
-        value = j["value"].get<double>();
+    if (j.contains("values")) {
+        for (auto& v : j["values"].items()) {
+            values.push_back(v.value().get<double>());
+        }
     } else {
         elog("Did not find value\n");
     }
@@ -122,7 +121,7 @@ Command::Command(json j)
 json Command::toJson()
 {
     json j;
-    j["value"] = value;
+    j["values"] = values;
     j["type"] = commandToString(type);
     j["major"] = id.major+0;
     j["minor"] = id.minor+0;

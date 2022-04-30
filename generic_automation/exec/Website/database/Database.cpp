@@ -55,6 +55,7 @@ static void updateLinks(const json& oldLinks, const json& newLinks, MessageId id
     }
 }
 
+
 void DevicesDatabase::update(
     const std::string& keystring, const std::string& type, const json& input)
 {

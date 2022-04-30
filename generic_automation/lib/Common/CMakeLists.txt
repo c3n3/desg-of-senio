@@ -13,7 +13,7 @@ add_library(Common SHARED
     src/MessageId.cpp
     src/PwmMessage.cpp
     src/StepperMotorMessage.cpp
-    src/SwitchMessage.cpp
+    src/SimpleMessages.cpp
     src/Subscriber.cpp
     src/Device.cpp
     src/Router.cpp

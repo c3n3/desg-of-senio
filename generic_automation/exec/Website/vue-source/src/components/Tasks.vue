@@ -10,7 +10,7 @@
                                 <input class="input-text task-title item-title" v-model="task['name']">
                                 <div style="display: flex; justify-content: flex-end; flex: 1;">
                                     <div class="custom-button" @click="tasks.splice(id,1)">Delete</div>
-                                    <div class="custom-button" @click="run(task['value'])">Run</div>
+                                    <div class="custom-button" @click="run(task)">Run</div>
                                 </div>
                             </div>
                             <div v-for="(command, i) in task['value']" :key="i">
@@ -22,7 +22,12 @@
                                                 {{type.replace(/([A-Z])/g, ' $1')}}
                                             </option>
                                         </select>
-                                        <div v-if="command['type'] != 'On' && command['type'] != 'Off'">Value: <input class="input-text" v-model="command['value']" type="number"></div>
+                                        <div v-if="command['type'] != 'On' && command['type'] != 'Off'">
+                                            Value: <input class="input-text" v-model="command['values'][0]" type="number">
+                                        </div>
+                                        <div v-if="command['type'] == 'StepperRotate'">
+                                            Force: <input class="input-text" v-model="command['values'][1]" type="checkbox">
+                                        </div>
                                     </div>
                                     <div style="display: flex; justify-content: flex-end; flex: 1;">
                                         <div><div class="custom-button" @click="task['value'].splice(i,1)"> - </div></div>
@@ -33,7 +38,7 @@
                                         <div class="device-title">
                                             Delay
                                         </div>
-                                        Value: <input class="input-text" v-model="command['value']" type="number"> seconds
+                                        Value: <input class="input-text" v-model="command['values']" type="number"> seconds
                                     </div>
                                     
                                     <div style="display: flex; justify-content: flex-end; flex: 1;">
@@ -54,9 +59,28 @@
                                     </optgroup>
                                 </select>
                             </div>
+                            <div class="links-wrapper link-sub">
+                                Link Task to input(s):
+                                <div v-for="(device, dev_id) in devices" :key="dev_id" class="device-links">
+                                    {{device.name}}:
+                                    <div class="links">
+                                        <div v-for="(input, id) in device.inputs" :key="id" class="link-item">
+                                            <div v-if="input['type'] == 'Button'">
+                                                <label :for="id"> {{input['persistent']['name']}}</label><br>
+                                                <input
+                                                type="checkbox"
+                                                :id="id"
+                                                :value="dev_id + ':' + id"
+                                                v-model="task['linked']"
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="custom-button" @click="tasks.push({'name': 'New Task', 'value': []})">Add Task</div>
+                    <div class="custom-button" @click="tasks.push({'name': 'New Task', 'value': [], 'linked': []})">Add Task</div>
                     <div class="custom-button" @click="save">Save</div>
                 </div>
             </div>
@@ -90,13 +114,18 @@ export default {
       },
       addDelay: function(task) {
           console.log("Called")
-          this.tasks[task]['value'].push({"value": 0, "type": "Delay", "major": 0, "minor": 0})
+          this.tasks[task]['value'].push({"values": [0], "type": "Delay", "major": 0, "minor": 0})
           this.addValue = !this.addValue
       },
       add: function(task, major, minor) {
           console.log("Called")
           let dev = this.getDevice(major, minor)
-          this.tasks[task]['value'].push({"value": 0, "type": this.validCommands[dev['tag']][0], "major": parseInt(major), "minor": parseInt(minor)})
+          var type = this.validCommands[dev['tag']][0];
+          var value = [0];
+          if (type == 'Stepper') {
+              value = [0,0];
+          }
+          this.tasks[task]['value'].push({"values": value, "type": type, "major": parseInt(major), "minor": parseInt(minor)})
           this.addValue = !this.addValue
       },
       save: function() {
@@ -117,6 +146,9 @@ export default {
       }
   },
   mounted() {
+      if (this.tasks == null) {
+          this.tasks = []
+      }
       console.log("Wat is up\n");
   }
 }
@@ -159,5 +191,8 @@ export default {
     color: #ced5e0;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+.link-sub {
+    margin-top: 15px;
 }
 </style>
