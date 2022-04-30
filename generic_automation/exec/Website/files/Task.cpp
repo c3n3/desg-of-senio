@@ -23,6 +23,7 @@ bool Task::exec()
     for (auto& command : commands) {
         command.execute();
     }
+    Task::running_.erase(Task::running_.find(name));
     delete this;
     return false;
 }

@@ -61,6 +61,7 @@ void genauto::sendTo(Message* message)
     std::string willSend = std::string("http://") + ip + std::string("?d=") + serializer.getBuffer();
     std::cout << "Will send: " << willSend << "\n";
     cURLpp::Easy handle;
+    handle.setOpt(curlpp::options::Timeout(5));
     handle.setOpt(curlpp::options::Url(willSend));
     handle.perform();
 }
