@@ -211,17 +211,20 @@ void genauto::StepperDevice::execute()
             EncoderMessage *eMsg = (EncoderMessage *)Msg;
             int16_t val = (int16_t)eMsg->value() * encoderStepScale_;
             mode = Degrees;
+            motorOn = true;
+            force_ = false;
             myStepper.move(speed_, val);
         }
         else if (Msg->type() == ButtonMessage::classMsgType && !force_)
         {
             motorOn = false;
+            myStepper.stop();
         }
         else if (Msg->type() == StepperMotorMessage::classMsgType)
         {
             StepperMotorMessage *sMsg = (StepperMotorMessage *)Msg;
             float val = sMsg->value();
-            encoderStepScale_ = encoderStepScale_ > 0 ? sMsg->stepScale() : encoderStepScale_;
+            encoderStepScale_ = sMsg->stepScale() > 0 ? sMsg->stepScale() : encoderStepScale_;
             
             if (sMsg->modeType() == StepperMotorMessage::DegreesSecond)
             {
