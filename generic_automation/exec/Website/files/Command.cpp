@@ -32,6 +32,8 @@ void Command::runStepperRotate(Command* command)
     msg.id() = command->id;
     msg.modeType() = StepperMotorMessage::Degrees;
     msg.value() = command->values[0];
+    msg.force() = command->values[1] != 0;
+    dlog("Force = %d\n", msg.force());
     msg.stepScale() = -1;
     sendTo(&msg);
 }
@@ -42,7 +44,6 @@ void Command::runStepperSpeed(Command* command)
     msg.id() = command->id;
     msg.modeType() = StepperMotorMessage::DegreesSecond;
     msg.value() = command->values[0];
-    msg.force() = command->values[1] != 0;
     msg.stepScale() = -1;
     sendTo(&msg);
 }
@@ -116,6 +117,9 @@ Command::Command(json j)
         elog("Did not find minor\n");
     }
     #undef TYPE
+    for (auto& val : values) {
+        dlog("Val = %d\n");
+    }
 }
 
 json Command::toJson()

@@ -16,8 +16,6 @@ bool Router::inMap(MessageId iD)
 
 void Router::subscribe(Subscriber *sub, MessageId iD)
 {
-    dlog("adding sub to {0x%x,%d}\n", iD.major, iD.minor);
-    
     if (inMap(iD) == true)
     {
         idMap[iD].insert(sub);
@@ -67,8 +65,6 @@ void Router::removeSubscribeToMajor(Subscriber *sub, major_t majorId)
         auto find = set.find(sub);
         if (find != set.end())
         {
-            std::cout << "Subscriber at: " << *find << " Unsubscribed from: "
-                        << " Major: " << majorId << "\n";
             set.erase(find);
         }
     }
@@ -82,8 +78,6 @@ void Router::removeSubscribe(Subscriber *sub, MessageId iD)
         auto find = set.find(sub);
         if (find != set.end())
         {
-            std::cout << "Subscriber at: " << *find << " Unsubscribed from: "
-                        << " MessageId: " << iD.major << ":" << iD.minor << "\n";
             set.erase(find);
         }
     }
@@ -99,13 +93,10 @@ void Router::execute()
         {
             MessageId id = msg->id();
             major_t majorId = id.getMajor();
-            dlog("Got message: {0x%x,%d}\n", msg->id().major, msg->id().minor);
-            dlog("Does contain %d\n", idMap.contains(msg->id()));
             for (auto &sub : idMap[id])
             {
                 if (sub != NULL)
                 {
-                    dlog("Is receiving\n");
                     sub->receive(msg);
                 }
             }

@@ -60,7 +60,6 @@ void WifiReceiver::handleConnect()
     if (server.hasArg("d"))
     {
         String arg = server.arg("d");
-        dlog("Got %s\n", arg.c_str());
         if (arg == "") {
             elog("Invalid input\n");
         }

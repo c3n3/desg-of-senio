@@ -9,12 +9,10 @@ static Subscriber* getSub(minor_t minor)
 {
     // Get the correct sub
     auto& list = CapabilitiesList::deviceList;
-    dlog("Finding sub %d\n", minor);
     for (int i = 0; i < list.getSize(); i++) {
         if (minor == list[i]->minorId) {
             // Add to the router
             auto dev = list[i];
-            dlog("Found %p\n", dev->sub());
             return dev->sub();
         }
     }
@@ -89,8 +87,6 @@ void SubscribeManager::execute()
     Message* m = nextMessage();
     if (m != nullptr && m->type() == SubscribeMessage::classMsgType) {
         SubscribeMessage real(m->getBuffer(), m->getSizeSafe());
-        dlog("Got new subscription\n");
-
         switch (real.subType()) {
             case SubscribeMessage::Sub:dlog("performing SubscribeMessage::Sub\n"); addSub(&real); break;
             case SubscribeMessage::Pub:dlog("performing SubscribeMessage::Pub\n"); addPub(&real); break;

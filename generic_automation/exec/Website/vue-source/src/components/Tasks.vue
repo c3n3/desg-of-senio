@@ -26,7 +26,7 @@
                                             Value: <input class="input-text" v-model="command['values'][0]" type="number">
                                         </div>
                                         <div v-if="command['type'] == 'StepperRotate'">
-                                            Force: <input class="input-text" v-model="command['values'][1]" type="checkbox">
+                                            Force: <div class="custom-button" @click="command['values'][1] = command['values'][1] == 0 ? 1 : 0">{{command['values'][1] == 1 ? 'On' : 'Off'}}</div>
                                         </div>
                                     </div>
                                     <div style="display: flex; justify-content: flex-end; flex: 1;">

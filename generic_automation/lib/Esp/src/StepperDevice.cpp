@@ -204,7 +204,7 @@ void genauto::StepperDevice::execute()
     Message *Msg = nextMessage();
     if (Msg != NULL)
     {
-        dlog("Stepper motor message received %d!!!\n", Msg->type());
+        dlog("Running stepper\n");
         if (Msg->type() == EncoderMessage::classMsgType && !force_)
         {
             // dlog("in encoder if\n");
@@ -235,6 +235,9 @@ void genauto::StepperDevice::execute()
                 // dlog("val: %d\n", (int)val);
                 // dlog("speed: %d\n", (int)speed_);
                 force_ = sMsg->force();
+                if (force_) {
+                    dlog("Forcing motor\n");
+                }
                 myStepper.move(speed_, val);
             }
             motorOn = true;
