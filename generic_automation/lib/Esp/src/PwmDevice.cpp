@@ -73,11 +73,9 @@ void genauto::PwmDevice::execute()
         if(Msg->type() == EncoderMessage::classMsgType)
         {
             EncoderMessage* eMsg = (EncoderMessage*)Msg;
-            int16_t val = dutyCycle_ + eMsg->value() * increment;
-
-            // Limit
-            limit(val, -255, 255);
-            dutyCycle_ += val;
+            dlog("Val =  %d - %d\n", dutyCycle_, eMsg->value());
+            dutyCycle_ += eMsg->value();
+            pwmOn_ = true;
             limit(dutyCycle_, -255, 255);
         }
         else if(Msg->type() == ButtonMessage::classMsgType)
@@ -116,8 +114,13 @@ void genauto::PwmDevice::dir(bool dir)
     digitalWrite(dir_.p2, !dir);
 }
 
+template<typename T>
+static T abbs(T val) {
+    return val < 0 ? val*-1 : val;
+}
+
 void genauto::PwmDevice::output()
 {
     dir(dutyCycle_ < 0);
-    ledcWrite(channel, abs(dutyCycle_) * pwmOn_);
+    ledcWrite(channel, abbs(dutyCycle_) * pwmOn_);
 }

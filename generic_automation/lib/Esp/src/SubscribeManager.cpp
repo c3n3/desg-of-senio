@@ -36,6 +36,7 @@ void SubscribeManager::addSub(SubscribeMessage* msg)
 {
     Subscriber* sub = getSub(msg->idTo().minor);
     if (sub != nullptr) {
+        dlog("Subbing %d-%d to %d-%d\n", msg->idTo().major, msg->idTo().minor, msg->idFrom().major, msg->idFrom().minor);
         router.subscribe(sub, msg->idFrom());
     } else {
         elog("Sub was nullptr\n");
