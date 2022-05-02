@@ -13,7 +13,7 @@
                                     <div class="custom-button" @click="run(task)">Run</div>
                                 </div>
                             </div>
-                            <div v-for="(command, i) in task['value']" :key="i">
+                            <div v-for="(command, i) in task['value']" :key="i" class="command-item">
                                 <div v-if="(command['major'] in devices) && (command['minor'] in devices[command['major']]['outputs'])" class="task-item">
                                     <div>
                                         <div class="device-title">{{devices[command['major']]['name']}} - {{getDevice(command['major'], command['minor'])['persistent']['name']}}</div>
@@ -31,6 +31,8 @@
                                     </div>
                                     <div style="display: flex; justify-content: flex-end; flex: 1;">
                                         <div><div class="custom-button" @click="task['value'].splice(i,1)"> - </div></div>
+                                        <div><div class="custom-button" @click="swap(task['value'], i,i-1)">Up</div></div>
+                                        <div><div class="custom-button" @click="swap(task['value'], i,i+1)">Down</div></div>
                                     </div>
                                 </div>
                                 <div v-else-if="command['type'] == 'Delay'" class="task-item">
@@ -43,6 +45,8 @@
                                     
                                     <div style="display: flex; justify-content: flex-end; flex: 1;">
                                         <div><div class="custom-button" @click="task['value'].splice(i,1)"> - </div></div>
+                                        <div><div class="custom-button" @click="swap(task['value'], i,i-1)">Up</div></div>
+                                        <div><div class="custom-button" @click="swap(task['value'], i,i+1)">Down</div></div>
                                     </div>
                                 </div>
                             </div>
@@ -109,6 +113,14 @@ export default {
   components: {
   },
   methods: {
+      swap: function(arr, fromIndex, toIndex) {
+            var element = arr[fromIndex];
+            if (toIndex < 0 || toIndex >= arr.length) {
+                return
+            } 
+            arr.splice(fromIndex, 1);
+            arr.splice(toIndex, 0, element);
+      },
       getDevice: function(major, minor) {
           return this.devices[major]['outputs'][minor];
       },
@@ -194,5 +206,7 @@ export default {
 }
 .link-sub {
     margin-top: 15px;
+}
+.command-item {
 }
 </style>
