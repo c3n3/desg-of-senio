@@ -117,8 +117,12 @@ bool TimedLoop::exec()
                 elog("Invalid timed event\n");
                 continue;
             }
-            Task* t = new Task(task["value"], task["name"]);
-            t->run();
+            if (!Task::running(task["name"])) {
+                Task* t = new Task(task["value"], task["name"]);
+                t->run();
+            } else {
+                dlog("Task running\n");
+            }
         }
     }
     Timer::delay(1000);

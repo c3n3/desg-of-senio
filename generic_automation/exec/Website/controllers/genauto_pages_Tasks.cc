@@ -61,3 +61,23 @@ void Tasks::run(
         dlog("Task already running\n");
     }
 }
+
+//add definition of your processing function here
+void Tasks::stop(
+    const HttpRequestPtr &req,
+    std::function<void (const HttpResponsePtr &)> &&callback,
+    const std::string& data)
+{
+    json j;
+    j = j.parse(data);
+    callback(HttpResponse::newHttpResponse());
+    if (!j.contains("name")) {
+        elog("Invalid task\n");
+        return;
+    }
+    if (Task::running(j["name"])) {
+        Task::stopTask(j["name"]);
+    } else {
+        dlog("No task\n");
+    }
+}

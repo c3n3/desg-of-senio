@@ -19,6 +19,8 @@ namespace genauto {
 
         bool exec();
 
+        void cleanup();
+
         void addDevice(Device* dev);
 
         void removeDevice(Device* dev);

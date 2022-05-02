@@ -3,13 +3,17 @@
 #include "Command.hpp"
 #include "Thread.hpp"
 #include <string>
-#include <set>
+#include <map>
 #include <vector>
 
 namespace genauto {
     class Task : public Thread {
-        static std::set<std::string> running_;
+        static std::map<std::string, Task*> running_;
     public:
+        /**
+         * This is a thing
+         */
+        uint16_t commandIt;
 
         /**
          * @brief Check if the task is already running
@@ -39,6 +43,12 @@ namespace genauto {
          * @brief Run the task, execute commands
          */
         bool exec();
+        void cleanup();
+
+        /**
+         * Stop the task
+         */
+        static void stopTask(std::string name);
 
         /**
          * @brief Create json from task

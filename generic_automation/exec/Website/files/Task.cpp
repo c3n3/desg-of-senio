@@ -2,13 +2,13 @@
 #include "../lib/Common/include/Log.hpp"
 using namespace genauto;
 
-Task::Task(json& j, std::string name) : name(name)
+Task::Task(json& j, std::string name) : name(name), commandIt(0)
 {
     if (running_.count(name)) {
         elog("Task already running created\n");
         return;
     }
-    running_.insert(name);
+    running_.insert(std::make_pair(name, this));
     if (!j.is_array()) {
         elog("Json is not an array\n");
         return;
@@ -20,12 +20,21 @@ Task::Task(json& j, std::string name) : name(name)
 
 bool Task::exec()
 {
-    for (auto& command : commands) {
-        command.execute();
+    auto& command = commands[commandIt];
+    command.execute();
+    commandIt++;
+    if (commandIt >= commands.size()) {
+        Task::running_.erase(Task::running_.find(name));
+        delete this;
+        return false;
     }
+    return true;
+}
+
+void Task::cleanup()
+{
     Task::running_.erase(Task::running_.find(name));
     delete this;
-    return false;
 }
 
 json Task::toJson()
@@ -38,7 +47,14 @@ json Task::toJson()
 }
 
 
-std::set<std::string> Task::running_;
+std::map<std::string, Task*> Task::running_;
+
+void Task::stopTask(std::string name)
+{
+    if (running_.count(name)) {
+        running_[name]->stop();
+    }
+}
 
 
 bool Task::running(std::string name)

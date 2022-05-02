@@ -8,6 +8,7 @@ namespace genauto
         bool shouldStop_;
         bool running_;
         virtual bool exec() = 0;
+        virtual void cleanup();
     public:
         void run();
         bool& running();

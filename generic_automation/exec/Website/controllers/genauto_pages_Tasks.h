@@ -12,6 +12,7 @@ class Tasks:public drogon::HttpController<Tasks>
       METHOD_ADD(Tasks::mainFun, "", Get);
       METHOD_ADD(Tasks::save, "/save?data={}", Post);
       METHOD_ADD(Tasks::run, "/run?data={}", Post);
+      METHOD_ADD(Tasks::stop, "/stop?data={}", Post);
     METHOD_LIST_END
 
     void mainFun(const HttpRequestPtr &req,
@@ -22,6 +23,10 @@ class Tasks:public drogon::HttpController<Tasks>
           const std::string& data);
 
     void run(const HttpRequestPtr &req,
+          std::function<void (const HttpResponsePtr &)> &&callback,
+          const std::string& data);
+
+    void stop(const HttpRequestPtr &req,
           std::function<void (const HttpResponsePtr &)> &&callback,
           const std::string& data);
 };

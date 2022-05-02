@@ -15,6 +15,9 @@ bool DeviceLoop::exec()
     return true;
 }
 
+void DeviceLoop::cleanup()
+{}
+
 void DeviceLoop::addDevice(Device* dev)
 {
     devsMutex.lock();

@@ -11,6 +11,7 @@
                                 <div style="display: flex; justify-content: flex-end; flex: 1;">
                                     <div class="custom-button" @click="tasks.splice(id,1)">Delete</div>
                                     <div class="custom-button" @click="run(task)">Run</div>
+                                    <div class="custom-button" @click="stop(task)">Stop</div>
                                 </div>
                             </div>
                             <div v-for="(command, i) in task['value']" :key="i" class="command-item">
@@ -26,7 +27,7 @@
                                             Value: <input class="input-text" v-model="command['values'][0]" type="number">
                                         </div>
                                         <div v-if="command['type'] == 'StepperRotate'">
-                                            Force: <div class="custom-button" @click="command['values'][1] = command['values'][1] == 0 ? 1 : 0">{{command['values'][1] == 1 ? 'On' : 'Off'}}</div>
+                                            Force: <div class="custom-button" @click="command['values'][1] = command['values'][1] == 0 ? 1 : 0">{{command['values'][1] == 0 ? 'Off' : 'On'}}</div>
                                         </div>
                                     </div>
                                     <div style="display: flex; justify-content: flex-end; flex: 1;">
@@ -123,6 +124,15 @@ export default {
       },
       getDevice: function(major, minor) {
           return this.devices[major]['outputs'][minor];
+      },
+      stop: function(task) {
+        var postStr = '/genauto/pages/tasks/stop'
+            + "?data=" + JSON.stringify(task)
+            console.log("running stop");
+        axios.post(postStr
+            ,{ params: {}})
+            .then(response => this.responseData = response.data)
+            .catch(error => {});
       },
       addDelay: function(task) {
           console.log("Called")
