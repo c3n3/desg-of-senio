@@ -52,7 +52,7 @@ static SwitchDevice switch5(SW17, ConstantIds::Esp::NEW_IDS_START + 15);
 static SwitchDevice switch6(SW18, ConstantIds::Esp::NEW_IDS_START + 16);
 static SwitchDevice switch7(SW19, ConstantIds::Esp::NEW_IDS_START + 17);
 static SwitchDevice switch8(LED_SW, ConstantIds::Esp::NEW_IDS_START + 18);
-static SwitchDevice switch1(MAINS_SW, ConstantIds::Esp::NEW_IDS_START + 20);
+static SwitchDevice switch1(MAINS_SW, ConstantIds::Esp::NEW_IDS_START + 19);
 
 Capability testDeviceV1Caps[] = {
     Capability(Button, ConstantIds::Esp::NEW_IDS_START),

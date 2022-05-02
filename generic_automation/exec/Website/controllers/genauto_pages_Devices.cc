@@ -53,6 +53,7 @@ void Devices::encoderSend(const HttpRequestPtr &req,
     m.id().major = major;
     m.id().minor = minor;
     m.value() = inc;
+    dlog("increment = %d\n", inc);
     genauto::sendTo(&m);
     callback(HttpResponse::newHttpResponse());
 }

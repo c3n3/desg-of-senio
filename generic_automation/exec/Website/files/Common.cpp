@@ -63,7 +63,11 @@ void genauto::sendTo(Message* message)
     cURLpp::Easy handle;
     handle.setOpt(curlpp::options::Timeout(5));
     handle.setOpt(curlpp::options::Url(willSend));
-    handle.perform();
+    try {
+        handle.perform();
+    } catch(...) {
+        dlog("No route to host\n");
+    }
 }
 
 void genauto::send(Message* message, major_t device)

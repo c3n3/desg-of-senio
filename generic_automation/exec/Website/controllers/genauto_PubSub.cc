@@ -80,15 +80,28 @@ void PubSub::handle(const HttpRequestPtr &req,
         callAsync(
             [devId](void) {
                 Timer::delay(3000);
+                std::cout << "Outputs = " << DevicesDatabase::deviceBase.data.j[devId]["outputs"].size() << "\n";
                 for (auto& output : DevicesDatabase::deviceBase.data.j[devId]["outputs"].items()) {
+                    std::cout << "Persistent = " << output.value() << "\n";
+                    dlog("\n");
                     for(auto& linked : output.value()["persistent"]["linked"].items()) {
+                    dlog("\n");
                         major_t maj = std::stoi(devId);
+                    dlog("\n");
                         minor_t min = std::stoi(output.key());
+                    dlog("\n");
                         MessageId id(maj,min);
+                    dlog("\n");
                         MessageId other(linked.value().get<std::string>().c_str());
+                    dlog("\n");
+                        dlog("Linking %d-%d to %d-%d\n", maj,min,other.major,other.minor);
+                    dlog("\n");
                         DeviceSubscribeManager::addSub(id, other);
+                    dlog("\n");
                     }
+                    dlog("\n");
                 }
+                    dlog("\n");
             }
         );
         return;
