@@ -32,6 +32,7 @@ static void updateLinks(const json& oldLinks, const json& newLinks, MessageId id
             std::string minor = std::to_string(subId.minor);
 
             DeviceSubscribeManager::removeSub(id, subId);
+            DeviceSubscribeManager::removePub(id, subId);
             found = false;
         }
     }
@@ -51,6 +52,7 @@ static void updateLinks(const json& oldLinks, const json& newLinks, MessageId id
 
             std::cout << "Adding  sub " << major + ":" + minor << " For " << id.major << "\n";
             DeviceSubscribeManager::addSub(id, subId);
+            DeviceSubscribeManager::addPub(id, subId);
             found = false;
         }
     }
@@ -72,11 +74,13 @@ void DevicesDatabase::update(
         persistent[el.key()] = el.value();
     }
     data.save();
-    dlog("Updating increment\n");
-    IncrementMessage msg;
-    msg.id() = dev;
-    msg.increment() = persistent["increment"];
-    sendTo(&msg);
+    if (persistent.contains("increment")) {
+        dlog("Updating increment\n");
+        IncrementMessage msg;
+        msg.id() = dev;
+        msg.increment() = persistent["increment"];
+        sendTo(&msg);
+    }
     // Update the device from here
 }
 

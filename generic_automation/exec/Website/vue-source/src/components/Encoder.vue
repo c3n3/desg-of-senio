@@ -82,11 +82,11 @@ export default {
     methods: {
         inc: function() {
             this.value = this.normalize(parseInt(this.value) + parseInt(this.persistent.increment));
-            this.send(this.persistent.increment);
+            this.send(1);
         },
         dec: function() {
             this.value = this.normalize(parseInt(this.value) - parseInt(this.persistent.increment));
-            this.send(-this.persistent.increment);
+            this.send(-1);
         },
         send: function(increment) {
             var postStr = '/genauto/pages/devices/encoder_send'

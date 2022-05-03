@@ -25,6 +25,8 @@ namespace genauto {
         static void init();
         static void removeSub(MessageId& to, MessageId from);
         static void addSub(MessageId& to, MessageId from);
+        static void addPub(MessageId& to, MessageId from);
+        static void removePub(MessageId& to, MessageId from);
         static void publish(Message* publish);
     };
 }

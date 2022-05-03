@@ -39,10 +39,10 @@ void genauto::EncoderDevice::execute()
     }
     if ((millis() - lastTime) >= 500)
     {
-        Serial.println("enc val: " + String((int32_t)encoder.getCount()) + "\n");
+        // Serial.println("enc val: " + String((int32_t)encoder.getCount()) + "\n");
         c = (int16_t)encoder.getCount();
         encoder.clearCount();
-        dlog("c: %d\n", c);
+        // dlog("c: %d\n", c);
         lastTime = millis();
         if(count != c)
         {

@@ -79,29 +79,40 @@ void PubSub::handle(const HttpRequestPtr &req,
 
         callAsync(
             [devId](void) {
+                major_t maj = std::stoi(devId);
                 Timer::delay(3000);
                 std::cout << "Outputs = " << DevicesDatabase::deviceBase.data.j[devId]["outputs"].size() << "\n";
                 for (auto& output : DevicesDatabase::deviceBase.data.j[devId]["outputs"].items()) {
                     std::cout << "Persistent = " << output.value() << "\n";
-                    dlog("\n");
                     for(auto& linked : output.value()["persistent"]["linked"].items()) {
-                    dlog("\n");
-                        major_t maj = std::stoi(devId);
-                    dlog("\n");
                         minor_t min = std::stoi(output.key());
-                    dlog("\n");
                         MessageId id(maj,min);
-                    dlog("\n");
                         MessageId other(linked.value().get<std::string>().c_str());
-                    dlog("\n");
                         dlog("Linking %d-%d to %d-%d\n", maj,min,other.major,other.minor);
-                    dlog("\n");
                         DeviceSubscribeManager::addSub(id, other);
-                    dlog("\n");
+                        // Only add devices connected to this
+                        if (maj == other.major) {
+                            DeviceSubscribeManager::addPub(id, other);
+                        }
                     }
-                    dlog("\n");
                 }
-                    dlog("\n");
+                for (auto& dev : DevicesDatabase::deviceBase.data.j.items()) {
+                    if (dev.key() == devId) {
+                        continue;
+                    }
+                    for (auto& output : dev.value()["outputs"].items()) {
+                        for (auto& linked : output.value()["persistent"]["linked"].items()) {
+                            minor_t toMinor = std::stoi(output.key());
+                            minor_t toMajor = std::stoi(dev.key());
+                            MessageId to(toMajor, toMinor);
+                            MessageId from = MessageId(linked.value().get<std::string>().c_str());
+                            if (from.major == maj) {
+                                dlog("Adding pub to %d-%d\n", from.major, from.minor);
+                                DeviceSubscribeManager::addPub(to, from);
+                            }
+                        }
+                    }
+                }
             }
         );
         return;
