@@ -85,6 +85,7 @@ Message* DeviceSubscribeManager::Pub::tryGet()
         Buffer b;
         if (msgs.front(b)) {
             m.setBuffer(b.buffer);
+            msgs.dequeue();
             return &m;
         }
     }

@@ -4,8 +4,9 @@
             <div style="min-width: 700px;">
                 <div class="color-1 item-list color-word">
                     <h3>All Tasks</h3>
-                    <div v-for="(task, id) in tasks" :key="id">
-                        <div class="item">
+                    <div v-for="(task, id) in tasks" :key="id" class="item">
+                        <div class="custom-button" @click="hides[id] = !hides[id]">{{hides[id] ? "Show: " : "Hide: "}}{{task.name}}</div>
+                        <div v-if="!hides[id]">
                             <div style="display: flex;">
                                 <input class="input-text task-title item-title" v-model="task['name']">
                                 <div style="display: flex; justify-content: flex-end; flex: 1;">
@@ -108,7 +109,8 @@ export default {
           },
           tasks: this.propdata["tasks"],
           devices: this.propdata["devices"],
-          addValue: false
+          addValue: false,
+          hides: []
       }
   },
   components: {
@@ -170,6 +172,9 @@ export default {
   mounted() {
       if (this.tasks == null) {
           this.tasks = []
+      }
+      for (var i = 0; i < this.tasks.length; i++) {
+          this.hides.push(true);
       }
       console.log("Wat is up\n");
   }

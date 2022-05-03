@@ -1,5 +1,6 @@
 #include "Database.hpp"
 #include "../files/Common.h"
+#include "../lib/Common/include/SimpleMessages.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -71,6 +72,11 @@ void DevicesDatabase::update(
         persistent[el.key()] = el.value();
     }
     data.save();
+    dlog("Updating increment\n");
+    IncrementMessage msg;
+    msg.id() = dev;
+    msg.increment() = persistent["increment"];
+    sendTo(&msg);
     // Update the device from here
 }
 
