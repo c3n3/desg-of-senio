@@ -13,6 +13,8 @@
 #include "src/Esp/include/StepperDevice.hpp"
 #include "src/Esp/include/PwmDevice.hpp"
 #include "src/Common/include/SubscribeMessage.hpp"
+#include "src/Esp/include/SubscribeManager.hpp"
+#include "src/Esp/include/ShiftRegister.hpp"
 #include "src/Common/include/Log.hpp"
 #include "src/Common/include/DebugDevice.hpp"
 //#include "src/Common/include/StringBuilder.hpp"
@@ -48,7 +50,6 @@ public:
     }
 };
 
-WifiSender sender = WifiSender(SERVER_IP);
 
 void setup()
 {
@@ -63,7 +64,7 @@ void setup()
     dlog("Ip = %d\n", CapabilitiesList::capabilitiesList->ip());
     dlog("Sending:\n");
     CapabilitiesList::capabilitiesList->log();
-    String result = sender.syncSend(CapabilitiesList::capabilitiesList);
+    String result = WifiSender::sender.syncSend(CapabilitiesList::capabilitiesList);
 
     if (result == "") {
         elog("Error, did not acquire device id. Maybe server ip is incorrect?\n");
@@ -71,9 +72,17 @@ void setup()
         genauto::deviceId = result.toInt();
         dlog("Acquired device id %x\n", genauto::deviceId);
     }
+    shiftInit();
+    SubscribeManager::init();
+    CapabilitiesList::autoSubscribe();
+    SubscribeManager::router.print();
+    delete CapabilitiesList::capabilitiesList;
 }
 
 void loop()
 {
-    steelPlateLoop(nullptr);
+    runSteelPlateLoop();
+    while (true) {
+        fireAK();
+    }
 }

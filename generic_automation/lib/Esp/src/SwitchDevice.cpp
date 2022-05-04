@@ -1,5 +1,7 @@
 #include "../include/SwitchDevice.hpp"
 #include "../../Common/include/ButtonMessage.hpp"
+#include "../../Common/include/SimpleMessages.hpp"
+#include "../include/ShiftRegister.hpp"
 
 #include <stdint.h>
 
@@ -15,7 +17,6 @@ genauto::SwitchDevice::SwitchDevice(uint8_t pinNumber, minor_t minorId)
     Subscriber(),
     Device(minorId)
 {
-    pinMode(pinNumber, OUTPUT);
 }
 
 /**
@@ -25,6 +26,7 @@ genauto::SwitchDevice::SwitchDevice(uint8_t pinNumber, minor_t minorId)
 void genauto::SwitchDevice::changeState()
 {
     state = !state;
+    shitfReg(pinNumber, state);
     dlog("state\n");
 }
 
@@ -45,13 +47,16 @@ void genauto::SwitchDevice::execute()
             if (bMsg->pressed() == true)
                 changeState();  
         }
+        else if (Msg->type() == FlipMessage::classMsgType)
+        {
+            dlog("buttonMessage\n");
+            FlipMessage *bMsg = (FlipMessage *)Msg;
+            state = bMsg->on();
+            shitfReg(pinNumber, state);
+        } else {
+            dlog("Unhandled message type 0x%x\n", Msg->type());
+        }
     }
-    if (state)
-    {
-         digitalWrite(pinNumber, HIGH);
-         dlog("output the signal\n");
-    }
-    else digitalWrite(pinNumber, LOW);
 }
 
 

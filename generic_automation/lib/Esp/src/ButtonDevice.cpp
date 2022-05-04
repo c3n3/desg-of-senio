@@ -14,7 +14,7 @@ using namespace genauto;
  */
 genauto::ButtonDevice::ButtonDevice(uint8_t pinNumber, minor_t minorId)
     : pinNumber(pinNumber),
-    Device(minorId)
+    Device(minorId), timeRise_(0)
 {
     pinMode(pinNumber, INPUT);
 }
@@ -26,15 +26,19 @@ genauto::ButtonDevice::ButtonDevice(uint8_t pinNumber, minor_t minorId)
  */
 void genauto::ButtonDevice::execute()
 {
-    if ((millis() - lastTime) >= 250)
+    if (!inited) {
+        bMsg.id() = MessageId(deviceId, minorId);
+        inited = true;
+    }
+    uint32_t res = millis() - timeRise_;
+    if(timeRise_ != 0 && res > 100 && millis() - lastTime > 500)
     {
-        if(pressed_)
-        {
-            bMsg.pressed() = true;
-            lastTime = millis();
-            pressed_ = false;
-            send = true;
-        }
+        dlog("Time rise = %u, last time = %u\n", res, lastTime);
+        timeRise_ = 0;
+        lastTime = millis();
+        bMsg.pressed() = true;
+        pressed_ = false;
+        send = true;
     }
 }
 

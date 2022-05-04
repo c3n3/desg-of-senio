@@ -118,6 +118,7 @@ namespace genauto {
                 node = node->next;
                 count++;
             }
+            return count;
         }
 
         int size()

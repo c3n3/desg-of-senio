@@ -5,16 +5,18 @@
 #include "../../Common/include/Message.hpp"
 #include "../../Common/include/HexStringSerializer.hpp"
 #include "../../Common/include/StaticQueue.hpp"
+#include "config.hpp"
 
 namespace genauto {
-    class WifiSender {
+    class WifiSender : public Subscriber {
         HexStringSerializer serializer_;
         const char* url_;
         static void send_(void* sb);
+        WifiSender(const char* url);
     public:
         void receive(Message* msg);
         String syncSend(Message* msg);
-        WifiSender(const char* url);
+        static WifiSender sender;
     };
 }
 

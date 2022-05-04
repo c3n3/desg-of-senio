@@ -93,7 +93,10 @@ target_sources(${PROJECT_NAME}
                files/DeviceSubscribeManager.cpp
                files/DeviceSubscriber.cpp
                files/Thread.cpp
-               files/DeviceList.cpp
+               files/Task.cpp
+               files/TimedTask.cpp
+               files/Command.cpp
+               files/DeviceLoop.cpp
                files/Common.cpp)
 # ##############################################################################
 # uncomment the following line for dynamically loading views 

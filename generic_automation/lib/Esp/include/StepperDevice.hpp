@@ -13,12 +13,13 @@ namespace genauto {
      */
     class StepperDevice : public Subscriber, public Device {
     private:
-    float speed_ = 3;
+    float speed_ = 180;
     float angle_;
-    float encoderStepScale_ = 5;
+    float encoderStepScale_ = 1;
     //float encoderAngleIncrement_;
     uint8_t direction_;
     uint8_t stepPin;
+    bool force_;
     uint8_t dirPin;
     bool motorOn;
     StepperMotor myStepper;
@@ -99,6 +100,9 @@ namespace genauto {
          */
         void execute();
 
+        /**
+         * @brief Sub
+         */
         Subscriber* sub();
     };
 }

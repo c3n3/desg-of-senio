@@ -10,22 +10,37 @@ namespace genauto {
      * @brief Abstract message
      */
     class PwmDevice : public Subscriber, public Device {
-        private:
-            uint8_t pinNumber;
-            uint8_t channel;
-            int16_t dutyCycle_ = 0; // can be negative for backwards direction for motor.
-            bool pwmOn_ = true;
-            uint16_t increment = 5;
-            bool inited;
     public:
+        struct Pwmdir {
+            uint8_t p1;
+            uint8_t p2;
+        };
+    private:
+        uint8_t pinNumber;
+        uint8_t channel;
+        int16_t dutyCycle_ = 0; // can be negative for backwards direction for motor.
+        bool pwmOn_ = true;
+        uint16_t increment = 1;
+        Pwmdir dir_;
+        bool inited;
+    public:
+
+        /**
+         * @brief Output the current state of the pwm
+         */
+        void output();
+
+        /**
+         * @brief Set direction
+         */
+        void dir(bool dir);
 
         /**
          * @brief Construct a new Pwm Device object
          * 
          * @param pinNumber 
          */
-        PwmDevice(uint8_t pinNumber, uint8_t channel, minor_t minorId);
-
+        PwmDevice(Pwmdir dirPins, uint8_t pinNumber, uint8_t channel, minor_t minorId);
 
         /**
          * @brief Get the Duty Cycle object
@@ -65,8 +80,12 @@ namespace genauto {
          */
         void execute();
 
+        /**
+         * @brief Gets the sub*
+         *
+         * @return Subscriber*
+         */
         Subscriber* sub();
-
     };
 }
 

@@ -20,6 +20,7 @@
 
             Map<MessageId, std::set<Subscriber*>> idMap;
             Map<major_t, std::set<Subscriber*>> majorIdMap;
+            Map<Publisher*, uint16_t> pubCount;
             std::set<Subscriber*> subs;
             std::set<Publisher*> pubs;
             
@@ -98,8 +99,7 @@
                 */
                virtual void execute();
 
-
-
+               void print();
        };
    }
 

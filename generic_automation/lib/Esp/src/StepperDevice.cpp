@@ -2,6 +2,7 @@
 #include "../../Common/include/EncoderMessage.hpp"
 #include "../../Common/include/ButtonMessage.hpp"
 #include "../../Common/include/StepperMotorMessage.hpp"
+#include "../../Common/include/SimpleMessages.hpp"
 #include "../../Common/include/Timer.hpp"
 //#include "../include/Device.hpp"
 #include <stdint.h>
@@ -101,14 +102,15 @@ genauto::StepperDevice::StepperDevice(uint8_t stepPin, uint8_t dirPin, minor_t m
       myStepper(dirPin, stepPin),
       Device(minorId),
       motorOn(true),
-      mode(DegreesSecond)
+      mode(Degrees),
+      force_(false)
 {
-    // pinMode(stepPin, OUTPUT);
-    // pinMode(dirPin, OUTPUT);
+    pinMode(stepPin, OUTPUT);
+    pinMode(dirPin, OUTPUT);
     // myStepper.setMaxSpeed(900);
     // myStepper.setSpeed(400);
     // speed_ = 400;
-    myStepper.setSpeedDps(speed_);
+    // myStepper.setSpeedDps(speed_);
 }
 
 /**
@@ -202,49 +204,63 @@ void genauto::StepperDevice::execute()
     Message *Msg = nextMessage();
     if (Msg != NULL)
     {
-        //dlog("first if\n");
-        if (Msg->type() == EncoderMessage::classMsgType)
+        dlog("Running stepper\n");
+        if (Msg->type() == EncoderMessage::classMsgType && !force_)
         {
             // dlog("in encoder if\n");
             EncoderMessage *eMsg = (EncoderMessage *)Msg;
-            int16_t val = (int16_t)eMsg->value() * encoderStepScale_; // can be negative, lets it know to move CCW or CW which should be moving the encoder the same.
-            // dlog("val: %d\n", val);
-            if(mode == DegreesSecond) setSpeed(speed_ + val); 
-            else myStepper.setDegreesToStep(val, speed_);
-            // dlog("speed: %d\n", (int)speed_);
+            int16_t val = (int16_t)eMsg->value() * encoderStepScale_;
+            mode = Degrees;
+            motorOn = true;
+            force_ = false;
+            myStepper.move(speed_, val);
         }
-        if (Msg->type() == ButtonMessage::classMsgType)
+        else if (Msg->type() == ButtonMessage::classMsgType && !force_)
         {
-            ButtonMessage *bMsg = (ButtonMessage *)Msg;
-            if (bMsg->pressed() == true)
-                motorOn == !motorOn;
+            motorOn = false;
+            myStepper.stop();
         }
-        if (Msg->type() == StepperMotorMessage::classMsgType)
+        else if (Msg->type() == StepperMotorMessage::classMsgType)
         {
             StepperMotorMessage *sMsg = (StepperMotorMessage *)Msg;
             float val = sMsg->value();
-            encoderStepScale_ = sMsg->stepScale();
+            encoderStepScale_ = sMsg->stepScale() > 0 ? sMsg->stepScale() : encoderStepScale_;
             
             if (sMsg->modeType() == StepperMotorMessage::DegreesSecond)
             {
                 mode = DegreesSecond;
+                force_ = false;
                 setSpeed(val);
             }
-            if (sMsg->modeType() == StepperMotorMessage::Degrees)
+            else if (sMsg->modeType() == StepperMotorMessage::Degrees)
             {
                 mode = Degrees;
                 // dlog("val: %d\n", (int)val);
                 // dlog("speed: %d\n", (int)speed_);
-                myStepper.setDegreesToStep((int)val, speed_);
+                force_ = sMsg->force();
+                if (force_) {
+                    dlog("Forcing motor\n");
+                }
+                myStepper.move(speed_, val);
             }
+            motorOn = true;
+        }
+        else if (Msg->type() == FlipMessage::classMsgType)
+        {
+            FlipMessage *sMsg = (FlipMessage *)Msg;
+            motorOn = sMsg->on();
+        }
+        else if (Msg->type() == IncrementMessage::classMsgType) {
+            IncrementMessage sMsg = IncrementMessage(Msg->getBuffer(), Msg->size());
+            encoderStepScale_ = sMsg.increment();
         }
     }
-    //t.log();
     if (motorOn)
     {
-        //dlog("motor on\n");
-        if (mode == Degrees) myStepper.runSteps();
-        else myStepper.run();
+        myStepper.tick();
+    }
+    if (force_ && !myStepper.isMoving()) {
+        force_ = false;
     }
 }
 
@@ -252,4 +268,3 @@ Subscriber* genauto::StepperDevice::sub()
 {
     return static_cast<Subscriber*>(this);
 }
-

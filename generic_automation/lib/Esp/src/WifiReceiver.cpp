@@ -8,6 +8,7 @@
 #include <WebServer.h>
 #include <HTTPClient.h>
 #include "../include/config.hpp"
+#include "../../Esp/include/SubscribeManager.hpp"
 
 using namespace genauto;
 
@@ -48,7 +49,9 @@ WifiReceiver* WifiReceiver::getReceiver()
 {
     if (receiver == nullptr) {
         receiver = new WifiReceiver();
+        SubscribeManager::router.addPublisher(receiver);
     }
+    
     return receiver;
 }
 
@@ -57,7 +60,6 @@ void WifiReceiver::handleConnect()
     if (server.hasArg("d"))
     {
         String arg = server.arg("d");
-        dlog("Got %s\n", arg.c_str());
         if (arg == "") {
             elog("Invalid input\n");
         }

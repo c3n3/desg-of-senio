@@ -28,6 +28,7 @@ namespace genauto
         static constexpr location_t value_loc = Message::type_loc + sizeof(msgType_t);
         static constexpr location_t valueType_loc = value_loc + sizeof(float);
         static constexpr location_t stepScale_loc = valueType_loc + sizeof(Mode);
+        static constexpr location_t force_loc = stepScale_loc + sizeof(float);
         static constexpr uint16_t msgSize = Message::baseSize + sizeof(msgType_t) + sizeof(float) + sizeof(float) + sizeof(Mode);
 
     public:
@@ -53,6 +54,11 @@ namespace genauto
          */
         float& stepScale();
 
+        /**
+         * @brief Force an action and do not stop until done,
+         * will ignore all other commands
+         */
+        bool& force();
 
         /**
          * @brief Gets the type of the message

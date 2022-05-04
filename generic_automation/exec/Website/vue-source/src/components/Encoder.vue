@@ -82,11 +82,11 @@ export default {
     methods: {
         inc: function() {
             this.value = this.normalize(parseInt(this.value) + parseInt(this.persistent.increment));
-            this.send(this.persistent.increment);
+            this.send(1);
         },
         dec: function() {
             this.value = this.normalize(parseInt(this.value) - parseInt(this.persistent.increment));
-            this.send(-this.persistent.increment);
+            this.send(-1);
         },
         send: function(increment) {
             var postStr = '/genauto/pages/devices/encoder_send'
@@ -97,7 +97,7 @@ export default {
             axios.post(postStr
                 ,{ params: {}})
                 .then(response => {})
-                .catch(error => {});
+                .catch(error => {console.log("BEWARE unhandled error")});
             this.previousValue = this.value;
         },
         normalize: function(newVal) {
@@ -115,6 +115,7 @@ export default {
             handler(val){
                 clearTimeout(this.delayId);
                 this.delayId = window.setTimeout(() => {
+                    console.log("This has been updated");
                     var postStr = '/genauto/pages/devices/update'
                         + "?data=" + JSON.stringify(this.persistent)
                         + "&keystring=" + this.keystring

@@ -1,52 +1,20 @@
 <!DOCTYPE html>
 <html>
+<%inc
+    #include "../controllers/genauto_pages_Tasks.h"
+    #include <string>
+    #include <fstream>
+%>
+<%c++
+    auto database=@@.get<std::string>("json");
+%>
 <head>
     <meta charset="UTF-8">
     <title>Tasks</title>
 </head>
-<body class="color-1 color-word">
+<body class="color-1" >
     <%view TopBar.csp %>
-    <div style="display: flex;">
-        <div class="main">
-            <div style="min-width: 500px;">
-                <h1>Tasks</h1>
-                <div class="item-list">
-                    <div class="item color-2">
-                        <h4 class="item-title">MakeCoffee</h4>
-                        <div class="task-list">
-                            <ul>Step 0: Device 2 -> motor A -> 26°</ul>
-                            <ul>Step 1: Device 0 -> motor B -> -97°</ul>
-                            <ul>Step 2: Device 0 -> PWM A -> 67%</ul>
-                            <ul>Step 3: DELAY -> 10s </ul>
-                            <ul>Step 4: Device 0 -> PWM A -> 0% </ul>
-                            <ul style="display: flex;">5:
-                                <input class="input" type="text"/>
-                                &nbsp;->&nbsp; <input class="input" type="text"/>
-                                &nbsp;->&nbsp; <input class="input" type="text"/>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="item color-2">
-                        <h4 class="item-title">WaterPlants</h4>
-                        <div class="task-list">
-                            <ul>Step 0: Device 1 -> motor A -> 26°</ul>
-                            <ul>Step 1: Device 1 -> PWM A -> 67%</ul>
-                            <ul>Step 1: Device 1 -> PWM B -> 67%</ul>
-                            <ul>Step 3: DELAY -> 23s </ul>
-                            <ul>Step 4: Device 1 -> PWM A -> 0%</ul>
-                            <ul>Step 5: Device 1 -> PWM B -> 0%</ul>
-                            <ul>Step 6: Device 1 -> motor A -> -26°</ul>
-                            <ul style="display: flex;">7:
-                                <input class="input" type="text"/>
-                                &nbsp;->&nbsp; <input class="input" type="text"/>
-                                &nbsp;->&nbsp; <input class="input" type="text"/>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id=app></div>
 </body>
 </html>
 
@@ -59,3 +27,12 @@
     }
     <%view Styles.csp %>
 </style>
+
+<script>
+    <%c++
+        $$ << "window.jsonInput = '" << database << "';\n";
+        $$ << "window.renderType = 'tasks';\n";
+        std::ifstream t("../content/built.js");
+        $$ << t.rdbuf();
+    %>
+</script>

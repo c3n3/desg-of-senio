@@ -4,8 +4,9 @@
             <div style="min-width: 700px;">
                 <div class="color-1 item-list color-word">
                     <h3>All devices</h3>
-                    <div v-for="(device, id) in devices" :key="id">
-                        <div class="item">
+                    <div v-for="(device, id, index) in devices" :key="id" class="item">
+                        <div class="custom-button" @click="hides[index] = !hides[index]">{{hides[index] ? "Show: " : "Hide: "}}{{device.name}}</div>
+                        <div v-if="!hides[index]">
                             <h4 class="item-title">{{device.name}}</h4>
                             <h5>Output: </h5>
                             <div v-for="(output, outputId) in device.outputs" :key="outputId">
@@ -15,8 +16,11 @@
                                             :tag="output.tag"
                                             :persistent_input="output.persistent"
                                             :keystring="id + ':' + outputId"
+                                            :major="id"
+                                            :minor="outputId"
                                             :type="'outputs'"
-                                            :links="device.inputs"
+                                            :devices="devices"
+
                                             />
                                     </div>
                                     <div v-if="output.type === 'Encoder'">
@@ -82,7 +86,8 @@ export default {
   name: 'Devices',
   data: function () {
       return {
-          devices: this.propdata
+          devices: this.propdata,
+          hides: []
       }
   },
   components: {
@@ -92,6 +97,9 @@ export default {
   },
   mounted() {
       console.log("Wat is up\n");
+      for (var i = 0; i < Object.keys(this.devices).length; i++) {
+          this.hides.push(true);
+      }
   }
 }
 </script>

@@ -36,8 +36,10 @@ void Devices::update(const HttpRequestPtr &req,
                     const std::string& keystring,
                     const std::string& type)
 {
+    LOG_INFO << "------------------ CALLED --------------------\n";
     json parsed = json::parse(data);
     DevicesDatabase::deviceBase.update(keystring, type, parsed);
+    callback(HttpResponse::newHttpResponse());
 }
 
 
@@ -51,6 +53,7 @@ void Devices::encoderSend(const HttpRequestPtr &req,
     m.id().major = major;
     m.id().minor = minor;
     m.value() = inc;
+    dlog("increment = %d\n", inc);
     genauto::sendTo(&m);
     callback(HttpResponse::newHttpResponse());
 }
@@ -65,6 +68,7 @@ void Devices::buttonSend(const HttpRequestPtr &req,
     m.id().major = major;
     m.id().minor = minor;
     m.pressed() = true;
+    dlog("Sending: type 0x%x\n", m.type());
     genauto::sendTo(&m);
     dlog("Tried to SEND BUTTON\n");
     callback(HttpResponse::newHttpResponse());

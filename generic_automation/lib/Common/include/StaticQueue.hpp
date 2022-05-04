@@ -91,6 +91,7 @@ namespace genauto {
                 dlog("count\n");
                 count++;
             }
+            return count;
         }
 
         int size()

@@ -10,12 +10,16 @@
 namespace genauto {
     class DeviceLoop : public Thread {
         std::set<Device*> devs;
-
         std::mutex devsMutex;
     public:
+
+        static DeviceLoop loop;
+
         DeviceLoop();
 
         bool exec();
+
+        void cleanup();
 
         void addDevice(Device* dev);
 

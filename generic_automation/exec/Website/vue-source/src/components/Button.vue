@@ -8,23 +8,26 @@
         v-focus>
     <h4 v-else @click="edit_name = true" class="pointer"> {{persistent.name}} </h4>
     <div v-if="type == 'outputs'">
-        <input type="checkbox" v-model="value" @change="check($event)">
+        <div type="button" class="custom-button" @click="send()"> Toggle </div>
     </div>
     <div class="tag-label">&nbsp;&nbsp;&nbsp;&nbsp;Type: {{tag}}</div>
     <br v-if="type == 'outputs'">
     <div class="links-wrapper-wrapper" v-if="type == 'outputs'">
         <div class="links-wrapper">
             Link device to input(s):
-            <div v-for="(device, id) in devices" :key="id" class="device-links">
+            <div v-for="(device, dev_id) in devices" :key="dev_id" class="device-links">
                 {{device.name}}:
                 <div class="links">
                     <div v-for="(input, id) in device.inputs" :key="id" class="link-item">
-                        <label for="{{id}}"> {{input['persistent']['name']}}</label><br>
-                        <input
-                        type="checkbox"
-                        id="{{id}}"
-                        name="{{inputs[id]['persistent']['name']}}"
-                        value="{{inputs[id]['persistent']['name']}}">
+                        <div v-if="input['type'] == 'Button'">
+                            <label :for="id"> {{input['persistent']['name']}}</label><br>
+                            <input
+                            type="checkbox"
+                            :id="id"
+                            :value="dev_id + ':' + id"
+                            v-model="persistent['linked']"
+                            >
+                        </div>
                     </div>
                 </div>
             </div>
@@ -37,7 +40,7 @@
 import axios from 'axios'
 
 export default {
-  props: ['tag', 'persistent_input', 'keystring', 'type', 'links'],
+  props: ['tag', 'persistent_input', 'keystring', 'type', 'devices', 'major', 'minor'],
   name: 'Button',
   data: function () {
       return {
@@ -50,9 +53,21 @@ export default {
       }
   },
   methods: {
-       check: function(e) {
+        check: function(e) {
            console.log("The value is " + this.value);
-       }
+        },
+        send: function() {
+            var postStr = '/genauto/pages/devices/button_send'
+                + "?major=" + this.major.toString()
+                + "&minor=" + this.minor.toString()
+                + "&value=" + 1;
+            console.log("URL: " + postStr + "\n")
+            axios.post(postStr
+                ,{ params: {}})
+                .then(response => {})
+                .catch(error => {});
+            this.previousValue = this.value;
+        },
   },
   directives: {
       focus: {

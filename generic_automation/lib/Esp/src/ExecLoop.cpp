@@ -3,6 +3,7 @@
 #include "../include/ButtonDevice.hpp"
 #include "../include/CapabilitiesList.hpp"
 #include "../include/EncoderDevice.hpp"
+#include "../include/SubscribeManager.hpp"
 #include "../include/PwmDevice.hpp"
 #include "../include/StepperDevice.hpp"
 #include "../include/SwitchDevice.hpp"
@@ -27,7 +28,8 @@ void genauto::fireAK(){
     auto& devices = CapabilitiesList::deviceList;
     while (true) {
         for (int i = 0; i < devices.getSize(); i++) {
-            devices.getList()[i]->execute();
+            devices[i]->execute();
         }
+        SubscribeManager::manager->execute();
     }
 }

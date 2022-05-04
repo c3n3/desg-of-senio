@@ -16,10 +16,9 @@ namespace genauto {
         void removePub(SubscribeMessage* msg);
 
     public:
-
+        static void init();
+        static SubscribeManager* manager;
         static Router router;
-        static SubscribeManager manager;
-
         void execute();
     };
 }

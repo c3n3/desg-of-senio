@@ -5,6 +5,7 @@
 
 #ifndef ARDUINO
 #include <chrono>
+#include <thread>
 #else
 #include "Arduino.h"
 #endif
@@ -15,6 +16,7 @@ namespace genauto {
     typedef unsigned long msTimer_t;
     struct Timer {
         Timer(const char* name);
+        static void delay(uint64_t ms);
         const char* name;
         msTimer_t msTime();
         void log();

@@ -45,7 +45,7 @@
 import axios from 'axios'
 
 export default {
-    props: ['keystring', 'min', 'max', 'persistent_input', 'type'],
+    props: ['keystring', 'min', 'max', 'persistent_input', 'type', 'tag'],
     name: 'Analog',
     data: function () {
         return {

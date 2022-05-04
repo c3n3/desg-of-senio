@@ -10,6 +10,11 @@ msTimer_t Timer::msTime()
     return duration.count() / 2000;
 }
 
+void Timer::delay(uint64_t ms)
+{
+    std::this_thread::sleep_for(std::chrono::milliseconds(uint64_t(ms)));
+}
+
 Timer::Timer(const char * name)
     : name(name)
 {
@@ -17,6 +22,11 @@ Timer::Timer(const char * name)
 }
 
 #else
+
+void Timer::delay(uint64_t ms)
+{
+    delay(ms);
+}
 
 Timer::Timer(const char* name)
     : name(name)

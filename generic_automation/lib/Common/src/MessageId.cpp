@@ -38,7 +38,7 @@ bool MessageId::operator !=(const MessageId& other)
 }
 
 MessageId::MessageId(major_t major, minor_t minor, Direction d)
-    : major(), minor(minor)
+    : major(major), minor(minor)
 {
     set(d);
 }
@@ -74,7 +74,6 @@ MessageId::MessageId(const char* keystring)
     major = strtol(keystring, &end, 10);
     end++;
     minor = strtol(end, &end, 10);
-    dlog("Keystring = %s, %d, %d\n", keystring, major, minor);
 }
 
 void MessageId::setMajor(major_t m)

@@ -17,12 +17,17 @@ void Thread::run()
                 return;
             }
             if (this->shouldStop()) {
+                dlog("Thread stoped\n");
                 this->running() = false;
+                this->cleanup();
                 return;
             }
         }
     });
 }
+
+void Thread::cleanup()
+{}
 
 void Thread::stop()
 {

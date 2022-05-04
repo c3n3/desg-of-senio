@@ -33,11 +33,21 @@ void genauto::removeNewLines(std::string& data)
     }
 }
 
+
+void genauto::htmlOutput(json& j, std::string& str)
+{
+    std::stringstream read;
+    read << j;
+    str = read.str();
+    genauto::removeNewLines(str);
+}
+
+
 void genauto::sendTo(Message* message)
 {
     static HexStringSerializer serializer(2000);
-
-    std::string id = std::to_string(message->id().getMajor());
+    std::cout << "Here is the id: " << message->id().major << "\n";
+    std::string id = std::to_string(message->id().major);
     if (!JsonFile::deviceIds.j.contains(id)) {
         elog("Invalid id %s\n", id.c_str());
         return;
@@ -51,8 +61,13 @@ void genauto::sendTo(Message* message)
     std::string willSend = std::string("http://") + ip + std::string("?d=") + serializer.getBuffer();
     std::cout << "Will send: " << willSend << "\n";
     cURLpp::Easy handle;
+    handle.setOpt(curlpp::options::Timeout(5));
     handle.setOpt(curlpp::options::Url(willSend));
-    handle.perform();
+    try {
+        handle.perform();
+    } catch(...) {
+        dlog("No route to host\n");
+    }
 }
 
 void genauto::send(Message* message, major_t device)
@@ -72,4 +87,17 @@ void genauto::send(Message* message, major_t device)
     cURLpp::Easy handle;
     handle.setOpt(curlpp::options::Url(willSend));
     handle.perform();
+}
+
+json genauto::find(std::string name, json& j)
+{
+    if (!j.is_array()) {
+        return json();
+    }
+    for (auto& el : j.items()) {
+        if (el.value()["name"] == name) {
+            return el.value();
+        }
+    }
+    return json();
 }

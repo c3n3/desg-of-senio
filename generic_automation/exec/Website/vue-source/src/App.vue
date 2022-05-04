@@ -1,25 +1,39 @@
 <template>
 <div>
-  <Devices :propdata="devices"/>
+    <div v-if="type=='devices'">
+        <Devices :propdata="json"/>
+    </div>
+    <div v-if="type=='tasks'">
+        <Tasks :propdata="json"/>
+    </div>
+    <div v-if="type=='timed events'">
+        <TimedEvents :propdata="json"/>
+    </div>
 </div>
 </template>
 
 <script>
 // eslint-disable-next-line no-unused-vars
 import Devices from './components/Devices.vue'
+import Tasks from './components/Tasks.vue'
+import TimedEvents from './components/TimedEvents.vue'
 
 export default {
   name: 'App',
   components: {
-    Devices
+    Devices,
+    Tasks,
+    TimedEvents
   },
   data: function () {
     return {
-      devices: JSON.parse(window.jsonInput) // 
+      json: JSON.parse(window.jsonInput), 
+      type: window.renderType 
     }
   },
   mounted() {
     console.log("From console: " + window.jsonInput);   
+    console.log("From console: " + window.renderType);   
   }
 }
 </script>
@@ -27,6 +41,11 @@ export default {
 <style>
 #app {
   color: #181c24;
+}
+.input-text {
+    background: transparent;
+    color: #ced5e0;
+    border: transparent;
 }
 .color-1 {
     background-color: #181c24;

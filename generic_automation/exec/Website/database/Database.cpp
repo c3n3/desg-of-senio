@@ -1,5 +1,6 @@
 #include "Database.hpp"
 #include "../files/Common.h"
+#include "../lib/Common/include/SimpleMessages.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -13,19 +14,9 @@ DevicesDatabase::DevicesDatabase(const char* fileName) : data(fileName)
     data.load();
 }
 
-static void removeSub(MessageId& sub, MessageId& subTo)
-{
-    
-}
-
-static void addSub(MessageId& sub, MessageId& subTo)
-{
-    
-}
-
-
 static void updateLinks(const json& oldLinks, const json& newLinks, MessageId id)
 {
+    dlog("start of the update links function\n");
     // Terribly ineffecient algo, but not important here
     // If not found, we must remove the sub
     for (const auto& el : oldLinks.items()) {
@@ -40,8 +31,9 @@ static void updateLinks(const json& oldLinks, const json& newLinks, MessageId id
             std::string major = std::to_string(subId.major);
             std::string minor = std::to_string(subId.minor);
 
-            std::cout << "Removing  sub " << major + ":" + minor << " From " << id.major << "\n";
             DeviceSubscribeManager::removeSub(id, subId);
+            DeviceSubscribeManager::removePub(id, subId);
+            found = false;
         }
     }
 
@@ -60,40 +52,44 @@ static void updateLinks(const json& oldLinks, const json& newLinks, MessageId id
 
             std::cout << "Adding  sub " << major + ":" + minor << " For " << id.major << "\n";
             DeviceSubscribeManager::addSub(id, subId);
+            DeviceSubscribeManager::addPub(id, subId);
+            found = false;
         }
     }
 }
 
+
 void DevicesDatabase::update(
     const std::string& keystring, const std::string& type, const json& input)
 {
-    LOG_DEBUG << "Updating: " << keystring;
     MessageId dev(keystring.c_str());
-    std::cout << "Major = " << dev.major << " Minor = " << (int)dev.minor << "\n";
     std::string major = std::to_string(dev.major);
     std::string minor = std::to_string(dev.minor);
     auto& persistent = data.j[major][type][minor]["persistent"];
     if (type == "outputs") {
+        dlog("Called in the update function\n");
         updateLinks(persistent["linked"], input["linked"], dev);
     }
     for (auto& el : input.items()) {
         persistent[el.key()] = el.value();
     }
     data.save();
+    if (persistent.contains("increment")) {
+        dlog("Updating increment\n");
+        IncrementMessage msg;
+        msg.id() = dev;
+        msg.increment() = persistent["increment"];
+        sendTo(&msg);
+    }
     // Update the device from here
 }
 
 void DevicesDatabase::htmlOutput(std::string& str)
 {
-    std::stringstream read;
-    read << data.j;
-    str = read.str();
-    genauto::removeNewLines(str);
+    genauto::htmlOutput(data.j, str);
 }
 
-
 DevicesDatabase DevicesDatabase::deviceBase("../database/devices.json");
-
 
 JsonFile::JsonFile(const char* fileName) : filename(fileName)
 {
@@ -118,6 +114,8 @@ void JsonFile::save()
 }
 
 JsonFile JsonFile::deviceIds("../database/deviceIds.json");
+JsonFile JsonFile::tasks("../database/tasks.json");
+JsonFile JsonFile::timedEvents("../database/timedEvents.json");
 
 void DevicesDatabase::generate(CapabilitiesMessage* msg, std::string deviceId)
 {
@@ -177,7 +175,7 @@ static void constructDevice(Capability device, json& output)
             break;
         case Switch:
             output["persistent"] = json::object({{"linked", json::array()},{"name", ("Switch " + std::to_string(device.id))}});
-            output["type"] = deviceTypeToString(Switch);
+            output["type"] = deviceTypeToString(Button);
             break;
         default:
             break;
@@ -205,9 +203,6 @@ void DevicesDatabase::update(CapabilitiesMessage* msg, std::string deviceId)
             dlog("Skipping %s-%d\n", deviceTypeToString(cap.type), cap.id);
             continue;
         } else {
-            std::cout << device["outputs"].contains(id) << "\n";
-            std::cout << deviceBase.data.j[deviceId]["outputs"][id]["type"] << "\n";
-            dlog("Device did not contain %s - %d creating\n", deviceTypeToString(cap.type), cap.id);
             dlog("Device did not contain %s - %s creating\n", deviceTypeToString(cap.type), id.c_str());
         }
         json dev;
